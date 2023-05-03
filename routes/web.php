@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,27 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', [AuthController::class, 'login_index']);
 Route::get('/register', [AuthController::class, 'register_index']);
+
+Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
+    // Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/', function () {
+        return redirect('/admin/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [AdminController::class, 'index'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'component'], function () {
+        Route::get('/', [AdminController::class, 'component_index'])->name('.component');
+    });
+
+    Route::group(['prefix' => 'staf'], function () {
+        Route::get('/', [AdminController::class, 'staf_index'])->name('.staf');
+        Route::get('/detail', [AdminController::class, 'staf_detail'])->name('.detail');
+    });
+
+    Route::group(['prefix' => 'work'], function () {
+        Route::get('/', [AdminController::class, 'work_index'])->name('.work');
+    });
+});
