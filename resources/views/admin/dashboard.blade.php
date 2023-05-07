@@ -19,7 +19,7 @@
                             <div class="stat-figure text-primary ">
                                 <i class="fa-solid fa-users fa-2xl"></i>
                             </div>
-                            <div class="stat-title font-bold uppercase">Total Stafs</div>
+                            <div class="stat-title font-bold uppercase">Total Staffs</div>
                             <div class="stat-value text-primary pb-2">30</div>
                             <div class="stat-desc">click for more details</div>
 

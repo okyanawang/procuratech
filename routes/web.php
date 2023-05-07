@@ -34,9 +34,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
         Route::get('/', [AdminController::class, 'component_index'])->name('.component');
     });
 
-    Route::group(['prefix' => 'staf'], function () {
-        Route::get('/', [AdminController::class, 'staf_index'])->name('.staf');
-        Route::get('/detail', [AdminController::class, 'staf_detail'])->name('.detail');
+    Route::group(['prefix' => 'staff'], function () {
+        Route::get('/', [AdminController::class, 'staff_index'])->name('.staff');
+        Route::get('/detail', [AdminController::class, 'staff_detail'])->name('.detail');
     });
 
     Route::group(['prefix' => 'work'], function () {

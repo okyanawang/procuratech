@@ -23,9 +23,9 @@
                 <li class="my-1"><a href="{{ route('admin.work') }}"
                         class="py-5 {{ Request::is('admin/work') ? 'active' : null }}"><i
                             class="fa-solid fa-briefcase"></i>Works</a></li>
-                <li class="my-1"><a href="{{ route('admin.staf') }}"
-                        class="py-5 {{ Request::is('admin/staf') ? 'active' : null }}"><i
-                            class="fa-solid fa-people-group"></i>Stafs</a></li>
+                <li class="my-1"><a href="{{ route('admin.staff') }}"
+                        class="py-5 {{ Request::is('admin/staff') ? 'active' : null }}"><i
+                            class="fa-solid fa-people-group"></i>Staffs</a></li>
                 <li class="mt-auto">
                     <form {{-- action="{{ route('logout') }}" --}} method="POST" class="w-full bg-error text-accent-content p-0">
                         @csrf
@@ -34,33 +34,8 @@
                         </button>
                     </form>
                 </li>
-                {{-- <li class="my-1"><a href="{{ route('admin.books') }}"
-                        class="py-5 {{ Request::is('admin/books') ? 'active' : null }} {{ Request::is('admin/books/*') ? 'active' : null }}"><i
-                            class="fa-solid fa-book"></i>Kelola Buku</a></li>
-                <li class="my-1"><a href="{{ route('admin.users') }}"
-                        class=" py-5 {{ Request::is('admin/users') ? 'active' : null }} {{ Request::is('admin/users/*') ? 'active' : null }}"><i
-                            class="fa-solid fa-users"></i>Kelola User</a></li>
-                <li class="my-1"><a href="{{ route('admin.borrowings') }}"
-                        class=" py-5 {{ Request::is('admin/borrowings') ? 'active' : null }}"><i
-                            class="fa-brands fa-leanpub"></i>Kelola Peminjaman</a></li>
-                <li class="my-1"><a href="{{ route('admin.news') }}"
-                        class=" py-5 {{ Request::is('admin/news') ? 'active' : null }}"><i
-                            class="fa-solid fa-newspaper"></i>Kelola Berita</a></li>
-                <li class="my-1"><a href="{{ route('admin.settings') }}"
-                        class=" py-5 {{ Request::is('admin/settings') ? 'active' : null }}"><i
-                            class="fa-solid fa-gear"></i>Pengaturan</a></li>
-                <li class="mt-auto">
-                    <form action="{{ route('logout') }}" method="POST" class="w-full bg-error text-accent-content p-0">
-                        @csrf
-                        <button type="submit" value="Logout" class="gap-x-3 w-full px-4 py-5">
-                            <i class="fa-solid fa-right-from-bracket"></i> Logout
-                        </button>
-                    </form>
-                </li> --}}
             </ul>
 
         </div>
     </div>
-
-    {{-- <script src="{{ asset('logic/autoreload.js') }}"></script> --}}
 @endsection

@@ -16,14 +16,14 @@ class AdminController extends Controller
         return view('admin.component');
     }
 
-    public function staf_index()
+    public function staff_index()
     {
-        return view('admin.staf');
+        return view('admin.staff');
     }
 
-    public function staf_detail()
+    public function staff_detail()
     {
-        return view('admin.staf-detail');
+        return view('admin.staff-detail');
     }
 
     public function work_index()

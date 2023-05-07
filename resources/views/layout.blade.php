@@ -23,6 +23,11 @@
     <x-Footer />
 
     @yield('scripts')
+    <script>
+        let table = new DataTable('#myTable', {
+            // options
+        });
+    </script>
 
 </body>
 

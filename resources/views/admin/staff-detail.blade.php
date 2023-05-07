@@ -18,14 +18,6 @@
                     <label for="" class="mr-3 font-semibold">Full Name :</label>
                     <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
                         value="" name="name" />
-                    <label for="" class="mr-3 font-semibold">Birth Date :</label>
-                    <input type="date" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="" name="birthdate" />
-                    <label for="" class="mr-3 font-semibold">Gender :</label>
-                    <select class="mt-1 w-full select" name="gender" required>
-                        <option value="1">Laki-laki</option>
-                        <option value="2">Perempuan</option>
-                    </select>
                     <label for="role" class="mr-3 font-semibold">Role :</label>
                     <select class="select block mt-1 w-full" name="role" required>
                         <option value="0" hidden disabled selected>Choose Role</option>
@@ -36,9 +28,6 @@
                         <option value="5">Work Tools Treasurer</option>
                         <option value="6">Logistic Treasurer</option>
                     </select>
-                    <label for="" class="mr-3 font-semibold">Address :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="" name="address" />
                     <label for="" class="mr-3 font-semibold">Phone Number :</label>
                     <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
                         value="" name="phone" />
@@ -65,7 +54,7 @@
             <div class="modal modal-bottom sm:modal-middle lg:pl-80">
                 <div class="modal-box">
                     <h3 class="font-bold text-lg">Update data ?</h3>
-                    <p class="py-4">Are you sure you want to update the staf data? Data changes can be done anytime</p>
+                    <p class="py-4">Are you sure you want to update the staff data? Data changes can be done anytime</p>
                     <div class="modal-action">
                         <label for="my-modal-6" class="btn">cancel</label>
                         <input type="submit" class="btn btn-primary" value="Submit">
