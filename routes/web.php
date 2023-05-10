@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/login', [AuthController::class, 'login_index']);
+Route::get('/login', [AuthController::class, 'login_index'])->name('login');
+// Add POST method for login
+Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 Route::get('/register', [AuthController::class, 'register_index']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
@@ -37,6 +39,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
     Route::group(['prefix' => 'staff'], function () {
         Route::get('/', [AdminController::class, 'staff_index'])->name('.staff');
         Route::get('/detail', [AdminController::class, 'staff_detail'])->name('.detail');
+        Route::get('/register', [AdminController::class, 'staff_register'])->name('.register');
+        Route::post('/register', [AuthController::class, 'staff_register_submit'])->name('.register.submit');
+    
     });
 
     Route::group(['prefix' => 'work'], function () {
