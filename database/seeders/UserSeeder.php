@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
             $user->name = $names[$key];
             $user->role = $role;
             $user->username = strtolower(str_replace(' ', '_', $role)) . '@example.com';
-            $user->password = strtolower(str_replace(' ', '', $role));
+            $user->password = bcrypt(strtolower(str_replace(' ', '', $role)));
             $user->ActiveOnDuty = true;
             
             $user->save();
