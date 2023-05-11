@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -18,8 +18,15 @@ class AdminController extends Controller
 
     public function staff_index()
     {
-        return view('admin.staff');
+        $staffs = User::where('role', '!=', 'Admmin IT')->get();
+        return view('admin.staff', ['staffs' => $staffs]);
     }
+    
+    // public function staff_index()
+    // {
+    //     $staffs = User::where('role', '<>', 'admin')->get();
+    //     return view('admin.staff', ['staffs' => $staffs]);
+    // }
 
     public function staff_detail()
     {
