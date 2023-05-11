@@ -37,7 +37,7 @@
                         <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="username" required />
                         <label for="password" class="mr-3 font-semibold">Password :</label>
-                        <input name="password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        <input name="password" type="password" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="password" required />    
                         <label for="ActiveOnDuty" class="mr-3 font-semibold">ActiveOnDuty :</label>
                         <select class="select block mt-1 w-full" name="ActiveOnDuty" required>
@@ -69,16 +69,16 @@
                     <th>Role</th>
                     <th>Username</th>
                     <th>Password</th>
-                    <th>ActiveOnDuty</th>
+                    <th>Status</th>
                     <th style="text-align-last: center">Status</th>
                     <th style="text-align-last: center">Detail</th>
                 </tr>
             </thead>
             <tbody>
                 {{-- @foreach ($users as $user) --}}
-                <tr>
+                {{-- <tr>
                     {{-- <th>{{ $user->id - 1 }}</th> --}}
-                    <th>1</th>
+                    {{-- <th>1</th>
                     <td>Fadhelya</td>
                     <td>Supervisor</td>
                     <td>Fadhelyo@gmail.com</td>
@@ -92,8 +92,26 @@
                             <button class="btn btn-info font-semibold">Detail</button>
                         </a>
                     </td>
-                </tr>
+                </tr>  --}}
                 {{-- @endforeach --}}
+                @foreach ($staffs as $staff)
+                <tr>
+                    <td>{{ $staff->id }}</td>
+                    <td>{{ $staff->name }}</td>
+                    <td>{{ $staff->role }}</td>
+                    <td>{{ $staff->username }}</td>
+                    <td>{{ $staff->password }}</td>
+                    <td>{{ $staff->ActiveOnDuty == 1 ? 'Active' : 'Non Active' }}</td>
+                    <td class="text-center">
+                        <div class="badge badge-success p-4">Admin</div>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ route('admin.detail', ['id' => $staff->id]) }}">
+                            <button class="btn btn-info font-semibold">Detail</button>
+                        </a>
+                    </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
