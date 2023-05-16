@@ -96,6 +96,7 @@ Route::group(['prefix' => 'bendaharaPeralatan', 'as' => 'bendaharaPeralatan'], f
     });
 });
 
+
 Route::group(['prefix' => 'supervisor', 'as' => 'supervisor'], function () {
     Route::get('/', function () {
         return redirect('/supervisor/dashboard');
