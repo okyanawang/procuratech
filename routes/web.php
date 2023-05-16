@@ -1,8 +1,13 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PimpinanController;
+use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\BendaharaController;
+use App\Http\Controllers\PelaksanaSampelController;
+use App\Http\Controllers\SupervisorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,3 +48,63 @@ Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
         Route::get('/', [AdminController::class, 'work_index'])->name('.work');
     });
 });
+
+Route::group(['prefix' => 'pimpinanProject', 'as' => 'pimpinanProject'], function () {
+    Route::get('/', function () {
+        return redirect('/pimpinanProject/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [PimpinanController::class, 'index'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'project'], function () {
+        Route::get('/', [PimpinanController::class, 'project_index'])->name('.project');
+        Route::get('/detail', [PimpinanController::class, 'project_detail'])->name('.detail');
+    });
+});
+
+Route::group(['prefix' => 'petugasInventori', 'as' => 'petugasInventori'], function () {
+    Route::get('/', function () {
+        return redirect('/petugasInventori/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [PetugasController::class, 'index'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'component'], function () {
+        Route::get('/', [PetugasController::class, 'component_index'])->name('.component');
+    });
+});
+
+Route::group(['prefix' => 'bendaharaPeralatan', 'as' => 'bendaharaPeralatan'], function () {
+    Route::get('/', function () {
+        return redirect('/bendaharaPeralatan/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [BendaharaController::class, 'index'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'tool'], function () {
+        Route::get('/', [BendaharaController::class, 'tool_index'])->name('.tool');
+    });
+});
+
+Route::group(['prefix' => 'supervisor', 'as' => 'supervisor'], function () {
+    Route::get('/', function () {
+        return redirect('/supervisor/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [SupervisorController::class, 'index'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'project'], function () {
+        Route::get('/', [SupervisorController::class, 'project_index'])->name('.project');
+    });
+});
+
+// Route::resource('pelaksanaSampel', PelaksanaSampelController::class);
+// // Pelaksana
