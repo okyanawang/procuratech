@@ -2,6 +2,9 @@
 
 @section('admin-content')
     <h1 class="text-4xl font-bold mb-10">Staffs</h1>
+
+    <x-Alert />
+
     <!-- The button to open modal -->
     <label for="new-user" class="btn btn-primary mb-12 w-full modal-button"><i class="fa-solid fa-user-plus"></i>&nbsp;
         Add new staff</label>

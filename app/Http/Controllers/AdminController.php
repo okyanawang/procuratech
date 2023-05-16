@@ -24,9 +24,10 @@ class AdminController extends Controller
         return view('admin.staff', ['staffs' => $staffs]);
     }
 
-    public function staff_detail()
+    public function staff_detail($id)
     {
-        return view('admin.staff-detail');
+        $user = User::find($id);
+        return view('admin.staff-detail', ['user' => $user]);
     }
 
     public function work_index()

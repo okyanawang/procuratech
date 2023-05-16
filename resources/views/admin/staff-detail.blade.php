@@ -7,44 +7,43 @@
         </a>
         <h1 class="text-4xl font-bold ml-5"></h1>
     </div>
+
+    <x-Alert />
+
     <div class="container">
         <form action="" class="h-full px-0 md:px-14 mb-40" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col xl:flex-row ">
                 <div class="grid grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="name" class="mr-3 font-semibold">Full name :</label>
-                        <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                            placeholder="full name" required />
-                        <label for="role" class="mr-3 font-semibold">Role :</label>
-                        <select class="select select-bordered block mt-1 w-full" name="role" required>
-                            <option value="0" hidden disabled selected>Choose Role</option>
-                            <option value="1">Project Manager</option>
-                            <option value="2">Supervisor</option>
-                            <option value="3">Worker</option>
-                            <option value="4">Work Checker</option>
-                            <option value="5">Work Tools Treasurer</option>
-                            <option value="6">Logistic Treasurer</option>
-                        </select>
-                        <label for="username" class="mr-3 font-semibold">Username :</label>
-                        <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                            placeholder="username" required />
-                        <label for="password" class="mr-3 font-semibold">Password :</label>
-                        <input name="password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                            placeholder="password" required />    
-                        <label for="role" class="mr-3 font-semibold">ActiveOnDuty :</label>
-                        <select class="select block mt-1 w-full" name="role" required>
-                            <option value="-1" hidden disabled selected>Choose Status</option>
-                            <option value="0">Not Active</option>
-                            <option value="1">Active</option>
-                        </select>
-                </div>
-                <div class="w-full md:w-1/2 flex justify-center">
-                    <div class="avatar flex-col">
-                        <div class="mask mask-squircle items-center">
-                            <img src="https://picsum.photos/200" alt="">
-                        </div>
-                        <input type="file" class="mt-3 w-fit" name="pict">
-                    </div>
+                    <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        value="{{ $user->name }}" required />
+                    <label for="role" class="mr-3 font-semibold">Role :</label>
+                    <select class="select select-bordered block mt-1 w-full" name="role" required>
+                        <option value="0" hidden disabled selected>Choose Role</option>
+                        <option value="1" @if ($user->role == 'Admin IT') selected @endif>Admin IT</option>
+                        <option value="2" @if ($user->role == 'Pimpinan Proyek') selected @endif>Project Manager</option>
+                        <option value="3" @if ($user->role == 'Supervisor') selected @endif>Supervisor</option>
+                        <option value="4" @if ($user->role == 'Pelaksana Pengukuran') selected @endif>Measurer</option>
+                        <option value="5" @if ($user->role == 'Pelaksana Analisis') selected @endif>Analysist</option>
+                        <option value="6" @if ($user->role == 'Pelaksana Pekerjaan') selected @endif>Worker</option>
+                        <option value="7" @if ($user->role == 'Pelaksana Pemeriksa Pekerjaan') selected @endif>Work Checker</option>
+                        <option value="8" @if ($user->role == 'Bendahara Peralatan') selected @endif>Work Tools Treasurer
+                        </option>
+                        <option value="9" @if ($user->role == 'Petugas Inventori') selected @endif>Logistic Treasurer</option>
+                    </select>
+                    <label for="username" class="mr-3 font-semibold">Username :</label>
+                    <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="username" value="{{ $user->username }}" required />
+                    <label for="password" class="mr-3 font-semibold">New Password :</label>
+                    <input name="new password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="password" />
+                    <label for="role" class="mr-3 font-semibold">ActiveOnDuty :</label>
+                    <select class="select block mt-1 w-full" name="role" required>
+                        <option value="-1" hidden disabled selected>Choose Status</option>
+                        <option value="0" @if ($user->ActiveOnDuty == 0) selected @endif>Not Active</option>
+                        <option value="1" @if ($user->ActiveOnDuty == 1) selected @endif>Active</option>
+                    </select>
                 </div>
             </div>
             <!-- The button to open modal -->
@@ -94,7 +93,7 @@
                             <td>-</td>
                             <td class="">
                                 <!-- The button to open modal -->
-                                <label for="new-user" class="btn btn-primary mb-12 w-full modal-button">
+                                <label for="new-user" class="btn btn-primary w-full modal-button">
                                     Detail</label>
                             </td>
 
@@ -103,6 +102,7 @@
                             <div class="modal modal-bottom lg:pl-80">
                                 <div class="modal-box w-11/12 max-w-5xl">
                                     <h3 class="font-bold text-lg mb-10">Job name</h3>
+                                    <p>job desc</p>
                                     <div class="modal-action">
                                         <label for="new-user" class="btn btn-error">cancel</label>
                                         <input type="submit" class="btn btn-primary" value="Submit">

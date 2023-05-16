@@ -46,7 +46,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
 
     Route::group(['prefix' => 'staff'], function () {
         Route::get('/', [AdminController::class, 'staff_index'])->name('.staff');
-        Route::get('/detail', [AdminController::class, 'staff_detail'])->name('.detail');
+        Route::get('/{id}', [AdminController::class, 'staff_detail'])->name('.detail');
         Route::get('/register', [AdminController::class, 'staff_register'])->name('.register');
         Route::post('/register', [AuthController::class, 'staff_register_submit'])->name('.register.submit');
     });
