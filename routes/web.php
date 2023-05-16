@@ -6,8 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\BendaharaController;
+use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\PelaksanaSampelController;
 use App\Http\Controllers\SupervisorController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +27,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', [AuthController::class, 'login_index'])->name('login');
 // Add POST method for login
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/register', [AuthController::class, 'register_index']);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
@@ -53,9 +56,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin'], function () {
     });
 });
 
-Route::group(['prefix' => 'pimpinanProject', 'as' => 'pimpinanProject'], function () {
+Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan'], function () {
     Route::get('/', function () {
-        return redirect('/pimpinanProject/dashboard');
+        return redirect('/pimpinan/dashboard');
     });
 
     Route::group(['prefix' => 'dashboard'], function () {
@@ -68,9 +71,9 @@ Route::group(['prefix' => 'pimpinanProject', 'as' => 'pimpinanProject'], functio
     });
 });
 
-Route::group(['prefix' => 'petugasInventori', 'as' => 'petugasInventori'], function () {
+Route::group(['prefix' => 'inventori', 'as' => 'inventori'], function () {
     Route::get('/', function () {
-        return redirect('/petugasInventori/dashboard');
+        return redirect('/inventori/dashboard');
     });
 
     Route::group(['prefix' => 'dashboard'], function () {
@@ -108,6 +111,20 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor'], function () {
 
     Route::group(['prefix' => 'project'], function () {
         Route::get('/', [SupervisorController::class, 'project_index'])->name('.project');
+    });
+});
+
+Route::group(['prefix' => 'pengukuran', 'as' => 'pengukuran'], function () {
+    Route::get('/', function () {
+        return redirect('/pengukuran/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [PelaksanaController::class, 'index_pengukuran'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/', [PelaksanaController::class, 'index_pengukuran_tasks'])->name('.tasks');
     });
 });
 

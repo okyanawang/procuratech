@@ -20,7 +20,7 @@
                         class="py-5 {{ Request::is('supervisor/project') ? 'active' : null }}"><i
                             class="fa-solid fa-puzzle-piece"></i>project</a></li>
                 <li class="mt-auto">
-                    <form {{-- action="{{ route('logout') }}" --}} method="POST" class="w-full bg-error text-accent-content p-0">
+                    <form action="{{ route('logout') }}" method="POST" class="w-full bg-error text-accent-content p-0">
                         @csrf
                         <button type="submit" value="Logout" class="gap-x-3 w-full px-4 py-5">
                             <i class="fa-solid fa-right-from-bracket"></i> Logout

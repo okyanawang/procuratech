@@ -38,7 +38,7 @@
                             placeholder="username" required />
                         <label for="password" class="mr-3 font-semibold">Password :</label>
                         <input name="password" type="password" class="input input-bordered w-full max-w-xs col-span-1"
-                            placeholder="password" required />    
+                            placeholder="password" required />
                         <label for="ActiveOnDuty" class="mr-3 font-semibold">ActiveOnDuty :</label>
                         <select class="select block mt-1 w-full" name="ActiveOnDuty" required>
                             <option value="-1" hidden disabled selected>Choose Status</option>
@@ -64,53 +64,29 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    {{-- <th>NIK</th> --}}
                     <th>Nama</th>
-                    <th>Role</th>
+                    <th style="text-align-last: center">Role</th>
                     <th>Username</th>
-                    <th>Password</th>
                     <th>Status</th>
-                    <th style="text-align-last: center">Status</th>
                     <th style="text-align-last: center">Detail</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($users as $user) --}}
-                {{-- <tr>
-                    {{-- <th>{{ $user->id - 1 }}</th> --}}
-                    {{-- <th>1</th>
-                    <td>Fadhelya</td>
-                    <td>Supervisor</td>
-                    <td>Fadhelyo@gmail.com</td>
-                    <td>hush***</td>
-                    <td>Active</td>
-                    <td class="text-center">
-                        <div class="badge badge-success p-4">Admin</div>
-                    </td>
-                    <td class="text-center">
-                        <a href="">
-                            <button class="btn btn-info font-semibold">Detail</button>
-                        </a>
-                    </td>
-                </tr>  --}}
-                {{-- @endforeach --}}
                 @foreach ($staffs as $staff)
-                <tr>
-                    <td>{{ $staff->id }}</td>
-                    <td>{{ $staff->name }}</td>
-                    <td>{{ $staff->role }}</td>
-                    <td>{{ $staff->username }}</td>
-                    <td>{{ $staff->password }}</td>
-                    <td>{{ $staff->ActiveOnDuty == 1 ? 'Active' : 'Non Active' }}</td>
-                    <td class="text-center">
-                        <div class="badge badge-success p-4">Admin</div>
-                    </td>
-                    <td class="text-center">
-                        <a href="{{ route('admin.detail', ['id' => $staff->id]) }}">
-                            <button class="btn btn-info font-semibold">Detail</button>
-                        </a>
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $staff->id }}</td>
+                        <td>{{ $staff->name }}</td>
+                        <td class="text-center">
+                            <div class="badge badge-success p-4">{{ $staff->role }}</div>
+                        </td>
+                        <td>{{ $staff->username }}</td>
+                        <td>{{ $staff->ActiveOnDuty == 1 ? 'Active' : 'Non Active' }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('admin.detail', ['id' => $staff->id]) }}">
+                                <button class="btn btn-info font-semibold">Detail</button>
+                            </a>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

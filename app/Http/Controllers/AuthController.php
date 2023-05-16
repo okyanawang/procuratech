@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -23,16 +24,14 @@ class AuthController extends Controller
 
         // Retrieve the user from the database
         $user = User::where('username', $validatedData['username'])
-                    ->first();
-        // dd($validatedData['password']);
-        // dd(!$user || password_verify($validatedData['password'], $user->password));
+            ->first();
+
         if (!$user || !Hash::check($validatedData['password'], $user->password)) {
             return redirect()->back()->withErrors(['error' => 'Invalid username or password.']);
-        }    
-        // $user = User::where('username', $validatedData['username'])
-        //             ->where('password', Hash::make($validatedData['password']))
-        //             ->first();
-        // dd($user->role);
+        }
+
+        Auth::login($user);
+
         switch ($user->role) {
             case 'Admin IT':
                 return redirect()->route('admin.dashboard');
@@ -53,9 +52,15 @@ class AuthController extends Controller
             case 'Petugas Inventori':
                 return redirect()->route('inventori.dashboard');
 
-        // If the user does not exist or the password is incorrect, redirect back to the login page with an error message
-        // return redirect()->back()->with('error', 'Invalid username or password');
+                // If the user does not exist or the password is incorrect, redirect back to the login page with an error message
+                // return redirect()->back()->with('error', 'Invalid username or password');
         }
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect()->route('login');
     }
 
     public function register_index()
@@ -88,7 +93,7 @@ class AuthController extends Controller
         ]);
 
         // dd($user);
-        return redirect()->back()->with('success', 'All data has been deleted.');
+        return redirect()->back()->with('success', 'Register success.');
         // return redirect()->route('admin.staff')->with('success', 'Staff registered successfully!');
     }
 }
