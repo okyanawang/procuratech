@@ -109,8 +109,17 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor'], function () {
         Route::get('/', [SupervisorController::class, 'index'])->name('.dashboard');
     });
 
+    // Route::group(['prefix' => 'project'], function () {
+    //     Route::get('/', [SupervisorController::class, 'project_index'])->name('.project');
+    // });
+
     Route::group(['prefix' => 'project'], function () {
         Route::get('/', [SupervisorController::class, 'project_index'])->name('.project');
+        Route::group(['prefix' => 'detail'], function () {
+            Route::get('/', [SupervisorController::class, 'project_detail'])->name('.detail');
+            Route::get('/jobdetail', [SupervisorController::class, 'job_detail'])->name('.jobdetail');
+        });
+        // Route::get('/detail', [SupervisorController::class, 'project_detail'])->name('.detail');
     });
 });
 

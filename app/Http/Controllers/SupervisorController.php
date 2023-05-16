@@ -15,4 +15,14 @@ class SupervisorController extends Controller
     {
         return view('supervisor.project');
     }
+
+    public function project_detail()
+    {
+        return view('supervisor.project-detail');
+    }
+
+    public function job_detail()
+    {
+        return view('supervisor.job-detail');
+    }
 }
