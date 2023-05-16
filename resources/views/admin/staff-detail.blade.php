@@ -12,25 +12,31 @@
             @csrf
             <div class="flex flex-col xl:flex-row ">
                 <div class="grid grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
-                    <label for="" class="mr-3 font-semibold">NIK :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="" name="nik" />
-                    <label for="" class="mr-3 font-semibold">Full Name :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="" name="name" />
-                    <label for="role" class="mr-3 font-semibold">Role :</label>
-                    <select class="select block mt-1 w-full" name="role" required>
-                        <option value="0" hidden disabled selected>Choose Role</option>
-                        <option value="1">Project Manager</option>
-                        <option value="2">Supervisor</option>
-                        <option value="3">Worker</option>
-                        <option value="4">Work Checker</option>
-                        <option value="5">Work Tools Treasurer</option>
-                        <option value="6">Logistic Treasurer</option>
-                    </select>
-                    <label for="" class="mr-3 font-semibold">Phone Number :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="" name="phone" />
+                    <label for="name" class="mr-3 font-semibold">Full name :</label>
+                        <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="full name" required />
+                        <label for="role" class="mr-3 font-semibold">Role :</label>
+                        <select class="select select-bordered block mt-1 w-full" name="role" required>
+                            <option value="0" hidden disabled selected>Choose Role</option>
+                            <option value="1">Project Manager</option>
+                            <option value="2">Supervisor</option>
+                            <option value="3">Worker</option>
+                            <option value="4">Work Checker</option>
+                            <option value="5">Work Tools Treasurer</option>
+                            <option value="6">Logistic Treasurer</option>
+                        </select>
+                        <label for="username" class="mr-3 font-semibold">Username :</label>
+                        <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="username" required />
+                        <label for="password" class="mr-3 font-semibold">Password :</label>
+                        <input name="password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="password" required />    
+                        <label for="role" class="mr-3 font-semibold">ActiveOnDuty :</label>
+                        <select class="select block mt-1 w-full" name="role" required>
+                            <option value="-1" hidden disabled selected>Choose Status</option>
+                            <option value="0">Not Active</option>
+                            <option value="1">Active</option>
+                        </select>
                 </div>
                 <div class="w-full md:w-1/2 flex justify-center">
                     <div class="avatar flex-col">
