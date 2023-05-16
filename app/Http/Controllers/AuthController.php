@@ -32,24 +32,24 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        switch ($user->role) {
+        switch ($user->role) {                                                                                                                        
             case 'Admin IT':
                 return redirect()->route('admin.dashboard');
-            case 'Pimpinan Proyek':
+            case 'Project Manager':
                 return redirect()->route('pimpinan.dashboard');
             case 'Supervisor':
                 return redirect()->route('supervisor.dashboard');
-            case 'Pelaksana Pengukuran':
+            case 'Measurement Executor':
                 return redirect()->route('pengukuran.dashboard');
-            case 'Pelaksana Analisis':
+            case 'Analyst':
                 return redirect()->route('analisis.dashboard');
-            case 'Pelaksana Pekerjaan':
+            case 'Job Executor':
                 return redirect()->route('pekerjaan.dashboard');
-            case 'Pelaksana Pemeriksa Pekerjaan':
+            case 'Job Inspector':
                 return redirect()->route('pemeriksa.dashboard');
-            case 'Bendahara Peralatan':
+            case 'Inventory Treasurer':
                 return redirect()->route('bendahara.dashboard');
-            case 'Petugas Inventori':
+            case 'Inventory Officer':
                 return redirect()->route('inventori.dashboard');
 
                 // If the user does not exist or the password is incorrect, redirect back to the login page with an error message
