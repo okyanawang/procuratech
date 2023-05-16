@@ -81,7 +81,12 @@ class AuthController extends Controller
             'role' => 'required',
             'username' => 'required',
             'password' => 'required',
-            'ActiveOnDuty' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required',
+            'availability_status' => 'required',
+            'status_kepegawaian' => 'required',
+
         ]);
 
         $user = User::create([
@@ -89,7 +94,12 @@ class AuthController extends Controller
             'role' => $validatedData['role'],
             'username' => $validatedData['username'],
             'password' => Hash::make($validatedData['password']),
-            'ActiveOnDuty' => $validatedData['ActiveOnDuty'],
+            'email' => $validatedData['email'],
+            'phone_number' => $validatedData['phone_number'],
+            'address' => $validatedData['address'],
+            'registration_number' => mt_rand(100000, 999999),
+            'availability_status' => $validatedData['availability_status'],
+            'status_kepegawaian' => $validatedData['status_kepegawaian'],
         ]);
 
         // dd($user);

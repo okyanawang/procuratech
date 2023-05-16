@@ -22,15 +22,15 @@
                     <select class="select select-bordered block mt-1 w-full" name="role" required>
                         <option value="0" hidden disabled selected>Choose Role</option>
                         <option value="1" @if ($user->role == 'Admin IT') selected @endif>Admin IT</option>
-                        <option value="2" @if ($user->role == 'Pimpinan Proyek') selected @endif>Project Manager</option>
+                        <option value="2" @if ($user->role == 'Project Manager') selected @endif>Project Manager</option>
                         <option value="3" @if ($user->role == 'Supervisor') selected @endif>Supervisor</option>
-                        <option value="4" @if ($user->role == 'Pelaksana Pengukuran') selected @endif>Measurer</option>
-                        <option value="5" @if ($user->role == 'Pelaksana Analisis') selected @endif>Analysist</option>
-                        <option value="6" @if ($user->role == 'Pelaksana Pekerjaan') selected @endif>Worker</option>
-                        <option value="7" @if ($user->role == 'Pelaksana Pemeriksa Pekerjaan') selected @endif>Work Checker</option>
-                        <option value="8" @if ($user->role == 'Bendahara Peralatan') selected @endif>Work Tools Treasurer
+                        <option value="4" @if ($user->role == 'Measurement Executor') selected @endif>Measurement Executor</option>
+                        <option value="5" @if ($user->role == 'Analyst') selected @endif>Analysist</option>
+                        <option value="6" @if ($user->role == 'Job Executor') selected @endif>Job Executor</option>
+                        <option value="7" @if ($user->role == 'Job Inspector') selected @endif>Job Inspector</option>
+                        <option value="8" @if ($user->role == 'Inventory Treasurer') selected @endif>Inventory Treasurer
                         </option>
-                        <option value="9" @if ($user->role == 'Petugas Inventori') selected @endif>Logistic Treasurer</option>
+                        <option value="9" @if ($user->role == 'Inventory Officer') selected @endif>Inventory Officer</option>
                     </select>
                     <label for="username" class="mr-3 font-semibold">Username :</label>
                     <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
