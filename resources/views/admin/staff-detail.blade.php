@@ -98,17 +98,17 @@
                             <td>-</td>
                             <td class="">
                                 <!-- The button to open modal -->
-                                <label for="new-user" class="btn btn-primary w-full modal-button">
+                                <label for="new-user" class="btn btn-info font-semibold">
                                     Detail</label>
                             </td>
 
                             <!-- Put this part before </body> tag -->
                             <input type="checkbox" id="new-user" class="modal-toggle" />
                             <div class="modal modal-bottom lg:pl-80">
-                                <div class="modal-box w-11/12 max-w-5xl">
+                                <div class="modal-box w-11/12 max-w-5xl self-center">
                                     <h3 class="font-bold text-lg mb-10">Job name</h3>
                                     <p>job desc</p>
-                                    <div class="modal-action">
+                                    <div class="modal-action justify-center gap-5">
                                         <label for="new-user" class="btn btn-error">cancel</label>
                                         <input type="submit" class="btn btn-primary" value="Submit">
                                     </div>
