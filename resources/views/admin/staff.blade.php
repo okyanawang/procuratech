@@ -12,15 +12,12 @@
     <!-- Put this part before </body> tag -->
     <input type="checkbox" id="new-user" class="modal-toggle" />
     <div class="modal modal-bottom lg:pl-80">
-        <div class="modal-box w-11/12 max-w-5xl">
+        <div class="modal-box w-11/12 max-w-5xl self-center rounded-lg">
             <h3 class="font-bold text-lg mb-10">Add new staff</h3>
             <form action="{{ route('admin.register.submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="flex flex-col md:flex-row ">
-                    <div class="grid grid-cols-2 gap-2 items-center lg:w-2/3">
-                        {{-- <label for="nik" class="mr-3 font-semibold">NIK :</label>
-                        <input name="nik" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                            placeholder="NIK" required /> --}}
+                <div class="flex flex-col md:flex-row gap-3">
+                    <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
                         <label for="name" class="mr-3 font-semibold">Full name :</label>
                         <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="full name" required />
@@ -46,6 +43,9 @@
                         <label for="phone_number" class="mr-3 font-semibold">Phone Number :</label>
                         <input name="phone_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="phone number" required />
+                    </div>
+                    <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
+
                         <label for="address" class="mr-3 font-semibold">Address :</label>
                         <input name="address" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="address" required />
@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <div class="modal-action">
+                <div class="modal-action flex justify-center gap-5">
                     <label for="new-user" class="btn btn-error">cancel</label>
                     {{-- <a href="{{ route('admin.register') }}" class="btn btn-primary mb-3">Register Staff</a> --}}
 
@@ -101,6 +101,13 @@
                             <div class="badge badge-success p-4">{{ $staff->role }}</div>
                         </td>
                         <td>{{ $staff->username }}</td>
+                        <td>
+                            @if ($staff->availability_status == 'on duty')
+                                <div class="badge badge-success p-4">{{ $staff->availability_status }}</div>
+                            @else
+                                <div class="badge badge-error p-4">{{ $staff->availability_status }}</div>
+                            @endif
+                        </td>
                         <td class="text-center">
                             <a href="{{ route('admin.detail', ['id' => $staff->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
