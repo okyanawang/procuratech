@@ -29,14 +29,6 @@
                     <label for="desc" class="mr-3 font-semibold">description :</label>
                     <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
                 </div>
-                {{-- <div class="w-full md:w-1/2 flex justify-center">
-                    <div class="avatar flex-col">
-                        <div class="mask mask-squircle items-center">
-                            <img src="https://picsum.photos/200" alt="">
-                        </div>
-                        <input type="file" class="mt-3 w-fit" name="pict">
-                    </div>
-                </div> --}}
             </div>
             <!-- The button to open modal -->
             <label for="my-modal-6" class="btn btn-primary mt-12 w-full modal-button"><i

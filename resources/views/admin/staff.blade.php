@@ -27,27 +27,45 @@
                         <label for="role" class="mr-3 font-semibold">Role :</label>
                         <select class="select select-bordered block mt-1 w-full" name="role" required>
                             <option value="0" hidden disabled selected>Choose Role</option>
-                            <option value="Pimpinan Proyek">Project Manager</option>
+                            <option value="Admin IT">Admin IT</option>
+                            <option value="Project Manager">Project Manager</option>
                             <option value="Supervisor">Supervisor</option>
-                            <option value="Pelaksana Pengukuran">Pelaksana Pengukuran</option>
-                            <option value="Pelaksana Analisis">Pelaksana Analisis</option>
-                            <option value="Pelaksana Pekerjaan">Pelaksana Pekerjaan</option>
-                            <option value="Pelaksana Pemeriksa Pekerjaan">Pelaksana Pemeriksa Pekerjaan</option>
-                            <option value="Bendahara Peralatan">Bendahara Peralatan</option>
-                            <option value="Petugas Inventori">Petugas Inventori</option>
+                            <option value="Measurement Executor">Measurement Executor</option>
+                            <option value="Analyst">Analystis</option>
+                            <option value="Job Executor">Job Executor</option>
+                            <option value="Job Inspector">Job Inspector</option>
+                            <option value="Inventory Treasurer">Inventory Treasurer</option>
+                            <option value="Inventory Officer">Inventory Officer</option>
                         </select>
                         <label for="username" class="mr-3 font-semibold">Username :</label>
                         <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="username" required />
+                        <label for="email" class="mr-3 font-semibold">Email :</label>
+                        <input name="email" type="email" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="email" required />
+                        <label for="phone_number" class="mr-3 font-semibold">Phone Number :</label>
+                        <input name="phone_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="phone number" required />
+                        <label for="address" class="mr-3 font-semibold">Address :</label>
+                        <input name="address" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="address" required />
+                        <label for="status_kepegawaian" class="mr-3 font-semibold">Status Kepegawaian :</label>
+                        <select class="select select-bordered block mt-1 w-full" name="status_kepegawaian" required>
+                            <option value="0" hidden disabled selected>Choose Status</option>
+                            <option value="Out-Sourcing">Out-Sourcing</option>
+                            <option value="Contract">Contract</option>
+                            <option value="Intern">Intern</option>
+                            <option value="Full Time">Full Time</option>
+                        </select>
+                        <label for="availability_status" class="mr-3 font-semibold">Availibility Status :</label>
+                        <select class="select select-bordered block mt-1 w-full" name="availability_status" required>
+                            <option value="0" hidden disabled selected>Choose Status</option>
+                            <option value="on duty">On Duty</option>
+                            <option value="on leave">On Leave</option>
+                        </select>
                         <label for="password" class="mr-3 font-semibold">Password :</label>
                         <input name="password" type="password" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="password" required />
-                        <label for="ActiveOnDuty" class="mr-3 font-semibold">ActiveOnDuty :</label>
-                        <select class="select block mt-1 w-full" name="ActiveOnDuty" required>
-                            <option value="-1" hidden disabled selected>Choose Status</option>
-                            <option value="0">Not Active</option>
-                            <option value="1">Active</option>
-                        </select>
                     </div>
                 </div>
 
@@ -83,7 +101,6 @@
                             <div class="badge badge-success p-4">{{ $staff->role }}</div>
                         </td>
                         <td>{{ $staff->username }}</td>
-                        <td>{{ $staff->ActiveOnDuty == 1 ? 'Active' : 'Non Active' }}</td>
                         <td class="text-center">
                             <a href="{{ route('admin.detail', ['id' => $staff->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>

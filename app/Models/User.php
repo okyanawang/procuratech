@@ -19,10 +19,15 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'email',
+        'status_kepegawaian',
+        'availability_status',
+        'phone_number',
+        'address',
+        'registration_number',
         'role',
         'username',
         'password',
-        'ActiveOnDuty',
     ];
 
     /**
@@ -43,4 +48,12 @@ class User extends Authenticatable
     protected $casts = [
         // 'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the role associated with the user.
+     */
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
 }
