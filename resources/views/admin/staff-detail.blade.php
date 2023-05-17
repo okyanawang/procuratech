@@ -10,11 +10,13 @@
 
     <x-Alert />
 
+    <h1 class="text-4xl font-bold mb-5">Staff Detail</h1>
+
     <div class="container">
-        <form action="" class="h-full px-0 md:px-14 mb-40" method="POST" enctype="multipart/form-data">
+        <form action="" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="flex flex-col xl:flex-row ">
-                <div class="grid grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+            <div class="flex flex-col xl:flex-row gap-3">
+                <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="name" class="mr-3 font-semibold">Full name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $user->name }}" required />
@@ -32,28 +34,31 @@
                         </option>
                         <option value="9" @if ($user->role == 'Inventory Officer') selected @endif>Inventory Officer</option>
                     </select>
+                    <label for="role" class="mr-3 font-semibold">ActiveOnDuty :</label>
+                    <select class="select select-bordered block mt-1 w-full" name="role" required>
+                        <option value="-1" hidden disabled selected>Choose Status</option>
+                        <option value="0" @if ($user->ActiveOnDuty == 0) selected @endif>Not Active</option>
+                        <option value="1" @if ($user->ActiveOnDuty == 1) selected @endif>Active</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="username" class="mr-3 font-semibold">Username :</label>
                     <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="username" value="{{ $user->username }}" required />
                     <label for="password" class="mr-3 font-semibold">New Password :</label>
                     <input name="new password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="password" />
-                    <label for="role" class="mr-3 font-semibold">ActiveOnDuty :</label>
-                    <select class="select block mt-1 w-full" name="role" required>
-                        <option value="-1" hidden disabled selected>Choose Status</option>
-                        <option value="0" @if ($user->ActiveOnDuty == 0) selected @endif>Not Active</option>
-                        <option value="1" @if ($user->ActiveOnDuty == 1) selected @endif>Active</option>
-                    </select>
                 </div>
             </div>
-            <!-- The button to open modal -->
-            <label for="my-modal-6" class="btn btn-primary mt-12 w-full modal-button"><i
-                    class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
-
-            <!-- The button to open modal -->
-            <label for="my-modal-delete-user" class="btn btn-error mt-12 w-full modal-button text-white"><i
-                    class="fa-solid fa-trash"></i>&nbsp; Delete User</label>
-
+            <div class="flex justify-center gap-5">
+                <!-- The button to open modal -->
+                <label for="my-modal-delete-user" class="btn btn-error mt-5 w-50 modal-button text-white"><i
+                        class="fa-solid fa-trash"></i>&nbsp; Delete User</label>
+                <!-- The button to open modal -->
+                <label for="my-modal-6" class="btn btn-primary mt-5 w-50 modal-button"><i
+                        class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
+    
+            </div>
             <!-- Put this part before </body> tag -->
             <input type="checkbox" id="my-modal-6" class="modal-toggle" />
             <div class="modal modal-bottom sm:modal-middle lg:pl-80">

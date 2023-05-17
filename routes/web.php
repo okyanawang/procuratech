@@ -84,6 +84,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
 
     Route::group(['prefix' => 'work'], function () {
         Route::get('/', [AdminController::class, 'work_index'])->name('.work');
+        Route::get('/{id}', [AdminController::class, 'work_detail'])->name('.work.detail');
+        Route::get('/{id}/job', [AdminController::class, 'job_detail'])->name('.job.detail');
     });
 });
 
