@@ -34,4 +34,14 @@ class AdminController extends Controller
     {
         return view('admin.work');
     }
+
+    public function work_detail($id)
+    {
+        return view('admin.work-detail');
+    }
+
+    public function job_detail($id)
+    {
+        return view('admin.job-detail');
+    }
 }

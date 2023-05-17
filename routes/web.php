@@ -7,7 +7,6 @@ use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\PelaksanaController;
-use App\Http\Controllers\PelaksanaSampelController;
 use App\Http\Controllers\SupervisorController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -84,6 +83,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
 
     Route::group(['prefix' => 'work'], function () {
         Route::get('/', [AdminController::class, 'work_index'])->name('.work');
+        Route::get('/{id}', [AdminController::class, 'work_detail'])->name('.work.detail');
+        Route::get('/{id}/job', [AdminController::class, 'job_detail'])->name('.job.detail');
     });
 });
 
