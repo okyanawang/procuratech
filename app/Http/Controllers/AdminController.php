@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Project;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -32,7 +33,8 @@ class AdminController extends Controller
 
     public function work_index()
     {
-        return view('admin.work');
+        $projects = Project::all();
+        return view('admin.work', ['projects' => $projects]);
     }
 
     public function work_detail($id)
