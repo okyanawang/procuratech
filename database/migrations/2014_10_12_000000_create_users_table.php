@@ -16,9 +16,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('role');
             $table->string('username')->unique();
+            $table->string('email')->unique();
+            $table->string('phone_number');
+            $table->string('address');
+            $table->string('registration_number')->unique();
+            $table->string('status_kepegawaian');
             $table->string('password');
-            $table->boolean('ActiveOnDuty')->nullable()->default(false);
-            // $table->string('email')->unique();
+            $table->string('availability_status')->nullable()->default(false);
+            
             // $table->timestamp('email_verified_at')->nullable();
             // $table->string('password');
             // $table->rememberToken();

@@ -73,22 +73,6 @@
                         </a>
                     </td>
                 </tr>
-                {{-- @foreach ($staffs as $staff)
-                    <tr>
-                        <td>{{ $staff->id }}</td>
-                        <td>{{ $staff->name }}</td>
-                        <td class="text-center">
-                            <div class="badge badge-success p-4">{{ $staff->role }}</div>
-                        </td>
-                        <td>{{ $staff->username }}</td>
-                        <td>{{ $staff->ActiveOnDuty == 1 ? 'Active' : 'Non Active' }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('admin.detail', ['id' => $staff->id]) }}">
-                                <button class="btn btn-info font-semibold">Detail</button>
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach --}}
             </tbody>
         </table>
     </div>
