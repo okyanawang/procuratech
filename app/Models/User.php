@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -19,15 +20,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'role',
+        'username',
         'email',
-        'status_kepegawaian',
-        'availability_status',
+        'password',
         'phone_number',
         'address',
         'registration_number',
+        'status_kepegawaian',
+        'availability_status',
         'role',
-        'username',
-        'password',
     ];
 
     /**
@@ -52,13 +54,8 @@ class User extends Authenticatable
     /**
      * Get the role associated with the user.
      */
-    public function hasRole($role)
+    public function projects(): BelongsToMany
     {
-        return $this->role === $role;
-    }
-
-    public function projects()
-    {
-        return $this->hasMany(Project::class);
+        return $this->belongsToMany(Project::class, 'users_has_projects', 'users_id', 'projects_id');
     }
 }
