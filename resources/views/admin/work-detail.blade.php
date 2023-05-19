@@ -77,7 +77,7 @@
                 <form action="{{ route('admin.register.submit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col md:flex-row gap-3">
-                        <div class="grid grid-cols-2 gap-2 items-center lg:w-2/3">
+                        <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center lg:w-2/3">
                             <label for="job" class="mr-3 font-semibold">Job name :</label>
                             <input name="job" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                                 placeholder="full name" required />
