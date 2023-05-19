@@ -8,6 +8,9 @@ use App\Http\Controllers\PetugasController;
 use App\Http\Controllers\BendaharaController;
 use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\SupervisorController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -171,3 +174,6 @@ Route::group(['prefix' => 'pengukuran', 'as' => 'pengukuran', 'middleware' => 'a
 
 // Route::resource('pelaksanaSampel', PelaksanaSampelController::class);
 // // Pelaksana
+
+Route::resource('projects', ProjectController::class);
+Route::resource('tasks', TaskController::class);
