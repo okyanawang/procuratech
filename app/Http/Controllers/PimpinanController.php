@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PimpinanController extends Controller
@@ -13,7 +14,9 @@ class PimpinanController extends Controller
 
     public function project_index()
     {
-        return view('pimpinanProject.project');
+        $sv = User::where('role', 'Supervisor')->get();
+        // dd($sv);
+        return view('pimpinanProject.project', ['sv' => $sv]);
     }
 
     public function project_detail()

@@ -29,9 +29,9 @@
                             required />
                         <label for="supervisor" class="mr-3 font-semibold">Supervisor :</label>
                         <select name="supervisor" class="js-example-basic-single select select-bordered" id="">
-                            <option value="LA">lalala</option>
-                            <option value="YE">yeyeye</option>
-                            <option value="HA">hehehe</option>
+                            @foreach ($sv as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
                         </select>
                         <label for="desc" class="mr-3 font-semibold">description :</label>
                         <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>

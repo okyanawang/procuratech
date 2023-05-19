@@ -5,7 +5,7 @@
     <div class="grid grid-cols-2 gap-5 mb-40">
         <div class="card shadow-2xl col-span-2 bg-primary">
             <div class="card-body">
-                <h1 class="text-2xl font-bold mb-3 text-white">Halo, Username!</h1>
+                <h1 class="text-2xl font-bold mb-3 text-white">Halo, {{ Auth::user()->name }}!</h1>
                 <p class="text-primary-content">Have a good day!</p>
             </div>
         </div>

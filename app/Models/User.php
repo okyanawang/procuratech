@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Project::class, 'users_has_projects', 'users_id', 'projects_id');
     }
+
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
 }
