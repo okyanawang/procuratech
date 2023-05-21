@@ -26,6 +26,9 @@
                 <li class="my-1"><a href="{{ route('admin.staff') }}"
                         class="py-5 {{ Request::is('admin/staff') ? 'active' : null }}"><i
                             class="fa-solid fa-people-group"></i>Staffs</a></li>
+                <li class="my-1"><a href="{{ route('admin.report') }}"
+                        class="py-5 {{ Request::is('admin/report') ? 'active' : null }}"><i
+                            class="fa-solid fa-file-contract"></i>Reports</a></li>
                 <li class="mt-auto">
                     <form action="{{ route('logout') }}" method="POST" class="w-full bg-error text-accent-content p-0">
                         @csrf
