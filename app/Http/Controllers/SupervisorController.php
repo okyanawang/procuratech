@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Task;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
@@ -32,11 +33,7 @@ class SupervisorController extends Controller
             ->where('projects.id', $id)
             ->select('projects.*')
             ->first();
-        $project_has_tasks = DB::table('projects_has_tasks')
-            ->join('tasks', 'projects_has_tasks.tasks_id', '=', 'tasks.id')
-            ->where('projects_has_tasks.projects_id', $id)
-            ->select('tasks.*')
-            ->get();
+        $project_has_tasks = Task::where('projects_id', $id)->get();
         // dd($project_detail);
         return view('supervisor.project-detail', ['project_detail' => $project_detail, 'project_has_tasks' => $project_has_tasks]);
     }
