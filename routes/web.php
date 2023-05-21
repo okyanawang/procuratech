@@ -84,6 +84,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::post('/register', [AuthController::class, 'staff_register_submit'])->name('.register.submit');
     });
 
+    Route::group(['prefix' => 'report'], function () {
+        Route::get('/', [AdminController::class, 'report_index'])->name('.report');
+        Route::get('/detail', [AdminController::class, 'report_detail'])->name('.report_detail');
+    });
+
     Route::group(['prefix' => 'work'], function () {
         Route::get('/', [AdminController::class, 'work_index'])->name('.work');
         Route::get('/{id}', [AdminController::class, 'work_detail'])->name('.work.detail');

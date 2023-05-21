@@ -46,4 +46,14 @@ class AdminController extends Controller
     {
         return view('admin.job-detail');
     }
+
+    public function report_index()
+    {
+        return view('admin.report');
+    }
+
+    public function report_detail()
+    {
+        return view('admin.report-detail');
+    }
 }
