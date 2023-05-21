@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -21,8 +22,14 @@ class User extends Authenticatable
         'name',
         'role',
         'username',
+        'email',
         'password',
-        'ActiveOnDuty',
+        'phone_number',
+        'address',
+        'registration_number',
+        'status_kepegawaian',
+        'availability_status',
+        'role',
     ];
 
     /**
@@ -43,4 +50,17 @@ class User extends Authenticatable
     protected $casts = [
         // 'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the role associated with the user.
+     */
+    public function projects(): BelongsToMany
+    {
+        return $this->belongsToMany(Project::class, 'users_has_projects', 'users_id', 'projects_id');
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role === $role;
+    }
 }

@@ -15,14 +15,14 @@ class UserSeeder extends Seeder
         //
         $roles = [
             'Admin IT',
-            'Pimpinan Proyek',
+            'Project Manager',
             'Supervisor',
-            'Pelaksana Pengukuran',
-            'Pelaksana Analisis',
-            'Pelaksana Pekerjaan',
-            'Pelaksana Pemeriksa Pekerjaan',
-            'Bendahara Peralatan',
-            'Petugas Inventori'
+            'Measurement Executor',
+            'Analyst',
+            'Job Executor',
+            'Job Inspector',
+            'Inventory Officer',
+            'Inventory Treasurer',
         ];
 
         $names = [
@@ -37,13 +37,42 @@ class UserSeeder extends Seeder
             'Panca'
         ];
 
+        $status_kepegawaian=[
+            'Out-sourcing'
+            , 'Contract'
+            , 'Intern'
+            , 'Full Time'
+            ,'Out-sourcing'
+            , 'Contract'
+            , 'Intern'
+            , 'Full Time'
+            , 'Intern'
+        ];
+
+        $availability_status=[
+            'on duty'
+            , 'on duty'
+            , 'on duty'
+            , 'on duty'
+            ,'on duty'
+            , 'on duty'
+            , 'on duty'
+            , 'on duty'
+            , 'on duty'
+        ];
+
         foreach ($roles as $key => $role) {
             $user = new User;
             $user->name = $names[$key];
             $user->role = $role;
-            $user->username = strtolower(str_replace(' ', '_', $role)) . '@example.com';
-            $user->password = strtolower(str_replace(' ', '', $role));
-            $user->ActiveOnDuty = true;
+            $user->email = strtolower(str_replace(' ', '_', $role)) . '@example.com';
+            $user->status_kepegawaian = $status_kepegawaian[$key];
+            $user->phone_number = '081234567890';
+            $user->address = 'Jl. Jalan Ke Kota Tua';
+            $user->registration_number = mt_rand(100000, 999999);
+            $user->username = strtolower(str_replace(' ', '_', $role));
+            $user->password = bcrypt(strtolower(str_replace(' ', '', $role)));
+            $user->availability_status = $availability_status[$key];
             
             $user->save();
         }

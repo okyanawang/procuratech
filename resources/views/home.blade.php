@@ -11,11 +11,31 @@
                     allowing
                     you to track schedules, assign work orders, and generate reports with ease. Gain insights to optimize
                     processes and improve asset performance.</p>
-                <a href="/login">
-                    <button class="btn btn-primary w-full">Login</button>
-                </a>
-                {{-- <button class="btn btn-primary w-full">Dashboard</button>
-                <button class="btn btn-error w-full mt-2">Logout</button> --}}
+                @auth
+                    <a
+                        @switch(Auth::user()->role)
+                        @case('Admin IT')
+                        href="/admin"
+                        @break
+
+                        @case('Pimpinan Proyek')
+                        href="/pimpinan"
+                        @break
+
+                        @default
+                        href=""
+                    @endswitch>
+                        <button class="btn btn-primary w-full">Dashboard</button>
+                    </a>
+                    <form action="{{ route('logout') }}" method="POST" class="w-full mt-2">
+                        @csrf
+                        <button class="btn btn-error w-full mt-2">Logout</button>
+                    </form>
+                @else
+                    <a href="/login">
+                        <button class="btn btn-primary w-full">Login</button>
+                    </a>
+                @endauth
             </div>
         </div>
     </div>

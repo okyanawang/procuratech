@@ -7,48 +7,58 @@
         </a>
         <h1 class="text-4xl font-bold ml-5"></h1>
     </div>
+
+    <x-Alert />
+
+    <h1 class="text-4xl font-bold mb-5">Staff Detail</h1>
+
     <div class="container">
-        <form action="" class="h-full px-0 md:px-14 mb-40" method="POST" enctype="multipart/form-data">
+        <form action="" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="flex flex-col xl:flex-row ">
-                <div class="grid grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
-                    <label for="" class="mr-3 font-semibold">NIK :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="" name="nik" />
-                    <label for="" class="mr-3 font-semibold">Full Name :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="" name="name" />
+            <div class="flex flex-col xl:flex-row gap-3">
+                <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+                    <label for="name" class="mr-3 font-semibold">Full name :</label>
+                    <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        value="{{ $user->name }}" required />
                     <label for="role" class="mr-3 font-semibold">Role :</label>
-                    <select class="select block mt-1 w-full" name="role" required>
+                    <select class="select select-bordered block mt-1 w-full" name="role" required>
                         <option value="0" hidden disabled selected>Choose Role</option>
-                        <option value="1">Project Manager</option>
-                        <option value="2">Supervisor</option>
-                        <option value="3">Worker</option>
-                        <option value="4">Work Checker</option>
-                        <option value="5">Work Tools Treasurer</option>
-                        <option value="6">Logistic Treasurer</option>
+                        <option value="1" @if ($user->role == 'Admin IT') selected @endif>Admin IT</option>
+                        <option value="2" @if ($user->role == 'Project Manager') selected @endif>Project Manager</option>
+                        <option value="3" @if ($user->role == 'Supervisor') selected @endif>Supervisor</option>
+                        <option value="4" @if ($user->role == 'Measurement Executor') selected @endif>Measurement Executor</option>
+                        <option value="5" @if ($user->role == 'Analyst') selected @endif>Analysist</option>
+                        <option value="6" @if ($user->role == 'Job Executor') selected @endif>Job Executor</option>
+                        <option value="7" @if ($user->role == 'Job Inspector') selected @endif>Job Inspector</option>
+                        <option value="8" @if ($user->role == 'Inventory Treasurer') selected @endif>Inventory Treasurer
+                        </option>
+                        <option value="9" @if ($user->role == 'Inventory Officer') selected @endif>Inventory Officer</option>
                     </select>
-                    <label for="" class="mr-3 font-semibold">Phone Number :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="" name="phone" />
+                    <label for="role" class="mr-3 font-semibold">ActiveOnDuty :</label>
+                    <select class="select select-bordered block mt-1 w-full" name="role" required>
+                        <option value="-1" hidden disabled selected>Choose Status</option>
+                        <option value="0" @if ($user->ActiveOnDuty == 0) selected @endif>Not Active</option>
+                        <option value="1" @if ($user->ActiveOnDuty == 1) selected @endif>Active</option>
+                    </select>
                 </div>
-                <div class="w-full md:w-1/2 flex justify-center">
-                    <div class="avatar flex-col">
-                        <div class="mask mask-squircle items-center">
-                            <img src="https://picsum.photos/200" alt="">
-                        </div>
-                        <input type="file" class="mt-3 w-fit" name="pict">
-                    </div>
+                <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+                    <label for="username" class="mr-3 font-semibold">Username :</label>
+                    <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="username" value="{{ $user->username }}" required />
+                    <label for="password" class="mr-3 font-semibold">New Password :</label>
+                    <input name="new password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="password" />
                 </div>
             </div>
-            <!-- The button to open modal -->
-            <label for="my-modal-6" class="btn btn-primary mt-12 w-full modal-button"><i
-                    class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
-
-            <!-- The button to open modal -->
-            <label for="my-modal-delete-user" class="btn btn-error mt-12 w-full modal-button text-white"><i
-                    class="fa-solid fa-trash"></i>&nbsp; Delete User</label>
-
+            <div class="flex justify-center gap-5">
+                <!-- The button to open modal -->
+                <label for="my-modal-delete-user" class="btn btn-error mt-5 w-50 modal-button text-white"><i
+                        class="fa-solid fa-trash"></i>&nbsp; Delete User</label>
+                <!-- The button to open modal -->
+                <label for="my-modal-6" class="btn btn-primary mt-5 w-50 modal-button"><i
+                        class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
+    
+            </div>
             <!-- Put this part before </body> tag -->
             <input type="checkbox" id="my-modal-6" class="modal-toggle" />
             <div class="modal modal-bottom sm:modal-middle lg:pl-80">
@@ -88,16 +98,17 @@
                             <td>-</td>
                             <td class="">
                                 <!-- The button to open modal -->
-                                <label for="new-user" class="btn btn-primary mb-12 w-full modal-button">
+                                <label for="new-user" class="btn btn-info font-semibold">
                                     Detail</label>
                             </td>
 
                             <!-- Put this part before </body> tag -->
                             <input type="checkbox" id="new-user" class="modal-toggle" />
                             <div class="modal modal-bottom lg:pl-80">
-                                <div class="modal-box w-11/12 max-w-5xl">
+                                <div class="modal-box w-11/12 max-w-5xl self-center">
                                     <h3 class="font-bold text-lg mb-10">Job name</h3>
-                                    <div class="modal-action">
+                                    <p>job desc</p>
+                                    <div class="modal-action justify-center gap-5">
                                         <label for="new-user" class="btn btn-error">cancel</label>
                                         <input type="submit" class="btn btn-primary" value="Submit">
                                     </div>
