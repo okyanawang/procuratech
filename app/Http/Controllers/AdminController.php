@@ -30,4 +30,14 @@ class AdminController extends Controller
     {
         return view('admin.work');
     }
+
+    public function report_index()
+    {
+        return view('admin.report');
+    }
+
+    public function report_detail()
+    {
+        return view('admin.report-detail');
+    }
 }
