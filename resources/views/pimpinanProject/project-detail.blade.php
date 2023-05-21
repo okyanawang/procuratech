@@ -68,11 +68,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($books as $book) --}}
+                        @foreach ($tasks_in_project as $t)
                         <tr>
-                            <th>lalala</th>
+                            <th>{{ $t->name }}</th>
                             <td class="text-center">
-                                <div class="badge badge-warning">On Proccess</div>
+                                <div class="badge badge-warning">{{$t->status }}</div>
                             </td>
                             <td>pengukuran</td>
                             <td>12/12/23</td>
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

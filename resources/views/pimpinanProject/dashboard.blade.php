@@ -20,7 +20,7 @@
                                 <i class="fa-solid fa-briefcase fa-2xl"></i>
                             </div>
                             <div class="stat-title font-bold uppercase">Total Projects</div>
-                            <div class="stat-value text-primary pb-2">30</div>
+                            <div class="stat-value text-primary pb-2">{{ $nprojects }}</div>
                             <div class="stat-desc">click for more details</div>
 
                         </div>
