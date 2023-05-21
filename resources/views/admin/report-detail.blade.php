@@ -10,38 +10,47 @@
     <div class="container">
         <form action="" class="h-full px-0 md:px-14 mb-40" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="flex flex-col xl:flex-row ">
-                <div class="grid grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
-                    <label for="" class="mr-3 font-semibold">No Proyek :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="PR001" name="nik" />
-                    <label for="" class="mr-3 font-semibold">No Tugas Kerja :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="TK001" name="name" />
-                    <label for="" class="mr-3 font-semibold">Judul Pekerjaan :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="Perbaikan Lampu Jalan" name="name" />
-                    <label for="" class="mr-3 font-semibold">Nama Supervisor :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="Jibi" name="name" />
-                    <label for="" class="mr-3 font-semibold">Detail Pekerjaan :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="Pekerjaan perbaikan lampu jalan untuk memperbaiki 24 lampu jalan yang berada di jalur utama" name="name" />
-                    <label for="" class="mr-3 font-semibold">Lokasi Pekerjaan :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="Jalur Utama" name="name" />
-                    <label for="" class="mr-3 font-semibold">Deadline Alat Kerja :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="29 Juni 2023" name="name" />
-                    <label for="" class="mr-3 font-semibold">Deadline Suku Cadang :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="29 Juni 2023" name="name" />
-                    <label for="" class="mr-3 font-semibold">Deadline Material :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="29 Juni 2023" name="name" />
-                    <label for="" class="mr-3 font-semibold">Waktu Mulai :</label>
-                    <input type="text" placeholder="Type here" class="input input-ghost w-full max-w-xs col-span-1"
-                        value="1 Juli 2023" name="name" />
+            <div class="flex flex-col md:flex-row gap-3">
+                <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
+                    <label for="no_proyek" class="mr-3 font-semibold">No Proyek :</label>
+                    <input name="no_proyek" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="no proyek" value="PR001" required />
+                    <label for="judul_pekerjaan" class="mr-3 font-semibold">Judul Pekerjaan :</label>
+                    <input name="judul_pekerjaan" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="judul pekerjaan" value="Perbaikan Lampu Jalan" required />
+                    <label for="role" class="mr-3 font-semibold">Nama Supervisor :</label>
+                    <select class="select select-bordered block mt-1 w-full" name="role" required>
+                        <option value="0" hidden disabled selected>Choose Role</option>
+                        <option value="Supervisor 1">Supervisor 1</option>
+                        <option value="Supervisor 2" selected>Supervisor 2</option>
+                        <option value="Supervisor 3">Supervisor 3</option>
+                        <option value="Supervisor 4">Supervisor 4</option>
+                        <option value="Supervisor 5">Supervisor 5</option>
+                    </select>
+                    <label for="deadline_alat_kerja" class="mr-3 font-semibold">Deadline Alat Kerja :</label>
+                    <input name="deadline_alat_kerja" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="deadline alat kerja" value="2023-05-28" required />
+                    <label for="deadline_suku_cadang" class="mr-3 font-semibold">Deadline Suku Cadang :</label>
+                    <input name="deadline_suku_cadang" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="deadline suku cadang" value="2023-05-28" required />
+                </div>
+                <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
+
+                    <label for="no_tugas_kerja" class="mr-3 font-semibold">No Tugas Kerja :</label>
+                    <input name="no_tugas_kerja" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="no tugas kerja" value="TK001" required />
+                    <label for="detail_pekerjaan" class="mr-3 font-semibold">Detail Pekerjaan :</label>
+                    <input name="detail_pekerjaan" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="detail pekerjaan" value="Pekerjaan perbaikan lampu jalan untuk memperbaiki 24 lampu jalan yang berada di jalur utama" required />
+                    <label for="lokasi_pekerjaan" class="mr-3 font-semibold">Lokasi Pekerjaan :</label>
+                    <input name="lokasi_pekerjaan" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="lokasi pekerjaan" value="Jalur Utama" required />
+                    <label for="deadline_material" class="mr-3 font-semibold">Deadline Material :</label>
+                    <input name="deadline_material" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="deadline material" value="2023-05-28" required />
+                    <label for="waktu_mulai" class="mr-3 font-semibold">Waktu Mulai :</label>
+                    <input name="waktu_mulai" type="time" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="waktu mulai" value="15:00" required />
                 </div>
             </div>
             <!-- The button to open modal -->

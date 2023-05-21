@@ -9,18 +9,58 @@
     <!-- Put this part before </body> tag -->
     <input type="checkbox" id="new-user" class="modal-toggle" />
     <div class="modal modal-bottom lg:pl-80">
-        <div class="modal-box w-11/12 max-w-5xl">
+        <div class="modal-box w-11/12 max-w-5xl self-center rounded-lg">
             <h3 class="font-bold text-lg mb-10">Add new report</h3>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.register.submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="flex flex-col md:flex-row ">
-                    <div class="grid grid-cols-2 gap-2 items-center lg:w-2/3">
-                        
+                <div class="flex flex-col md:flex-row gap-3">
+                    <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
+                        <label for="no_proyek" class="mr-3 font-semibold">No Proyek :</label>
+                        <input name="no_proyek" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="no proyek" required />
+                        <label for="judul_pekerjaan" class="mr-3 font-semibold">Judul Pekerjaan :</label>
+                        <input name="judul_pekerjaan" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="judul pekerjaan" required />
+                        <label for="role" class="mr-3 font-semibold">Nama Supervisor :</label>
+                        <select class="select select-bordered block mt-1 w-full" name="role" required>
+                            <option value="0" hidden disabled selected>Choose Role</option>
+                            <option value="Supervisor 1">Supervisor 1</option>
+                            <option value="Supervisor 2">Supervisor 2</option>
+                            <option value="Supervisor 3">Supervisor 3</option>
+                            <option value="Supervisor 4">Supervisor 4</option>
+                            <option value="Supervisor 5">Supervisor 5</option>
+                        </select>
+                        <label for="deadline_alat_kerja" class="mr-3 font-semibold">Deadline Alat Kerja :</label>
+                        <input name="deadline_alat_kerja" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="deadline alat kerja" required />
+                        <label for="deadline_suku_cadang" class="mr-3 font-semibold">Deadline Suku Cadang :</label>
+                        <input name="deadline_suku_cadang" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="deadline suku cadang" required />
+                    </div>
+                    <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
+
+                        <label for="no_tugas_kerja" class="mr-3 font-semibold">No Tugas Kerja :</label>
+                        <input name="no_tugas_kerja" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="no tugas kerja" required />
+                        <label for="detail_pekerjaan" class="mr-3 font-semibold">Detail Pekerjaan :</label>
+                        <input name="detail_pekerjaan" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="detail pekerjaan" required />
+                        <label for="lokasi_pekerjaan" class="mr-3 font-semibold">Lokasi Pekerjaan :</label>
+                        <input name="lokasi_pekerjaan" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="lokasi pekerjaan" required />
+                        <label for="deadline_material" class="mr-3 font-semibold">Deadline Material :</label>
+                        <input name="deadline_material" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="deadline material" required />
+                        <label for="waktu_mulai" class="mr-3 font-semibold">Waktu Mulai :</label>
+                        <input name="waktu_mulai" type="time" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="waktu mulai" required />
                     </div>
                 </div>
 
-                <div class="modal-action">
+                <div class="modal-action flex justify-center gap-5">
                     <label for="new-user" class="btn btn-error">cancel</label>
+                    {{-- <a href="{{ route('admin.register') }}" class="btn btn-primary mb-3">Register Report</a> --}}
+
                     <input type="submit" class="btn btn-primary" value="Submit">
                 </div>
             </form>
