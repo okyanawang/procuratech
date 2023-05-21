@@ -5,7 +5,7 @@
         <a href="javascript:history.back()" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
-        <h1 class="text-4xl font-bold ml-5 mb-3">Project Name</h1>
+        <h1 class="text-4xl font-bold ml-5 mb-3">{{ $project_detail->name }}</h1>
     </div>
     <div class="container">
         <x-Alert />
@@ -88,18 +88,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Project sementara</td>
-                        <td>27/01/23</td>
-                        <td>29/01/23</td>
-                        <td class="text-center">Job type</td>
+                    @foreach ($project_has_tasks as $p)
+                    {{-- <tr>
+                        <td>{{ $p->id }}</td>
+                        <td>{{ $p->name }}</td>
+                        <td>{{ $p->start_date }}</td>
+                        <td>{{ $p->end_date }}</td>
+                        <td class="text-center">3</td>
                         <td class="text-center">
-                            <a {{-- href="{{ route('admin.detail', ['id' => $staff->id]) }}" --}}>
+                            <a href="{{ route('supervisor.jobdetail', ['id' => $p->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
-                    </tr>
+                    </tr>     --}}
+                @endforeach
                 </tbody>
             </table>
         </div>

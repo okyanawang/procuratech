@@ -14,24 +14,26 @@
                     <th>Name</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th style="text-align-last: center">Total Jobs</th>
+                    <th style="text-align-last: center">Total task</th>
                     {{-- <th>Total Jobs</th> --}}
                     <th style="text-align-last: center">Detail</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Project sementara</td>
-                    <td>27/01/23</td>
-                    <td>29/01/23</td>
-                    <td class="text-center">3</td>
-                    <td class="text-center">
-                        <a {{-- href="{{ route('admin.detail', ['id' => $staff->id]) }}" --}}>
-                            <button class="btn btn-info font-semibold">Detail</button>
-                        </a>
-                    </td>
-                </tr>
+                @foreach ($projects as $p)
+                    <tr>
+                        <td>{{ $p->id }}</td>
+                        <td>{{ $p->name }}</td>
+                        <td>{{ $p->start_date }}</td>
+                        <td>{{ $p->end_date }}</td>
+                        <td class="text-center">3</td>
+                        <td class="text-center">
+                            <a href="{{ route('supervisor.detail', ['id' => $p->id]) }}">
+                                <button class="btn btn-info font-semibold">Detail</button>
+                            </a>
+                        </td>
+                    </tr>    
+                @endforeach
             </tbody>
         </table>
     </div>

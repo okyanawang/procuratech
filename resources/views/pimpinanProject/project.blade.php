@@ -14,18 +14,18 @@
     <div class="modal modal-bottom lg:pl-80">
         <div class="modal-box w-11/12 max-w-5xl">
             <h3 class="font-bold text-lg mb-10">Add new project</h3>
-            <form action="{{ route('admin.register.submit') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pimpinan.register.submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-col md:flex-row ">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center lg:w-2/3">
                         <label for="name" class="mr-3 font-semibold">Project name :</label>
                         <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="full name" required />
-                        <label for="startdate" class="mr-3 font-semibold">Start date :</label>
-                        <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                        <label for="start_date" class="mr-3 font-semibold">Start date :</label>
+                        <input name="start_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                             required />
-                        <label for="startdate" class="mr-3 font-semibold">End date :</label>
-                        <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                        <label for="end_date" class="mr-3 font-semibold">End date :</label>
+                        <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                             required />
                         <label for="supervisor" class="mr-3 font-semibold">Supervisor :</label>
                         <select name="supervisor" class="js-example-basic-single select select-bordered" id="">
@@ -33,8 +33,14 @@
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
                         </select>
-                        <label for="desc" class="mr-3 font-semibold">description :</label>
-                        <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
+                        <label for="status" class="mr-3 font-semibold">Status :</label>
+                        <select class="select select-bordered" name="status" id="status">
+                            <option value="1">Pending</option>
+                            <option value="0">On Progress</option>
+                            <option value="2">Done</option>
+                        </select>
+                        <label for="description" class="mr-3 font-semibold">description :</label>
+                        <textarea name="description" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
                     </div>
                 </div>
 
@@ -61,18 +67,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Project sementara</td>
-                    <td>27/01/23</td>
-                    <td>29/01/23</td>
-                    <td class="text-center">3</td>
-                    <td class="text-center">
-                        <a {{-- href="{{ route('admin.detail', ['id' => $staff->id]) }}" --}}>
-                            <button class="btn btn-info font-semibold">Detail</button>
-                        </a>
-                    </td>
-                </tr>
+                @foreach ($projects as $p)
+                    <tr>
+                        <td>{{ $p->id }}</td>
+                        <td>{{ $p->name }}</td>
+                        <td>27/01/23</td>
+                        <td>29/01/23</td>
+                        <td class="text-center">3</td>
+                        <td class="text-center">
+                            <a href="{{ route('pimpinan.detail', ['id' => $p->id]) }}">
+                                <button class="btn btn-info font-semibold">Detail</button>
+                            </a>
+                        </td>
+                    </tr>    
+                @endforeach
             </tbody>
         </table>
     </div>

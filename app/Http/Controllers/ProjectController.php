@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use DB;
+use Carbon\Carbon;
+use Auth;
 
 class ProjectController extends Controller
 {
@@ -20,23 +23,32 @@ class ProjectController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:projects|max:255',
-            'registration_date' => 'required',
+            // 'registration_date' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'description' => 'required',
             'status' => 'required',
+            'supervisor' => 'required',
         ]);
 
         $project = new Project;
         $project->name = $validatedData['name'];
-        $project->registration_date = $validatedData['registration_date'];
+        $project->registration_date = Carbon::now();
         $project->start_date = $validatedData['start_date'];
         $project->end_date = $validatedData['end_date'];
         $project->description = $validatedData['description'];
         $project->status = $validatedData['status'];
         $project->save();
+        $user_has_projects = DB::table('users_has_projects')->insert([
+            'users_id' => $validatedData['supervisor'],
+            'projects_id' => $project->id,
+        ]);
+        DB::table('users_has_projects')->insert([
+            'users_id' => Auth::user()->id,
+            'projects_id' => $project->id,
+        ]);
 
-        return redirect()->route('project.index')->with('success', 'Project berhasil ditambahkan');
+        return redirect()->route('pimpinan.project')->with('success', 'Project berhasil ditambahkan');
     }
     public function show($id)
     {

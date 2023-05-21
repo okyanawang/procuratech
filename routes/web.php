@@ -102,7 +102,9 @@ Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan', 'middleware' => 'auth.
 
     Route::group(['prefix' => 'project'], function () {
         Route::get('/', [PimpinanController::class, 'project_index'])->name('.project');
-        Route::get('/detail', [PimpinanController::class, 'project_detail'])->name('.detail');
+        Route::get('/{id}', [PimpinanController::class, 'project_detail'])->name('.detail');
+        // Route::get('/register', [ProjectController::class, 'project_register'])->name('.register');
+        Route::post('/register', [ProjectController::class, 'store'])->name('.register.submit');
     });
 });
 
@@ -150,9 +152,9 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor', 'middleware' => 'a
 
     Route::group(['prefix' => 'project'], function () {
         Route::get('/', [SupervisorController::class, 'project_index'])->name('.project');
-        Route::group(['prefix' => 'detail'], function () {
-            Route::get('/', [SupervisorController::class, 'project_detail'])->name('.detail');
-            Route::get('/jobdetail', [SupervisorController::class, 'job_detail'])->name('.jobdetail');
+        Route::get('/{id}', [SupervisorController::class, 'project_detail'])->name('.detail');
+        Route::group(['prefix' => 'job'], function () {
+            Route::get('/{id}', [SupervisorController::class, 'job_detail'])->name('.jobdetail');
         });
         // Route::get('/detail', [SupervisorController::class, 'project_detail'])->name('.detail');
     });

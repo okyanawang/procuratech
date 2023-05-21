@@ -14,20 +14,20 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="name" class="mr-3 font-semibold">Project name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="full name" required />
+                        placeholder="full name" required value="{{ $project_detail->name }} "/>
                     <label for="startdate" class="mr-3 font-semibold">Start date :</label>
                     <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
-                        required />
-                    <label for="startdate" class="mr-3 font-semibold">End date :</label>
-                    <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required />
+                        required value="{{ \Carbon\Carbon::parse($project_detail->start_date)->format('m/d/Y') }}"/>
+                    <label for="enddate" class="mr-3 font-semibold">End date :</label>
+                    <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required value="{{ $project_detail->end_date }} "/>
                     <label for="supervisor" class="mr-3 font-semibold">Supervisor :</label>
                     <select name="supervisor" class="js-example-basic-single select select-bordered" id="">
                         <option value="LA">lalala</option>
                         <option value="YE">yeyeye</option>
                         <option value="HA">hehehe</option>
                     </select>
-                    <label for="desc" class="mr-3 font-semibold">description :</label>
-                    <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
+                    <label for="desc" class="mr-3 font-semibold">Description:</label>
+                    <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required>{{ $project_detail->description }}</textarea>
                 </div>
             </div>
             <!-- The button to open modal -->
