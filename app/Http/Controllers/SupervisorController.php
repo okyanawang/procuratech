@@ -11,7 +11,13 @@ class SupervisorController extends Controller
 {
     public function index()
     {
-        return view('supervisor.dashboard');
+        $nprojects = DB::table('projects')
+            ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
+            ->join('users', 'users_has_projects.users_id', '=', 'users.id')
+            ->where('users_has_projects.users_id', Auth::user()->id)
+            ->select('projects.*')
+            ->count();
+        return view('supervisor.dashboard', ['nprojects' => $nprojects]);
     }
 
     public function project_index()
