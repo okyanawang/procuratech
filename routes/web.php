@@ -177,10 +177,62 @@ Route::group(['prefix' => 'pengukuran', 'as' => 'pengukuran', 'middleware' => 'a
     Route::group(['prefix' => 'tasks'], function () {
         Route::get('/', [PelaksanaController::class, 'index_pengukuran_tasks'])->name('.tasks');
     });
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/{id}', [PelaksanaController::class, 'index_pengukuran_tasks_detail'])->name('.tasks.detail');
+    });
 });
 
-// Route::resource('pelaksanaSampel', PelaksanaSampelController::class);
-// // Pelaksana
+Route::group(['prefix' => 'analisis', 'as' => 'analisis', 'middleware' => 'auth.role:Analyst'], function () {
+    Route::get('/', function () {
+        return redirect('/analisis/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [PelaksanaController::class, 'index_analisis'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/', [PelaksanaController::class, 'index_analisis_tasks'])->name('.tasks');
+    });
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/{id}', [PelaksanaController::class, 'index_analisis_tasks_detail'])->name('.tasks.detail');
+    });
+});
+
+Route::group(['prefix' => 'pekerjaan', 'as' => 'pekerjaan', 'middleware' => 'auth.role:Job Executor'], function () {
+    Route::get('/', function () {
+        return redirect('/pekerjaan/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [PelaksanaController::class, 'index_pekerjaan'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/', [PelaksanaController::class, 'index_pekerjaan_tasks'])->name('.tasks');
+    });
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/{id}', [PelaksanaController::class, 'index_pekerjaan_tasks_detail'])->name('.tasks.detail');
+    });
+});
+
+Route::group(['prefix' => 'pemeriksa', 'as' => 'pemeriksa', 'middleware' => 'auth.role:Job Inspector'], function () {
+    Route::get('/', function () {
+        return redirect('/pemeriksa/dashboard');
+    });
+
+    Route::group(['prefix' => 'dashboard'], function () {
+        Route::get('/', [PelaksanaController::class, 'index_pemeriksa'])->name('.dashboard');
+    });
+
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/', [PelaksanaController::class, 'index_pemeriksa_tasks'])->name('.tasks');
+    });
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/{id}', [PelaksanaController::class, 'index_pemeriksa_tasks_detail'])->name('.tasks.detail');
+    });
+});
+
 
 Route::resource('projects', ProjectController::class);
 Route::resource('tasks', TaskController::class);
