@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('produsen');
             $table->integer('amount')->default(0);
             $table->integer('tasks_id')->index('fk_items_tasks1_idx');
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
         });
     }
 
