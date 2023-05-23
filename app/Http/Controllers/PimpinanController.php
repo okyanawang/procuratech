@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Location;
 use App\Models\User;
 use App\Models\Task;
 use Illuminate\Http\Request;
@@ -24,7 +26,7 @@ class PimpinanController extends Controller
 
     public function project_index()
     {
-        $sv = User::where('role', 'Supervisor')->get();
+        // $sv = User::where('role', 'Supervisor')->get();
         $projects = DB::table('projects')
             ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
             ->join('users', 'users_has_projects.users_id', '=', 'users.id')
@@ -33,7 +35,7 @@ class PimpinanController extends Controller
             ->get();
         // dd($projects);
         // dd($sv);
-        return view('pimpinanProject.project', ['sv' => $sv, 'projects' => $projects]);
+        return view('pimpinanProject.project', ['projects' => $projects]);
     }
 
     public function project_detail($id)
@@ -44,9 +46,21 @@ class PimpinanController extends Controller
             ->where('projects.id', $id)
             ->select('projects.*', 'users.name as sv_name')
             ->first();
-        $tasks_in_project = Task::where('projects_id', $id)->get();
+
+        $locations = Location::where('projects_id', $id)->get();
+        // $tasks_in_project = Task::where('projects_id', $id)->get();
         // dd($id);
         // dd($project_detail = Project::find($id));
-        return view('pimpinanProject.project-detail', ['project_detail' => $project_detail, 'tasks_in_project' => $tasks_in_project]);
+        return view('pimpinanProject.project-detail', ['project_detail' => $project_detail, 'locations' => $locations]);
+    }
+
+    public function location_detail($id)
+    {
+        // dd($id);
+        $loc = Location::find($id);
+        $svs = User::where('role', 'Supervisor')->get();
+        $cats = Category::where('locations_id', $id)->get();
+
+        return view('pimpinanProject.location-detail', ['loc' => $loc, 'svs' => $svs, 'cats' => $cats]);
     }
 }

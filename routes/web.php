@@ -10,6 +10,7 @@ use App\Http\Controllers\PelaksanaController;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\LocationController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -29,29 +30,21 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/login', function () {
     if (Auth::check() && Auth::user()->hasRole('Admin IT')) {
         return redirect('/admin/dashboard');
-    }
-    elseif (Auth::check() && Auth::user()->hasRole('Project Manager')) {
+    } elseif (Auth::check() && Auth::user()->hasRole('Project Manager')) {
         return redirect('/pimpinan/dashboard');
-    }
-    elseif (Auth::check() && Auth::user()->hasRole('Job Executor')) {
+    } elseif (Auth::check() && Auth::user()->hasRole('Job Executor')) {
         return redirect('/petugas/dashboard');
-    }
-    elseif (Auth::check() && Auth::user()->hasRole('Job Inspector')) {
+    } elseif (Auth::check() && Auth::user()->hasRole('Job Inspector')) {
         return redirect('/pemeriksa/dashboard');
-    }
-    elseif (Auth::check() && Auth::user()->hasRole('Inventory Treasurer')) {
+    } elseif (Auth::check() && Auth::user()->hasRole('Inventory Treasurer')) {
         return redirect('/bendahara/dashboard');
-    }
-    elseif (Auth::check() && Auth::user()->hasRole('Measurermant Executor')) {
+    } elseif (Auth::check() && Auth::user()->hasRole('Measurermant Executor')) {
         return redirect('/pelaksana/dashboard');
-    }
-    elseif (Auth::check() && Auth::user()->hasRole('Analyst')) {
+    } elseif (Auth::check() && Auth::user()->hasRole('Analyst')) {
         return redirect('/pelaksana_sampel/dashboard');
-    }
-    elseif (Auth::check() && Auth::user()->hasRole('Inventory Officer')) {
+    } elseif (Auth::check() && Auth::user()->hasRole('Inventory Officer')) {
         return redirect('/inventori/dashboard');
-    }
-    elseif (Auth::check() && Auth::user()->hasRole('Supervisor')) {
+    } elseif (Auth::check() && Auth::user()->hasRole('Supervisor')) {
         return redirect('/supervisor/dashboard');
     }
     return view('auth.login');
@@ -105,11 +98,17 @@ Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan', 'middleware' => 'auth.
         Route::get('/', [PimpinanController::class, 'index'])->name('.dashboard');
     });
 
-    Route::group(['prefix' => 'project'], function () {
-        Route::get('/', [PimpinanController::class, 'project_index'])->name('.project');
+    Route::group(['prefix' => 'project', 'as' => '.project'], function () {
+        Route::get('/', [PimpinanController::class, 'project_index'])->name('.index');
         Route::get('/{id}', [PimpinanController::class, 'project_detail'])->name('.detail');
         // Route::get('/register', [ProjectController::class, 'project_register'])->name('.register');
         Route::post('/register', [ProjectController::class, 'store'])->name('.register.submit');
+
+        Route::group(['prefix' => 'location', 'as' => '.location'], function () {
+            // Route::get('/', [PimpinanController::class, 'location_index'])->name('.index');
+            Route::get('/{id}', [PimpinanController::class, 'location_detail'])->name('.detail');
+            Route::post('/register', [LocationController::class, 'store'])->name('.register.submit');
+        });
     });
 });
 

@@ -28,7 +28,7 @@ class ProjectController extends Controller
             'end_date' => 'required',
             'description' => 'required',
             'status' => 'required',
-            'supervisor' => 'required',
+            // 'supervisor' => 'required',
         ]);
 
         $project = new Project;
@@ -39,16 +39,16 @@ class ProjectController extends Controller
         $project->description = $validatedData['description'];
         $project->status = $validatedData['status'];
         $project->save();
-        $user_has_projects = DB::table('users_has_projects')->insert([
-            'users_id' => $validatedData['supervisor'],
-            'projects_id' => $project->id,
-        ]);
+        // $user_has_projects = DB::table('users_has_projects')->insert([
+        //     'users_id' => $validatedData['supervisor'],
+        //     'projects_id' => $project->id,
+        // ]);
         DB::table('users_has_projects')->insert([
             'users_id' => Auth::user()->id,
             'projects_id' => $project->id,
         ]);
 
-        return redirect()->route('pimpinan.project')->with('success', 'Project berhasil ditambahkan');
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil ditambahkan');
     }
     public function show($id)
     {

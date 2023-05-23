@@ -22,7 +22,7 @@
                     <input name="job" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="" required />
                     <label for="desc" class="mr-3 font-semibold">Description :</label>
-                    <input name"desc" type="textarea" class="input input-bordered w-full max-w-xs col-span-1"
+                    <input name="desc" type="textarea" class="input input-bordered w-full max-w-xs col-span-1"
                         value="" required />
                     <label for="staff" class="font-semibold">Staff :</label>
                     <input name="staff" type="text" class="input input-bordered w-full max-w-xs col-span-1"
