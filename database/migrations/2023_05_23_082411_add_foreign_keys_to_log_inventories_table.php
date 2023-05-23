@@ -13,8 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('berita_acaras', function (Blueprint $table) {
-            $table->foreign(['users_id'], 'fk_reports_users1')->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+        Schema::table('log_inventories', function (Blueprint $table) {
+            $table->foreign(['inventories_id'], 'fk_log_inventories_inventories1')->references(['id'])->on('inventories')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -25,8 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('berita_acaras', function (Blueprint $table) {
-            $table->dropForeign('fk_reports_users1');
+        Schema::table('log_inventories', function (Blueprint $table) {
+            $table->dropForeign('fk_log_inventories_inventories1');
         });
     }
 };

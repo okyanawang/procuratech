@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table) {
+        Schema::create('inventories', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('name')->nullable();
-            $table->text('description')->nullable();
-            $table->string('type')->nullable();
-            $table->string('status')->nullable();
-            $table->date('start_date')->nullable();
-            $table->date('end_date')->nullable();
+            $table->string('name');
+            $table->string('amount');
+            $table->integer('price');
+            $table->string('unit');
+            $table->string('inventoriescol', 45);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
-            $table->integer('projects_id')->index('fk_tasks_projects1_idx');
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tasks');
+        Schema::dropIfExists('inventories');
     }
 };
