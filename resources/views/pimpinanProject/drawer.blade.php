@@ -16,7 +16,7 @@
                 <li class="my-1"><a href="{{ route('pimpinan.dashboard') }}"
                         class="py-5 {{ Request::is('pimpinan/dashboard') ? 'active' : null }}"><i
                             class="fa-solid fa-house"></i>Dashboard</a></li>
-                <li class="my-1"><a href="{{ route('pimpinan.project') }}"
+                <li class="my-1"><a href="{{ route('pimpinan.project.index') }}"
                         class="py-5 {{ Request::is('pimpinan/project') ? 'active' : null }}"><i
                             class="fa-solid fa-puzzle-piece"></i>Projects</a></li>
                 <li class="mt-auto">

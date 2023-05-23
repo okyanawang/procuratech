@@ -14,7 +14,7 @@
     <div class="modal modal-bottom lg:pl-80">
         <div class="modal-box w-11/12 max-w-5xl">
             <h3 class="font-bold text-lg mb-10">Add new project</h3>
-            <form action="{{ route('pimpinan.register.submit') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('pimpinan.project.register.submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-col md:flex-row ">
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center lg:w-2/3">
@@ -27,12 +27,12 @@
                         <label for="end_date" class="mr-3 font-semibold">End date :</label>
                         <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                             required />
-                        <label for="supervisor" class="mr-3 font-semibold">Supervisor :</label>
+                        {{-- <label for="supervisor" class="mr-3 font-semibold">Supervisor :</label>
                         <select name="supervisor" class="js-example-basic-single select select-bordered" id="">
                             @foreach ($sv as $item)
                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                         <label for="status" class="mr-3 font-semibold">Status :</label>
                         <select class="select select-bordered" name="status" id="status">
                             <option value="1">Pending</option>
@@ -61,9 +61,9 @@
                     <th>Name</th>
                     <th>Start Date</th>
                     <th>End Date</th>
-                    <th style="text-align-last: center">Total Jobs</th>
+                    <th style="text-align-last: center">Total Location(s)</th>
                     {{-- <th>Total Jobs</th> --}}
-                    <th style="text-align-last: center">Detail</th>
+                    <th style="text-align-last: center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -75,11 +75,11 @@
                         <td>29/01/23</td>
                         <td class="text-center">3</td>
                         <td class="text-center">
-                            <a href="{{ route('pimpinan.detail', ['id' => $p->id]) }}">
+                            <a href="{{ route('pimpinan.project.detail', ['id' => $p->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
-                    </tr>    
+                    </tr>
                 @endforeach
             </tbody>
         </table>
