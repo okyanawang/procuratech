@@ -11,6 +11,7 @@ use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -109,6 +110,13 @@ Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan', 'middleware' => 'auth.
             Route::get('/{id}', [PimpinanController::class, 'location_detail'])->name('.detail');
             Route::post('/register', [LocationController::class, 'store'])->name('.register.submit');
         });
+
+        Route::group(['prefix' => 'category', 'as' => '.category'], function () {
+            // Route::get('/', [PimpinanController::class, 'category_index'])->name('.index');
+            Route::get('/{id}', [PimpinanController::class, 'category_detail'])->name('.detail');
+            Route::post('/register', [CategoryController::class, 'store'])->name('.register.submit');
+        });
+
     });
 });
 

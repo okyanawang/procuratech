@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('created_at')->nullable();
             $table->string('updated_at')->nullable();
             $table->integer('locations_id')->index('fk_categories_locations1_idx');
+            $table->integer('users_id')->index('fk_categories_users1_idx');
         });
     }
 

@@ -59,7 +59,12 @@ class PimpinanController extends Controller
         // dd($id);
         $loc = Location::find($id);
         $svs = User::where('role', 'Supervisor')->get();
-        $cats = Category::where('locations_id', $id)->get();
+        // $cats = Category::where('locations_id', $id)->get();
+        $cats = DB::table('categories')
+            ->join('users', 'categories.users_id', '=', 'users.id')
+            ->where('categories.locations_id', $id)
+            ->select('categories.*', 'users.name as sv_name')
+            ->get();
 
         return view('pimpinanProject.location-detail', ['loc' => $loc, 'svs' => $svs, 'cats' => $cats]);
     }
