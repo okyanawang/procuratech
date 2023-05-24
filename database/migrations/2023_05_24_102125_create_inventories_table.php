@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('amount');
             $table->integer('price');
             $table->string('unit');
-            $table->string('inventoriescol', 45);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
         });

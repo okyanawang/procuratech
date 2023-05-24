@@ -19,20 +19,23 @@
         <div class="modal modal-bottom lg:pl-80">
             <div class="modal-box w-11/12 max-w-5xl">
                 <h3 class="font-bold text-lg mb-10">Add new category</h3>
-                <form {{-- action="{{ route('admin.register.submit') }}" --}} method="POST" enctype="multipart/form-data">
+                <form action="{{ route('pimpinan.project.category.register.submit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col md:flex-row ">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center lg:w-2/3">
                             <label for="name" class="mr-3 font-semibold">Category name :</label>
                             <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                                 placeholder="Category name" required />
-                            <label for="type" class="mr-3 font-semibold">Supervisor :</label>
-                            <select name="type" class="js-example-basic-single select select-bordered" id="">
+                            <label for="uid" class="mr-3 font-semibold">Supervisor :</label>
+                            <select name="uid" class="js-example-basic-single select select-bordered" id="">
                                 @foreach ($svs as $s)
                                     <option value="{{ $s->id }}">{{ $s->name }}</option>
                                 @endforeach
                                 {{-- <option value="HA">hehehe</option> --}}
                             </select>
+                            {{-- <label for="lid" class="mr-3 font-semibold">Location ID :</label> --}}
+                            {{-- <input name="lid" type="text" class="input input-bordered w-full max-w-xs col-span-1" required value="{{ $loc->id }} " /> --}}
+                            <input type="hidden" name="lid" value={{ $loc->id }}>
                         </div>
                     </div>
 
@@ -60,7 +63,7 @@
                         <tr>
                             <td>{{ $c->id }}</td>
                             <td>{{ $c->name }}</td>
-                            <td>Hanifah</td>
+                            <td>{{ $c->sv_name }}</td>
                             <td class="text-center">
                                 <!-- The button to open modal -->
                                 <label for="cat_detail" class="btn btn-primary modal-button">

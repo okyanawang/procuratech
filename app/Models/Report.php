@@ -13,7 +13,7 @@ class Report extends Model
         'title',
         'description',
         'tasks_id',
-        'users_id',
+        // 'users_id',
     ];
 
     /**
@@ -26,8 +26,8 @@ class Report extends Model
         return $this->belongsTo(Task::class);
     }
 
-    public function users(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    // public function users(): BelongsTo
+    // {
+    //     return $this->belongsTo(User::class);
+    // }
 }

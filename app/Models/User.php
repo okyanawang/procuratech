@@ -70,15 +70,20 @@ class User extends Authenticatable
         return $this->belongsToMany(Task::class, 'user_has_tasks', 'users_id', 'tasks_id');
     }
 
+    public function categories(): HasMany
+    {
+        return $this->hasMany(Category::class);
+    }
+
     /**
      * Get all of the reports for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function reports(): HasMany
-    {
-        return $this->hasMany(Report::class);
-    }
+    // public function reports(): HasMany
+    // {
+    //     return $this->hasMany(Report::class);
+    // }
 
     public function hasRole($role)
     {

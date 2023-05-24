@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('berita_acaras', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('title', 45)->nullable();
             $table->string('description', 45)->nullable();
-            $table->string('item_name', 45)->nullable();
-            $table->string('item_amount', 45)->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
-            $table->integer('tasks_id')->index('fk_berita_acaras_tasks1_idx');
+            $table->integer('tasks_id')->index('fk_reports_tasks1_idx');
         });
     }
 
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('berita_acaras');
+        Schema::dropIfExists('reports');
     }
 };

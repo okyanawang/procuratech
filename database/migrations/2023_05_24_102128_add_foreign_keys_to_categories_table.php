@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->foreign(['locations_id'], 'fk_categories_locations1')->references(['id'])->on('locations')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign(['users_id'], 'fk_categories_users1')->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
 
@@ -27,6 +28,7 @@ return new class extends Migration
     {
         Schema::table('categories', function (Blueprint $table) {
             $table->dropForeign('fk_categories_locations1');
+            $table->dropForeign('fk_categories_users1');
         });
     }
 };
