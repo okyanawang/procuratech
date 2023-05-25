@@ -10,7 +10,21 @@
     <div class="container">
         <form action="" class="h-full px-0 md:px-14 mb-40" method="POST" enctype="multipart/form-data">
             @csrf
+            <div class="justify-center flex-col md:flex-row">
+                <div class="grid grid-cols-1 grid-rows-1 gap-1 items-center mb-2">
+                    <!-- <h3 class="font-bold text-lg mb-10">Permintaan Alat Kerja</h3> -->
+                    <!-- <label for="type" class="mr-3 font-semibold">Tipe :</label> -->
+                    <select class="select select-bordered block mt-1 w-full" name="type" required>
+                        <option value="0" hidden disabled selected>Choose Type</option>
+                        <option value="Supervisor 1" selected>Permintaan Alat Kerja</option>
+                        <option value="Supervisor 2">Permintaan Suku Cadang/Komponen</option>
+                        <option value="Supervisor 3">Pengadaan Material</option>
+                    </select>
+                        
+                </div>
+            </div>
             <div class="flex flex-col md:flex-row gap-3">
+                
                 <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
                     <label for="no_proyek" class="mr-3 font-semibold">No Proyek :</label>
                     <input name="no_proyek" type="text" class="input input-bordered w-full max-w-xs col-span-1"
@@ -30,9 +44,9 @@
                     <label for="deadline_alat_kerja" class="mr-3 font-semibold">Deadline Alat Kerja :</label>
                     <input name="deadline_alat_kerja" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="deadline alat kerja" value="2023-05-28" required />
-                    <label for="deadline_suku_cadang" class="mr-3 font-semibold">Deadline Suku Cadang :</label>
+                    <!-- <label for="deadline_suku_cadang" class="mr-3 font-semibold">Deadline Suku Cadang :</label>
                     <input name="deadline_suku_cadang" type="date" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="deadline suku cadang" value="2023-05-28" required />
+                        placeholder="deadline suku cadang" value="2023-05-28" required /> -->
                 </div>
                 <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
 
@@ -45,22 +59,23 @@
                     <label for="lokasi_pekerjaan" class="mr-3 font-semibold">Lokasi Pekerjaan :</label>
                     <input name="lokasi_pekerjaan" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="lokasi pekerjaan" value="Jalur Utama" required />
-                    <label for="deadline_material" class="mr-3 font-semibold">Deadline Material :</label>
+                    <!-- <label for="deadline_material" class="mr-3 font-semibold">Deadline Material :</label>
                     <input name="deadline_material" type="date" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="deadline material" value="2023-05-28" required />
+                        placeholder="deadline material" value="2023-05-28" required /> -->
                     <label for="waktu_mulai" class="mr-3 font-semibold">Waktu Mulai :</label>
                     <input name="waktu_mulai" type="time" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="waktu mulai" value="15:00" required />
                 </div>
             </div>
-            <!-- The button to open modal -->
-            <label for="my-modal-update-report" class="btn btn-primary mt-12 w-full modal-button"><i
-                    class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
-
-            <!-- The button to open modal -->
-            <label for="my-modal-delete-report" class="btn btn-error mt-12 w-full modal-button text-white"><i
-                    class="fa-solid fa-trash"></i>&nbsp; Delete Report</label>
-
+            <div class="flex justify-center gap-5">
+                <!-- The button to open modal -->
+                <label for="my-modal-delete-user" class="btn btn-error mt-5 w-50 modal-button text-white"><i
+                        class="fa-solid fa-trash"></i>&nbsp; Delete User</label>
+                <!-- The button to open modal -->
+                <label for="my-modal-6" class="btn btn-primary mt-5 w-50 modal-button"><i
+                        class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
+    
+            </div>
             <!-- Put this part before </body> tag -->
             <input type="checkbox" id="my-modal-update-report" class="modal-toggle" />
             <div class="modal modal-bottom sm:modal-middle lg:pl-80">

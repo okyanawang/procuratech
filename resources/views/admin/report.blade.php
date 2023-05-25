@@ -83,7 +83,7 @@
                     <th>Deadline Suku Cadang</th>
                     <th>Deadline Material</th>
                     <th>Waktu Mulai</th> -->
-                    <th style="text-align-last: center">Status</th>
+                    <th style="text-align-last: center">Jenis</th>
                     <th style="text-align-last: center">Detail</th>
                 </tr>
             </thead>
@@ -95,9 +95,41 @@
                     <td>PR001</td>
                     <td>TK001</td>
                     <td>Perbaikan Lampu Jalan</td>
-                    <td>Jibi</td>
+                    <td>Supervisor 1</td>
                     <td class="text-center">
-                        <div class="badge badge-success p-4">Persiapan Alat</div>
+                        <div class="badge badge-warning p-4">Permintaan Alat Kerja</div>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ route('admin.report_detail') }}">
+                            <button class="btn btn-info font-semibold">Detail</button>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    {{-- <th>{{ $user->id - 1 }}</th> --}}
+                    <th>2</th>
+                    <td>PR001</td>
+                    <td>TK002</td>
+                    <td>Perbaikan Lampu Jalan</td>
+                    <td>Supervisor 2</td>
+                    <td class="text-center">
+                        <div class="badge badge-success p-4">Permintaan Suku Cadang/Komponen</div>
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ route('admin.report_detail') }}">
+                            <button class="btn btn-info font-semibold">Detail</button>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    {{-- <th>{{ $user->id - 1 }}</th> --}}
+                    <th>3</th>
+                    <td>PR001</td>
+                    <td>TK003</td>
+                    <td>Perbaikan Lampu Jalan</td>
+                    <td>Supervisor 3</td>
+                    <td class="text-center">
+                        <div class="badge badge-info p-4">Pengadaan Material</div>
                     </td>
                     <td class="text-center">
                         <a href="{{ route('admin.report_detail') }}">
