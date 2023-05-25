@@ -20,6 +20,9 @@
                 <li class="my-1"><a href="{{ route('admin.component') }}"
                         class="py-5 {{ Request::is('admin/component') ? 'active' : null }}"><i
                             class="fa-solid fa-puzzle-piece"></i>Components</a></li>
+                <li class="my-1"><a href="{{ route('admin.project') }}"
+                        class="py-5 {{ Request::is('admin/project') ? 'active' : null }}"><i
+                            class="fa-solid fa-puzzle-piece"></i>Project</a></li>
                 <li class="my-1"><a href="{{ route('admin.work') }}"
                         class="py-5 {{ Request::is('admin/work') ? 'active' : null }}"><i
                             class="fa-solid fa-briefcase"></i>Works</a></li>
