@@ -14,6 +14,11 @@ class AdminController extends Controller
         return view('admin.dashboard')->with('nuser', $nuser);
     }
 
+    public function project_index()
+    {
+        return view('admin.project');
+    }
+
     public function component_index()
     {
         return view('admin.component');
@@ -56,4 +61,6 @@ class AdminController extends Controller
     {
         return view('admin.report-detail');
     }
+
+    
 }

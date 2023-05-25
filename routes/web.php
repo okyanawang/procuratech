@@ -67,6 +67,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/', [AdminController::class, 'index'])->name('.dashboard');
     });
 
+    Route::group(['prefix' => 'project'], function () {
+        Route::get('/', [AdminController::class, 'project_index'])->name('.project');
+        Route::get('/detail', [AdminController::class, 'project_detail'])->name('.project_detail');
+    });
+
     Route::group(['prefix' => 'component'], function () {
         Route::get('/', [AdminController::class, 'component_index'])->name('.component');
     });
