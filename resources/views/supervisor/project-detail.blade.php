@@ -27,19 +27,16 @@
                             <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                                 placeholder="full name" required />
                             <label for="type" class="mr-3 font-semibold">Type :</label>
-                            <select name="type" class="select select-bordered" id="">
-                                <option value="LA">lalala</option>
-                                <option value="YE">yeyeye</option>
-                                <option value="HA">hehehe</option>
-                            </select>
+                            <input name="type" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                                placeholder="tipe pekerjaan" required />
                             <label for="startdate" class="mr-3 font-semibold">Start date :</label>
                             <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                                 required />
                             <label for="startdate" class="mr-3 font-semibold">End date :</label>
                             <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                                 required />
-                            <label for="type" class="mr-3 font-semibold">Worker :</label>
-                            <select name="type" class="js-example-basic-single select select-bordered" id=""
+                            <label for="worker" class="mr-3 font-semibold">Worker :</label>
+                            <select name="worker" class="js-example-basic-single select select-bordered" id=""
                                 multiple="multiple">
                                 <optgroup label="Measurer">
                                     @foreach ($measurer as $m)
@@ -57,22 +54,18 @@
                                     @endforeach
                                 </optgroup>
                             </select>
-                            <label for="type" class="mr-3 font-semibold">Checker :</label>
-                            <select name="type" class="js-example-basic-single select select-bordered" id=""
+                            <label for="inspector" class="mr-3 font-semibold">Inspector :</label>
+                            <select name="inspector" class="js-example-basic-single select select-bordered" id=""
                                 multiple="multiple">
                                 @foreach ($inspector as $i)
                                     <option value="{{ $i->id }}">{{ $i->name }}</option>
                                 @endforeach
-                                {{-- <option value="LA">lalala</option>
-                                <option value="YE">yeyeye</option>
-                                <option value="HA">hehehe</option> --}}
                             </select>
                             <label for="desc" class="mr-3 font-semibold">Description :</label>
                             <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
-                            <label for="worktech" class="mr-3 font-semibold">Work Technique :</label>
-                            <textarea name="worktech" id="worktech" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
-                            <label for="checktech" class="mr-3 font-semibold">Check Technique :</label>
-                            <textarea name="checktech" id="checktech" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
+                            {{-- <h3 class="font-bold text-2xl">Items</h3>
+                            <button class="btn btn-primary mt-5 ">+ Add item</button>
+                            <select name="test" id=""></select> --}}
                         </div>
                     </div>
 
@@ -107,7 +100,7 @@
                             <td>{{ $t->end_date }}</td>
                             <td class="text-center">3</td>
                             <td class="text-center">
-                                <a href="{{ route('supervisor.jobdetail', ['id' => $t->id]) }}">
+                                <a href="{{ route('supervisor.project.job.detail', ['id' => $t->id]) }}">
                                     <button class="btn btn-info font-semibold">Detail</button>
                                 </a>
                             </td>
