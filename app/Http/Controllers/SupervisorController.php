@@ -23,9 +23,11 @@ class SupervisorController extends Controller
     public function project_index()
     {
         $projects = DB::table('projects')
+            ->join('locations', 'projects.id', '=', 'locations.projects_id')
+            ->join('categories', 'locations.id', '=', 'categories.locations_id')
             ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
             ->join('users', 'users_has_projects.users_id', '=', 'users.id')
-            ->where('users_has_projects.users_id', Auth::user()->id)
+            ->where('categories.users_id', Auth::user()->id)
             ->select('projects.*')
             ->get();
         return view('supervisor.project', ['projects' => $projects]);
@@ -34,12 +36,15 @@ class SupervisorController extends Controller
     public function project_detail($id)
     {
         $project_detail = DB::table('projects')
+            ->join('locations', 'projects.id', '=', 'locations.projects_id')
+            ->join('categories', 'locations.id', '=', 'categories.locations_id')
+            ->join('tasks', 'categories.id', '=', 'tasks.categories_id')
             ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
             ->join('users', 'users_has_projects.users_id', '=', 'users.id')
             ->where('projects.id', $id)
             ->select('projects.*')
             ->first();
-        $project_has_tasks = Task::where('projects_id', $id)->get();
+        $project_has_tasks = Task::where('categories_id', $id)->get();
         // dd($project_detail);
         return view('supervisor.project-detail', ['project_detail' => $project_detail, 'project_has_tasks' => $project_has_tasks]);
     }

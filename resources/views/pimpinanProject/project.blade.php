@@ -71,8 +71,8 @@
                     <tr>
                         <td>{{ $p->id }}</td>
                         <td>{{ $p->name }}</td>
-                        <td>27/01/23</td>
-                        <td>29/01/23</td>
+                        <td>{{ $p->start_date }}</td>
+                        <td>{{ $p->end_date }}</td>
                         <td class="text-center">3</td>
                         <td class="text-center">
                             <a href="{{ route('pimpinan.project.detail', ['id' => $p->id]) }}">
