@@ -11,15 +11,9 @@
             <thead>
                 <tr>
                     <th>No</th>
-<<<<<<< HEAD
                     <th>Category</th>
                     <th>Location</th>
                     <th>Project Name</th>
-=======
-                    <th>Name</th>
-                    <th>Location</th>
-                    <th>Project</th>
->>>>>>> deeeaa2 (fix something)
                     <th>Start Date</th>
                     <th>End Date</th>
                     {{-- <th style="text-align-last: center">Total task</th> --}}

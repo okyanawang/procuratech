@@ -36,9 +36,9 @@
                             <label for="startdate" class="mr-3 font-semibold">End date :</label>
                             <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                                 required />
-                            {{-- <label for="worker" class="mr-3 font-semibold">Worker :</label>
+                            <label for="worker" class="mr-3 font-semibold">Worker :</label>
                             <select name="worker" class="js-example-basic-single select select-bordered" id=""
-                                multiple="multiple" required>
+                                multiple="multiple">
                                 <optgroup label="Measurer">
                                     @foreach ($measurer as $m)
                                         <option value="{{ $m->id }}">{{ $m->name }} - Measurer</option>
@@ -57,14 +57,16 @@
                             </select>
                             <label for="inspector" class="mr-3 font-semibold">Inspector :</label>
                             <select name="inspector" class="js-example-basic-single select select-bordered" id=""
-                                multiple="multiple" required>
+                                multiple="multiple">
                                 @foreach ($inspector as $i)
                                     <option value="{{ $i->id }}">{{ $i->name }}</option>
                                 @endforeach
-                            </select> --}}
+                            </select>
                             <label for="desc" class="mr-3 font-semibold">Description :</label>
-                            <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required></textarea>
-                            <input type="hidden" name="categories_id" value={{ $cat->id }}>
+                            <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
+                            {{-- <h3 class="font-bold text-2xl">Items</h3>
+                            <button class="btn btn-primary mt-5 ">+ Add item</button>
+                            <select name="test" id=""></select> --}}
                         </div>
                     </div>
 
