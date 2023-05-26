@@ -16,7 +16,7 @@
                 <li class="my-1"><a href="{{ route('supervisor.dashboard') }}"
                         class="py-5 {{ Request::is('supervisor/dashboard') ? 'active' : null }}"><i
                             class="fa-solid fa-house"></i>Dashboard</a></li>
-                <li class="my-1"><a href="{{ route('supervisor.project') }}"
+                <li class="my-1"><a href="{{ route('supervisor.project.index') }}"
                         class="py-5 {{ Request::is('supervisor/project') ? 'active' : null }}"><i
                             class="fa-solid fa-puzzle-piece"></i>project</a></li>
                 <li class="mt-auto">

@@ -1,6 +1,6 @@
 <div class="navbar bg-base-100 fixed top-0 z-50">
     <div class="navbar-start flex-1">
-        @if (Request::is('admin/*'))
+        @if (Auth::check())
             <label for="my-drawer-2" class="btn btn-circle btn-primary swap swap-rotate drawer-button lg:hidden">
                 <!-- this hidden checkbox controls the state -->
                 <input type="checkbox" class="hidden" />
@@ -36,7 +36,30 @@
                 </label>
                 <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                     <li>
-                        <a class="justify-between">
+                        <a @switch(Auth::user()->role)
+                                @case('Admin IT')
+                                    href="/admin"
+                                @break
+
+                                @case('Project Manager')
+                                    href="/pimpinan"
+                                @break
+
+                                @case('Supervisor')
+                                    href="/supervisor"
+                                @break
+
+                                @case('Inventory Officer')
+                                    href="/inventori"
+                                @break
+
+                                @case('Measurement Executor')
+                                    href="/pengukuran"
+                                @break
+
+                                @default
+                                @endswitch
+                            class="justify-between">
                             Dashboard
                         </a>
                     </li>

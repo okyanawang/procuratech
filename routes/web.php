@@ -121,7 +121,6 @@ Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan', 'middleware' => 'auth.
             Route::get('/{id}', [PimpinanController::class, 'category_detail'])->name('.detail');
             Route::post('/register', [CategoryController::class, 'store'])->name('.register.submit');
         });
-
     });
 });
 
@@ -167,11 +166,11 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor', 'middleware' => 'a
     //     Route::get('/', [SupervisorController::class, 'project_index'])->name('.project');
     // });
 
-    Route::group(['prefix' => 'project'], function () {
-        Route::get('/', [SupervisorController::class, 'project_index'])->name('.project');
+    Route::group(['prefix' => 'project', 'as' => '.project'], function () {
+        Route::get('/', [SupervisorController::class, 'project_index'])->name('.index');
         Route::get('/{id}', [SupervisorController::class, 'project_detail'])->name('.detail');
-        Route::group(['prefix' => 'job'], function () {
-            Route::get('/{id}', [SupervisorController::class, 'job_detail'])->name('.jobdetail');
+        Route::group(['prefix' => 'job', 'as' => '.job'], function () {
+            Route::get('/{id}', [SupervisorController::class, 'job_detail'])->name('.detail');
         });
         // Route::get('/detail', [SupervisorController::class, 'project_detail'])->name('.detail');
     });
