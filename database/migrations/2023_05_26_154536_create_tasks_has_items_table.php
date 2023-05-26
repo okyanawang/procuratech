@@ -13,8 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('log_inventories', function (Blueprint $table) {
-            $table->foreign(['inventories_id'], 'fk_log_inventories_inventories1')->references(['id'])->on('inventories')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+        Schema::create('tasks_has_items', function (Blueprint $table) {
+            $table->integer('tasks_id')->index('fk_tasks_has_items_tasks1_idx');
+            $table->integer('items_id')->index('fk_tasks_has_items_items1_idx');
+            $table->float('amount', 10, 0)->nullable();
+
+            $table->primary(['tasks_id', 'items_id']);
         });
     }
 
@@ -25,8 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('log_inventories', function (Blueprint $table) {
-            $table->dropForeign('fk_log_inventories_inventories1');
-        });
+        Schema::dropIfExists('tasks_has_items');
     }
 };
