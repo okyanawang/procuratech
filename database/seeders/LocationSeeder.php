@@ -23,8 +23,8 @@ class LocationSeeder extends Seeder
 
         $names = [
             'Main Deck',
-            'Main Deck',
-            'Main Deck',
+            'Poop Deck',
+            'Upper Deck',
         ];
 
         foreach ($names as $key=> $name){

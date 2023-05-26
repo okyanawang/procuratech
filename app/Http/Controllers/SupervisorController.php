@@ -13,10 +13,10 @@ class SupervisorController extends Controller
 {
     public function index()
     {
-        $nprojects = DB::table('projects')
-            ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
-            ->join('users', 'users_has_projects.users_id', '=', 'users.id')
-            ->where('users_has_projects.users_id', Auth::user()->id)
+        $nprojects = DB::table('categories')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->where('categories.users_id', Auth::user()->id)
             ->select('projects.*')
             ->count();
         return view('supervisor.dashboard', ['nprojects' => $nprojects]);
@@ -28,7 +28,18 @@ class SupervisorController extends Controller
             ->join('locations', 'projects.id', '=', 'locations.projects_id')
             ->join('categories', 'locations.id', '=', 'categories.locations_id')
             ->where('categories.users_id', Auth::user()->id)
+<<<<<<< HEAD
             ->select('categories.id', 'projects.name AS pname', 'locations.name AS lname', 'categories.name AS cname', 'projects.start_date', 'projects.end_date', 'projects.status')
+=======
+            ->select('projects.id as proj_id'
+            , 'locations.id as loc_id'
+            , 'categories.id as cat_id'
+            , 'projects.name as proj_name'
+            , 'locations.name as loc_name'
+            , 'categories.name as cat_name'
+            , 'projects.start_date as start_date'
+            , 'projects.end_date as end_date')
+>>>>>>> deeeaa2 (fix something)
             ->get();
         // dd($projects);
         return view('supervisor.project', ['projects' => $projects]);
