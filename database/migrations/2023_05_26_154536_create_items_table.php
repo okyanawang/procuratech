@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('type');
             $table->string('brand');
             $table->string('produsen');
+            $table->string('type');
             $table->float('stock', 10, 0)->default(0);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
