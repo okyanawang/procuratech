@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('type');
             $table->string('brand');
             $table->string('produsen');
-            $table->integer('amount')->default(0);
-            $table->integer('tasks_id')->index('fk_items_tasks1_idx');
+            $table->float('stock', 10, 0)->default(0);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
+            $table->string('unit')->nullable();
         });
     }
 
