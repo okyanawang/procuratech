@@ -107,7 +107,7 @@
                             <td>{{ $t->end_date }}</td>
                             <td class="text-center">3</td>
                             <td class="text-center">
-                                <a href="{{ route('supervisor.jobdetail', ['id' => $t->id]) }}">
+                                <a href="{{ route('supervisor.project.job.detail', ['id' => $t->id]) }}">
                                     <button class="btn btn-info font-semibold">Detail</button>
                                 </a>
                             </td>
