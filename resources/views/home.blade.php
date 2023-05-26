@@ -17,9 +17,17 @@
                         @case('Admin IT')
                         href="/admin"
                         @break
-
-                        @case('Pimpinan Proyek')
+                        @case('Project Manager')
                         href="/pimpinan"
+                        @break
+                        @case('Supervisor')
+                        href="/supervisor"
+                        @break
+                        @case('Inventory Officer')
+                        href="/inventori"
+                        @break
+                        @case('Measurement Executor')
+                        href="/pengukuran"
                         @break
 
                         @default
