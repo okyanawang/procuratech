@@ -20,6 +20,11 @@ class Task extends Model
         'end_date',
         'categories_id',
     ];
+    
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
 
     public function categories(): BelongsTo
     {

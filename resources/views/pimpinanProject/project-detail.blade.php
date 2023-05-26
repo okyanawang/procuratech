@@ -19,10 +19,10 @@
                         placeholder="full name" required value="{{ $project_detail->name }} " />
                     <label for="startdate" class="mr-3 font-semibold">Start date :</label>
                     <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
-                        value="{{ \Carbon\Carbon::parse($project_detail->start_date)->format('m/d/Y') }}" />
+                        value="{{ \Carbon\Carbon::parse($project_detail->start_date)->format('Y-m-d') }}" />
                     <label for="enddate" class="mr-3 font-semibold">End date :</label>
                     <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
-                        value="{{ $project_detail->end_date }} " />
+                        value="{{ \Carbon\Carbon::parse($project_detail->end_date)->format('Y-m-d') }}" />
                     <label for="desc" class="mr-3 font-semibold">Description:</label>
                     <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required>{{ $project_detail->description }}</textarea>
                 </div>

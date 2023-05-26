@@ -19,6 +19,11 @@ class Project extends Model
         'status',
     ];
 
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+    ];
+
     public function tasks(): HasMany
     {
         return $this->hasMany(Location::class);
