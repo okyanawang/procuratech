@@ -81,6 +81,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/{id}', [AdminController::class, 'staff_detail'])->name('.detail');
         Route::get('/register', [AdminController::class, 'staff_register'])->name('.register');
         Route::post('/register', [AuthController::class, 'staff_register_submit'])->name('.register.submit');
+        Route::put('/{id}', [AdminController::class, 'staff_update'])->name('.update');
+        Route::delete('/{id}', [AdminController::class, 'staff_delete'])->name('.delete');
     });
 
     Route::group(['prefix' => 'report'], function () {

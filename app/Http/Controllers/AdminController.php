@@ -36,6 +36,29 @@ class AdminController extends Controller
         return view('admin.staff-detail', ['user' => $user]);
     }
 
+    public function staff_update(Request $request, $id)
+    {
+        // dd($request->all());
+        $user = User::find($id);
+        $user->name = $request->name;
+        $user->role = $request->role;
+        $user->availability_status = $request->availability_status;
+        $user->username = $request->username;
+        if($request->password != null)
+            $user->password = bcrypt($request->password);
+        $user->save();
+
+        return redirect()->route('admin.staff');
+    }
+
+    public function staff_delete($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+
+        return redirect()->route('admin.staff');
+    }
+
     public function work_index()
     {
         $projects = Project::all();
@@ -62,5 +85,5 @@ class AdminController extends Controller
         return view('admin.report-detail');
     }
 
-    
+
 }
