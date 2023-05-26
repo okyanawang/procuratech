@@ -12,8 +12,10 @@ class Report extends Model
     protected $fillable = [
         'title',
         'description',
+        'status',
+        'file',
         'tasks_id',
-        // 'users_id',
+        'users_id',
     ];
 
     /**
@@ -24,6 +26,11 @@ class Report extends Model
     public function tasks(): BelongsTo
     {
         return $this->belongsTo(Task::class);
+    }
+
+    public function users(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
     // public function users(): BelongsTo
