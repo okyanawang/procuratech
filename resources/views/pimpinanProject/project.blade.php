@@ -35,9 +35,9 @@
                         </select> --}}
                         <label for="status" class="mr-3 font-semibold">Status :</label>
                         <select class="select select-bordered" name="status" id="status">
-                            <option value="1">Pending</option>
-                            <option value="0">On Progress</option>
-                            <option value="2">Done</option>
+                            <option value="Pending">Pending</option>
+                            <option value="On Progress">On Progress</option>
+                            <option value="Done">Done</option>
                         </select>
                         <label for="description" class="mr-3 font-semibold">description :</label>
                         <textarea name="description" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
