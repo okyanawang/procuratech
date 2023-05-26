@@ -29,26 +29,44 @@
             </div>
             <div class="flex justify-center gap-5">
                 <!-- The button to open modal -->
-                <label for="my-modal-delete-user" class="btn btn-error mt-5 w-50 modal-button text-white"><i
+                <label for="modal-delete" class="btn btn-error mt-5 w-50 modal-button text-white"><i
                         class="fa-solid fa-trash"></i>&nbsp; Delete Project</label>
                 <!-- The button to open modal -->
-                <label for="my-modal-6" class="btn btn-primary mt-5 w-50 modal-button"><i
+                <label for="modal-update" class="btn btn-primary mt-5 w-50 modal-button"><i
                         class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
 
             </div>
-            <!-- Put this part before </body> tag -->
-            <input type="checkbox" id="my-modal-6" class="modal-toggle" />
-            <div class="modal modal-bottom sm:modal-middle lg:pl-80">
-                <div class="modal-box">
-                    <h3 class="font-bold text-lg">Update data ?</h3>
-                    <p class="py-4">Are you sure you want to update the project data? Data changes can be done anytime</p>
+        </form>
+
+        <!-- Put this part before </body> tag -->
+        <input type="checkbox" id="modal-delete" class="modal-toggle" />
+        <div class="modal modal-bottom sm:modal-middle lg:pl-80">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Delete data ?</h3>
+                <p class="py-4">Are you sure you want to update the project data? Data changes can't be undone</p>
+                <form action="" method="POST">
                     <div class="modal-action">
-                        <label for="my-modal-6" class="btn">cancel</label>
+                        <label for="modal-delete" class="btn btn-info">cancel</label>
                         <input type="submit" class="btn btn-primary" value="Submit">
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
+        </div>
+
+        <!-- Put this part before </body> tag -->
+        <input type="checkbox" id="modal-update" class="modal-toggle" />
+        <div class="modal modal-bottom sm:modal-middle lg:pl-80">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Update data ?</h3>
+                <p class="py-4">Are you sure you want to update the project data? Data changes can be done anytime</p>
+                <form action="" method="POST">
+                    <div class="modal-action">
+                        <label for="modal-update" class="btn btn-info">cancel</label>
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
 
         <div class="my-14">
             <h1 class="text-2xl mb-5">Locations</h1>
