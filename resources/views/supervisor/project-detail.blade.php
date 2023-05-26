@@ -19,7 +19,8 @@
         <div class="modal modal-bottom lg:pl-80">
             <div class="modal-box w-11/12 max-w-5xl">
                 <h3 class="font-bold text-lg mb-10">Add new job</h3>
-                <form {{-- action="{{ route('admin.register.submit') }}" --}} method="POST" enctype="multipart/form-data">
+                <form action="{{ route('supervisor.project.job.register.submit') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col md:flex-row ">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center lg:w-2/3">
@@ -28,44 +29,42 @@
                                 placeholder="full name" required />
                             <label for="type" class="mr-3 font-semibold">Type :</label>
                             <input name="type" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                                placeholder="tipe pekerjaan" required />
+                                placeholder="Job type" required />
                             <label for="startdate" class="mr-3 font-semibold">Start date :</label>
                             <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                                 required />
                             <label for="startdate" class="mr-3 font-semibold">End date :</label>
                             <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                                 required />
-                            <label for="worker" class="mr-3 font-semibold">Worker :</label>
+                            {{-- <label for="worker" class="mr-3 font-semibold">Worker :</label>
                             <select name="worker" class="js-example-basic-single select select-bordered" id=""
-                                multiple="multiple">
+                                multiple="multiple" required>
                                 <optgroup label="Measurer">
                                     @foreach ($measurer as $m)
-                                        <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                        <option value="{{ $m->id }}">{{ $m->name }} - Measurer</option>
                                     @endforeach
                                 </optgroup>
                                 <optgroup label="Analyst">
                                     @foreach ($analyst as $a)
-                                        <option value="{{ $a->id }}">{{ $a->name }}</option>
+                                        <option value="{{ $a->id }}">{{ $a->name }} - Analyst</option>
                                     @endforeach
                                 </optgroup>
                                 <optgroup label="Executor">
                                     @foreach ($executor as $e)
-                                        <option value="{{ $e->id }}">{{ $e->name }}</option>
+                                        <option value="{{ $e->id }}">{{ $e->name }} - Executor</option>
                                     @endforeach
                                 </optgroup>
                             </select>
                             <label for="inspector" class="mr-3 font-semibold">Inspector :</label>
                             <select name="inspector" class="js-example-basic-single select select-bordered" id=""
-                                multiple="multiple">
+                                multiple="multiple" required>
                                 @foreach ($inspector as $i)
                                     <option value="{{ $i->id }}">{{ $i->name }}</option>
                                 @endforeach
-                            </select>
+                            </select> --}}
                             <label for="desc" class="mr-3 font-semibold">Description :</label>
-                            <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
-                            {{-- <h3 class="font-bold text-2xl">Items</h3>
-                            <button class="btn btn-primary mt-5 ">+ Add item</button>
-                            <select name="test" id=""></select> --}}
+                            <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required></textarea>
+                            <input type="hidden" name="categories_id" value={{ $cat->id }}>
                         </div>
                     </div>
 

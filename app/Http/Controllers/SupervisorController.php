@@ -28,15 +28,17 @@ class SupervisorController extends Controller
             ->join('locations', 'projects.id', '=', 'locations.projects_id')
             ->join('categories', 'locations.id', '=', 'categories.locations_id')
             ->where('categories.users_id', Auth::user()->id)
-            ->select('projects.id as proj_id'
-            , 'locations.id as loc_id'
-            , 'categories.id as cat_id'
-            , 'projects.name as proj_name'
-            , 'locations.name as loc_name'
-            , 'categories.name as cat_name'
-            , 'projects.start_date as start_date'
-            , 'projects.end_date as end_date'
-            , 'projects.status as status')
+            ->select(
+                'projects.id as proj_id',
+                'locations.id as loc_id',
+                'categories.id as cat_id',
+                'projects.name as proj_name',
+                'locations.name as loc_name',
+                'categories.name as cat_name',
+                'projects.start_date as start_date',
+                'projects.end_date as end_date',
+                'projects.status as status'
+            )
             ->get();
         // dd($projects);
         return view('supervisor.project', ['projects' => $projects]);
@@ -59,12 +61,56 @@ class SupervisorController extends Controller
 
     public function job_detail($id)
     {
-        $job_detail = DB::table('projects')
-            ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
-            ->join('users', 'users_has_projects.users_id', '=', 'users.id')
-            ->where('projects.id', $id)
-            ->select('projects.*')
+        $job = Task::where('id', $id)->first();
+        $pm = DB::table('users')
+            ->join('users_has_projects', 'users.id', '=', 'users_has_projects.users_id')
+            ->where('users_has_projects.projects_id', $job->categories->locations->projects_id)
+            ->where('users.role', 'Project Manager')
+            ->select('users.*')
             ->first();
-        return view('supervisor.job-detail', ['job_detail' => $job_detail]);
+
+        $measurer_ass = DB::table('users')
+            ->join('users_has_tasks', 'users.id', '=', 'users_has_tasks.users_id')
+            ->where('users_has_tasks.tasks_id', $id)
+            ->where('users.role', 'Measurement Executor')
+            ->select('users.*')
+            ->get();
+        $analyst_ass = DB::table('users')
+            ->join('users_has_tasks', 'users.id', '=', 'users_has_tasks.users_id')
+            ->where('users_has_tasks.tasks_id', $id)
+            ->where('users.role', 'Analyst')
+            ->select('users.*')
+            ->get();
+        $worker_ass = DB::table('users')
+            ->join('users_has_tasks', 'users.id', '=', 'users_has_tasks.users_id')
+            ->where('users_has_tasks.tasks_id', $id)
+            ->where('users.role', 'Job Executor')
+            ->select('users.*')
+            ->get();
+        $inspector_ass = DB::table('users')
+            ->join('users_has_tasks', 'users.id', '=', 'users_has_tasks.users_id')
+            ->where('users_has_tasks.tasks_id', $id)
+            ->where('users.role', 'Job Inspector')
+            ->select('users.*')
+            ->get();
+
+
+        $measurer_all = User::where('role', 'Measurement Executor')->get();
+        $analyst_all = User::where('role', 'Analyst')->get();
+        $worker_all = User::where('role', 'Job Executor')->get();
+        $inspector_all = User::where('role', 'Job Inspector')->get();
+
+        return view('supervisor.job-detail', [
+            'job' => $job,
+            'pm' => $pm,
+            'measurer_ass' => $measurer_ass,
+            'analyst_ass' => $analyst_ass,
+            'worker_ass' => $worker_ass,
+            'inspector_ass' => $inspector_ass,
+            'measurer_all' => $measurer_all,
+            'analyst_all' => $analyst_all,
+            'worker_all' => $worker_all,
+            'inspector_all' => $inspector_all,
+        ]);
     }
 }

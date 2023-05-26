@@ -172,7 +172,10 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor', 'middleware' => 'a
         Route::get('/', [SupervisorController::class, 'project_index'])->name('.index');
         Route::get('/{id}', [SupervisorController::class, 'project_detail'])->name('.detail');
         Route::group(['prefix' => 'job', 'as' => '.job'], function () {
+            Route::post('/register', [TaskController::class, 'store'])->name('.register.submit');
             Route::get('/{id}', [SupervisorController::class, 'job_detail'])->name('.detail');
+            Route::post('/assign_staff', [TaskController::class, 'assign_staff'])->name('.assign_staff');
+            Route::post('/remove_staff', [TaskController::class, 'remove_staff'])->name('.remove_staff');
         });
         // Route::get('/detail', [SupervisorController::class, 'project_detail'])->name('.detail');
     });
