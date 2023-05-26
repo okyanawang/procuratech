@@ -5,7 +5,7 @@
         <a href="javascript:history.back()" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
-        <h1 class="text-4xl font-bold ml-5 mb-3">{{ $project_detail->name }}</h1>
+        <h1 class="text-4xl font-bold ml-5 mb-3">{{ $cat->name }}</h1>
     </div>
     <div class="container">
         <x-Alert />
@@ -42,19 +42,30 @@
                             <select name="type" class="js-example-basic-single select select-bordered" id=""
                                 multiple="multiple">
                                 <optgroup label="Measurer">
-                                    <option value="LA">lalala</option>
+                                    @foreach ($measurer as $m)
+                                        <option value="{{ $m->id }}">{{ $m->name }}</option>
+                                    @endforeach
                                 </optgroup>
                                 <optgroup label="Analyst">
-                                    <option value="YE">yeyeye</option>
-                                    <option value="HA">hehehe</option>
+                                    @foreach ($analyst as $a)
+                                        <option value="{{ $a->id }}">{{ $a->name }}</option>
+                                    @endforeach
+                                </optgroup>
+                                <optgroup label="Executor">
+                                    @foreach ($executor as $e)
+                                        <option value="{{ $e->id }}">{{ $e->name }}</option>
+                                    @endforeach
                                 </optgroup>
                             </select>
                             <label for="type" class="mr-3 font-semibold">Checker :</label>
                             <select name="type" class="js-example-basic-single select select-bordered" id=""
                                 multiple="multiple">
-                                <option value="LA">lalala</option>
+                                @foreach ($inspector as $i)
+                                    <option value="{{ $i->id }}">{{ $i->name }}</option>
+                                @endforeach
+                                {{-- <option value="LA">lalala</option>
                                 <option value="YE">yeyeye</option>
-                                <option value="HA">hehehe</option>
+                                <option value="HA">hehehe</option> --}}
                             </select>
                             <label for="desc" class="mr-3 font-semibold">Description :</label>
                             <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
@@ -79,7 +90,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Name</th>
+                        <th>Job Name</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th style="text-align-last: center">Type</th>
@@ -88,20 +99,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($project_has_tasks as $p)
-                    {{-- <tr>
-                        <td>{{ $p->id }}</td>
-                        <td>{{ $p->name }}</td>
-                        <td>{{ $p->start_date }}</td>
-                        <td>{{ $p->end_date }}</td>
-                        <td class="text-center">3</td>
-                        <td class="text-center">
-                            <a href="{{ route('supervisor.jobdetail', ['id' => $p->id]) }}">
-                                <button class="btn btn-info font-semibold">Detail</button>
-                            </a>
-                        </td>
-                    </tr>     --}}
-                @endforeach
+                    @foreach ($tasks as $t)
+                        <tr>
+                            <td>{{ $t->id }}</td>
+                            <td>{{ $t->name }}</td>
+                            <td>{{ $t->start_date }}</td>
+                            <td>{{ $t->end_date }}</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">
+                                <a href="{{ route('supervisor.jobdetail', ['id' => $t->id]) }}">
+                                    <button class="btn btn-info font-semibold">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
