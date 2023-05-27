@@ -1,20 +1,20 @@
 @extends('admin.drawer')
 
 @section('admin-content')
-<h1 class="text-4xl font-bold mb-10">Works</h1>
+<h1 class="text-4xl font-bold mb-10">Project</h1>
 
 <x-Alert />
 
 <!-- The button to open modal -->
 <label for="new-user" class="btn btn-primary mb-12 w-full modal-button"><i class="fa-solid fa-user-plus"></i>&nbsp;
-    Add New Work</label>
+    Add New Project</label>
 
 <!-- Put this part before </body> tag -->
 <input type="checkbox" id="new-user" class="modal-toggle" />
 <div class="modal modal-bottom lg:pl-80">
     <div class="modal-box w-11/12 max-w-5xl self-center rounded-lg">
-        <h3 class="font-bold text-lg mb-10">Add New Work</h3>
-        <form action="{{ route('admin.work.register') }}" method="POST" enctype="multipart/form-data">
+        <h3 class="font-bold text-lg mb-10">Add New Project</h3>
+        <form action="{{ route('admin.project.register') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col md:flex-row gap-3 mb-2">
                 <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center lg:w-2/3">
@@ -50,11 +50,10 @@
             <tr>
                 <th>No</th>
                 <th>Project Name</th>
-                <th>Project Manager</th>
-                <th>Status</th>
-                <th>Registration Date</th>
                 <th>Start Date</th>
                 <th>End Date</th>
+                <th>Total Locations</th>
+                <th>Total Categories</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -63,22 +62,34 @@
             <tr>
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $project->name }}</td>
+                <td>{{ $project->start_date->format('d-m-Y') }}</td>
+                <td>{{ $project->end_date->format('d-m-Y') }}</td>
                 <td>
                     @php
-                    $projectManager = App\Models\User::find($project->project_manager_id);
+                        $locationCount = App\Models\Location::find($project->id)->count();
                     @endphp
-                    @if($projectManager)
-                    {{ $projectManager->name }}
+                    @if($locationCount)
+                        {{ $locationCount }}
                     @endif
                 </td>
                 <td>
-                    <div class="badge badge-success p-4">Active</div>
+                    @php
+                        $locationProjects = App\Models\Location::find($project->id)->get();
+                    @endphp
+                    @php
+                        $categoriesCount = 0;
+                    @endphp
+                    @foreach ($locationProjects as $location) 
+                        @php
+                            $categoriesCount = $categoriesCount + App\Models\Category::find($location->id)->count();
+                        @endphp
+                    @endforeach
+                    @if($categoriesCount)
+                        {{ $categoriesCount }}
+                    @endif
                 </td>
-                <td>{{ $project->registration_date }}</td>
-                <td>{{ $project->start_date }}</td>
-                <td>{{ $project->end_date }}</td>
                 <td class="text-center">
-                    <a href="{{ route('admin.work.detail', ['id' => $project->id]) }}">
+                    <a href="{{ route('admin.project.detail', ['id' => $project->id]) }}">
                         <button class="btn btn-info font-semibold">Detail</button>
                     </a>
                 </td>
