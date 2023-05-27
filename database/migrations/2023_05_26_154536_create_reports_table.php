@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('title', 45)->nullable();
             $table->string('description', 45)->nullable();
             $table->string('status')->nullable();
-            $table->longblob('file')->nullable();
+            $table->binary('file')->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->integer('tasks_id')->index('fk_reports_tasks1_idx');
