@@ -13,7 +13,7 @@
     <h1 class="text-4xl font-bold mb-5">Work Detail</h1>
 
     <div class="container">
-        <form action="" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.work.register') }}" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col xl:flex-row gap-3">
                 <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
@@ -21,7 +21,7 @@
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="" required />
                     <label for="leader" class="mr-3 font-semibold">Project Leader :</label>
-                    <input name"leader" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                    <input name="leader" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="" required />
                     <label for="status" class="font-semibold">Status :</label>
                     <input name="status" type="text" class="input input-bordered w-full max-w-xs col-span-1"
@@ -74,7 +74,7 @@
         <div class="modal modal-bottom lg:pl-80">
             <div class="modal-box w-11/12 max-w-5xl self-center rounded-lg">
                 <h3 class="font-bold text-lg mb-10">Add new Job</h3>
-                <form action="{{ route('admin.register.submit') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.work.job.register') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col md:flex-row gap-3">
                         <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center lg:w-2/3">
@@ -96,8 +96,6 @@
                     </div>
                     <div class="modal-action flex justify-center gap-5">
                         <label for="new-user" class="btn btn-error">cancel</label>
-                        {{-- <a href="{{ route('admin.register') }}" class="btn btn-primary mb-3">Register Staff</a> --}}
-
                         <input type="submit" class="btn btn-primary" value="Submit">
                     </div>
                 </form>
@@ -129,7 +127,7 @@
                             <td>12/12/23</td>
                             <td>-</td>
                             <td>
-                                <a href="{{ route('admin.job.detail', ['id' => 1]) }}">
+                                <a href="{{ route('admin.work.job.detail', ['id' => 1]) }}">
                                     <button class="btn btn-info font-semibold">Detail</button>
                                 </a>
                             </td>

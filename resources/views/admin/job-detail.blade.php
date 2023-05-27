@@ -21,7 +21,7 @@
                     <label for="job" class="font-semibold">Job Name :</label>
                     <input name="job" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="" required />
-                    <label for="desc" class="mr-3 font-semibold">Description :</label>
+                    <label for="desc" class="mr-3 font-semibold">Status :</label>
                     <input name="desc" type="textarea" class="input input-bordered w-full max-w-xs col-span-1"
                         value="" required />
                     <label for="staff" class="font-semibold">Staff :</label>
@@ -37,7 +37,7 @@
                     <input name="start-date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                         value="" required />
 
-                    <label for="finish-date" class="font-semibold">Expectatio Finish Date :</label>
+                    <label for="finish-date" class="font-semibold">Expectation Finish Date :</label>
                     <input name="finish-date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                         value="" required />
                 </div>
@@ -46,7 +46,7 @@
             <div class="flex justify-center gap-5">
                 <!-- The button to open modal -->
                 <label for="my-modal-delete-user" class="btn btn-error mt-5 w-50 modal-button text-white"><i
-                        class="fa-solid fa-trash"></i>&nbsp; Delete Project</label>
+                        class="fa-solid fa-trash"></i>&nbsp; Delete Job</label>
                 <!-- The button to open modal -->
                 <label for="my-modal-6" class="btn btn-primary mt-5 w-50 modal-button"><i
                         class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
