@@ -46,7 +46,24 @@ class SupervisorController extends Controller
 
     public function project_detail($id)
     {
-        $cat = Category::where('id', $id)->first();
+        $project = DB::table('projects')
+            ->join('locations', 'projects.id', '=', 'locations.projects_id')
+            ->join('categories', 'locations.id', '=', 'categories.locations_id')
+            ->where('categories.id', $id)
+            ->select(
+                'projects.id as proj_id',
+                'locations.id as loc_id',
+                'categories.id as cat_id',
+                'projects.name as proj_name',
+                'locations.name as loc_name',
+                'categories.name as cat_name',
+                'projects.start_date as start_date',
+                'projects.end_date as end_date',
+                'projects.status as status'
+            )
+            ->first();
+
+        // $cat = Category::where('id', $id)->first();
         $tasks = Task::where('categories_id', $id)->get();
         $executor = User::where('role', 'Job Executor')->get();
         $measurer = User::where('role', 'Measurement Executor')->get();
@@ -55,7 +72,7 @@ class SupervisorController extends Controller
 
         return view(
             'supervisor.project-detail',
-            ['cat' => $cat, 'tasks' => $tasks, 'executor' => $executor, 'measurer' => $measurer, 'analyst' => $analyst, 'inspector' => $inspector]
+            ['project' => $project, 'tasks' => $tasks, 'executor' => $executor, 'measurer' => $measurer, 'analyst' => $analyst, 'inspector' => $inspector]
         );
     }
 

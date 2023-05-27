@@ -1,11 +1,61 @@
 @extends('supervisor.drawer')
 
 @section('supervisor-content')
-    <div class="flex flex-row mb-10">
-        <a href="javascript:history.back()" class="self-center">
-            <i class="fa-solid fa-arrow-left fa-2xl"></i>
-        </a>
-        <h1 class="text-4xl font-bold ml-5 mb-3">{{ $job->name }}</h1>
+    <div class="flex flex-col md:flex-row">
+        <div class="flex flex-row mb-10">
+            <a href="javascript:history.back()" class="self-center">
+                <i class="fa-solid fa-arrow-left fa-2xl"></i>
+            </a>
+            <h1 class="text-4xl font-bold ml-5 mb-3">{{ $job->name }}</h1>
+
+        </div>
+        <label for="edit_task" class="md:ml-5 btn btn-primary">Edit Task</label>
+        <input type="checkbox" id="edit_task" class="modal-toggle" />
+        <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
+            <div class="modal-box">
+                <form action="{{ route('supervisor.project.job.update', ['id' => $job->id]) }}" method="POST"
+                    class="flex flex-col">
+                    @csrf
+                    @method('PUT')
+                    <h3 class="font-bold text-lg mb-5">Edit Task</h3>
+
+                    <label for="name" class="mb-2">Task Name</label>
+                    <input type="text" name="name" class="input input-bordered mb-3" value="{{ $job->name }}"
+                        required>
+                    <label for="type" class="mb-2">Type</label>
+                    <input type="text" name="type" class="input input-bordered mb-3" value="{{ $job->type }}"
+                        required>
+                    <label for="start_date" class="mb-2">Start Date</label>
+                    <input type="date" name="start_date" class="input input-bordered mb-3"
+                        value="{{ \Carbon\Carbon::parse($job->start_date)->format('Y-m-d') }}" required>
+                    <label for="end_date" class="mb-2">End Date</label>
+                    <input type="date" name="end_date" class="input input-bordered mb-3"
+                        value="{{ \Carbon\Carbon::parse($job->end_date)->format('Y-m-d') }}" required>
+                    <label for="description" class="mb-2">Description</label>
+                    <textarea name="description" id="" class="textarea textarea-bordered" cols="30" rows="5" required>{{ $job->description }}</textarea>
+
+                    <div class="modal-action">
+                        <label for="edit_task" class="btn btn-error">Cancel</label>
+                        <input type="submit" class="btn btn-success" value="Update">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <label for="delete_task" class="md:ml-3 my-2 md:my-0 btn btn-error">Delete Task</label>
+        <input type="checkbox" id="delete_task" class="modal-toggle" />
+        <div class="modal modal-bottom sm:modal-middle lg:pl-80">
+            <div class="modal-box">
+                <form action="" method="POST" class="flex flex-col">
+                    @csrf
+                    <h3 class="font-bold text-lg mb-5">Delete Task</h3>
+                    <p>Are you sure you want to delete this task? This action can't be undone</p>
+                    <div class="modal-action">
+                        <label for="delete_task" class="btn btn-error">Cancel</label>
+                        <input type="submit" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
     <div class="container">
         <x-Alert />
@@ -41,7 +91,7 @@
                                         class="flex flex-row mb-3" method="POST">
                                         @csrf
                                         <p class="mr-3">
-                                            {{ $m->name }}
+                                            {{ $m->name }} - {{ $m->phone_number }}
                                         </p>
                                         <input type="hidden" name="staff" value={{ $m->id }}>
                                         <input type="hidden" name="task_id" value={{ $job->id }}>
@@ -65,7 +115,7 @@
                                         class="flex flex-row mb-3" method="POST">
                                         @csrf
                                         <p class="mr-3">
-                                            {{ $m->name }}
+                                            {{ $m->name }} - {{ $m->phone_number }}
                                         </p>
                                         <input type="hidden" name="staff" value={{ $m->id }}>
                                         <input type="hidden" name="task_id" value={{ $job->id }}>
@@ -89,7 +139,7 @@
                                         class="flex flex-row mb-3" method="POST">
                                         @csrf
                                         <p class="mr-3">
-                                            {{ $m->name }}
+                                            {{ $m->name }} - {{ $m->phone_number }}
                                         </p>
                                         <input type="hidden" name="staff" value={{ $m->id }}>
                                         <input type="hidden" name="task_id" value={{ $job->id }}>
@@ -118,7 +168,7 @@
                         </optgroup>
                         <optgroup label="Worker">
                             @foreach ($worker_all as $m)
-                                <option value={{ $m->id }}>{{ $m->name }} - Measurer</option>
+                                <option value={{ $m->id }}>{{ $m->name }} - Worker</option>
                             @endforeach
                         </optgroup>
                     </select>
@@ -141,7 +191,7 @@
                                     class="flex flex-row mb-3" method="POST">
                                     @csrf
                                     <p class="mr-3">
-                                        {{ $m->name }}
+                                        {{ $m->name }} - {{ $m->phone_number }}
                                     </p>
                                     <input type="hidden" name="staff" value={{ $m->id }}>
                                     <input type="hidden" name="task_id" value={{ $job->id }}>
@@ -167,6 +217,63 @@
                         value="+">
                 </form>
             </div>
+        </div>
+
+        <div class="flex flex-row mt-10 mb-3">
+            <h1 class="text-3xl font-bold">Items</h1>
+            <label for="add_item" class="md:ml-5 btn btn-primary">+</label>
+            <input type="checkbox" id="add_item" class="modal-toggle" />
+            <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
+                <div class="modal-box">
+                    <form action="{{ route('supervisor.project.job.update', ['id' => $job->id]) }}" method="POST"
+                        class="flex flex-col">
+                        @csrf
+                        @method('PUT')
+                        <h3 class="font-bold text-lg mb-5">Add Item</h3>
+
+                        <label for="name" class="mb-2">Item Name</label>
+                        <select name="name" id="" class="js-example-basic-single select select-bordered">
+                            <option value="">Choose Item</option>
+                        </select>
+                        <label for="amount" class="mt-3 mb-2">Amount of Item</label>
+                        <input type="number" name="amout" class="input input-bordered mb-3" required>
+
+                        <div class="modal-action">
+                            <label for="add_item" class="btn btn-error">Cancel</label>
+                            <input type="submit" class="btn btn-success" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="overflow-x-auto mb-80">
+            <table id="myTable" class="table table-zebra w-full">
+                <!-- head -->
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Unit</th>
+                        <th style="text-align-last: center">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{-- @foreach ($projects as $p)
+                        <tr>
+                            <td>{{ $p->id }}</td>
+                            <td>{{ $p->name }}</td>
+                            <td>{{ $p->start_date }}</td>
+                            <td>{{ $p->end_date }}</td>
+                            <td class="text-center">3</td>
+                            <td class="text-center">
+                                <a href="{{ route('pimpinan.project.detail', ['id' => $p->id]) }}">
+                                    <button class="btn btn-info font-semibold">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach --}}
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
