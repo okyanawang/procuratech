@@ -24,9 +24,6 @@ class TaskController extends Controller
             'name' => 'required|unique:tasks|max:255',
             'desc' => 'required',
             'type' => 'required',
-            // 'worker' => 'required',
-            // 'inspector' => 'required',
-            // 'status' => 'required',
             'startdate' => 'required',
             'enddate' => 'required',
             'categories_id' => 'required',
@@ -51,19 +48,27 @@ class TaskController extends Controller
     {
         $validatedData = $request->validate([
             'staff' => 'required',
-            // 'inspector' => 'required',
             'task_id' => 'required',
         ]);
+
+        // check if staff already assigned to task
+        $check = DB::table('users_has_tasks')
+            ->where('users_id', $validatedData['staff'])
+            ->where('tasks_id', $validatedData['task_id'])
+            ->count();
+
+        if ($check > 0) {
+            // dd($check);
+            return redirect()->route('supervisor.project.job.detail', $validatedData['task_id'])->withErrors('Staff sudah ditambahkan pada task ini');
+        }
 
         // create new users_has_tasks record
         DB::table('users_has_tasks')->insert([
             'users_id' => $validatedData['staff'],
             'tasks_id' => $validatedData['task_id'],
         ]);
-        // $task->worker = $validatedData['staff'];
-        // $task->save();
 
-        return redirect()->route('supervisor.project.job.detail', $validatedData['task_id'])->with('success', 'Staff berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Staff berhasil ditambahkan');
     }
 
     public function remove_staff(Request $request)
@@ -82,7 +87,7 @@ class TaskController extends Controller
         // $task->worker = $validatedData['staff'];
         // $task->save();
 
-        return redirect()->route('supervisor.project.job.detail', $validatedData['task_id'])->with('success', 'Staff berhasil dihapus');
+        return redirect()->back()->with('success', 'Staff berhasil dihapus');
     }
 
     public function show($id)
@@ -98,17 +103,15 @@ class TaskController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'name' => 'required|unique:tasks|max:255',
+            'name' => 'required|max:255',
             'description' => 'required',
             'type' => 'required',
-            'status' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
-            'projects_id' => 'required',
         ]);
 
         Task::whereId($id)->update($validatedData);
-        return redirect()->route('task.index')->with('success', 'Task berhasil diupdate');
+        return redirect()->back()->with('success', 'Task berhasil diupdate');
     }
     public function destroy($id)
     {
