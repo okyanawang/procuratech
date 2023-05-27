@@ -67,17 +67,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/', [AdminController::class, 'index'])->name('.dashboard');
     });
 
-    Route::group(['prefix' => 'project'], function () {
-        Route::get('/', [AdminController::class, 'project_index'])->name('.project');
-        Route::get('/detail', [AdminController::class, 'project_detail'])->name('.project_detail');
-    });
-
     Route::group(['prefix' => 'component'], function () {
         Route::get('/', [AdminController::class, 'component_index'])->name('.component');
     });
 
-    Route::group(['prefix' => 'staff'], function () {
-        Route::get('/', [AdminController::class, 'staff_index'])->name('.staff');
+    Route::group(['prefix' => 'staff', 'as' => '.staff'], function () {
+        Route::get('/', [AdminController::class, 'staff_index'])->name('.index');
         Route::get('/{id}', [AdminController::class, 'staff_detail'])->name('.detail');
         Route::get('/register', [AdminController::class, 'staff_register'])->name('.register');
         Route::post('/register', [AuthController::class, 'staff_register_submit'])->name('.register.submit');
@@ -90,10 +85,24 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/detail', [AdminController::class, 'report_detail'])->name('.report_detail');
     });
 
-    Route::group(['prefix' => 'work'], function () {
-        Route::get('/', [AdminController::class, 'work_index'])->name('.work');
-        Route::get('/{id}', [AdminController::class, 'work_detail'])->name('.work.detail');
+    Route::group(['prefix' => 'work', 'as' => '.work'], function () {
+        Route::get('/', [AdminController::class, 'work_index'])->name('.index');
+        Route::get('/{id}', [AdminController::class, 'work_detail'])->name('.detail');
         Route::get('/{id}/job', [AdminController::class, 'job_detail'])->name('.job.detail');
+        Route::post('/register', [AdminController::class, 'store'])->name('.register');
+        Route::post('/job/register', [AdminController::class, 'job_store'])->name('.job.register');
+    });
+
+    Route::group(['prefix' => 'project', 'as' => '.project'], function () {
+        Route::get('/', [AdminController::class, 'project_index'])->name('.index');
+        Route::get('/{id}', [AdminController::class, 'project_detail'])->name('.detail');
+        Route::get('/{id}/location', [AdminController::class, 'location_detail'])->name('.location.detail');
+        Route::get('/{id}/category', [AdminController::class, 'category_detail'])->name('.category.detail');
+        Route::get('/{id}/task', [AdminController::class, 'task_detail'])->name('.task.detail');
+        Route::post('/register', [AdminController::class, 'store'])->name('.register');
+        Route::post('/location/register', [AdminController::class, 'location_store'])->name('.location.register');
+        Route::post('/category/register', [AdminController::class, 'category_store'])->name('.category.register');
+        Route::post('/task/register', [AdminController::class, 'task_store'])->name('.task.register');
     });
 });
 

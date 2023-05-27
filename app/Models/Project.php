@@ -24,7 +24,7 @@ class Project extends Model
         'end_date' => 'date',
     ];
 
-    public function tasks(): HasMany
+    public function locations(): HasMany
     {
         return $this->hasMany(Location::class);
     }

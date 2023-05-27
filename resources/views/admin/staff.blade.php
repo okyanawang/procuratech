@@ -14,7 +14,7 @@
     <div class="modal modal-bottom lg:pl-80">
         <div class="modal-box w-11/12 max-w-5xl self-center rounded-lg">
             <h3 class="font-bold text-lg mb-10">Add new staff</h3>
-            <form action="{{ route('admin.register.submit') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.staff.register.submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-col md:flex-row gap-3">
                     <div class="grid grid-cols-2 grid-rows-5 gap-2 items-center lg:w-2/3">
@@ -109,7 +109,7 @@
                             @endif
                         </td>
                         <td class="text-center">
-                            <a href="{{ route('admin.detail', ['id' => $staff->id]) }}">
+                            <a href="{{ route('admin.staff.detail', ['id' => $staff->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
