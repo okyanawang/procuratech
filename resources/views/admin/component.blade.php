@@ -23,7 +23,7 @@
                         placeholder="component name" required />
                     <label for="type" class="mr-3 font-semibold">Type :</label>
                     <select class="select select-bordered block mt-1 w-full" name="type" required>
-                        <option value="0" hidden disabled selected>Choose Role</option>
+                        <option value="0" hidden disabled selected>Choose Type</option>
                         <option value="Material">Material</option>
                         <option value="Parts">Parts</option>
                     </select>

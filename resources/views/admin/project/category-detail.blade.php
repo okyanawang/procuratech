@@ -111,11 +111,16 @@
         <form action="{{ route('admin.project.category.register') }}" class="h-full px-0 md:px-14 mb-10" method="POST"
             enctype="multipart/form-data">
             @csrf
-            <div class="flex flex-col gap-3">
-                <div class="grid grid-cols-2 gap-2 items-center w-full mb-5">
+            <div class="flex flex-col xl:flex-row gap-3">
+                <div class="grid grid-cols-2 grid-rows-1 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="name" class="font-semibold">Category Name :</label>
-                    <input name="name" type="text" class="input input-bordered w-full col-span-1"
+                    <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $category->name }}" required />
+                </div>
+                <div class="grid grid-cols-2 grid-rows-1 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+                    <label for="name" class="font-semibold">Supervisor :</label>
+                    <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        value="{{ $name_sv }}" required />
                 </div>
             </div>
 

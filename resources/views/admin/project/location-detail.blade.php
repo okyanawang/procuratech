@@ -69,14 +69,14 @@
     <h2 class="text-2xl font-bold mb-5">Location Detail</h2>
 
     <div class="container">
-        <form action="{{ route('admin.project.register') }}" class="h-full px-0 md:px-14 mb-10" method="POST"
+        <form action="{{ route('admin.project.location.register') }}" class="h-full px-0 md:px-14 mb-10" method="POST"
             enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col gap-3">
                 <div class="grid grid-cols-2 gap-2 items-center w-full mb-5">
-                    <label for="name" class="font-semibold">Category Name :</label>
+                    <label for="name" class="font-semibold">Location Name :</label>
                     <input name="name" type="text" class="input input-bordered w-full col-span-1"
-                        value="{{ $project->name }}" required />
+                        value="{{ $location->name }}" required />
                 </div>
             </div>
 
