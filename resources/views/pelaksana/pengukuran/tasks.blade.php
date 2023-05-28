@@ -1,35 +1,35 @@
 @extends('pelaksana.pengukuran.drawer')
 
 @section('pengukuran-content')
-    <h1 class="text-4xl font-bold mb-10">Tasks</h1>
-    <div class="overflow-x-auto mb-80">
-        <table id="myTable" class="table table-zebra w-full">
-            <!-- head -->
-            <thead>
+<h1 class="text-4xl font-bold mb-10">Tasks</h1>
+<div class="overflow-x-auto mb-80">
+    <table id="myTable" class="table table-zebra w-full">
+        <!-- head -->
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Task Name</th>
+                <th>Job Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th style="text-align-last: center">Detail</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($tasks as $key => $t)
                 <tr>
-                    <th>No</th>
-                    <th>Task Name</th>
-                    <th>Job Description</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th style="text-align-last: center">Detail</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{-- @foreach ($pengukuran as $p) --}}
-                    <tr>
-                        <td>1</td>
-                        <td>Hone</td>
-                        <td>lorem ipsum dolor sit amet</td>
-                        <td>27/01/23</td>
-                        <td>29/01/23</td>
-                        <td class="text-center">
-                            <a href="{{ route('pengukuran.tasks.detail', ['id']) }}">
+                    <td>{{ $key+1 }}</td>
+                    <td>{{ $t->task_name }}</td>
+                    <td>{{ $t->task_description }}</td>
+                    <td>{{ $t->task_start }}</td>
+                    <td>{{ $t->task_end }}</td>
+                    <td class="text-center">
+                        <a href="{{ route('pengukuran.tasks.detail', ['id' => $t->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
                     </tr>    
-                {{-- @endforeach --}}
+                @endforeach
             </tbody>
         </table>
     </div>
