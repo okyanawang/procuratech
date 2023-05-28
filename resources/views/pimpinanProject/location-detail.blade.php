@@ -19,7 +19,8 @@
         <div class="modal modal-bottom lg:pl-80">
             <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
                 <h3 class="font-bold text-lg mb-10">Add new category</h3>
-                <form action="{{ route('pimpinan.project.category.register.submit') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('pimpinan.project.category.register.submit') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col md:flex-row ">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center lg:w-2/3">
@@ -77,25 +78,35 @@
                             <input type="checkbox" id="cat_detail" class="modal-toggle" />
                             <div class="modal modal-bottom lg:pl-80">
                                 <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
+                                    <h1 class="text-3xl font-bold mb-2">{{ $proj->name }}</h1>
                                     <div class="flex flex-row">
-                                        <h1 class="font-bold text-2xl mb-3">{{ $c->name }}</h1>
+                                        <h1 class="font-bold text-2xl mb-3">{{ $c->name }} <span>at
+                                                {{ $loc->name }}</span></h1>
                                     </div>
-                                    <div class="mt-5">
+                                    <div class="mt-5 grid grid-cols-2">
                                         <div class="mb-3">
                                             <h4 class="font-bold">Project Manager</h4>
-                                            <li>{{ Auth::user()->name }}<span> - {{ Auth::user()->phone_number }}</span></li>
+                                            <li>{{ Auth::user()->name }}<span> - {{ Auth::user()->phone_number }}</span>
+                                            </li>
                                         </div>
                                         <div class="mb-3">
                                             <h4 class="font-bold">Supervisor</h4>
                                             <li>{{ $c->sv_name }} - <span>0192739012</span></li>
                                         </div>
-                                        <div class="mb-3">
-                                            <h4 class="font-bold">Woker</h4>
-                                            <li>ikal <span>as measurer</span> - <span>0192739012</span></li>
-                                        </div>
-                                        <div class="mb-3">
-                                            <h4 class="font-bold">Work Checker</h4>
-                                            <li>ikal - <span>0192739012</span></li>
+                                    </div>
+                                    <div class="mt-5">
+                                        <h1 class="font-bold text-xl">List of Tasks</h1>
+                                        <div class="flex flex-col max-h-52 overflow-auto">
+                                            @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
+                                                <div class="mb-3 grid grid-cols-3 w-full items-center">
+                                                    <h4 class="">{{ $t->name }}</h4>
+                                                    <div class="badge badge-primary mr-1 text-center">status</div>
+                                                    <a
+                                                        href="{{ route('pimpinan.project.category.task.detail', ['id' => $t->id]) }}">
+                                                        <button class="btn btn-info font-semibold">Detail</button>
+                                                    </a>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                     <div class="modal-action">

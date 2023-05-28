@@ -27,12 +27,6 @@
                         <label for="end_date" class="mr-3 font-semibold">End date :</label>
                         <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                             required />
-                        {{-- <label for="supervisor" class="mr-3 font-semibold">Supervisor :</label>
-                        <select name="supervisor" class="js-example-basic-single select select-bordered" id="">
-                            @foreach ($sv as $item)
-                                <option value="{{ $item->id }}">{{ $item->name }}</option>
-                            @endforeach
-                        </select> --}}
                         <label for="status" class="mr-3 font-semibold">Status :</label>
                         <select class="select select-bordered" name="status" id="status">
                             <option value="Pending">Pending</option>
@@ -41,6 +35,8 @@
                         </select>
                         <label for="description" class="mr-3 font-semibold">description :</label>
                         <textarea name="description" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
+                        <label for="photo" class="mr-3 font-semibold">Upload Photo :</label>
+                        <input type="file" class="file-input file-input-bordered file-input-primary">
                     </div>
                 </div>
 
