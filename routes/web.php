@@ -122,9 +122,16 @@ Route::group(['prefix' => 'inventori', 'as' => 'inventori', 'middleware' => 'aut
         Route::get('/', [PetugasController::class, 'index'])->name('.dashboard');
     });
 
-    Route::group(['prefix' => 'component'], function () {
-        Route::get('/', [PetugasController::class, 'component_index'])->name('.component');
+    Route::group(['prefix' => 'item'], function () {
+        Route::get('/', [PetugasController::class, 'item_index'])->name('.item');
+        Route::get('/{id}', [PetugasController::class, 'item_detail'])->name('.detail');
+        // Route::get('/register', [PetugasController::class, 'item_create'])->name('.register');
+
     });
+
+
+
+
 });
 
 Route::group(['prefix' => 'bendaharaPeralatan', 'as' => 'bendaharaPeralatan', 'middleware' => 'auth.role:Inventory Treasurer'], function () {

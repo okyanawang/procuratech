@@ -11,8 +11,28 @@ class PetugasController extends Controller
         return view('petugasInventori.dashboard');
     }
 
-    public function component_index()
+    public function item_index()
     {
-        return view('petugasInventori.component');
+        return view('petugasInventori.items');
+    }
+
+    // public function item_create()
+    // {
+    //     return view('petugasInventori.item_create');
+    // }
+
+    // public function item_edit()
+    // {
+    //     return view('petugasInventori.item_edit');
+    // }
+
+    // public function item_delete()
+    // {
+    //     return view('petugasInventori.item_delete');
+    // }
+
+    public function item_detail()
+    {
+        return view('petugasInventori.items-detail');
     }
 }
