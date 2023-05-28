@@ -52,23 +52,24 @@
             <input type="checkbox" id="report" class="modal-toggle" />
             <div class="modal modal-bottom lg:pl-80">
                 <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
-                    <div class="flex flex-row justify-center">
-                        <h1 class="font-bold text-2xl mb-3">Report</h1>
-                        <p class="ml-3 mb-3 self-center"><span>12/12/23</span> - <span>-</span></p>
-                    </div>
-                    <div class="mt-5">
-                        <textarea class="border-2 border-black rounded-md p-3 text-black w-full" name="" id="" cols="30" rows="6"></textarea>
-                        <label for="image-report" class="mr-3 font-semibold">Bukti Gambar</label>
-                        <input name="image-report" type="file" class=""
-                            placeholder="full name" required />
-                    </div>
-                    <div class="flex justify-center gap-5">
-                        <!-- The button to open modal -->
-                        <label for="report" class="btn btn-error mt-5 w-50 modal-button text-white">&nbsp; Close</label>
-                        <!-- The button to open modal -->
-                        <label for="report" class="btn btn-primary mt-5 w-50 modal-button">&nbsp; Submit</label>
-        
-                    </div>
+                    <form action="">
+                        @csrf
+                        <div class="flex flex-row justify-center">
+                            <h1 class="font-bold text-2xl mb-3">Report</h1>
+                        </div>
+                        <div class="mt-5">
+                            <textarea class="textarea textarea-bordered p-3 text-black w-full" name="" id="" cols="30"
+                                rows="6" placeholder="I have done ...." required></textarea>
+                            <label for="image-report" class="mr-3 font-semibold">Proof of picture</label>
+                            <input name="image-report" type="file" class="file-input file-input-bordered file-input-info"
+                                placeholder="full name" required />
+                        </div>
+                        <div class="flex justify-center gap-5 mt-5">
+                            <label for="report" class="btn btn-error w-50 modal-button text-white">
+                                Close</label>
+                            <input type="submit" class="btn btn-primary" value="Report">
+                        </div>
+                    </form>
                 </div>
             </div>
 
