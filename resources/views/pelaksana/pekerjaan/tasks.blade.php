@@ -1,6 +1,6 @@
-@extends('pelaksana.pengukuran.drawer')
+@extends('pelaksana.pekerjaan.drawer')
 
-@section('pengukuran-content')
+@section('pekerjaan-content')
     <h1 class="text-4xl font-bold mb-10">Tasks</h1>
     <div class="overflow-x-auto mb-80">
         <table id="myTable" class="table table-zebra w-full">
@@ -24,7 +24,7 @@
                         <td>27/01/23</td>
                         <td>29/01/23</td>
                         <td class="text-center">
-                            <a href="{{ route('pengukuran.tasks.detail', ['id']) }}">
+                            <a href="{{ route('pekerjaan.tasks.detail', ['id']) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
