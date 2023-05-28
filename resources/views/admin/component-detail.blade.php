@@ -25,7 +25,7 @@
                 <select class="select select-bordered block mt-1 w-full" name="type" required>
                     <option value="{{ $item->type }}" hidden disabled selected>{{ $item->type }}</option>
                     <option value="Material">Material</option>
-                    <option value="Tool">Tool</option>
+                    <option value="Parts">Parts</option>
                 </select>
                 <label for="brand" class="mr-3 font-semibold">Brand :</label>
                 <input name="brand" type="text" class="input input-bordered w-full max-w-xs col-span-1"
