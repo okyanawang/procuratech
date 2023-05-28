@@ -77,4 +77,57 @@ class PimpinanController extends Controller
             'proj' => $proj,
         ]);
     }
+
+    public function task_detail($id)
+    {
+        // dd($tasks);
+        $task = Task::find($id);
+        $category = Category::find($task->categories_id);
+        $location = Location::find($category->locations_id);
+        $project = Project::find($location->projects_id);
+
+        $sv_on_proj = DB::table('users')
+            ->join('categories', 'users.id', '=', 'categories.users_id')
+            ->where('categories.id', $category->id)
+            ->where('users.role', 'Supervisor')
+            ->select('users.*')
+            ->first();
+        $worker = DB::table('users')
+            ->join('users_has_tasks', 'users.id', '=', 'users_has_tasks.users_id')
+            ->where('users_has_tasks.tasks_id', $id)
+            ->whereNot('users.role', 'Job Inspector')
+            ->select('users.*')
+            ->get();
+        $inspector = DB::table('users')
+            ->join('users_has_tasks', 'users.id', '=', 'users_has_tasks.users_id')
+            ->where('users_has_tasks.tasks_id', $id)
+            ->where('users.role', 'Job Inspector')
+            ->select('users.*')
+            ->get();
+
+        $parts = DB::table('items')
+            ->join('tasks_has_items', 'items.id', '=', 'tasks_has_items.items_id')
+            ->where('tasks_has_items.tasks_id', $id)
+            ->where('items.type', 'Parts')
+            ->select('items.*')
+            ->get();
+        $materials = DB::table('items')
+            ->join('tasks_has_items', 'items.id', '=', 'tasks_has_items.items_id')
+            ->where('tasks_has_items.tasks_id', $id)
+            ->where('items.type', 'Material')
+            ->select('items.*')
+            ->get();
+
+        return view('pimpinanProject.task-detail', [
+            'task' => $task,
+            'cat' => $category,
+            'loc' => $location,
+            'proj' => $project,
+            'sv' => $sv_on_proj,
+            'worker' => $worker,
+            'inspector' => $inspector,
+            'parts' => $parts,
+            'materials' => $materials,
+        ]);
+    }
 }

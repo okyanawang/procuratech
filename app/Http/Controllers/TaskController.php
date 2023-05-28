@@ -59,7 +59,7 @@ class TaskController extends Controller
 
         if ($check > 0) {
             // dd($check);
-            return redirect()->route('supervisor.project.job.detail', $validatedData['task_id'])->withErrors('Staff sudah ditambahkan pada task ini');
+            return redirect()->back()->withErrors('Staff sudah ditambahkan pada task ini');
         }
 
         // create new users_has_tasks record

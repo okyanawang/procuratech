@@ -133,6 +133,12 @@ Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan', 'middleware' => 'auth.
             // Route::get('/', [PimpinanController::class, 'category_index'])->name('.index');
             Route::get('/{id}', [PimpinanController::class, 'category_detail'])->name('.detail');
             Route::post('/register', [CategoryController::class, 'store'])->name('.register.submit');
+
+            Route::group(['prefix' => 'task', 'as' => '.task'], function () {
+                // Route::get('/', [PimpinanController::class, 'task_index'])->name('.index');
+                Route::get('/{id}}', [PimpinanController::class, 'task_detail'])->name('.detail');
+                // Route::post('/register', [TaskController::class, 'store'])->name('.register.submit');
+            });
         });
     });
 });
@@ -153,10 +159,6 @@ Route::group(['prefix' => 'inventori', 'as' => 'inventori', 'middleware' => 'aut
         // Route::get('/register', [PetugasController::class, 'item_create'])->name('.register');
 
     });
-
-
-
-
 });
 
 Route::group(['prefix' => 'bendaharaPeralatan', 'as' => 'bendaharaPeralatan', 'middleware' => 'auth.role:Inventory Treasurer'], function () {

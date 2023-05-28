@@ -93,33 +93,21 @@
                                             <h4 class="font-bold">Supervisor</h4>
                                             <li>{{ $c->sv_name }} - <span>0192739012</span></li>
                                         </div>
-                                        <div class="mb-3">
-                                            <h4 class="font-bold">Woker</h4>
-                                            <li>ikal <span>as measurer</span> - <span>0192739012</span></li>
-                                        </div>
-                                        <div class="mb-3">
-                                            <h4 class="font-bold">Inspector</h4>
-                                            <li>ikal - <span>0192739012</span></li>
-                                        </div>
                                     </div>
-                                    <div>
-                                        <table id="myTable2" class="table table-zebra w-full">
-                                            <!-- head -->
-                                            <thead>
-                                                <tr>
-                                                    <th>No</th>
-                                                    <th>Task</th>
-                                                    <th>status</th>
-                                                    <th style="text-align-last: center">Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>benerin lampu</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="mt-5">
+                                        <h1 class="font-bold text-xl">List of Tasks</h1>
+                                        <div class="flex flex-col max-h-52 overflow-auto">
+                                            @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
+                                                <div class="mb-3 grid grid-cols-3 w-full items-center">
+                                                    <h4 class="">{{ $t->name }}</h4>
+                                                    <div class="badge badge-primary mr-1 text-center">status</div>
+                                                    <a
+                                                        href="{{ route('pimpinan.project.category.task.detail', ['id' => $t->id]) }}">
+                                                        <button class="btn btn-info font-semibold">Detail</button>
+                                                    </a>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                     <div class="modal-action">
                                         <label for="cat_detail" class="btn btn-error">close</label>
