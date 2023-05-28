@@ -13,7 +13,7 @@
     <div class="modal modal-bottom lg:pl-80">
         <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
             <h3 class="font-bold text-lg mb-10">Add new Items</h3>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('inventori.items.register.submit') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="flex flex-col md:flex-row gap-3 ">
                     <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center lg:w-2/3">
@@ -66,26 +66,26 @@
                     <th>Type</th>
                     <th>Brand</th>
                     <th>Produsen</th>
-                    <th>Amount</th>
+                    <th>Stock</th>
                     <th style="text-align-last: center">Detail</th>
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($petugasInventori as $p) --}}
+                @foreach ($nitems as $key => $i)
                 <tr>
-                    <td>1</td>
-                    <td>Screwdriver</td>
-                    <td>Otomotif</td>
-                    <td>AHM</td>
-                    <td>Toyota</td>
-                    <td>10</td>
+                    <td>{{$key+1}}</td>
+                    <td>{{$i -> name}}</td>
+                    <td>{{$i -> type}}</td>
+                    <td>{{$i -> brand}}</td>
+                    <td>{{$i -> produsen}}</td>
+                    <td>{{$i -> stock}}</td>
                     <td class="text-center">
                         <a href="{{ route('inventori.detail', ['id']) }}">
                             <button class="btn btn-info font-semibold">Detail</button>
                         </a>
                     </td>
                 </tr>
-                {{-- @endforeach --}}
+                @endforeach
             </tbody>
         </table>
     </div>
