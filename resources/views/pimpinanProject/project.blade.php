@@ -69,11 +69,13 @@
             <tbody>
                 @foreach ($projects as $p)
                     <tr>
-                        <td>{{ $p->id }}</td>
-                        <td>{{ $p->name }}</td>
-                        <td>{{ $p->start_date }}</td>
-                        <td>{{ $p->end_date }}</td>
-                        <td class="text-center">3</td>
+                        <td class="text-center">{{ $p->id }}</td>
+                        <td class="text-center">{{ $p->name }}</td>
+                        <td class="text-center">{{ $p->start_date }}</td>
+                        <td class="text-center">{{ $p->end_date }}</td>
+                        <td class="text-center">
+                            {{ DB::table('locations')->where('projects_id', $p->id)->count('id') }}
+                        </td>
                         <td class="text-center">
                             <a href="{{ route('pimpinan.project.detail', ['id' => $p->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
