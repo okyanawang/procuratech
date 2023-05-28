@@ -29,6 +29,15 @@
                         @case('Measurement Executor')
                         href="/pengukuran"
                         @break
+                        @case('Analyst')
+                        href="/analisis"
+                        @break
+                        @case('Job Executor')
+                        href="/pekerjaan"
+                        @break
+                        @case('Job Inspector')
+                        href="/pemeriksa"
+                        @break
 
                         @default
                         href=""

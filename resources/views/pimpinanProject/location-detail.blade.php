@@ -83,11 +83,11 @@
                                     <div class="mt-5">
                                         <div class="mb-3">
                                             <h4 class="font-bold">Project Manager</h4>
-                                            <li>ikal - <span>0192739012</span></li>
+                                            <li>{{ Auth::user()->name }}<span> - {{ Auth::user()->phone_number }}</span></li>
                                         </div>
                                         <div class="mb-3">
                                             <h4 class="font-bold">Supervisor</h4>
-                                            <li>ikal - <span>0192739012</span></li>
+                                            <li>{{ $c->sv_name }} - <span>0192739012</span></li>
                                         </div>
                                         <div class="mb-3">
                                             <h4 class="font-bold">Woker</h4>

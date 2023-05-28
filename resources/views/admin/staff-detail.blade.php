@@ -24,7 +24,7 @@
                         placeholder="Full Name" required value="{{ $user->name }} " />
                     <label for="role" class="mr-3 font-semibold">Role :</label>
                     <select class="select select-bordered block mt-1 w-full" name="role" required>
-                        <option value="0" hidden disabled selected>Choose Role</option>
+                        <option value="{{ $user->role }}" hidden disabled selected>{{ $user->role }}</option>
                         <option value="Admin IT">Admin IT</option>
                         <option value="Project Manager">Project Manager</option>
                         <option value="Supervisor">Supervisor</option>
@@ -37,7 +37,7 @@
                     </select>
                     <label for="availability_status" class="mr-3 font-semibold">Availibility Status :</label>
                     <select class="select select-bordered block mt-1 w-full" name="availability_status" required>
-                        <option value="0" hidden disabled selected>Choose Status</option>
+                        <option value="{{ $user->availability_status }}" hidden disabled selected>{{ $user->availability_status }}</option>
                         <option value="on duty">On Duty</option>
                         <option value="on leave">On Leave</option>
                     </select>
@@ -54,10 +54,10 @@
             <div class="flex justify-center gap-5">
                 <!-- The button to open modal -->
                 <label for="modal-delete" class="btn btn-error mt-5 w-50 modal-button text-white"><i
-                        class="fa-solid fa-trash"></i>&nbsp; Delete Project</label>
+                        class="fa-solid fa-trash"></i>&nbsp; Delete User</label>
                 <!-- The button to open modal -->
                 <label for="modal-update" class="btn btn-primary mt-5 w-50 modal-button"><i
-                        class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
+                        class="fa-regular fa-pen-to-square"></i>&nbsp; Update User</label>
 
             </div>
 
@@ -66,7 +66,7 @@
             <div class="modal modal-bottom sm:modal-middle lg:pl-80">
                 <div class="modal-box">
                     <h3 class="font-bold text-lg">Update data ?</h3>
-                    <p class="py-4">Are you sure you want to update the project data? Data changes can be done anytime</p>
+                    <p class="py-4">Are you sure you want to update the user data? Data changes can be done anytime</p>
                     <div class="modal-action">
                         <label for="modal-update" class="btn btn-info">cancel</label>
                         <input type="submit" class="btn btn-primary" value="Submit">
@@ -79,7 +79,7 @@
         <div class="modal modal-bottom sm:modal-middle lg:pl-80">
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Delete data ?</h3>
-                <p class="py-4">Are you sure you want to update the project data? Data changes can't be undone</p>
+                <p class="py-4">Are you sure you want to delete the user data? It will also delete all their relation to tasks</p>
                 <form action="{{ route('admin.staff.delete', ['id' => $user->id]) }}" method="POST">
                     @method('DELETE')
                     @csrf

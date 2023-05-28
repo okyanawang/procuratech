@@ -67,8 +67,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/', [AdminController::class, 'index'])->name('.dashboard');
     });
 
-    Route::group(['prefix' => 'component'], function () {
-        Route::get('/', [AdminController::class, 'component_index'])->name('.component');
+    Route::group(['prefix' => 'component', 'as' => '.component'], function () {
+        Route::get('/', [AdminController::class, 'component_index'])->name('.index');
+        Route::get('/{id}', [AdminController::class, 'component_detail'])->name('.detail');
+        Route::get('/register', [AdminController::class, 'component_register'])->name('.register');
     });
 
     Route::group(['prefix' => 'staff', 'as' => '.staff'], function () {
@@ -187,8 +189,10 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor', 'middleware' => 'a
             Route::post('/register', [TaskController::class, 'store'])->name('.register.submit');
             Route::get('/{id}', [SupervisorController::class, 'job_detail'])->name('.detail');
             Route::put('/update/{id}', [TaskController::class, 'update'])->name('.update');
+            Route::delete('/destroy/{id}', [TaskController::class, 'destroy'])->name('.destroy');
             Route::post('/assign_staff', [TaskController::class, 'assign_staff'])->name('.assign_staff');
             Route::post('/remove_staff', [TaskController::class, 'remove_staff'])->name('.remove_staff');
+            Route::post('/add_item/{id}', [TaskController::class, 'add_item'])->name('.add_item');
         });
         // Route::get('/detail', [SupervisorController::class, 'project_detail'])->name('.detail');
     });

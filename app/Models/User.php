@@ -67,7 +67,7 @@ class User extends Authenticatable
      */
     public function tasks(): BelongsToMany
     {
-        return $this->belongsToMany(Task::class, 'user_has_tasks', 'users_id', 'tasks_id');
+        return $this->belongsToMany(Task::class, 'users_has_tasks', 'users_id', 'tasks_id');
     }
 
     public function categories(): HasMany

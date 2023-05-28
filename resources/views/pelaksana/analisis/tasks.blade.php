@@ -16,20 +16,20 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($pengukuran as $p) --}}
+                @foreach ($tasks as $key => $t)
                     <tr>
-                        <td>1</td>
-                        <td>Hone</td>
-                        <td>lorem ipsum dolor sit amet</td>
-                        <td>27/01/23</td>
-                        <td>29/01/23</td>
+                        <td>{{ $key+1 }}</td>
+                        <td>{{ $t->task_name }}</td>
+                        <td>{{ $t->task_description }}</td>
+                        <td>{{ $t->task_start }}</td>
+                        <td>{{ $t->task_end }}</td>
                         <td class="text-center">
-                            <a href="{{ route('analisis.tasks.detail', ['id']) }}">
+                            <a href="{{ route('analisis.tasks.detail', ['id' => $t->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
                     </tr>    
-                {{-- @endforeach --}}
+                @endforeach
             </tbody>
         </table>
     </div>

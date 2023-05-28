@@ -41,7 +41,7 @@ class TaskController extends Controller
         $task->categories_id = $validatedData['categories_id'];
         $task->save();
 
-        return redirect()->route('supervisor.project.index')->with('success', 'Task berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Task berhasil ditambahkan');
     }
 
     public function assign_staff(Request $request)
@@ -90,6 +90,34 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Staff berhasil dihapus');
     }
 
+    public function add_item(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'item' => 'required',
+            'amount' => 'required',
+        ]);
+
+        // check if staff already assigned to task
+        $check = DB::table('tasks_has_items')
+            ->where('items_id', $validatedData['item'])
+            ->where('tasks_id', $id)
+            ->count();
+
+        if ($check > 0) {
+            // dd($check);
+            return redirect()->back()->withErrors('Item sudah ditambahkan pada task ini');
+        }
+
+        // create new users_has_tasks record
+        DB::table('tasks_has_items')->insert([
+            'items_id' => $validatedData['item'],
+            'tasks_id' => $id,
+            'amount' => $validatedData['amount'],
+        ]);
+
+        return redirect()->back()->with('success', 'Item berhasil ditambahkan');
+    }
+
     public function show($id)
     {
         $task = Task::find($id);
@@ -115,8 +143,22 @@ class TaskController extends Controller
     }
     public function destroy($id)
     {
+        $project_id = DB::table('projects')
+            ->join('locations', 'locations.projects_id', '=', 'projects.id')
+            ->join('categories', 'categories.locations_id', '=', 'locations.id')
+            ->join('tasks', 'tasks.categories_id', '=', 'categories.id')
+            ->where('tasks.id', $id)
+            ->select('projects.id')
+            ->first();
+
+        DB::table('users_has_tasks')->where('tasks_id', $id)->delete();
+        DB::table('tasks_has_items')->where('tasks_id', $id)->delete();
         $task = Task::findOrFail($id);
         $task->delete();
-        return redirect()->route('task.index')->with('success', 'Task berhasil dihapus');
+
+        if (auth()->user()->role == 'Admin IT')
+            return redirect()->route('admin.project.detail', ['id' => $project_id->id])->with('success', 'Task berhasil dihapus');
+        else if (auth()->user()->role == 'Supervisor')
+            return redirect()->route('supervisor.project.detail', ['id' => $project_id->id])->with('success', 'Task berhasil dihapus');
     }
 }
