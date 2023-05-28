@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Item;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -110,12 +111,18 @@ class SupervisorController extends Controller
             ->where('users.role', 'Job Inspector')
             ->select('users.*')
             ->get();
+        $items_ass = DB::table('tasks_has_items')
+            ->join('items', 'items.id', '=', 'tasks_has_items.items_id')
+            ->where('tasks_has_items.tasks_id', $id)
+            ->select('items.*', 'tasks_has_items.amount')
+            ->get();
 
 
         $measurer_all = User::where('role', 'Measurement Executor')->get();
         $analyst_all = User::where('role', 'Analyst')->get();
         $worker_all = User::where('role', 'Job Executor')->get();
         $inspector_all = User::where('role', 'Job Inspector')->get();
+        $items_all = Item::all();
 
         return view('supervisor.job-detail', [
             'job' => $job,
@@ -124,10 +131,12 @@ class SupervisorController extends Controller
             'analyst_ass' => $analyst_ass,
             'worker_ass' => $worker_ass,
             'inspector_ass' => $inspector_ass,
+            'items_ass' => $items_ass,
             'measurer_all' => $measurer_all,
             'analyst_all' => $analyst_all,
             'worker_all' => $worker_all,
             'inspector_all' => $inspector_all,
+            'items_all' => $items_all,
         ]);
     }
 }
