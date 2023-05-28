@@ -111,15 +111,12 @@
                         <th>{{ $key + 1}}</th>
                         <td>{{ $location->name }}</td>
                         <td>
-                            @php
-                                $categoriesCount = App\Models\Category::find($location->id)->count();
-                            @endphp
-                            @if($categoriesCount)
-                                {{ $categoriesCount }}
-                            @endif
+                            {{ DB::table('categories')
+                                ->where('locations_id', '=', $location->id)
+                                ->count('categories.id') }}
                         </td>
                         <td>
-                            <a href="{{ route('admin.project.location.detail', ['id' => 1]) }}">
+                            <a href="{{ route('admin.project.location.detail', ['id' => $location->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
