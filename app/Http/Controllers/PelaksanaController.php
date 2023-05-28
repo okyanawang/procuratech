@@ -9,6 +9,7 @@ class PelaksanaController extends Controller
     // pengukuran
     public function index_pengukuran()
     {
+        
         return view('pelaksana.pengukuran.dashboard');
     }
 

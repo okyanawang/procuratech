@@ -7,24 +7,27 @@
         </a>
         <h1 class="text-4xl font-bold ml-5"></h1>
     </div>
+    <h1 class="text-2xl font-bold mb-5">Projects Detail</h1>
     <x-Alert />
 
     <div class="container">
-        <form action="" class="h-full px-0 md:px-14 mb-40" method="POST" enctype="multipart/form-data">
+        <form action="" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="flex flex-col xl:flex-row gap-3 place-content-center">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+            <div class="flex flex-col xl:flex-row gap-3 place-content-center ">
+                <div class="grid grid-cols-2 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="name" class="mr-3 font-semibold">Project name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="full name" required value="{{ $project_detail->name }} " />
+                    <label for="desc" class="mr-3 font-semibold">Description:</label>
+                    <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required>{{ $project_detail->description }}</textarea>
+                </div>
+                <div class="grid grid-cols-2 lg:grid-cols-2 grid-rows-4 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5 self-center">
                     <label for="startdate" class="mr-3 font-semibold">Start date :</label>
                     <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
                         value="{{ \Carbon\Carbon::parse($project_detail->start_date)->format('Y-m-d') }}" />
                     <label for="enddate" class="mr-3 font-semibold">End date :</label>
                     <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
                         value="{{ \Carbon\Carbon::parse($project_detail->end_date)->format('Y-m-d') }}" />
-                    <label for="desc" class="mr-3 font-semibold">Description:</label>
-                    <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required>{{ $project_detail->description }}</textarea>
                 </div>
             </div>
             <div class="flex justify-center gap-5">
@@ -78,7 +81,7 @@
             <!-- Put this part before </body> tag -->
             <input type="checkbox" id="new-user" class="modal-toggle" />
             <div class="modal modal-bottom lg:pl-80">
-                <div class="modal-box w-11/12 max-w-5xl">
+                <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
                     <h3 class="font-bold text-lg mb-10">Add new location</h3>
                     <form action="{{ route('pimpinan.project.location.register.submit') }}" method="POST"
                         enctype="multipart/form-data">
