@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Task;
+// import auth
+use Illuminate\Support\Facades\Auth;
+// import DB
+use DB;
 
 class PetugasController extends Controller
 {
@@ -19,8 +24,9 @@ class PetugasController extends Controller
         return view('petugasInventori.items', ['nitems' => $nitems]);
     }
 
-    public function store(Request $request)
+    public function item_register_submit(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|unique:items|max:255',
             'type' => 'required',
@@ -37,27 +43,32 @@ class PetugasController extends Controller
         $item->stock = $validatedData['stock'];
         $item->save();
 
-        DB::table('users_has_items')->insert([
-            'users_id' => Auth::user()->id,
-            'items_id' => $item->id,
+        DB::table('items')->insert([
+            'name' => $validatedData['name'],
+            'type' => $validatedData['type'],
+            'brand' => $validatedData['brand'],
+            'produsen' => $validatedData['produsen'],
+            'stock' => $validatedData['stock'],
         ]);
         
-        return redirect()->route('petugasInventori.items.index')->with('success', 'Item berhasil ditambahkan');
+
+        return redirect()->route('inventori.item')->with('success', 'Item berhasil ditambahkan');
     }
 
-    public function show($id)
+    public function item_detail($id)
     {
         $item = Item::find($id);
+        // dd($item);
         return view('petugasInventori.items-detail', compact('item'));
     }
 
-    public function edit($id)
+    public function item_edit($id)
     {
         $item = Item::find($id);
         return view('petugasInventori.items-edit', compact('item'));
     }
 
-    public function update(Request $request, $id)
+    public function item_update(Request $request, $id)
     {
         $validatedData = $request->validate([
             'name' => 'required|unique:items|max:255',
@@ -70,19 +81,20 @@ class PetugasController extends Controller
 
         Item::whereId($id)->update($validatedData);
 
-        return redirect()->route('petugasInventori.items.index')->with('success', 'Item berhasil diupdate');
+        return redirect()->route('inventori.item.detail')->with('success', 'Item berhasil diupdate');
     }
 
-    public function destroy($id)
+    public function item_delete($id)
     {
-        $item = Item::findOrFail($id);
+        $item = Item::find($id);
+        $item->tasks()->detach();
         $item->delete();
 
-        return redirect()->route('petugasInventori.items.index')->with('success', 'Item berhasil dihapus');
+        return redirect()->route('inventori.item.index')->with('success', 'Item berhasil dihapus');
     }
 
-    public function item_detail()
-    {
-        return view('petugasInventori.items-detail');
-    }
+    // public function item_detail()
+    // {
+    //     return view('petugasInventori.items-detail');
+    // }
 }
