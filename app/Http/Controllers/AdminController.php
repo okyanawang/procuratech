@@ -78,9 +78,11 @@ class AdminController extends Controller
     public function project_index()
     {
         $projects = Project::all();
+        $locations = Location::all();
+        $categories = Category::all();
         // butuh jumlah lokasi per project
         // butuh jumlah category per lokasi
-        return view('admin.project.project', ['projects' => $projects]);
+        return view('admin.project.project', ['projects' => $projects, 'locations' => $locations, 'categories' => $categories]);
     }
 
     public function project_detail($id)

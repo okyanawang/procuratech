@@ -13,7 +13,7 @@
     <h1 class="text-4xl font-bold mb-5">Staff Detail</h1>
 
     <div class="container">
-        <form action=" {{ route('admin.update', ['id' => $user->id]) }}" class="h-full px-0 md:px-14 mb-40" method="POST"
+        <form action=" {{ route('admin.staff.update', ['id' => $user->id]) }}" class="h-full px-0 md:px-14 mb-40" method="POST"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -80,7 +80,7 @@
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Delete data ?</h3>
                 <p class="py-4">Are you sure you want to update the project data? Data changes can't be undone</p>
-                <form action="{{ route('admin.delete', ['id' => $user->id]) }}" method="POST">
+                <form action="{{ route('admin.staff.delete', ['id' => $user->id]) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <div class="modal-action">
