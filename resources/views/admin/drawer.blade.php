@@ -17,7 +17,7 @@
             <li class="my-1"><a href="{{ route('admin.dashboard') }}"
                     class="py-5 {{ Request::is('admin/dashboard') ? 'active' : null }}"><i
                         class="fa-solid fa-house"></i>Dashboard</a></li>
-            <li class="my-1"><a href="{{ route('admin.component') }}"
+            <li class="my-1"><a href="{{ route('admin.component.index') }}"
                     class="py-5 {{ Request::is('admin/component') ? 'active' : null }}"><i
                         class="fa-solid fa-puzzle-piece"></i>Components</a></li>
             <!-- <li class="my-1"><a href="{{ route('admin.work.index') }}"
