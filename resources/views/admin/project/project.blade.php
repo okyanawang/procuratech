@@ -65,28 +65,13 @@
                 <td>{{ $project->start_date->format('d-m-Y') }}</td>
                 <td>{{ $project->end_date->format('d-m-Y') }}</td>
                 <td>
-                    @php
-                        $locationCount = App\Models\Location::find($project->id)->count();
-                    @endphp
-                    @if($locationCount)
-                        {{ $locationCount }}
-                    @endif
+                    {{ DB::table('locations')->where('projects_id', $project->id)->count('id') }}
                 </td>
                 <td>
-                    @php
-                        $locationProjects = App\Models\Location::find($project->id)->get();
-                    @endphp
-                    @php
-                        $categoriesCount = 0;
-                    @endphp
-                    @foreach ($locationProjects as $location) 
-                        @php
-                            $categoriesCount = $categoriesCount + App\Models\Category::find($location->id)->count();
-                        @endphp
-                    @endforeach
-                    @if($categoriesCount)
-                        {{ $categoriesCount }}
-                    @endif
+                    {{ DB::table('categories')
+                    ->join('locations', 'categories.locations_id', '=', 'locations.id')
+                    ->where('locations.projects_id', $project->id)
+                    ->count('categories.id') }}
                 </td>
                 <td class="text-center">
                     <a href="{{ route('admin.project.detail', ['id' => $project->id]) }}">
