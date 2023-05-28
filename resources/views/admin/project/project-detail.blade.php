@@ -23,7 +23,7 @@
                     value="{{ $project->name }}" required />
                 <label for="project-manager" class="mr-3 font-semibold">Project Manager :</label>
                 <input name="project-manager" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                    value="{{ $name_pm }}" required />
+                    value="{{ $pm_ass->name }}" required />
                 <label for="description" class="font-semibold">Description :</label>
                 <input name="description" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                     value="{{ $project->description }}" required />
