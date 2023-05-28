@@ -17,7 +17,7 @@
             </div>
             <div class="flex flex-row mb-5">
                 <div class="badge badge-primary mr-1">{{ $task->status }}</div>
-                <div class="badge badge-info mr-1">Analyst</div>
+                <div class="badge badge-info mr-1">{{ $task->type }}</div>
             </div>
             <div class="mt-5">
                 <div class="mb-3">
