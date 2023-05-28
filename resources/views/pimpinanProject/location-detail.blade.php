@@ -17,7 +17,7 @@
         <!-- Put this part before </body> tag -->
         <input type="checkbox" id="new-user" class="modal-toggle" />
         <div class="modal modal-bottom lg:pl-80">
-            <div class="modal-box w-11/12 max-w-5xl">
+            <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
                 <h3 class="font-bold text-lg mb-10">Add new category</h3>
                 <form action="{{ route('pimpinan.project.category.register.submit') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -76,7 +76,7 @@
                             <!-- Put this part before </body> tag -->
                             <input type="checkbox" id="cat_detail" class="modal-toggle" />
                             <div class="modal modal-bottom lg:pl-80">
-                                <div class="modal-box w-11/12 max-w-5xl">
+                                <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
                                     <div class="flex flex-row">
                                         <h1 class="font-bold text-2xl mb-3">{{ $c->name }}</h1>
                                     </div>

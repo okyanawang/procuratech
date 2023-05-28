@@ -18,28 +18,7 @@ class PelaksanaController extends Controller
     // pengukuran
     public function index_pengukuran()
     {
-        $ntask = DB::table('tasks')
-            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-            ->where('users_has_tasks.users_id', Auth::user()->id)
-            ->select('tasks.*')
-            ->count();
-        $ongoing_task = DB::table('tasks')
-            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-            ->where('users_has_tasks.users_id', Auth::user()->id)
-            ->where('tasks.status', '=', 'In Progress')
-            ->select('tasks.*')
-            ->count();
-            
-        $done_task = DB::table('tasks')
-            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-            ->where('users_has_tasks.users_id', Auth::user()->id)
-            ->where('tasks.status', '=', 'Completed')
-            ->select('tasks.*')
-            ->count();
-        return view('pelaksana.pengukuran.dashboard',  ['ntask' => $ntask, 'ongoing_task'=>$ongoing_task, 'done_task'=>$done_task]);
+        return view('pelaksana.pengukuran.dashboard');
     }
 
     public function index_pengukuran_tasks()

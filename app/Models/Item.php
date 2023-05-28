@@ -15,9 +15,8 @@ class Item extends Model
         'type',
         'brand',
         'produsen',
-        'amount',
+        'stock',
         'tasks_id',
-        'type',
     ];
     /**
      * Get the tasks that owns the Item
