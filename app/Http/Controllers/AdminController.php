@@ -21,7 +21,14 @@ class AdminController extends Controller
 
     public function component_index()
     {
-        return view('admin.component');
+        $items = Item::all();
+        return view('admin.component', ['items' => $items]);
+    }
+
+    public function component_detail($id)
+    {
+        $item = Item::find($id);
+        return view('admin.component-detail', ['item' => $item]);
     }
 
     public function staff_index()

@@ -149,6 +149,7 @@ Route::group(['prefix' => 'inventori', 'as' => 'inventori', 'middleware' => 'aut
     Route::group(['prefix' => 'item'], function () {
         Route::get('/', [PetugasController::class, 'item_index'])->name('.item');
         Route::get('/{id}', [PetugasController::class, 'item_detail'])->name('.detail');
+        Route::get('/register', [PetugasController::class, 'item_register'])->name('.register');
         // Route::get('/register', [PetugasController::class, 'item_create'])->name('.register');
 
     });
