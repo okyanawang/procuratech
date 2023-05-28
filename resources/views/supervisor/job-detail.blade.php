@@ -45,8 +45,10 @@
         <input type="checkbox" id="delete_task" class="modal-toggle" />
         <div class="modal modal-bottom sm:modal-middle lg:pl-80">
             <div class="modal-box">
-                <form action="" method="POST" class="flex flex-col">
+                <form action="{{ route('supervisor.project.job.destroy', ['id' => $job->id]) }}" method="POST"
+                    class="flex flex-col">
                     @csrf
+                    @method('DELETE')
                     <h3 class="font-bold text-lg mb-5">Delete Task</h3>
                     <p>Are you sure you want to delete this task? This action can't be undone</p>
                     <div class="modal-action">
@@ -225,18 +227,20 @@
             <input type="checkbox" id="add_item" class="modal-toggle" />
             <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
                 <div class="modal-box">
-                    <form action="{{ route('supervisor.project.job.update', ['id' => $job->id]) }}" method="POST"
+                    <form action="{{ route('supervisor.project.job.add_item', ['id' => $job->id]) }}" method="POST"
                         class="flex flex-col">
                         @csrf
-                        @method('PUT')
                         <h3 class="font-bold text-lg mb-5">Add Item</h3>
 
-                        <label for="name" class="mb-2">Item Name</label>
-                        <select name="name" id="" class="js-example-basic-single select select-bordered">
+                        <label for="item" class="mb-2">Item Name</label>
+                        <select name="item" id="" class="js-example-basic-single select select-bordered">
                             <option value="">Choose Item</option>
+                            @foreach ($items_all as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
                         </select>
                         <label for="amount" class="mt-3 mb-2">Amount of Item</label>
-                        <input type="number" name="amout" class="input input-bordered mb-3" required>
+                        <input type="number" name="amount" class="input input-bordered mb-3" required>
 
                         <div class="modal-action">
                             <label for="add_item" class="btn btn-error">Cancel</label>
@@ -258,20 +262,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($projects as $p)
+                    @foreach ($items_ass as $i)
                         <tr>
-                            <td>{{ $p->id }}</td>
-                            <td>{{ $p->name }}</td>
-                            <td>{{ $p->start_date }}</td>
-                            <td>{{ $p->end_date }}</td>
-                            <td class="text-center">3</td>
+                            {{-- <td>{{ $i->id }}</td> --}}
+                            <td>{{ $i->name }}</td>
+                            <td>{{ $i->amount }}</td>
+                            <td>{{ $i->unit }}</td>
                             <td class="text-center">
-                                <a href="{{ route('pimpinan.project.detail', ['id' => $p->id]) }}">
-                                    <button class="btn btn-info font-semibold">Detail</button>
-                                </a>
+                                <button class="btn btn-info font-semibold">Detail</button>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
