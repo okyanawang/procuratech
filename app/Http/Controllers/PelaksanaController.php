@@ -31,7 +31,7 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'In Progress')
             ->select('tasks.*')
             ->count();
-            
+
         $done_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
@@ -39,7 +39,7 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'Completed')
             ->select('tasks.*')
             ->count();
-        return view('pelaksana.pengukuran.dashboard',  ['ntask' => $ntask, 'ongoing_task'=>$ongoing_task, 'done_task'=>$done_task]);
+        return view('pelaksana.pengukuran.dashboard',  ['ntask' => $ntask, 'ongoing_task' => $ongoing_task, 'done_task' => $done_task]);
     }
 
     public function index_pengukuran_tasks()
@@ -56,37 +56,64 @@ class PelaksanaController extends Controller
     {
         $task = Task::find($id);
         // dd($id);
+        $project = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->where('tasks.id', $id)
+            ->select('projects.name as project_name', 'projects.description as project_description')
+            ->first();
+        $location = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->where('tasks.id', $id)
+            ->select('locations.*')
+            ->first();
+        $category = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->where('tasks.id', $id)
+            ->select('categories.*')
+            ->first();
         $pm_ass = DB::table('tasks')
-                ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-                ->join('locations', 'categories.locations_id', '=', 'locations.id')
-                ->join('projects', 'locations.projects_id', '=', 'projects.id')
-                ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
-                ->join('users', 'users_has_projects.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->select('users.name', 'users.phone_number', 'users.email as pm_email')
-                ->get();
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
+            ->join('users', 'users_has_projects.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('users.name', 'users.phone_number', 'users.email as pm_email')
+            ->get();
         $spv_ass = DB::table('tasks')
-                ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-                ->join('users', 'categories.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->select('users.name', 'users.phone_number')
-                ->get();
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('users', 'categories.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('users.name', 'users.phone_number')
+            ->get();
         $ins_ass = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->where('users.role', 'Job Inspector')
-                ->select('users.name', 'users.phone_number')
-                ->get();
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->where('users.role', 'Job Inspector')
+            ->select('users.name', 'users.phone_number')
+            ->get();
         $teams = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->where('users.role', '<>', 'Job Inspector')
-                ->select('users.name', 'users.phone_number', 'users.role')
-                ->get();
-        
-        return view('pelaksana.pengukuran.tasks-detail', ['task' => $task, 'teams' => $teams, 'pm_ass' => $pm_ass, 'spv_ass' => $spv_ass, 'ins_ass' => $ins_ass]);
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->where('users.role', '<>', 'Job Inspector')
+            ->select('users.name', 'users.phone_number', 'users.role')
+            ->get();
+
+        return view('pelaksana.pengukuran.tasks-detail', [
+            'task' => $task,
+            'teams' => $teams,
+            'pm_ass' => $pm_ass,
+            'spv_ass' => $spv_ass,
+            'ins_ass' => $ins_ass,
+            'project' => $project,
+            'location' => $location,
+            'category' => $category,
+        ]);
     }
 
     // analisis
@@ -105,7 +132,7 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'In Progress')
             ->select('tasks.*')
             ->count();
-            
+
         $done_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
@@ -113,7 +140,7 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'Completed')
             ->select('tasks.*')
             ->count();
-        return view('pelaksana.analisis.dashboard', ['ntask' => $ntask, 'ongoing_task'=>$ongoing_task, 'done_task'=>$done_task]);
+        return view('pelaksana.analisis.dashboard', ['ntask' => $ntask, 'ongoing_task' => $ongoing_task, 'done_task' => $done_task]);
     }
     public function index_analisis_tasks()
     {
@@ -131,35 +158,35 @@ class PelaksanaController extends Controller
         $task = Task::find($id);
         // dd($id);
         $pm_ass = DB::table('tasks')
-                ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-                ->join('locations', 'categories.locations_id', '=', 'locations.id')
-                ->join('projects', 'locations.projects_id', '=', 'projects.id')
-                ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
-                ->join('users', 'users_has_projects.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->select('users.name', 'users.phone_number', 'users.email as pm_email')
-                ->get();
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
+            ->join('users', 'users_has_projects.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('users.name', 'users.phone_number', 'users.email as pm_email')
+            ->get();
         $spv_ass = DB::table('tasks')
-                ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-                ->join('users', 'categories.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->select('users.name', 'users.phone_number')
-                ->get();
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('users', 'categories.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('users.name', 'users.phone_number')
+            ->get();
         $ins_ass = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->where('users.role', 'Job Inspector')
-                ->select('users.name', 'users.phone_number')
-                ->get();
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->where('users.role', 'Job Inspector')
+            ->select('users.name', 'users.phone_number')
+            ->get();
         $teams = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->where('users.role', '<>', 'Job Inspector')
-                ->select('users.name', 'users.phone_number', 'users.role')
-                ->get();
-        
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->where('users.role', '<>', 'Job Inspector')
+            ->select('users.name', 'users.phone_number', 'users.role')
+            ->get();
+
         return view('pelaksana.analisis.tasks-detail', ['task' => $task, 'teams' => $teams, 'pm_ass' => $pm_ass, 'spv_ass' => $spv_ass, 'ins_ass' => $ins_ass]);
     }
 
@@ -179,7 +206,7 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'In Progress')
             ->select('tasks.*')
             ->count();
-            
+
         $done_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
@@ -187,7 +214,7 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'Completed')
             ->select('tasks.*')
             ->count();
-        return view('pelaksana.pekerjaan.dashboard',  ['ntask' => $ntask, 'ongoing_task'=>$ongoing_task, 'done_task'=>$done_task]);
+        return view('pelaksana.pekerjaan.dashboard',  ['ntask' => $ntask, 'ongoing_task' => $ongoing_task, 'done_task' => $done_task]);
     }
     public function index_pekerjaan_tasks()
     {
@@ -204,34 +231,34 @@ class PelaksanaController extends Controller
         $task = Task::find($id);
         // dd($id);
         $pm_ass = DB::table('tasks')
-                ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-                ->join('locations', 'categories.locations_id', '=', 'locations.id')
-                ->join('projects', 'locations.projects_id', '=', 'projects.id')
-                ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
-                ->join('users', 'users_has_projects.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->select('users.name', 'users.phone_number', 'users.email as pm_email')
-                ->get();
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
+            ->join('users', 'users_has_projects.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('users.name', 'users.phone_number', 'users.email as pm_email')
+            ->get();
         $spv_ass = DB::table('tasks')
-                ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-                ->join('users', 'categories.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->select('users.name', 'users.phone_number')
-                ->get();
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('users', 'categories.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('users.name', 'users.phone_number')
+            ->get();
         $ins_ass = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->where('users.role', 'Job Inspector')
-                ->select('users.name', 'users.phone_number')
-                ->get();
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->where('users.role', 'Job Inspector')
+            ->select('users.name', 'users.phone_number')
+            ->get();
         $teams = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->where('users.role', '<>', 'Job Inspector')
-                ->select('users.name', 'users.phone_number', 'users.role')
-                ->get();
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->where('users.role', '<>', 'Job Inspector')
+            ->select('users.name', 'users.phone_number', 'users.role')
+            ->get();
         return view('pelaksana.pekerjaan.tasks-detail', ['task' => $task, 'teams' => $teams, 'pm_ass' => $pm_ass, 'spv_ass' => $spv_ass, 'ins_ass' => $ins_ass]);
     }
 
@@ -251,7 +278,7 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'In Progress')
             ->select('tasks.*')
             ->count();
-            
+
         $done_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
@@ -259,7 +286,7 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'Completed')
             ->select('tasks.*')
             ->count();
-        return view('pelaksana.pemeriksa.dashboard',  ['ntask' => $ntask, 'ongoing_task'=>$ongoing_task, 'done_task'=>$done_task]);
+        return view('pelaksana.pemeriksa.dashboard',  ['ntask' => $ntask, 'ongoing_task' => $ongoing_task, 'done_task' => $done_task]);
     }
     public function index_pemeriksa_tasks()
     {
@@ -276,34 +303,34 @@ class PelaksanaController extends Controller
         $task = Task::find($id);
         // dd($id);
         $pm_ass = DB::table('tasks')
-                ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-                ->join('locations', 'categories.locations_id', '=', 'locations.id')
-                ->join('projects', 'locations.projects_id', '=', 'projects.id')
-                ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
-                ->join('users', 'users_has_projects.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->select('users.name', 'users.phone_number', 'users.email as pm_email')
-                ->get();
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
+            ->join('users', 'users_has_projects.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('users.name', 'users.phone_number', 'users.email as pm_email')
+            ->get();
         $spv_ass = DB::table('tasks')
-                ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-                ->join('users', 'categories.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->select('users.name', 'users.phone_number')
-                ->get();
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('users', 'categories.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('users.name', 'users.phone_number')
+            ->get();
         $ins_ass = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->where('users.role', 'Job Inspector')
-                ->select('users.name', 'users.phone_number')
-                ->get();
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->where('users.role', 'Job Inspector')
+            ->select('users.name', 'users.phone_number')
+            ->get();
         $teams = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-                ->where('tasks.id', $id)
-                ->where('users.role', '<>', 'Job Inspector')
-                ->select('users.name', 'users.phone_number', 'users.role')
-                ->get();
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->where('users.role', '<>', 'Job Inspector')
+            ->select('users.name', 'users.phone_number', 'users.role')
+            ->get();
         return view('pelaksana.pemeriksa.tasks-detail', ['task' => $task, 'teams' => $teams, 'pm_ass' => $pm_ass, 'spv_ass' => $spv_ass, 'ins_ass' => $ins_ass]);
     }
 }
