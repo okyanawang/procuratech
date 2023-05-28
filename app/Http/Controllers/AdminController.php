@@ -48,15 +48,16 @@ class AdminController extends Controller
             $user->password = bcrypt($request->password);
         $user->save();
 
-        return redirect()->route('admin.staff');
+        return redirect()->route('admin.staff.index')->with('success', 'Staff berhasil diupdate');
     }
 
     public function staff_delete($id)
     {
         $user = User::find($id);
+        $user->tasks()->detach();
         $user->delete();
 
-        return redirect()->route('admin.staff');
+        return redirect()->route('admin.staff.index')->with('success', 'Staff berhasil dihapus');
     }
 
     public function work_index()
@@ -93,7 +94,7 @@ class AdminController extends Controller
         // butuh jumlah category per lokasi
         return view('admin.project.project-detail', compact('project', 'locations', 'name_pm'));
     }
-    
+
     public function location_detail($id)
     {
         $location = Location::find($id);
@@ -128,5 +129,5 @@ class AdminController extends Controller
         $items = 0;
         return view('admin.project.task-detail', compact('project', 'location', 'name_pm', 'category', 'name_sv', 'task', 'workers', 'items'));
     }
-    
+
 }
