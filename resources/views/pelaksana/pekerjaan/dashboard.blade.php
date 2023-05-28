@@ -5,7 +5,7 @@
     <div class="grid grid-cols-2 gap-5 mb-40">
         <div class="card shadow-2xl col-span-2 bg-primary">
             <div class="card-body">
-                <h1 class="text-2xl font-bold mb-3 text-white">Halo, Username!</h1>
+                <h1 class="text-2xl font-bold mb-3 text-white">Halo, {{ Auth::user()->name }}!</h1>
                 <p class="text-primary-content">Have a good day!</p>
             </div>
         </div>
@@ -20,7 +20,7 @@
                                 <i class="fa-solid fa-briefcase fa-2xl"></i>
                             </div>
                             <div class="stat-title font-bold uppercase">Total Tasks</div>
-                            <div class="stat-value text-primary pb-2">30</div>
+                            <div class="stat-value text-primary pb-2">{{ $ntask }}</div>
                             <div class="stat-desc">click for more details</div>
 
                         </div>
@@ -35,7 +35,7 @@
                                 <i class="fa-solid fa-users fa-2xl"></i>
                             </div>
                             <div class="stat-title font-bold uppercase">Task On Going</div>
-                            <div class="stat-value text-primary pb-2">30</div>
+                            <div class="stat-value text-primary pb-2">{{ $ongoing_task }}</div>
                             <div class="stat-desc">click for more details</div>
 
                         </div>
@@ -47,7 +47,7 @@
                                 <i class="fa-solid fa-puzzle-piece fa-2xl"></i>
                             </div>
                             <div class="stat-title font-bold uppercase">Task Done</div>
-                            <div class="stat-value text-primary pb-2">20</div>
+                            <div class="stat-value text-primary pb-2">{{ $done_task }}</div>
                             <div class="stat-desc">click for more details</div>
                         </div>
                     </a>
