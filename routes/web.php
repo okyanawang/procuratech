@@ -96,6 +96,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
     Route::group(['prefix' => 'project', 'as' => '.project'], function () {
         Route::get('/', [AdminController::class, 'project_index'])->name('.index');
         Route::get('/{id}', [AdminController::class, 'project_detail'])->name('.detail');
+        Route::put('/{id}', [AdminController::class, 'project_update'])->name('.update');
+        Route::delete('/{id}', [AdminController::class, 'project_delete'])->name('.delete');
         Route::get('/{id}/location', [AdminController::class, 'location_detail'])->name('.location.detail');
         Route::get('/{id}/category', [AdminController::class, 'category_detail'])->name('.category.detail');
         Route::get('/{id}/task', [AdminController::class, 'task_detail'])->name('.task.detail');
