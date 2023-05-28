@@ -67,8 +67,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/', [AdminController::class, 'index'])->name('.dashboard');
     });
 
-    Route::group(['prefix' => 'component'], function () {
-        Route::get('/', [AdminController::class, 'component_index'])->name('.component');
+    Route::group(['prefix' => 'component', 'as' => '.component'], function () {
+        Route::get('/', [AdminController::class, 'component_index'])->name('.index');
+        Route::get('/{id}', [AdminController::class, 'component_detail'])->name('.detail');
+        Route::get('/register', [AdminController::class, 'component_register'])->name('.register');
     });
 
     Route::group(['prefix' => 'staff', 'as' => '.staff'], function () {
