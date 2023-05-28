@@ -56,7 +56,11 @@ class PimpinanController extends Controller
 
     public function location_detail($id)
     {
-        // dd($id);
+        $proj = DB::table('projects')
+            ->join('locations', 'projects.id', '=', 'locations.projects_id')
+            ->where('locations.id', $id)
+            ->select('projects.*')
+            ->first();
         $loc = Location::find($id);
         $svs = User::where('role', 'Supervisor')->get();
         // $cats = Category::where('locations_id', $id)->get();
@@ -66,6 +70,11 @@ class PimpinanController extends Controller
             ->select('categories.*', 'users.name as sv_name')
             ->get();
 
-        return view('pimpinanProject.location-detail', ['loc' => $loc, 'svs' => $svs, 'cats' => $cats]);
+        return view('pimpinanProject.location-detail', [
+            'loc' => $loc,
+            'svs' => $svs,
+            'cats' => $cats,
+            'proj' => $proj,
+        ]);
     }
 }

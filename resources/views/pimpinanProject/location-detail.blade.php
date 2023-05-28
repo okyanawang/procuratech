@@ -19,7 +19,8 @@
         <div class="modal modal-bottom lg:pl-80">
             <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
                 <h3 class="font-bold text-lg mb-10">Add new category</h3>
-                <form action="{{ route('pimpinan.project.category.register.submit') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('pimpinan.project.category.register.submit') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col md:flex-row ">
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center lg:w-2/3">
@@ -77,13 +78,16 @@
                             <input type="checkbox" id="cat_detail" class="modal-toggle" />
                             <div class="modal modal-bottom lg:pl-80">
                                 <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
+                                    <h1 class="text-3xl font-bold mb-2">{{ $proj->name }}</h1>
                                     <div class="flex flex-row">
-                                        <h1 class="font-bold text-2xl mb-3">{{ $c->name }}</h1>
+                                        <h1 class="font-bold text-2xl mb-3">{{ $c->name }} <span>at
+                                                {{ $loc->name }}</span></h1>
                                     </div>
-                                    <div class="mt-5">
+                                    <div class="mt-5 grid grid-cols-2">
                                         <div class="mb-3">
                                             <h4 class="font-bold">Project Manager</h4>
-                                            <li>{{ Auth::user()->name }}<span> - {{ Auth::user()->phone_number }}</span></li>
+                                            <li>{{ Auth::user()->name }}<span> - {{ Auth::user()->phone_number }}</span>
+                                            </li>
                                         </div>
                                         <div class="mb-3">
                                             <h4 class="font-bold">Supervisor</h4>
@@ -94,9 +98,28 @@
                                             <li>ikal <span>as measurer</span> - <span>0192739012</span></li>
                                         </div>
                                         <div class="mb-3">
-                                            <h4 class="font-bold">Work Checker</h4>
+                                            <h4 class="font-bold">Inspector</h4>
                                             <li>ikal - <span>0192739012</span></li>
                                         </div>
+                                    </div>
+                                    <div>
+                                        <table id="myTable2" class="table table-zebra w-full">
+                                            <!-- head -->
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Task</th>
+                                                    <th>status</th>
+                                                    <th style="text-align-last: center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>benerin lampu</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                     <div class="modal-action">
                                         <label for="cat_detail" class="btn btn-error">close</label>

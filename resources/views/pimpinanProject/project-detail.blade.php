@@ -13,21 +13,28 @@
     <div class="container">
         <form action="" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="flex flex-col xl:flex-row gap-3 place-content-center ">
-                <div class="grid grid-cols-2 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+            <div class="flex flex-col xl:flex-row gap-3 place-content-center justify-between">
+                <div class="grid grid-cols-1 mr-3 gap-2 items-center w-full md:w-full xl:w-1/3 mb-5">
+                    <div class="avatar">
+                        <div class="w-full rounded-xl">
+                            <img src="https://picsum.photos/200" />
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5 self-center">
                     <label for="name" class="mr-3 font-semibold">Project name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="full name" required value="{{ $project_detail->name }} " />
                     <label for="desc" class="mr-3 font-semibold">Description:</label>
                     <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required>{{ $project_detail->description }}</textarea>
-                </div>
-                <div class="grid grid-cols-2 lg:grid-cols-2 grid-rows-4 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5 self-center">
                     <label for="startdate" class="mr-3 font-semibold">Start date :</label>
                     <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
                         value="{{ \Carbon\Carbon::parse($project_detail->start_date)->format('Y-m-d') }}" />
                     <label for="enddate" class="mr-3 font-semibold">End date :</label>
                     <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
                         value="{{ \Carbon\Carbon::parse($project_detail->end_date)->format('Y-m-d') }}" />
+                    <label for="photo" class="mr-3 font-semibold">Upload photo :</label>
+                    <input type="file" class="file-input file-input-bordered file-input-info">
                 </div>
             </div>
             <div class="flex justify-center gap-5">
@@ -89,8 +96,9 @@
                         <div class="flex flex-col md:flex-row ">
                             <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center lg:w-2/3">
                                 <label for="name" class="mr-3 font-semibold">Location name :</label>
-                                <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                                    placeholder="location name" required />
+                                <input name="name" type="text"
+                                    class="input input-bordered w-full max-w-xs col-span-1" placeholder="location name"
+                                    required />
                                 <input type="hidden" name="pid" value={{ $project_detail->id }}>
                             </div>
                         </div>
