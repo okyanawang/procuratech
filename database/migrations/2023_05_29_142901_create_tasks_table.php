@@ -24,7 +24,7 @@ return new class extends Migration
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->integer('categories_id')->index('fk_tasks_categories1_idx');
-            $table->string('type')->nullable();
+            // $table->string('type')->nullable();
         });
     }
 

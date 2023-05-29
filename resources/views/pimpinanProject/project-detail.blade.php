@@ -11,30 +11,35 @@
     <x-Alert />
 
     <div class="container">
-        <form action="" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('pimpinan.project.update', ['id' => $project_detail->id]) }}" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <div class="flex flex-col xl:flex-row gap-3 place-content-center justify-between">
                 <div class="grid grid-cols-1 mr-3 gap-2 items-center w-full md:w-full xl:w-1/3 mb-5">
                     <div class="avatar">
                         <div class="w-full rounded-xl">
-                            <img src="https://picsum.photos/200" />
+                            @if($project_detail->image_path != null)
+                                <img src="{{ asset('project/' . $project_detail->image_path) }}" />
+                            @else
+                                <img src="https://picsum.photos/200" />
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5 self-center">
                     <label for="name" class="mr-3 font-semibold">Project name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="full name" required value="{{ $project_detail->name }} " />
-                    <label for="desc" class="mr-3 font-semibold">Description:</label>
-                    <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required>{{ $project_detail->description }}</textarea>
-                    <label for="startdate" class="mr-3 font-semibold">Start date :</label>
-                    <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
+                        placeholder="Project Name" required value="{{ $project_detail->name }} " />
+                    <label for="description" class="mr-3 font-semibold">Description:</label>
+                    <textarea name="description" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required>{{ $project_detail->description }}</textarea>
+                    <label for="start_date" class="mr-3 font-semibold">Start date :</label>
+                    <input name="start_date" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
                         value="{{ \Carbon\Carbon::parse($project_detail->start_date)->format('Y-m-d') }}" />
-                    <label for="enddate" class="mr-3 font-semibold">End date :</label>
-                    <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
+                    <label for="end_date" class="mr-3 font-semibold">End date :</label>
+                    <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
                         value="{{ \Carbon\Carbon::parse($project_detail->end_date)->format('Y-m-d') }}" />
-                    <label for="photo" class="mr-3 font-semibold">Upload photo :</label>
-                    <input type="file" class="file-input file-input-bordered file-input-info">
+                    <label for="image_path" class="mr-3 font-semibold">Upload photo :</label>
+                    <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
                 </div>
             </div>
             <div class="flex justify-center gap-5">
@@ -46,6 +51,20 @@
                         class="fa-regular fa-pen-to-square"></i>&nbsp; Update data</label>
 
             </div>
+            <!-- Put this part before </body> tag -->
+            <input type="checkbox" id="modal-update" class="modal-toggle" />
+            <div class="modal modal-bottom sm:modal-middle lg:pl-80">
+                <div class="modal-box">
+                    <h3 class="font-bold text-lg">Update data ?</h3>
+                    <p class="py-4">Are you sure you want to update the project data? Data changes can be done anytime</p>
+                    {{-- <form action="" method="POST"> --}}
+                    <div class="modal-action">
+                        <label for="modal-update" class="btn btn-info">cancel</label>
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                    {{-- </form> --}}
+                </div>
+            </div>
         </form>
 
         <!-- Put this part before </body> tag -->
@@ -54,24 +73,11 @@
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Delete data ?</h3>
                 <p class="py-4">Are you sure you want to update the project data? Data changes can't be undone</p>
-                <form action="" method="POST">
+                <form action="{{ route('pimpinan.project.delete', ['id'=>$project_detail->id]) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
                     <div class="modal-action">
                         <label for="modal-delete" class="btn btn-info">cancel</label>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- Put this part before </body> tag -->
-        <input type="checkbox" id="modal-update" class="modal-toggle" />
-        <div class="modal modal-bottom sm:modal-middle lg:pl-80">
-            <div class="modal-box">
-                <h3 class="font-bold text-lg">Update data ?</h3>
-                <p class="py-4">Are you sure you want to update the project data? Data changes can be done anytime</p>
-                <form action="" method="POST">
-                    <div class="modal-action">
-                        <label for="modal-update" class="btn btn-info">cancel</label>
                         <input type="submit" class="btn btn-primary" value="Submit">
                     </div>
                 </form>

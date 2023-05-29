@@ -21,16 +21,19 @@ class ProjectController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|unique:projects|max:255',
-            // 'registration_date' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
             'description' => 'required',
             'status' => 'required',
-            // 'supervisor' => 'required',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
-
+        
+        $newImageName = time().'-'.'projects'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('project'), $newImageName);
+        // dd($request->newImageName);
         $project = new Project;
         $project->name = $validatedData['name'];
         $project->registration_date = Carbon::now();
@@ -38,11 +41,8 @@ class ProjectController extends Controller
         $project->end_date = $validatedData['end_date'];
         $project->description = $validatedData['description'];
         $project->status = $validatedData['status'];
+        $project->image_path = $newImageName;
         $project->save();
-        // $user_has_projects = DB::table('users_has_projects')->insert([
-        //     'users_id' => $validatedData['supervisor'],
-        //     'projects_id' => $project->id,
-        // ]);
         DB::table('users_has_projects')->insert([
             'users_id' => Auth::user()->id,
             'projects_id' => $project->id,
@@ -62,19 +62,39 @@ class ProjectController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:projects|max:255',
-            'registration_date' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'description' => 'required',
-            'status' => 'required',
-        ]);
+        // $validatedData = $request->validate([
+        //     'name' => 'required|unique:projects|max:255',
+        //     'registration_date' => 'required',
+        //     'start_date' => 'required',
+        //     'end_date' => 'required',
+        //     'description' => 'required',
+        //     'status' => 'required',
+        //     'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
+        // ]);
+        $project = Project::find($id);
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->start_date = $request->start_date;
+        $project->end_date = $request->end_date;
+        $newImageName = time().'-'.'projects'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('project'), $newImageName);
+        $project->image_path = $newImageName;
+        
+        $project->save();
 
-        Project::whereId($id)->update($validatedData);
+        // Project::whereId($id)->update($validatedData);
 
-        return redirect()->route('project.index')->with('success', 'Project berhasil diupdate');
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil diupdate');
     }
+
+    public function delete($id)
+    {
+        $project = Project::find($id);
+        $project->locations()->delete();
+        $project->delete();
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil dihapus');
+    }
+
     public function destroy($id)
     {
         $project = Project::find($id);
