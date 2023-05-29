@@ -112,7 +112,6 @@ class AdminController extends Controller
         $project = Project::find($id);
         $project->locations()->delete();
         $project->delete();
-
         return redirect()->route('admin.project.index')->with('success', 'Project berhasil dihapus');
     }
 

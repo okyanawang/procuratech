@@ -23,8 +23,8 @@
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="Project Name" required value="{{ $project->name }} " />
                     <label for="project-manager" class="mr-3 font-semibold">Project Manager :</label>
-                    <input name="project-manager" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        value="{{ $name_pm }}" required />
+
+                    <input name="project-manager" type="text" class="input input-bordered w-full max-w-xs col-span-1" value="{{ $name_pm }}" required readonly />
                     <label for="description" class="font-semibold">Description :</label>
                     <input name="description" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $project->description }}" required />
@@ -44,10 +44,10 @@
             <div class="flex justify-center gap-5">
                 <!-- The button to open modal -->
                 <label for="modal-delete" class="btn btn-error mt-5 w-50 modal-button text-white"><i
-                        class="fa-solid fa-trash"></i>&nbsp; Delete User</label>
+                        class="fa-solid fa-trash"></i>&nbsp; Delete Project</label>
                 <!-- The button to open modal -->
                 <label for="modal-update" class="btn btn-primary mt-5 w-50 modal-button"><i
-                        class="fa-regular fa-pen-to-square"></i>&nbsp; Update User</label>
+                        class="fa-regular fa-pen-to-square"></i>&nbsp; Update Project</label>
 
             </div>
 
