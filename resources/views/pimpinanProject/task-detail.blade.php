@@ -18,7 +18,11 @@
             </div>
             <div class="avatar w-full lg:w-1/2 h-60">
                 <div class="w-full rounded-xl">
-                    <img src="https://picsum.photos/200" />
+                    @if($proj->image_path != null)
+                        <img src="{{ asset('project/' . $proj->image_path) }}" />
+                    @else
+                        <img src="https://picsum.photos/200" />
+                    @endif
                 </div>
             </div>
         </div>
@@ -29,7 +33,11 @@
             <div class="flex flex-col lg:flex-row gap-5 items-center">
                 <div class="avatar w-full lg:w-1/2 mt-3">
                     <div class="w-full rounded-xl">
-                        <img src="https://picsum.photos/200" />
+                        @if($task->image_path != null)
+                            <img src="{{ asset('project/' . $task->image_path) }}" />
+                        @else
+                            <img src="https://picsum.photos/200" />
+                        @endif
                     </div>
                 </div>
                 <div>

@@ -125,6 +125,8 @@ Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan', 'middleware' => 'auth.
     Route::group(['prefix' => 'project', 'as' => '.project'], function () {
         Route::get('/', [PimpinanController::class, 'project_index'])->name('.index');
         Route::get('/{id}', [PimpinanController::class, 'project_detail'])->name('.detail');
+        Route::put('/{id}', [ProjectController::class, 'update'])->name('.update');
+        Route::delete('/{id}', [ProjectController::class, 'delete'])->name('.delete');
         // Route::get('/register', [ProjectController::class, 'project_register'])->name('.register');
         Route::post('/register', [ProjectController::class, 'store'])->name('.register.submit');
 

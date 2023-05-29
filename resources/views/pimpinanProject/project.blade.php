@@ -35,8 +35,8 @@
                         </select>
                         <label for="description" class="mr-3 font-semibold">description :</label>
                         <textarea name="description" id="desc" cols="10" rows="5" class="textarea textarea-bordered"></textarea>
-                        <label for="photo" class="mr-3 font-semibold">Upload Photo :</label>
-                        <input type="file" class="file-input file-input-bordered file-input-primary">
+                        <label for="image_path" class="mr-3 font-semibold">Upload Photo :</label>
+                        <input name="image_path" type="file" class="file-input file-input-bordered file-input-primary">
                     </div>
                 </div>
 
