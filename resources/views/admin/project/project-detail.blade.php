@@ -11,8 +11,6 @@
     <x-Alert />
 
     <h1 class="text-4xl font-bold mb-5">Project Detail</h1>
-
-<<<<<<< HEAD
     <div class="container">
         <form action=" {{ route('admin.project.update', ['id' => $project->id]) }}" class="h-full px-0 md:px-14 mb-40" method="POST"
             enctype="multipart/form-data">
@@ -24,7 +22,7 @@
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="Project Name" required value="{{ $project->name }} " />
                     <label for="project-manager" class="mr-3 font-semibold">Project Manager :</label>
-                    <input name="project-manager" type="text" class="input input-bordered w-full max-w-xs col-span-1" value="{{ $name_pm }}" required readonly />
+                    <input name="project-manager" type="text" class="input input-bordered w-full max-w-xs col-span-1" required readonly value="{{ $name }}" />
                     <label for="description" class="font-semibold">Description :</label>
                     <input name="description" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $project->description }}" required />

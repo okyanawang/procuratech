@@ -69,8 +69,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
 
     Route::group(['prefix' => 'component', 'as' => '.component'], function () {
         Route::get('/', [AdminController::class, 'component_index'])->name('.index');
+        Route::post('/create', [AdminController::class, 'component_store'])->name('.store');
         Route::get('/{id}', [AdminController::class, 'component_detail'])->name('.detail');
         Route::get('/register', [AdminController::class, 'component_register'])->name('.register');
+        Route::put('/{id}', [AdminController::class, 'component_update'])->name('.update');
+        Route::delete('/{id}', [AdminController::class, 'component_delete'])->name('.delete');
     });
 
     Route::group(['prefix' => 'staff', 'as' => '.staff'], function () {
@@ -103,7 +106,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/{id}/location', [AdminController::class, 'location_detail'])->name('.location.detail');
         Route::get('/{id}/category', [AdminController::class, 'category_detail'])->name('.category.detail');
         Route::get('/{id}/task', [AdminController::class, 'task_detail'])->name('.task.detail');
-        Route::post('/register', [AdminController::class, 'store'])->name('.register');
+        Route::post('/register', [AdminController::class, 'project_store'])->name('.register');
         Route::post('/location/register', [AdminController::class, 'location_store'])->name('.location.register');
         Route::post('/category/register', [AdminController::class, 'category_store'])->name('.category.register');
         Route::post('/task/register', [AdminController::class, 'task_store'])->name('.task.register');

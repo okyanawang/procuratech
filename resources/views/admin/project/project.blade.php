@@ -18,9 +18,11 @@
             @csrf
             <div class="flex flex-col md:flex-row gap-3 mb-2">
                 <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center lg:w-2/3">
-                    <label for="project_name" class="mr-3 font-semibold">Project Name :</label>
-                    <input name="project_name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="project name" required />
+                    <label for="name" class="mr-3 font-semibold">Project Name :</label>
+                    <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="name" required />
+                    <label for="registration_date" class="mr-3 font-semibold">Registration Date :</label>
+                    <input name="registration_date" type="date" class="input input-bordered w-full max-w-xs col-span-1" value="<?php echo date('Y-m-d'); ?>" readonly>
                     <label for="start_date" class="mr-3 font-semibold">Start Date :</label>
                     <input name="start_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                         required />
@@ -29,6 +31,9 @@
                     <label for="description" class="mr-3 font-semibold">Description :</label>
                     <input name="description" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="description" required />
+                    <label for="status" class="mr-3 font-semibold">Status :</label>
+                    <input name="status" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="status" required />
                     <label for="end_date" class="mr-3 font-semibold">End Date :</label>
                     <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                         required />

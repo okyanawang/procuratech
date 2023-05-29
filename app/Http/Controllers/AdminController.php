@@ -10,6 +10,7 @@ use App\Models\Task;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use DB;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project as XmlProject;
 
 class AdminController extends Controller
 {
@@ -25,15 +26,51 @@ class AdminController extends Controller
         return view('admin.component', ['items' => $items]);
     }
 
+    public function component_store(Request $request)
+    {
+        $item = new Item;
+        $item->name = $request->name;
+        $item->type = $request->type;
+        $item->brand = $request->brand;
+        $item->produsen = $request->produsen;
+        $item->stock = $request->stock;
+        $item->unit = $request->unit;
+        $item->save();
+
+        return redirect()->route('admin.component.index')->with('success', 'Component berhasil ditambahkan');
+    }
+
     public function component_detail($id)
     {
         $item = Item::find($id);
         return view('admin.component-detail', ['item' => $item]);
     }
 
+    public function component_update(Request $request, $id)
+    {
+        $item = Item::find($id);
+        $item->name = $request->name;
+        $item->type = $request->type;
+        $item->brand = $request->brand;
+        $item->produsen = $request->produsen;
+        $item->stock = $request->stock;
+        $item->unit = $request->unit;
+        $item->save();
+
+        return redirect()->route('admin.component.index')->with('success', 'Component berhasil diupdate');
+    }
+
+    public function component_delete($id)
+    {
+        $item = Item::find($id);
+        $item->delete();
+
+        return redirect()->route('admin.component.index')->with('success', 'Component berhasil dihapus');
+    }
+
     public function staff_index()
     {
-        $staffs = User::where('role', '!=', 'Admmin IT')->get();
+        $staffs = User::where('role', '!=', 'Admin IT')->get();
         return view('admin.staff', ['staffs' => $staffs]);
     }
 
@@ -98,6 +135,20 @@ class AdminController extends Controller
         return view('admin.project.project', ['projects' => $projects, 'locations' => $locations, 'categories' => $categories]);
     }
 
+    public function project_store(Request $request)
+    {
+        $project = new Project;
+        $project->name = $request->name;
+        $project->registration_date = $request->registration_date;
+        $project->description = $request->description;
+        $project->start_date = $request->start_date;
+        $project->end_date = $request->end_date;
+        $project->status = $request->status;
+        $project->save();
+
+        return redirect()->route('admin.project.index')->with('success', 'Project berhasil ditambahkan');
+    }
+
     public function project_detail($id)
     {
         $project = Project::find($id);
@@ -107,9 +158,16 @@ class AdminController extends Controller
                 ->where('users_has_projects.projects_id', $project->id)
                 ->select('users.name')
                 ->get();
+
+        if($name_pm->isEmpty()){
+            $name = "Belum ada PM";
+            return view('admin.project.project-detail', compact('project', 'locations', 'name_pm', 'name'));
+        }
+
         $pm_ass = $name_pm->first();
+        $name = $pm_ass->name;
         // butuh jumlah category per lokasi
-        return view('admin.project.project-detail', compact('project', 'locations', 'name_pm', 'pm_ass'));
+        return view('admin.project.project-detail', compact('project', 'locations', 'name_pm', 'pm_ass', 'name'));
     }
 
     public function project_update(Request $request, $id)

@@ -14,16 +14,16 @@
 <div class="modal modal-bottom lg:pl-80">
     <div class="modal-box w-11/12 max-w-5xl self-center rounded-lg">
         <h3 class="font-bold text-lg mb-10">Add New Component</h3>
-        <form action="{{ route('admin.component.register') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.component.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col md:flex-row gap-3 mb-2">
                 <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center lg:w-2/3">
-                    <label for="component_name" class="mr-3 font-semibold">Component Name :</label>
-                    <input name="component_name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="component name" required />
+                    <label for="name" class="mr-3 font-semibold">Component Name :</label>
+                    <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="name" required />
                     <label for="type" class="mr-3 font-semibold">Type :</label>
                     <select class="select select-bordered block mt-1 w-full" name="type" required>
-                        <option value="0" hidden disabled selected>Choose Type</option>
+                        <option value="null" hidden disabled selected>Choose Type</option>
                         <option value="Material">Material</option>
                         <option value="Parts">Parts</option>
                     </select>
@@ -64,7 +64,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($items as $key => $item) 
+            @foreach($items as $key => $item)
             <tr>
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $item->name }}</td>
