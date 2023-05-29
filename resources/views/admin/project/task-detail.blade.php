@@ -227,7 +227,9 @@
         </div>
     </div>
 
-    <div class="mb-10">
+
+    </div>
+        <div class="mb-10">
         <h1 class="text-2xl font-bold mb-5">Workers List</h1>
         <div class="overflow-x-auto">
             <table id="myTable" class="table table-zebra w-full">
@@ -241,18 +243,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach($workers as $key => $worker) --}}
+                    @foreach($workers as $key => $worker)
                     <tr>
-                        <th>{{-- $key + 1 --}}1</th>
-                        <td>{{-- $worker->name --}}Aryo Pratama</td>
-                        <td>{{-- $worker->role --}}Inventory Officer</td>
+                        <th>{{ $key + 1 }}</th>
+                        <td>{{ $worker->name }}</td>
+                        <td>{{ $worker->role }}</td>
                         <td>
-                            <a href="{{ route('admin.staff.detail', ['id' => 8]) }}">
+                            <a href="{{ route('admin.staff.detail', ['id' => $worker->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -271,22 +273,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach($items as $key => $item) --}}
+                    @foreach($items as $key => $item)
                     <tr>
-                        <th>{{-- $key + 1 --}}1</th>
-                        <td>{{-- $task->name --}}Hammer</td>
-                        <td>{{-- $task->amount --}}2</td>
+                        <th>{{ $key + 1 }}</th>
+                        <td>{{   $item->name }}</td>
+                        <td>{{ $item->amount }}</td>
                         <td>
-                            <a href="{{-- route('admin.project.item.detail', ['id' => 1]) --}}">
+                            <a href="{{ route('admin.component.detail', ['id' => $item->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
     </div>
 
-</div>
+    </div>
 @endsection

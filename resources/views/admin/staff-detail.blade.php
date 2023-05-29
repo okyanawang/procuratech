@@ -97,22 +97,22 @@
                     <!-- head -->
                     <thead>
                         <tr>
-                            <th>Job name</th>
-                            <th>Status</th>
-                            <th>Assigned at</th>
-                            <th>Done at</th>
-                            <th>Action</th>
+                            <th class="text-center">Job name</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Start Date</th>
+                            <th class="text-center">End Date</th>
+                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($books as $book) --}}
+                        @foreach ($task_user as $tu)
                         <tr>
-                            <th>lalala</th>
+                            <th>{{ $tu->name }}</th>
                             <td class="text-center">
-                                <div class="badge badge-warning">On Proccess</div>
+                                <div class="badge badge-warning">{{ $tu->status }}</div>
                             </td>
-                            <td>12/12/23</td>
-                            <td>-</td>
+                            <td>{{ $tu->start_date }}</td>
+                            <td>{{ $tu->end_date }}</td>
                             <td class="">
                                 <!-- The button to open modal -->
                                 <label for="new-user" class="btn btn-info font-semibold">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                         </tr>
-                        {{-- @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>

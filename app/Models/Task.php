@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Category;
+use App\Models\Item;
+use App\Models\Report;
+use App\Models\User;
+
 
 class Task extends Model
 {
@@ -31,11 +36,6 @@ class Task extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function items(): hasMany
-    {
-        return $this->hasMany(Item::class);
-    }
-
     /**
      * Get all of the comments for the Task
      *
@@ -54,5 +54,15 @@ class Task extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_has_tasks', 'users_id', 'tasks_id');
+    }
+
+    /**
+     * The items that belong to the Task
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function items(): BelongsToMany
+    {
+        return $this->belongsToMany(Item::class, 'tasks_has_items', 'tasks_id', 'items_id');
     }
 }

@@ -30,6 +30,10 @@
             // options
         });
 
+        let table2 = new DataTable('#myTable2', {
+            // options
+        });
+
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
         });

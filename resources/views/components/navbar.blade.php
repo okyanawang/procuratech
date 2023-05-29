@@ -20,13 +20,13 @@
 
             </label>
         @endif
-        <a href="/" class="btn btn-ghost normal-case text-xl">Procuratech</a>
+        <a href="/" class="btn btn-ghost normal-case text-lg lg:text-xl">Procuratech</a>
     </div>
     @auth
         <div class="navbar-end flex-none">
             <div class="flex flex-col text-right mx-5">
                 <p class="font-bold capitalize mb-0">{{ Auth::user()->name }}</p>
-                <p>{{ Auth::user()->role }}</p>
+                <p class="text-xs lg:text-base">{{ Auth::user()->role }}</p>
             </div>
             <div class="dropdown dropdown-end">
                 <label tabindex="0" class="btn btn-ghost btn-circle avatar">
@@ -55,6 +55,18 @@
 
                                 @case('Measurement Executor')
                                     href="/pengukuran"
+                                @break
+
+                                @case('Analyst')
+                                    href="/analisis"
+                                @break
+
+                                @case('Job Executor')
+                                    href="/pekerjaan"
+                                @break
+
+                                @case('Job Inspector')
+                                    href="/pemeriksa"
                                 @break
 
                                 @default

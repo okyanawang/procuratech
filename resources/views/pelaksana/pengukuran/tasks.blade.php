@@ -9,6 +9,7 @@
                 <tr>
                     <th>No</th>
                     <th>Task Name</th>
+                    <th class="!text-center">Status</th>
                     <th>Job Description</th>
                     <th>Start Date</th>
                     <th>End Date</th>
@@ -16,20 +17,23 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($pengukuran as $p) --}}
+                @foreach ($tasks as $key => $t)
                     <tr>
-                        <td>1</td>
-                        <td>Hone</td>
-                        <td>lorem ipsum dolor sit amet</td>
-                        <td>27/01/23</td>
-                        <td>29/01/23</td>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $t->task_name }}</td>
                         <td class="text-center">
-                            <a href="{{ route('pengukuran.tasks.detail', ['id']) }}">
+                            <div class="badge badge-primary mr-1">{{ $t->task_status }}</div>
+                        </td>
+                        <td>{{ $t->task_description }}</td>
+                        <td>{{ $t->task_start }}</td>
+                        <td>{{ $t->task_end }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('pengukuran.tasks.detail', ['id' => $t->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>
                             </a>
                         </td>
-                    </tr>    
-                {{-- @endforeach --}}
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

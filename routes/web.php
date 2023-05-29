@@ -67,8 +67,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/', [AdminController::class, 'index'])->name('.dashboard');
     });
 
-    Route::group(['prefix' => 'component'], function () {
-        Route::get('/', [AdminController::class, 'component_index'])->name('.component');
+    Route::group(['prefix' => 'component', 'as' => '.component'], function () {
+        Route::get('/', [AdminController::class, 'component_index'])->name('.index');
+        Route::get('/{id}', [AdminController::class, 'component_detail'])->name('.detail');
+        Route::get('/register', [AdminController::class, 'component_register'])->name('.register');
     });
 
     Route::group(['prefix' => 'staff', 'as' => '.staff'], function () {
@@ -133,6 +135,12 @@ Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan', 'middleware' => 'auth.
             // Route::get('/', [PimpinanController::class, 'category_index'])->name('.index');
             Route::get('/{id}', [PimpinanController::class, 'category_detail'])->name('.detail');
             Route::post('/register', [CategoryController::class, 'store'])->name('.register.submit');
+
+            Route::group(['prefix' => 'task', 'as' => '.task'], function () {
+                // Route::get('/', [PimpinanController::class, 'task_index'])->name('.index');
+                Route::get('/{id}}', [PimpinanController::class, 'task_detail'])->name('.detail');
+                // Route::post('/register', [TaskController::class, 'store'])->name('.register.submit');
+            });
         });
     });
 });
@@ -149,11 +157,11 @@ Route::group(['prefix' => 'inventori', 'as' => 'inventori', 'middleware' => 'aut
     Route::group(['prefix' => 'item'], function () {
         Route::get('/', [PetugasController::class, 'item_index'])->name('.item');
         Route::get('/{id}', [PetugasController::class, 'item_detail'])->name('.detail');
-        // Route::get('/register', [PetugasController::class, 'item_create'])->name('.register');
-
+        Route::get('/register', [PetugasController::class, 'item_register_submit'])->name('.register');
+        Route::post('/register', [PetugasController::class, 'item_register_submit'])->name('.register.submit');
+        Route::put('/{id}', [PetugasController::class, 'item_update'])->name('.item.update');
+        Route::delete('/{id}', [PetugasController::class, 'item_delete'])->name('.delete');
     });
-
-
 
 
 });

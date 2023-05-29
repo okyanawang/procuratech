@@ -21,7 +21,14 @@ class AdminController extends Controller
 
     public function component_index()
     {
-        return view('admin.component');
+        $items = Item::all();
+        return view('admin.component', ['items' => $items]);
+    }
+
+    public function component_detail($id)
+    {
+        $item = Item::find($id);
+        return view('admin.component-detail', ['item' => $item]);
     }
 
     public function staff_index()
@@ -33,7 +40,12 @@ class AdminController extends Controller
     public function staff_detail($id)
     {
         $user = User::find($id);
-        return view('admin.staff-detail', ['user' => $user]);
+        $task_user = DB::table('tasks')
+                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+                ->where('users_has_tasks.users_id', $user->id)
+                ->select('tasks.*')
+                ->get();
+        return view('admin.staff-detail', ['user' => $user, 'task_user' => $task_user]);
     }
 
     public function staff_update(Request $request, $id)
@@ -90,9 +102,14 @@ class AdminController extends Controller
     {
         $project = Project::find($id);
         $locations = Location::where('projects_id', $project->id)->get();
-        $name_pm = User::find($project->id)->name;
+        $name_pm = DB::table('users')
+                ->join('users_has_projects', 'users.id', '=', 'users_has_projects.users_id')
+                ->where('users_has_projects.projects_id', $project->id)
+                ->select('users.name')
+                ->get();
+        $pm_ass = $name_pm->first();
         // butuh jumlah category per lokasi
-        return view('admin.project.project-detail', compact('project', 'locations', 'name_pm'));
+        return view('admin.project.project-detail', compact('project', 'locations', 'name_pm', 'pm_ass'));
     }
 
     public function project_update(Request $request, $id)
@@ -144,9 +161,19 @@ class AdminController extends Controller
         $name_pm = User::find($project->id)->name;
         $name_sv = User::find($category->users_id)->name;
         // butuh list workers
-        $workers = 0;
+        $workers = DB::table('tasks')
+                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+                ->join('users', 'users.id', '=', 'users_has_tasks.users_id')
+                ->where('tasks_id', $task->id)
+                ->select('*')
+                ->get();
         // butuh list items
-        $items = 0;
+        $items = DB::table('tasks')
+                ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')
+                ->join('items', 'tasks_has_items.tasks_id', '=', 'items.id')
+                ->where('tasks_id', $task->id)
+                ->select('*')
+                ->get();
         return view('admin.project.task-detail', compact('project', 'location', 'name_pm', 'category', 'name_sv', 'task', 'workers', 'items'));
     }
 
