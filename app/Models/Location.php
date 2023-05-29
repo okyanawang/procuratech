@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Location extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'name',
         'projects_id',
@@ -19,7 +19,7 @@ class Location extends Model
 
     public function categories(): HasMany
     {
-        return $this->hasMany(Category::class);
+        return $this->hasMany(Category::class, 'locations_id');
     }
 
     public function projects(): BelongsTo

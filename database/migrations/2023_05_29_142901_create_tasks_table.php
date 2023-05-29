@@ -13,16 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->integer('id', true);
-            $table->string('title', 45)->nullable();
-            $table->string('description', 45)->nullable();
+            $table->string('name')->nullable();
+            $table->text('description')->nullable();
+            $table->string('type')->nullable();
             $table->string('status')->nullable();
-            $table->binary('file')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
-            $table->integer('tasks_id')->index('fk_reports_tasks1_idx');
-            $table->integer('users_id')->index('fk_reports_users1_idx');
+            $table->integer('categories_id')->index('fk_tasks_categories1_idx');
+            $table->string('type')->nullable();
         });
     }
 
@@ -33,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('tasks');
     }
 };

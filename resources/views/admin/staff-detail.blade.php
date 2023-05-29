@@ -24,12 +24,12 @@
                         placeholder="Full Name" required value="{{ $user->name }} " />
                     <label for="role" class="mr-3 font-semibold">Role :</label>
                     <select class="select select-bordered block mt-1 w-full" name="role" required>
-                        <option value="{{ $user->role }}" hidden disabled selected>{{ $user->role }}</option>
+                        <option value="{{ $user->role }}" selected>{{ $user->role }}</option>
                         <option value="Admin IT">Admin IT</option>
                         <option value="Project Manager">Project Manager</option>
                         <option value="Supervisor">Supervisor</option>
                         <option value="Measurement Executor">Measurement Executor</option>
-                        <option value="Analyst">Analystis</option>
+                        <option value="Analyst">Analyst</option>
                         <option value="Job Executor">Job Executor</option>
                         <option value="Job Inspector">Job Inspector</option>
                         <option value="Inventory Treasurer">Inventory Treasurer</option>
@@ -37,9 +37,9 @@
                     </select>
                     <label for="availability_status" class="mr-3 font-semibold">Availibility Status :</label>
                     <select class="select select-bordered block mt-1 w-full" name="availability_status" required>
-                        <option value="{{ $user->availability_status }}" hidden disabled selected>{{ $user->availability_status }}</option>
-                        <option value="on duty">On Duty</option>
-                        <option value="on leave">On Leave</option>
+                        <option value="{{ $user->availability_status }}" selected>{{ $user->availability_status }}</option>
+                        <option value="on duty">on duty</option>
+                        <option value="on leave">on leave</option>
                     </select>
                 </div>
                 <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">

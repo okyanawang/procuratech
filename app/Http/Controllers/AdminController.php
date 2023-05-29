@@ -112,6 +112,26 @@ class AdminController extends Controller
         return view('admin.project.project-detail', compact('project', 'locations', 'name_pm', 'pm_ass'));
     }
 
+    public function project_update(Request $request, $id)
+    {
+        $project = Project::find($id);
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->start_date = $request->start_date;
+        $project->end_date = $request->end_date;
+        $project->save();
+
+        return redirect()->route('admin.project.index')->with('success', 'Project berhasil diupdate');
+    }
+
+    public function project_delete($id)
+    {
+        $project = Project::find($id);
+        $project->locations()->delete();
+        $project->delete();
+        return redirect()->route('admin.project.index')->with('success', 'Project berhasil dihapus');
+    }
+
     public function location_detail($id)
     {
         $location = Location::find($id);
