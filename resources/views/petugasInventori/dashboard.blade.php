@@ -14,13 +14,13 @@
                 <h1 class="text-2xl font-bold mb-5 text-neutral-content">Statistic</h1>
                 <div class="stats stats-vertical mt-3 md:stats-horizontal shadow">
 
-                    <a href="/inventori/component" class="hover:bg-base-300">
+                    <a href="/inventori/item" class="hover:bg-base-300">
                         <div class="stat w-full">
                             <div class="stat-figure text-primary">
                                 <i class="fa-solid fa-briefcase fa-2xl"></i>
                             </div>
                             <div class="stat-title font-bold uppercase">Total Components</div>
-                            <div class="stat-value text-primary pb-2">{{$ncomponents}}</div>
+                            <div class="stat-value text-primary pb-2">{{ $ncomponents }}</div>
                             <div class="stat-desc">click for more details</div>
 
                         </div>
