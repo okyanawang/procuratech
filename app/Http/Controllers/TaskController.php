@@ -31,7 +31,7 @@ class TaskController extends Controller
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
 
-        $newImageName = time().'-'.'tasks'.'.'.$request->file('image_path')->extension();
+        $newImageName = time() . '-' . 'tasks' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('task'), $newImageName);
 
         // dd($validatedData);
@@ -50,17 +50,16 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Task berhasil ditambahkan');
     }
 
-    public function assign_staff(Request $request)
+    public function assign_staff(Request $request, $id)
     {
         $validatedData = $request->validate([
             'staff' => 'required',
-            'task_id' => 'required',
         ]);
 
         // check if staff already assigned to task
         $check = DB::table('users_has_tasks')
             ->where('users_id', $validatedData['staff'])
-            ->where('tasks_id', $validatedData['task_id'])
+            ->where('tasks_id', $id)
             ->count();
 
         if ($check > 0) {
@@ -71,24 +70,23 @@ class TaskController extends Controller
         // create new users_has_tasks record
         DB::table('users_has_tasks')->insert([
             'users_id' => $validatedData['staff'],
-            'tasks_id' => $validatedData['task_id'],
+            'tasks_id' => $id,
         ]);
 
         return redirect()->back()->with('success', 'Staff berhasil ditambahkan');
     }
 
-    public function remove_staff(Request $request)
+    public function remove_staff($tasks_id, $users_id)
     {
-        $validatedData = $request->validate([
-            'staff' => 'required',
-            // 'inspector' => 'required',
-            'task_id' => 'required',
-        ]);
+        // $validatedData = $request->validate([
+        //     'staff' => 'required',
+        //     'task_id' => 'required',
+        // ]);
 
         // create new users_has_tasks record
         DB::table('users_has_tasks')
-            ->where('users_id', $validatedData['staff'])
-            ->where('tasks_id', $validatedData['task_id'])
+            ->where('users_id', $users_id)
+            ->where('tasks_id', $tasks_id)
             ->delete();
         // $task->worker = $validatedData['staff'];
         // $task->save();
@@ -143,7 +141,7 @@ class TaskController extends Controller
         $task->description = $request->description;
         $task->start_date = $request->start_date;
         $task->end_date = $request->end_date;
-        $newImageName = time().'-'.'tasks'.'.'.$request->file('image_path')->extension();
+        $newImageName = time() . '-' . 'tasks' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('task'), $newImageName);
         $task->image_path = $newImageName;
         $task->save();

@@ -14,11 +14,7 @@
             <div class="flex flex-col md:flex-row gap-3 ">
                 <div class="avatar w-full lg:w-1/3 p-5">
                     <div class="w-full rounded-xl">
-                        @if ($item->image_path != null)
-                            <img src="{{ asset('item/' . $item->image_path) }}" />
-                        @else
-                            <img src="https://picsum.photos/200" />
-                        @endif
+                        <img src="{{ asset('item/' . $item->image_path) }}" />
                     </div>
                 </div>
                 {{-- <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">

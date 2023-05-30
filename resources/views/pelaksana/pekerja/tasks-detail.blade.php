@@ -11,15 +11,13 @@
         </div>
         <div class="avatar w-full justify-end">
             <div class="w-40 h-w-40 rounded-xl">
-                @if ($project->project_image != null)
-                    <img src="{{ asset('project/' . $project->project_image) }}" />
-                @else
-                    <img src="https://picsum.photos/200" />
-                @endif
+                <img src="{{ asset('project/' . $project->project_image) }}" />
             </div>
         </div>
     </div>
     <div class="container">
+        <x-Alert />
+
         <div class="my-14">
 
             <div class="flex flex-row">
@@ -34,11 +32,7 @@
             <div class="flex flex-col lg:flex-row mb-5 gap-5">
                 <div class="avatar w-full lg:w-1/2">
                     <div class="w-full rounded-xl">
-                        @if ($task->image_path != null)
-                            <img src="{{ asset('task/' . $task->image_path) }}" />
-                        @else
-                            <img src="https://picsum.photos/200" />
-                        @endif
+                        <img src="{{ asset('task/' . $task->image_path) }}" />
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
@@ -219,7 +213,6 @@
                                     <div class="badge badge-primary mr-1">{{ $t->status }}</div>
                                 </td>
                                 <td class="text-center">
-                                    {{-- <button class="btn btn-info font-semibold">Detail</button> --}}
                                     <label for="detail-{{ $t->id }}" class="btn btn-info">detail</label>
                                     <input type="checkbox" id="detail-{{ $t->id }}" class="modal-toggle" />
                                     <div class="modal modal-bottom lg:pl-80">
@@ -241,9 +234,9 @@
                                                 </div>
                                             </div>
                                             @if ($t->description_inspect == null)
-                                                <div class="flex flex-col gap-3">
-                                                    {{-- <h1 class="text-xl font-bold">Review</h1> --}}
-                                                    <p class="mb-5">Review on Progress</p>
+                                                <div class="flex flex-col gap-3 items-center">
+                                                    <div class="badge badge-primary">Review on progress, Please wait...
+                                                    </div>
                                                 </div>
                                             @else
                                                 <div class="flex flex-row justify-center">

@@ -24,19 +24,26 @@ class PelaksanaController extends Controller
             ->where('users_has_tasks.users_id', Auth::user()->id)
             ->select('tasks.*')
             ->count();
+        // $ongoing_task = DB::table('tasks')
+        //     ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+        //     ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+        //     ->where('users_has_tasks.users_id', Auth::user()->id)
+        //     ->where('tasks.status', '=', 'Pending')
+        //     ->select('tasks.*')
+        //     ->count();
         $ongoing_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->where('users_has_tasks.users_id', Auth::user()->id)
-            ->where('tasks.status', '=', 'In Progress')
-            ->select('tasks.*')
+            ->where('reports.status', '=', 'Pending')
+            ->select('reports.*')
             ->count();
 
         $done_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
             ->where('users_has_tasks.users_id', Auth::user()->id)
-            ->where('tasks.status', '=', 'Completed')
+            ->where('tasks.status', '=', 'Done')
             ->select('tasks.*')
             ->count();
         return view('pelaksana.pekerja.dashboard', ['ntask' => $ntask, 'ongoing_task' => $ongoing_task, 'done_task' => $done_task]);
@@ -47,7 +54,7 @@ class PelaksanaController extends Controller
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
             ->where('users.id', Auth::user()->id)
-            ->select('tasks.id', 'tasks.name as task_name', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end')
+            ->select('tasks.id', 'tasks.name as task_name', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end', 'tasks.image_path as task_image')
             ->get();
         return view('pelaksana.pekerja.tasks', ['tasks' => $tasks]);
         // return view('pelaksana.pekerja.tasks');
@@ -161,17 +168,17 @@ class PelaksanaController extends Controller
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
             ->where('users_has_tasks.users_id', Auth::user()->id)
-            ->where('tasks.status', '=', 'In Progress')
+            ->where('tasks.status', '=', 'On Review')
             ->select('tasks.*')
             ->count();
-
         $done_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
             ->where('users_has_tasks.users_id', Auth::user()->id)
-            ->where('tasks.status', '=', 'Completed')
+            ->where('tasks.status', '=', 'Done')
             ->select('tasks.*')
             ->count();
+
         return view('pelaksana.pemeriksa.dashboard',  ['ntask' => $ntask, 'ongoing_task' => $ongoing_task, 'done_task' => $done_task]);
     }
     public function index_pemeriksa_tasks()
@@ -193,7 +200,7 @@ class PelaksanaController extends Controller
             ->join('locations', 'categories.locations_id', '=', 'locations.id')
             ->join('projects', 'locations.projects_id', '=', 'projects.id')
             ->where('tasks.id', $id)
-            ->select('projects.name as project_name', 'projects.description as project_description')
+            ->select('projects.*')
             ->first();
         $location = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
@@ -235,11 +242,26 @@ class PelaksanaController extends Controller
             ->where('users.role', '<>', 'Job Inspector')
             ->select('users.name', 'users.phone_number', 'users.role')
             ->get();
+        $parts = DB::table('items')
+            ->join('tasks_has_items', 'tasks_has_items.items_id', '=', 'items.id')
+            ->join('tasks', 'tasks_has_items.tasks_id', '=', 'tasks.id')
+            ->where('items.type', 'Parts')
+            ->select('items.*', 'tasks_has_items.amount')
+            ->distinct()
+            ->get();
+        $material = DB::table('items')
+            ->join('tasks_has_items', 'tasks_has_items.items_id', '=', 'items.id')
+            ->join('tasks', 'tasks_has_items.tasks_id', '=', 'tasks.id')
+            ->where('items.type', 'Material')
+            ->select('items.*', 'tasks_has_items.amount')
+            ->distinct()
+            ->get();
         $reports = DB::table('tasks')
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->join('users', 'reports.users_id', '=', 'users.id')
             ->where('tasks.id', $id)
             ->select('reports.*', 'users.id as worker_id', 'users.name')
+            ->orderBy('reports.id', 'desc')
             ->get();
 
         return view('pelaksana.pemeriksa.tasks-detail', [
@@ -251,6 +273,8 @@ class PelaksanaController extends Controller
             'project' => $project,
             'location' => $location,
             'category' => $category,
+            'parts' => $parts,
+            'material' => $material,
             'reports' => $reports,
         ]);
     }
