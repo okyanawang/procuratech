@@ -17,6 +17,8 @@ class Item extends Model
         'brand',
         'produsen',
         'stock',
+        'unit',
+        'image_path'
     ];
     /**
      * Get the tasks that owns the Item

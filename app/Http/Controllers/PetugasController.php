@@ -33,7 +33,11 @@ class PetugasController extends Controller
             'brand' => 'required',
             'produsen' => 'required',
             'stock' => 'required',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
+
+        $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('item'), $newImageName);
 
         $item = new Item;
         $item->name = $validatedData['name'];
@@ -41,15 +45,16 @@ class PetugasController extends Controller
         $item->brand = $validatedData['brand'];
         $item->produsen = $validatedData['produsen'];
         $item->stock = $validatedData['stock'];
+        $item->image_path = $newImageName;
         $item->save();
 
-        DB::table('items')->insert([
-            'name' => $validatedData['name'],
-            'type' => $validatedData['type'],
-            'brand' => $validatedData['brand'],
-            'produsen' => $validatedData['produsen'],
-            'stock' => $validatedData['stock'],
-        ]);
+        // DB::table('items')->insert([
+        //     'name' => $validatedData['name'],
+        //     'type' => $validatedData['type'],
+        //     'brand' => $validatedData['brand'],
+        //     'produsen' => $validatedData['produsen'],
+        //     'stock' => $validatedData['stock'],
+        // ]);
         
 
         return redirect()->route('inventori.item')->with('success', 'Item berhasil ditambahkan');
@@ -70,27 +75,31 @@ class PetugasController extends Controller
 
     public function item_update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|unique:items|max:255',
-            'type' => 'required',
-            'brand' => 'required',
-            'produsen' => 'required',
-            'stock' => 'required',
-            'description' => 'required',
-        ]);
+        // dd($request->all());
+        $item = Item::find($id);
+        $item->name = $request->name;
+        $item->type = $request->type;
+        $item->brand = $request->brand;
+        $item->produsen = $request->produsen;
+        $item->stock = $request->stock;
+        // $item->description = $request->description;
+        $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('item'), $newImageName);
+        $item->image_path = $newImageName;
+        $item->save();
 
-        Item::whereId($id)->update($validatedData);
+        // Item::whereId($id)->update($validatedData);
 
-        return redirect()->route('inventori.item.detail')->with('success', 'Item berhasil diupdate');
+        return redirect()->back()->with('success', 'Item berhasil diupdate');
     }
 
     public function item_delete($id)
     {
         $item = Item::find($id);
-        $item->tasks()->detach();
+        $item->tasks()->delete();
         $item->delete();
 
-        return redirect()->route('inventori.item.index')->with('success', 'Item berhasil dihapus');
+        return redirect()->route('inventori.item')->with('success', 'Item berhasil dihapus');
     }
 
     // public function item_detail()
