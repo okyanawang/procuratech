@@ -62,12 +62,22 @@
     <div class="container">
         <x-Alert />
 
-        <div class="flex flex-row gap-2">
-            <div class="badge badge-primary">{{ $job->type }}</div>
-            <div class="badge badge-info">{{ $job->status }}</div>
+
+        <div class="flex flex-col lg:flex-row gap-2">
+            <div class="avatar w-full lg:w-1/3">
+                <div class="w-full rounded-xl">
+                    <img src="https://picsum.photos/200" />
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex flex-row gap-2">
+                    <div class="badge badge-primary">{{ $job->type }}</div>
+                    <div class="badge badge-info">{{ $job->status }}</div>
+                </div>
+                <div class="mt-3 mb-3">{{ $job->description }}</div>
+            </div>
         </div>
 
-        <div class="mt-3 mb-3">{{ $job->description }}</div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
             {{-- <h3 class=" text-2xl font-bold mt-10">Staff involved</h3> --}}
@@ -223,7 +233,7 @@
 
         <div class="flex flex-row mt-10 mb-3">
             <h1 class="text-3xl font-bold">Items</h1>
-            <label for="add_item" class="md:ml-5 btn btn-primary">+</label>
+            <label for="add_item" class="ml-5 btn btn-primary">+</label>
             <input type="checkbox" id="add_item" class="modal-toggle" />
             <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
                 <div class="modal-box">

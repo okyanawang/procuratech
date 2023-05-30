@@ -45,6 +45,8 @@
                                 required />
                             <label for="desc" class="mr-3 font-semibold">Description :</label>
                             <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required></textarea>
+                            <label for="photo" class="mr-3 font-semibold">Upload photo :</label>
+                            <input type="file" class="file-input file-input-bordered file-input-info">
                             <input type="hidden" name="categories_id" value={{ $project->cat_id }}>
                         </div>
                     </div>
