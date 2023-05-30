@@ -1,6 +1,6 @@
-@extends('pelaksana.pekerjaan.drawer')
+@extends('pelaksana.pekerja.drawer')
 
-@section('pekerjaan-content')
+@section('pekerja-content')
     <h1 class="text-4xl font-bold mb-10">Dashboard</h1>
     <div class="grid grid-cols-2 gap-5 mb-40">
         <div class="card shadow-2xl col-span-2 bg-primary">
@@ -14,7 +14,7 @@
                 <h1 class="text-2xl font-bold mb-5 text-neutral-content">Statistic</h1>
                 <div class="stats stats-vertical mt-3 md:stats-horizontal shadow">
 
-                    <a class="hover:bg-base-300">
+                    <a href="/pekerja/tasks" class="hover:bg-base-300">
                         <div class="stat w-full">
                             <div class="stat-figure text-primary">
                                 <i class="fa-solid fa-briefcase fa-2xl"></i>
@@ -29,7 +29,7 @@
                 </div>
                 <div class="stats stats-vertical md:stats-horizontal shadow">
 
-                    <a class="hover:bg-base-300">
+                    <a href="/pekerja/tasks" class="hover:bg-base-300">
                         <div class="stat w-full">
                             <div class="stat-figure text-primary ">
                                 <i class="fa-solid fa-users fa-2xl"></i>
@@ -41,7 +41,7 @@
                         </div>
                     </a>
 
-                    <a class="hover:bg-base-300">
+                    <a href="/pekerja/tasks" class="hover:bg-base-300">
                         <div class="stat w-full">
                             <div class="stat-figure text-primary">
                                 <i class="fa-solid fa-puzzle-piece fa-2xl"></i>

@@ -14,18 +14,30 @@ class ReportController extends Controller
     public function executeTask($id)
     {
         // dd($id);
-        $reports = new Report;
-        $reports->status = 'In Progress';
-        $reports->tasks_id = $id;
-        $reports->users_id = auth()->user()->id;
-        $reports->save();
+        // check if in that task there is a report with status Pending
+        $reports = Report::where('tasks_id', $id)->where('status', 'Pending')->first();
+        // dd($reports);
+        if ($reports) {
+            $reports->status = 'In Progress';
+            $reports->tasks_id = $id;
+            $reports->users_id = auth()->user()->id;
+            $reports->save();
+            // return redirect()->back()->with('error', 'Task already executed');
+        } else {
+
+            $reports = new Report;
+            $reports->status = 'In Progress';
+            $reports->tasks_id = $id;
+            $reports->users_id = auth()->user()->id;
+            $reports->save();
+        }
 
         return redirect()->back()->with('success', 'Task executed successfully');
     }
 
     public function update($id, Request $request)
     {
-        $newImageNameWork = time().'-'.'work'.'.'.$request->file('image_path_work')->extension();
+        $newImageNameWork = time() . '-' . 'work' . '.' . $request->file('image_path_work')->extension();
         $request->file('image_path_work')->move(public_path('report'), $newImageNameWork);
 
         $reports = Report::find($id);
@@ -40,7 +52,7 @@ class ReportController extends Controller
     public function update_inspect($id, $worker_id, Request $request)
     {
         // dd($request->all());
-        $newImageNameInspect = time().'-'.'inspect'.'.'.$request->file('image_path_inspect')->extension();
+        $newImageNameInspect = time() . '-' . 'inspect' . '.' . $request->file('image_path_inspect')->extension();
         $request->file('image_path_inspect')->move(public_path('report'), $newImageNameInspect);
 
         $reports = Report::find($id);
@@ -48,7 +60,7 @@ class ReportController extends Controller
         $reports->image_path_inspect = $newImageNameInspect;
         $reports->status = $request->status;
         $reports->save();
-
+        // dd($request->all());
         if ($request->status == 'On Revision') {
             $new_report = new Report;
             $new_report->status = 'Pending';
@@ -59,6 +71,4 @@ class ReportController extends Controller
 
         return redirect()->back()->with('success', 'Report updated successfully');
     }
-
-
 }

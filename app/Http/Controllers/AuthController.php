@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        switch ($user->role) {                                                                                                                        
+        switch ($user->role) {
             case 'Admin IT':
                 return redirect()->route('admin.dashboard');
             case 'Project Manager':
@@ -40,15 +40,13 @@ class AuthController extends Controller
             case 'Supervisor':
                 return redirect()->route('supervisor.dashboard');
             case 'Measurement Executor':
-                return redirect()->route('pengukuran.dashboard');
+                return redirect()->route('pekerja.dashboard');
             case 'Analyst':
-                return redirect()->route('analisis.dashboard');
+                return redirect()->route('pekerja.dashboard');
             case 'Job Executor':
-                return redirect()->route('pekerjaan.dashboard');
+                return redirect()->route('pekerja.dashboard');
             case 'Job Inspector':
                 return redirect()->route('pemeriksa.dashboard');
-            case 'Inventory Treasurer':
-                return redirect()->route('bendahara.dashboard');
             case 'Inventory Officer':
                 return redirect()->route('inventori.dashboard');
 

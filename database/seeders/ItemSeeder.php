@@ -34,12 +34,12 @@ class ItemSeeder extends Seeder
             'Parts',
             'Parts',
             'Parts',
-            'Parts',
-            'Parts',
-            'Parts',
-            'Parts',
-            'Parts',
-            'Parts',
+            'Material',
+            'Material',
+            'Material',
+            'Material',
+            'Material',
+            'Material',
         ];
         $brands = [
             'generic_bolt',

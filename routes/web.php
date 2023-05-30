@@ -168,24 +168,7 @@ Route::group(['prefix' => 'inventori', 'as' => 'inventori', 'middleware' => 'aut
         Route::put('/{id}', [PetugasController::class, 'item_update'])->name('.item.update');
         Route::delete('/{id}', [PetugasController::class, 'item_delete'])->name('.delete');
     });
-
-
 });
-
-Route::group(['prefix' => 'bendaharaPeralatan', 'as' => 'bendaharaPeralatan', 'middleware' => 'auth.role:Inventory Treasurer'], function () {
-    Route::get('/', function () {
-        return redirect('/bendaharaPeralatan/dashboard');
-    });
-
-    Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/', [BendaharaController::class, 'index'])->name('.dashboard');
-    });
-
-    Route::group(['prefix' => 'tool'], function () {
-        Route::get('/', [BendaharaController::class, 'tool_index'])->name('.tool');
-    });
-});
-
 
 Route::group(['prefix' => 'supervisor', 'as' => 'supervisor', 'middleware' => 'auth.role:Supervisor'], function () {
     Route::get('/', function () {
@@ -212,58 +195,21 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor', 'middleware' => 'a
     });
 });
 
-Route::group(['prefix' => 'pengukuran', 'as' => 'pengukuran', 'middleware' => 'auth.role:Measurement Executor'], function () {
+
+Route::group(['prefix' => 'pekerja', 'as' => 'pekerja', 'middleware' => 'worker.role'], function () {
     Route::get('/', function () {
-        return redirect('/pengukuran/dashboard');
+        return redirect('/pekerja/dashboard');
     });
 
     Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/', [PelaksanaController::class, 'index_pengukuran'])->name('.dashboard');
+        Route::get('/', [PelaksanaController::class, 'index_pekerja'])->name('.dashboard');
     });
 
     Route::group(['prefix' => 'tasks'], function () {
-        Route::get('/', [PelaksanaController::class, 'index_pengukuran_tasks'])->name('.tasks');
-    });
-    Route::group(['prefix' => 'tasks'], function () {
-        Route::get('/{id}', [PelaksanaController::class, 'index_pengukuran_tasks_detail'])->name('.tasks.detail');
-    });
-});
-
-Route::group(['prefix' => 'analisis', 'as' => 'analisis', 'middleware' => 'auth.role:Analyst'], function () {
-    Route::get('/', function () {
-        return redirect('/analisis/dashboard');
-    });
-
-    Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/', [PelaksanaController::class, 'index_analisis'])->name('.dashboard');
-    });
-
-    Route::group(['prefix' => 'tasks'], function () {
-        Route::get('/', [PelaksanaController::class, 'index_analisis_tasks'])->name('.tasks');
-        Route::get('/{id}', [PelaksanaController::class, 'index_analisis_tasks_detail'])->name('.tasks.detail');
-        Route::put('/execute/{id}', [ReportController::class, 'executeTask'])->name('.tasks.execute'); 
+        Route::get('/', [PelaksanaController::class, 'index_pekerja_tasks'])->name('.tasks');
+        Route::get('/{id}', [PelaksanaController::class, 'index_pekerja_tasks_detail'])->name('.tasks.detail');
+        Route::put('/execute/{id}', [ReportController::class, 'executeTask'])->name('.tasks.execute');
         Route::put('/update/{id}', [ReportController::class, 'update'])->name('.tasks.update');
-    });
-    // Route::group(['prefix' => 'tasks'], function () {
-    //     Route::get('/{id}', [PelaksanaController::class, 'index_analisis_tasks_detail'])->name('.tasks.detail');
-    //     Route::put('/execute/{id}', [PelaksanaController::class, 'executeTask'])->name('.execute'); 
-    // });
-});
-
-Route::group(['prefix' => 'pekerjaan', 'as' => 'pekerjaan', 'middleware' => 'auth.role:Job Executor'], function () {
-    Route::get('/', function () {
-        return redirect('/pekerjaan/dashboard');
-    });
-
-    Route::group(['prefix' => 'dashboard'], function () {
-        Route::get('/', [PelaksanaController::class, 'index_pekerjaan'])->name('.dashboard');
-    });
-
-    Route::group(['prefix' => 'tasks'], function () {
-        Route::get('/', [PelaksanaController::class, 'index_pekerjaan_tasks'])->name('.tasks');
-    });
-    Route::group(['prefix' => 'tasks'], function () {
-        Route::get('/{id}', [PelaksanaController::class, 'index_pekerjaan_tasks_detail'])->name('.tasks.detail');
     });
 });
 
