@@ -104,6 +104,7 @@ class ItemSeeder extends Seeder
             $item->produsen = $produsens[$key];
             $item->stock = $stocks[$key];
             $item->unit = $units[$key];
+            $item->image_path = '1685417912-items.jpg';
             $item->save();
 
             $items[] = $item;

@@ -8,13 +8,18 @@
         <h1 class="text-4xl font-bold ml-5">Detail Items</h1>
     </div>
     <div class="container">
-        <form action="{{ route('inventori.item.update', ['id' => $item->id]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('inventori.item.update', ['id' => $item->id]) }}"
+            method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="flex flex-col md:flex-row gap-3 ">
                 <div class="avatar w-full lg:w-1/3 p-5">
                     <div class="w-full rounded-xl">
-                        <img src="https://picsum.photos/200" />
+                        @if($item->image_path != null)
+                        <img src="{{ asset('item/' . $item->image_path) }}" />
+                        @else
+                            <img src="https://picsum.photos/200" />
+                        @endif
                     </div>
                 </div>
                 {{-- <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
@@ -23,8 +28,8 @@
                     <label for="name" class="mr-3 font-semibold">Item name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="item name" required value="{{ $item->name }}" />
-                    <label for="role" class="mr-3 font-semibold">Type :</label>
-                    <select class="select select-bordered block mt-1 w-full max-w-xs" name="role" required>
+                    <label for="type" class="mr-3 font-semibold">Type :</label>
+                    <select class="select select-bordered block mt-1 w-full max-w-xs" name="type" required>
                         <option selected>{{ $item->type }}</option>
                         <option value="Material">Material</option>
                         <option value="Parts">Parts</option>
@@ -40,8 +45,8 @@
                     <label for="stock" class="mr-3 font-semibold">Stock :</label>
                     <input name="stock" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="stock" required value="{{ $item->stock }}" />
-                    <label for="photo" class="mr-3 font-semibold">Upload Photo :</label>
-                    <input type="file" class="file-input file-input-bordered file-input-info">
+                    <label for="image_path" class="mr-3 font-semibold">Upload Photo :</label>
+                    <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
 
                 </div>
             </div>
@@ -66,24 +71,24 @@
                     </div>
                 </div>
             </div>
-
-            <input type="checkbox" id="my-modal-delete-items" class="modal-toggle" />
-            <div class="modal modal-bottom sm:modal-middle lg:pl-80">
-                <div class="modal-box">
-                    <form action="{{ route('inventori.delete', ['id' => $item->id]) }}" method="POST"
-                        class="flex flex-col">
-                        @method('DELETE')
-                        @csrf
-                        <h3 class="font-bold text-lg mb-5">Delete Item</h3>
-                        <p>Are you sure you want to delete this item? This action can't be undone</p>
-                        <div class="modal-action">
-                            <label for="modal-delete" class="btn btn-error">Cancel</label>
-                            <input type="submit" class="btn btn-success">
-                        </div>
-                    </form>
-                </div>
-            </div>
         </form>
+        <input type="checkbox" id="my-modal-delete-items" class="modal-toggle" />
+        <div class="modal modal-bottom sm:modal-middle lg:pl-80">
+            <div class="modal-box">
+                <form action="{{ route('inventori.delete', ['id' => $item->id]) }}" method="POST"
+                    class="flex flex-col">
+                    @method('DELETE')
+                    @csrf
+                    <h3 class="font-bold text-lg mb-5">Delete Item</h3>
+                    <p>Are you sure you want to delete this item? This action can't be undone</p>
+                    <div class="modal-action">
+                        <label for="modal-delete" class="btn btn-error">Cancel</label>
+                        <input type="submit" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+        
 
     </div>
 @endsection
