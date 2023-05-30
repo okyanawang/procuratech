@@ -28,7 +28,7 @@
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="item name" required value="{{ $item->name }}" />
                     <label for="role" class="mr-3 font-semibold">Type :</label>
-                    <select class="select select-bordered block mt-1 w-full max-w-xs" name="role" required>
+                    <select class="select select-bordered block mt-1 w-full max-w-xs" name="type" required>
                         <option value="Material" @if ($item->type == 'Material') selected @endif>Material</option>
                         <option value="Parts" @if ($item->type == 'Parts') selected @endif>Parts</option>
                     </select>
