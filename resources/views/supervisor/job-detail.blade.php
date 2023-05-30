@@ -68,7 +68,12 @@
         <div class="flex flex-col lg:flex-row gap-2">
             <div class="avatar w-full lg:w-1/3">
                 <div class="w-full rounded-xl">
-                    <img src="https://picsum.photos/200" />
+                    @if($job->image_path != null)
+                        {{-- dd({{ asset('task/' . $job->image_path) }}) --}}
+                        <img src="{{ asset('task/' . $job->image_path) }}" />
+                    @else
+                        <img src="https://picsum.photos/200" />
+                    @endif
                 </div>
             </div>
             <div class="flex flex-col">
