@@ -27,96 +27,97 @@
                 </p>
             </div>
 
-            <div class="flex flex-row mb-5">
-                <div class="badge badge-primary mr-1">{{ $task->status }}</div>
-                <div class="badge badge-info mr-1">{{ $task->type }}</div>
-            </div>
-            <div class="avatar w-full">
-                <div class="w-full rounded-xl">
-                    <img src="https://picsum.photos/200" />
-                </div>
-            </div>
-            <div class="mt-5">
-                <div class="mb-3">
-                    <h4 class="font-bold">Job Description</h4>
-                    <p>{{ $task->description }}</p>
-                </div>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-1 items-center">
-
-                    <div class="mb-3">
-                        <h4 class="font-bold">Project Manager</h4>
-                        <p>
-                            @foreach ($pm_ass as $pm)
-                                {{ $pm->name }}
-                                <span> - {{ $pm->phone_number }}</span>
-                            @endforeach
-                        </p>
-                    </div>
-                    <div class="mb-3">
-                        <h4 class="font-bold">Supervisor</h4>
-                        <p>
-                            @foreach ($spv_ass as $spv)
-                                {{ $spv->name }}
-                                <span> - {{ $spv->phone_number }}</span>
-                            @endforeach
-                        </p>
-                    </div>
-                    <div class="mb-3">
-                        <h4 class="font-bold">Teams</h4>
-                        @if ($teams->isNotEmpty())
-                            <p>
-                                @foreach ($teams as $t)
-                                    {{ $t->name }}
-                                    <span> - {{ $t->phone_number }}</span>
-                                    <span> - {{ $t->role }} <br></span>
-                                @endforeach
-                            </p>
-                        @else
-                            <p>No team formed yet</p>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <h4 class="font-bold">Inspector</h4>
-                        @if ($ins_ass->isNotEmpty())
-                            <p>
-                                @foreach ($ins_ass as $ins)
-                                    {{ $ins->name }}
-                                    <span> - {{ $ins->phone_number }}</span>
-                                @endforeach
-                            </p>
-                        @else
-                            <p>No inspector assigned yet</p>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <h4 class="font-bold">Parts</h4>
-                        {{-- @if ($ins_ass->isNotEmpty())
-                            <p>
-                                @foreach ($ins_ass as $ins)
-                                    {{ $ins->name }}
-                                    <span> - {{ $ins->phone_number }}</span>
-                                @endforeach
-                            </p>
-                        @else --}}
-                        <p>No parts required</p>
-                        {{-- @endif --}}
-                    </div>
-                    <div class="mb-3">
-                        <h4 class="font-bold">Materials</h4>
-                        {{-- @if ($ins_ass->isNotEmpty())
-                            <p>
-                                @foreach ($ins_ass as $ins)
-                                    {{ $ins->name }}
-                                    <span> - {{ $ins->phone_number }}</span>
-                                @endforeach
-                            </p>
-                        @else --}}
-                        <p>No materials required</p>
-                        {{-- @endif --}}
+            <div class="flex flex-col lg:flex-row mb-5 gap-5">
+                <div class="avatar w-full lg:w-1/2">
+                    <div class="w-full rounded-xl">
+                        <img src="https://picsum.photos/200" />
                     </div>
                 </div>
+                <div class="flex flex-col gap-2">
+                    <div class="badge badge-primary mr-1">{{ $task->status }}</div>
+                    <div class="badge badge-info mr-1">{{ $task->type }}</div>
+                    <div class="mt-5">
+                        <div class="mb-5">
+                            <h4 class="font-bold">Job Description</h4>
+                            <p>{{ $task->description }}</p>
+                        </div>
+                        <div class="grid gripd-cols-1 lg:grid-cols-2 gap-5 items-center">
+                            <div class="mb-3">
+                                <h4 class="font-bold">Project Manager</h4>
+                                <p>
+                                    @foreach ($pm_ass as $pm)
+                                        {{ $pm->name }}
+                                        <span> - {{ $pm->phone_number }}</span>
+                                    @endforeach
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="font-bold">Supervisor</h4>
+                                <p>
+                                    @foreach ($spv_ass as $spv)
+                                        {{ $spv->name }}
+                                        <span> - {{ $spv->phone_number }}</span>
+                                    @endforeach
+                                </p>
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="font-bold">Teams</h4>
+                                @if ($teams->isNotEmpty())
+                                    <p>
+                                        @foreach ($teams as $t)
+                                            {{ $t->name }}
+                                            <span> - {{ $t->phone_number }}</span>
+                                            <span> - {{ $t->role }} <br></span>
+                                        @endforeach
+                                    </p>
+                                @else
+                                    <p>No team formed yet</p>
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="font-bold">Inspector</h4>
+                                @if ($ins_ass->isNotEmpty())
+                                    <p>
+                                        @foreach ($ins_ass as $ins)
+                                            {{ $ins->name }}
+                                            <span> - {{ $ins->phone_number }}</span>
+                                        @endforeach
+                                    </p>
+                                @else
+                                    <p>No inspector assigned yet</p>
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="font-bold">Parts</h4>
+                                {{-- @if ($ins_ass->isNotEmpty())
+                                    <p>
+                                        @foreach ($ins_ass as $ins)
+                                            {{ $ins->name }}
+                                            <span> - {{ $ins->phone_number }}</span>
+                                        @endforeach
+                                    </p>
+                                @else --}}
+                                <p>No parts required</p>
+                                {{-- @endif --}}
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="font-bold">Materials</h4>
+                                {{-- @if ($ins_ass->isNotEmpty())
+                                    <p>
+                                        @foreach ($ins_ass as $ins)
+                                            {{ $ins->name }}
+                                            <span> - {{ $ins->phone_number }}</span>
+                                        @endforeach
+                                    </p>
+                                @else --}}
+                                <p>No materials required</p>
+                                {{-- @endif --}}
+                            </div>
+                        </div>
 
 
+                    </div>
+                </div>
             </div>
             <div class="modal-action justify-center w-full">
                 <form action="" method="POST">
