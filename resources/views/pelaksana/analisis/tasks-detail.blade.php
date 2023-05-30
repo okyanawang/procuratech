@@ -11,7 +11,11 @@
         </div>
         <div class="avatar w-full justify-end">
             <div class="w-40 h-w-40 rounded-xl">
-                <img src="https://picsum.photos/200" />
+                @if($project->project_image != null)
+                    <img src="{{ asset('project/' . $project->project_image) }}" />
+                @else
+                    <img src="https://picsum.photos/200" />
+                @endif
             </div>
         </div>
     </div>
@@ -30,11 +34,22 @@
             <div class="flex flex-col lg:flex-row mb-5 gap-5">
                 <div class="avatar w-full lg:w-1/2">
                     <div class="w-full rounded-xl">
-                        <img src="https://picsum.photos/200" />
+                        @if($task->image_path != null)
+                            <img src="{{ asset('task/' . $task->image_path) }}" />
+                        @else
+                            <img src="https://picsum.photos/200" />
+                        @endif
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <div class="badge badge-primary mr-1">{{ $task->status }}</div>
+                    <div class="badge badge-primary mr-1">
+                        @if ($reports)
+                            {{ $reports->status }}
+                        @else
+                            Pending
+                        @endif
+                        {{-- {{ $task->status }} --}}
+                    </div>
                     <div class="badge badge-info mr-1">{{ $task->type }}</div>
                     <div class="mt-5">
                         <div class="mb-5">
@@ -119,41 +134,44 @@
                     </div>
                 </div>
             </div>
+            
             <div class="modal-action justify-center w-full">
-                <form action="" method="POST">
+                @if ($reports == null)
+                <form action="{{ route('analisis.tasks.execute', ['id' => $task->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <input type="submit" class="btn btn-primary" value="Execute Task">
                     {{-- <button class="btn btn-primary">Execute Task</button> --}}
                 </form>
-                <label for="report" class="btn btn-info">Report</label>
-                {{-- <input type="submit" class="btn btn-primary" value="Submit"> --}}
+                @else
+                    <label for="report" class="btn btn-info">Report</label>
+                    <input type="checkbox" id="report" class="modal-toggle" />
+                    <div class="modal modal-bottom lg:pl-80">
+                        <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
+                            <form action="{{ route('analisis.tasks.update', ['id' => $reports->id]) }}" enctype="multipart/form-data" method="POST">
+                                {{-- {{ route('analisis.tasks.update', ['id' => $reports->id]) }} --}}
+                                @csrf
+                                @method('PUT')
+                                <div class="flex flex-row justify-center">
+                                    <h1 class="font-bold text-2xl mb-3">Report</h1>
+                                </div>
+                                <div class="mt-5">
+                                    <textarea class="textarea textarea-bordered p-3 text-black w-full" name="description_work" id="description_work" cols="30"
+                                        rows="6" placeholder="I have done ...." required></textarea>
+                                    <label for="image_path_work" class="mr-3 font-semibold">Proof of picture</label>
+                                    <input name="image_path_work" type="file" class="file-input file-input-bordered file-input-info"
+                                        placeholder="full name" required />
+                                </div>
+                                <div class="flex justify-center gap-5 mt-5">
+                                    <label for="report" class="btn btn-error w-50 modal-button text-white">
+                                        Close</label>
+                                    <input type="submit" class="btn btn-primary" value="Report">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @endif
             </div>
-            <input type="checkbox" id="report" class="modal-toggle" />
-            <div class="modal modal-bottom lg:pl-80">
-                <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
-                    <form action="">
-                        @csrf
-                        <div class="flex flex-row justify-center">
-                            <h1 class="font-bold text-2xl mb-3">Report</h1>
-                        </div>
-                        <div class="mt-5">
-                            <textarea class="textarea textarea-bordered p-3 text-black w-full" name="" id="" cols="30"
-                                rows="6" placeholder="I have done ...." required></textarea>
-                            <label for="image-report" class="mr-3 font-semibold">Proof of picture</label>
-                            <input name="image-report" type="file" class="file-input file-input-bordered file-input-info"
-                                placeholder="full name" required />
-                        </div>
-                        <div class="flex justify-center gap-5 mt-5">
-                            <label for="report" class="btn btn-error w-50 modal-button text-white">
-                                Close</label>
-                            <input type="submit" class="btn btn-primary" value="Report">
-                        </div>
-                    </form>
-                </div>
-            </div>
-
         </div>
-
     </div>
 @endsection

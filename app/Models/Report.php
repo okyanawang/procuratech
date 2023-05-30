@@ -10,10 +10,11 @@ class Report extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title',
-        'description',
+        'description_work',
+        'description_inspect',
         'status',
-        'file',
+        'image_path_work',
+        'image_path_inspect',
         'tasks_id',
         'users_id',
     ];
@@ -32,9 +33,5 @@ class Report extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    // public function users(): BelongsTo
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    
 }

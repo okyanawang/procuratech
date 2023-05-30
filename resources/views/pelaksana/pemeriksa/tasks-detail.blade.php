@@ -133,10 +133,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($tasks as $key => $t) --}}
+                    @foreach ($reports as $key => $t)
                     <tr>
                         <td>1</td>
-                        <td>labib</td>
+                        <td>{{ $t->name }}</td>
                         <td class="text-center">
                             <div class="badge badge-primary mr-1">on Progress</div>
                         </td>
@@ -195,7 +195,7 @@
 
                         </td>
                     </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
 

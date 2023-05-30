@@ -162,7 +162,7 @@ class PelaksanaController extends Controller
             ->join('locations', 'categories.locations_id', '=', 'locations.id')
             ->join('projects', 'locations.projects_id', '=', 'projects.id')
             ->where('tasks.id', $id)
-            ->select('projects.name as project_name', 'projects.description as project_description')
+            ->select('projects.name as project_name', 'projects.description as project_description', 'projects.image_path as project_image')
             ->first();
         $location = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
@@ -204,6 +204,12 @@ class PelaksanaController extends Controller
             ->where('users.role', '<>', 'Job Inspector')
             ->select('users.name', 'users.phone_number', 'users.role')
             ->get();
+        $reports = DB::table('tasks')
+            ->join('reports','tasks.id', '=', 'reports.tasks_id')
+            ->where('tasks.id', $id)
+            ->select('reports.*')
+            ->first();
+        // dd($reports);
 
         return view('pelaksana.analisis.tasks-detail', [
             'task' => $task,
@@ -214,6 +220,7 @@ class PelaksanaController extends Controller
             'project' => $project,
             'location' => $location,
             'category' => $category,
+            'reports' => $reports
         ]);
     }
 
@@ -403,6 +410,12 @@ class PelaksanaController extends Controller
             ->where('users.role', '<>', 'Job Inspector')
             ->select('users.name', 'users.phone_number', 'users.role')
             ->get();
+        $reports = DB::table('tasks')
+            ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
+            ->join('users', 'reports.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('reports.*','users.name')
+            ->get();
         return view('pelaksana.pemeriksa.tasks-detail', [
             'task' => $task,
             'teams' => $teams,
@@ -412,6 +425,7 @@ class PelaksanaController extends Controller
             'project' => $project,
             'location' => $location,
             'category' => $category,
+            'reports' => $reports,
         ]);
     }
 }
