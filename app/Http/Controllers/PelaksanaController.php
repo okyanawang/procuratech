@@ -157,6 +157,24 @@ class PelaksanaController extends Controller
     {
         $task = Task::find($id);
         // dd($id);
+        $project = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->where('tasks.id', $id)
+            ->select('projects.name as project_name', 'projects.description as project_description')
+            ->first();
+        $location = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->where('tasks.id', $id)
+            ->select('locations.*')
+            ->first();
+        $category = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->where('tasks.id', $id)
+            ->select('categories.*')
+            ->first();
         $pm_ass = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
             ->join('locations', 'categories.locations_id', '=', 'locations.id')
@@ -187,7 +205,16 @@ class PelaksanaController extends Controller
             ->select('users.name', 'users.phone_number', 'users.role')
             ->get();
 
-        return view('pelaksana.analisis.tasks-detail', ['task' => $task, 'teams' => $teams, 'pm_ass' => $pm_ass, 'spv_ass' => $spv_ass, 'ins_ass' => $ins_ass]);
+        return view('pelaksana.analisis.tasks-detail', [
+            'task' => $task,
+            'teams' => $teams,
+            'pm_ass' => $pm_ass,
+            'spv_ass' => $spv_ass,
+            'ins_ass' => $ins_ass,
+            'project' => $project,
+            'location' => $location,
+            'category' => $category,
+        ]);
     }
 
     // pekerjaan
@@ -230,6 +257,24 @@ class PelaksanaController extends Controller
     {
         $task = Task::find($id);
         // dd($id);
+        $project = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->where('tasks.id', $id)
+            ->select('projects.name as project_name', 'projects.description as project_description')
+            ->first();
+        $location = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->where('tasks.id', $id)
+            ->select('locations.*')
+            ->first();
+        $category = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->where('tasks.id', $id)
+            ->select('categories.*')
+            ->first();
         $pm_ass = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
             ->join('locations', 'categories.locations_id', '=', 'locations.id')
@@ -259,7 +304,16 @@ class PelaksanaController extends Controller
             ->where('users.role', '<>', 'Job Inspector')
             ->select('users.name', 'users.phone_number', 'users.role')
             ->get();
-        return view('pelaksana.pekerjaan.tasks-detail', ['task' => $task, 'teams' => $teams, 'pm_ass' => $pm_ass, 'spv_ass' => $spv_ass, 'ins_ass' => $ins_ass]);
+        return view('pelaksana.pekerjaan.tasks-detail', [
+            'task' => $task,
+            'teams' => $teams,
+            'pm_ass' => $pm_ass,
+            'spv_ass' => $spv_ass,
+            'ins_ass' => $ins_ass,
+            'project' => $project,
+            'location' => $location,
+            'category' => $category,
+        ]);
     }
 
     // pemeriksa
@@ -302,6 +356,24 @@ class PelaksanaController extends Controller
     {
         $task = Task::find($id);
         // dd($id);
+        $project = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+            ->where('tasks.id', $id)
+            ->select('projects.name as project_name', 'projects.description as project_description')
+            ->first();
+        $location = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->where('tasks.id', $id)
+            ->select('locations.*')
+            ->first();
+        $category = DB::table('tasks')
+            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
+            ->where('tasks.id', $id)
+            ->select('categories.*')
+            ->first();
         $pm_ass = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
             ->join('locations', 'categories.locations_id', '=', 'locations.id')
@@ -331,6 +403,15 @@ class PelaksanaController extends Controller
             ->where('users.role', '<>', 'Job Inspector')
             ->select('users.name', 'users.phone_number', 'users.role')
             ->get();
-        return view('pelaksana.pemeriksa.tasks-detail', ['task' => $task, 'teams' => $teams, 'pm_ass' => $pm_ass, 'spv_ass' => $spv_ass, 'ins_ass' => $ins_ass]);
+        return view('pelaksana.pemeriksa.tasks-detail', [
+            'task' => $task,
+            'teams' => $teams,
+            'pm_ass' => $pm_ass,
+            'spv_ass' => $spv_ass,
+            'ins_ass' => $ins_ass,
+            'project' => $project,
+            'location' => $location,
+            'category' => $category,
+        ]);
     }
 }
