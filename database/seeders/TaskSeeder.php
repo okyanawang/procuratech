@@ -20,6 +20,7 @@ class TaskSeeder extends Seeder
                 'start_date' => '2023-05-20',
                 'end_date' => '2023-05-25',
                 'categories_id' => 5,
+                'image_path' => '1685417912-projects.jpg',
             ],
             [
                 'name' => 'Engine Overhaul',
@@ -29,6 +30,7 @@ class TaskSeeder extends Seeder
                 'start_date' => '2023-06-01',
                 'end_date' => '2023-06-10',
                 'categories_id' => 2,
+                'image_path' => '1685417912-projects.jpg',
             ],
             [
                 'name' => 'Hull Repair',
@@ -38,6 +40,7 @@ class TaskSeeder extends Seeder
                 'start_date' => '2023-06-15',
                 'end_date' => '2023-06-20',
                 'categories_id' => 4,
+                'image_path' => '1685417912-projects.jpg',
             ],
         ];
 
