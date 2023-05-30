@@ -37,16 +37,16 @@
                             <label for="type" class="mr-3 font-semibold">Type :</label>
                             <input name="type" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                                 placeholder="Job type" required />
-                            <label for="startdate" class="mr-3 font-semibold">Start date :</label>
-                            <input name="startdate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                            <label for="start_date" class="mr-3 font-semibold">Start date :</label>
+                            <input name="start_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                                 required />
-                            <label for="startdate" class="mr-3 font-semibold">End date :</label>
-                            <input name="enddate" type="date" class="input input-bordered w-full max-w-xs col-span-1"
+                            <label for="end_date" class="mr-3 font-semibold">End date :</label>
+                            <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                                 required />
-                            <label for="desc" class="mr-3 font-semibold">Description :</label>
-                            <textarea name="desc" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required></textarea>
-                            <label for="photo" class="mr-3 font-semibold">Upload photo :</label>
-                            <input type="file" class="file-input file-input-bordered file-input-info">
+                            <label for="description" class="mr-3 font-semibold">Description :</label>
+                            <textarea name="description" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required></textarea>
+                            <label for="image_path" class="mr-3 font-semibold">Upload photo :</label>
+                            <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
                             <input type="hidden" name="categories_id" value={{ $project->cat_id }}>
                         </div>
                     </div>

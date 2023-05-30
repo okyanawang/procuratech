@@ -34,7 +34,7 @@
                 <div class="avatar w-full lg:w-1/2 mt-3">
                     <div class="w-full rounded-xl">
                         @if($task->image_path != null)
-                            <img src="{{ asset('project/' . $task->image_path) }}" />
+                            <img src="{{ asset('task/' . $task->image_path) }}" />
                         @else
                             <img src="https://picsum.photos/200" />
                         @endif
