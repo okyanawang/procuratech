@@ -12,6 +12,7 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -239,10 +240,14 @@ Route::group(['prefix' => 'analisis', 'as' => 'analisis', 'middleware' => 'auth.
 
     Route::group(['prefix' => 'tasks'], function () {
         Route::get('/', [PelaksanaController::class, 'index_analisis_tasks'])->name('.tasks');
-    });
-    Route::group(['prefix' => 'tasks'], function () {
         Route::get('/{id}', [PelaksanaController::class, 'index_analisis_tasks_detail'])->name('.tasks.detail');
+        Route::put('/execute/{id}', [ReportController::class, 'executeTask'])->name('.tasks.execute'); 
+        Route::put('/update/{id}', [ReportController::class, 'update'])->name('.tasks.update');
     });
+    // Route::group(['prefix' => 'tasks'], function () {
+    //     Route::get('/{id}', [PelaksanaController::class, 'index_analisis_tasks_detail'])->name('.tasks.detail');
+    //     Route::put('/execute/{id}', [PelaksanaController::class, 'executeTask'])->name('.execute'); 
+    // });
 });
 
 Route::group(['prefix' => 'pekerjaan', 'as' => 'pekerjaan', 'middleware' => 'auth.role:Job Executor'], function () {
@@ -273,9 +278,8 @@ Route::group(['prefix' => 'pemeriksa', 'as' => 'pemeriksa', 'middleware' => 'aut
 
     Route::group(['prefix' => 'tasks'], function () {
         Route::get('/', [PelaksanaController::class, 'index_pemeriksa_tasks'])->name('.tasks');
-    });
-    Route::group(['prefix' => 'tasks'], function () {
         Route::get('/{id}', [PelaksanaController::class, 'index_pemeriksa_tasks_detail'])->name('.tasks.detail');
+        Route::put('/update_inspect/{id}/{worker_id}', [ReportController::class, 'update_inspect'])->name('.tasks.update_inspect');
     });
 });
 

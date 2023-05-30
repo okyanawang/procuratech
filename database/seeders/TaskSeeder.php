@@ -26,7 +26,7 @@ class TaskSeeder extends Seeder
             [
                 'name' => 'Engine Overhaul',
                 'description' => 'Perform a complete overhaul of the ship engine',
-                'status' => 'In Progress',
+                'status' => 'Pending',
                 'type' => 'Overhaul',
                 'start_date' => '2023-06-01',
                 'end_date' => '2023-06-10',
@@ -36,7 +36,7 @@ class TaskSeeder extends Seeder
             [
                 'name' => 'Hull Repair',
                 'description' => 'Repair any damages to the ship hull',
-                'status' => 'Completed',
+                'status' => 'Pending',
                 'type' => 'Repair',
                 'start_date' => '2023-06-15',
                 'end_date' => '2023-06-20',
