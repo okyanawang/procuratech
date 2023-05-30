@@ -27,7 +27,11 @@ class TaskController extends Controller
             'startdate' => 'required',
             'enddate' => 'required',
             'categories_id' => 'required',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
+
+        $newImageName = time().'-'.'tasks'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('task'), $newImageName);
 
         // dd($validatedData);
 
@@ -39,6 +43,7 @@ class TaskController extends Controller
         $task->start_date = $validatedData['startdate'];
         $task->end_date = $validatedData['enddate'];
         $task->categories_id = $validatedData['categories_id'];
+        $task->image_path = $newImageName;
         $task->save();
 
         return redirect()->back()->with('success', 'Task berhasil ditambahkan');
@@ -136,11 +141,21 @@ class TaskController extends Controller
             'type' => 'required',
             'start_date' => 'required',
             'end_date' => 'required',
+            // 'categories_id' => 'required',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
 
         Task::whereId($id)->update($validatedData);
         return redirect()->back()->with('success', 'Task berhasil diupdate');
     }
+
+    public function delete($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->caetgories()->delete();
+        return view('task.delete', compact('task'));
+    }
+
     public function destroy($id)
     {
         $project_id = DB::table('projects')

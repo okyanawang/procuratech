@@ -24,6 +24,7 @@ class Task extends Model
         'start_date',
         'end_date',
         'categories_id',
+        'image_path',
     ];
     
     protected $casts = [
