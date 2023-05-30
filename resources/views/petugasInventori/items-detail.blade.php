@@ -40,6 +40,8 @@
                     <label for="stock" class="mr-3 font-semibold">Stock :</label>
                     <input name="stock" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="stock" required value="{{ $item->stock }}" />
+                    <label for="photo" class="mr-3 font-semibold">Upload Photo :</label>
+                    <input type="file" class="file-input file-input-bordered file-input-info">
 
                 </div>
             </div>
