@@ -25,3 +25,5 @@ yarn-error.log
 !/public/task/placeholder*[.jpg, .png, .jpeg]
 /public/user/*[.jpg, .png, .jpeg]
 !/public/user/placeholder*[.jpg, .png, .jpeg]
+/public/report/*[.jpg, .png, .jpeg]
+!/public/report/placeholder*[.jpg, .png, .jpeg]

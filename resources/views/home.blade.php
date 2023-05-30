@@ -27,13 +27,13 @@
                         href="/inventori"
                         @break
                         @case('Measurement Executor')
-                        href="/pengukuran"
+                        href="/pekerja"
                         @break
                         @case('Analyst')
-                        href="/analisis"
+                        href="/pekerja"
                         @break
                         @case('Job Executor')
-                        href="/pekerjaan"
+                        href="/pekerja"
                         @break
                         @case('Job Inspector')
                         href="/pemeriksa"
