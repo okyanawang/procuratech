@@ -25,21 +25,37 @@ class ReportController extends Controller
 
     public function update($id, Request $request)
     {
-        // dd($request->all());
-        // dd($request->all());
-
         $newImageNameWork = time().'-'.'work'.'.'.$request->file('image_path_work')->extension();
         $request->file('image_path_work')->move(public_path('report'), $newImageNameWork);
 
-        // $newImageNameInspect = time().'-'.'inspect'.'.'.$request->file('image_path_inspect')->extension();
-        // $request->file('image_path_inspect')->move(public_path('report'), $newImageNameInspect);
-
         $reports = Report::find($id);
         $reports->description_work = $request->description_work;
-        // $reports->description_inspect = $validatedData['description_inspect'];
-        // $reports->status = $validatedData['status'];
         $reports->image_path_work = $newImageNameWork;
+        $reports->status = "On Review";
         $reports->save();
+
+        return redirect()->back()->with('success', 'Report updated successfully');
+    }
+
+    public function update_inspect($id, $worker_id, Request $request)
+    {
+        // dd($request->all());
+        $newImageNameInspect = time().'-'.'inspect'.'.'.$request->file('image_path_inspect')->extension();
+        $request->file('image_path_inspect')->move(public_path('report'), $newImageNameInspect);
+
+        $reports = Report::find($id);
+        $reports->description_inspect = $request->description_inspect;
+        $reports->image_path_inspect = $newImageNameInspect;
+        $reports->status = $request->status;
+        $reports->save();
+
+        if ($request->status == 'On Revision') {
+            $new_report = new Report;
+            $new_report->status = 'Pending';
+            $new_report->tasks_id = $reports->tasks_id;
+            $new_report->users_id = $worker_id;
+            $new_report->save();
+        }
 
         return redirect()->back()->with('success', 'Report updated successfully');
     }

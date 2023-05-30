@@ -135,50 +135,54 @@
                 <tbody>
                     @foreach ($reports as $key => $t)
                     <tr>
-                        <td>1</td>
+                        <td>{{ $key+1 }}</td>
                         <td>{{ $t->name }}</td>
                         <td class="text-center">
-                            <div class="badge badge-primary mr-1">on Progress</div>
+                            <div class="badge badge-primary mr-1">{{ $t->status }}</div>
                         </td>
                         <td class="">
-                            <label for="report" class="btn btn-info">Report</label>
+                            <label for="report" class="btn btn-info" @if ($t->status == 'Done' || $t->status == 'On Revision')
+                                disabled
+                                
+                            @endif>Report</label>
 
                             <!-- Put this part before </body> tag -->
                             <input type="checkbox" id="report" class="modal-toggle" />
                             <div class="modal modal-bottom sm:modal-middle lg:pl-80">
                                 <div class="modal-box w-full lg:w-11/12" style="max-width: none !important">
-                                    <form action="" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('pemeriksa.tasks.update_inspect', ['id' => $t->id , 'worker_id' => $t->worker_id]) }}" method="POST" enctype="multipart/form-data">
                                         @csrf
+                                        @method('PUT')
                                         <div class="flex flex-row justify-center">
                                             <h1 class="font-bold text-2xl mb-3">Report</h1>
                                         </div>
                                         <div class="mt-5 flex flex-col lg:flex-row gap-5 !text-left">
                                             <div class="avatar w-full lg:w-1/2">
                                                 <div class="w-full rounded-xl">
-                                                    <img src="https://picsum.photos/200" />
+                                                    <img src="{{ asset('report/' . $t->image_path_work) }}" />
                                                 </div>
                                             </div>
                                             <div class="flex flex-col text-left justify-between w-full">
                                                 <div class="flex flex-col gap-3">
                                                     <h1 class="text-xl font-bold">Job report</h1>
-                                                    <p class="mb-5">description</p>
+                                                    <p class="mb-5">{{ $t->description_work }}</p>
                                                     <div class="flex flex-col">
-                                                        <label for="desc_inspect" class="text-md font-bold">Add notes
+                                                        <label for="description_inspect" class="text-md font-bold">Add notes
                                                             :</label>
-                                                        <textarea name="desc_inspect" id="" class="textarea textarea-bordered" cols="30" rows="3"></textarea>
+                                                        <textarea name="description_inspect" id="" class="textarea textarea-bordered" cols="30" rows="3" required></textarea>
                                                     </div>
                                                     <div class="flex flex-col">
                                                         <label for="photo_inspect" class="text-md font-bold">Add photo
                                                             :</label>
-                                                        <input type="file"
-                                                            class="file-input file-input-bordered file-input-info">
+                                                        <input type="file" name="image_path_inspect"
+                                                            class="file-input file-input-bordered file-input-info" required>
                                                     </div>
                                                     <div class="flex flex-col">
                                                         <label for="status" class="text-md font-bold">Status :</label>
                                                         <select name="status" id=""
                                                             class="select select-bordered w-full">
-                                                            <option value="done">Done</option>
-                                                            <option value="revision">Revision</option>
+                                                            <option value="Done">Done</option>
+                                                            <option value="On Revision">Revision</option>
                                                         </select>
                                                     </div>
                                                 </div>

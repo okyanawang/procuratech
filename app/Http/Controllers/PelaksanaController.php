@@ -208,6 +208,7 @@ class PelaksanaController extends Controller
             ->join('reports','tasks.id', '=', 'reports.tasks_id')
             ->where('tasks.id', $id)
             ->select('reports.*')
+            ->orderBy('reports.id', 'DESC')
             ->first();
         // dd($reports);
 
@@ -414,8 +415,9 @@ class PelaksanaController extends Controller
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->join('users', 'reports.users_id', '=', 'users.id')
             ->where('tasks.id', $id)
-            ->select('reports.*','users.name')
+            ->select('reports.*', 'users.id as worker_id','users.name')
             ->get();
+
         return view('pelaksana.pemeriksa.tasks-detail', [
             'task' => $task,
             'teams' => $teams,

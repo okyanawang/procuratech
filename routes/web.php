@@ -278,9 +278,8 @@ Route::group(['prefix' => 'pemeriksa', 'as' => 'pemeriksa', 'middleware' => 'aut
 
     Route::group(['prefix' => 'tasks'], function () {
         Route::get('/', [PelaksanaController::class, 'index_pemeriksa_tasks'])->name('.tasks');
-    });
-    Route::group(['prefix' => 'tasks'], function () {
         Route::get('/{id}', [PelaksanaController::class, 'index_pemeriksa_tasks_detail'])->name('.tasks.detail');
+        Route::put('/update_inspect/{id}/{worker_id}', [ReportController::class, 'update_inspect'])->name('.tasks.update_inspect');
     });
 });
 
