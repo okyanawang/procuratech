@@ -29,17 +29,17 @@ class ItemSeeder extends Seeder
             'Chisel',
         ];
         $types = [
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
         ];
         $brands = [
             'generic_bolt',
@@ -120,6 +120,5 @@ class ItemSeeder extends Seeder
                 ]);
             }
         }
-
     }
 }

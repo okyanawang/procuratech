@@ -17,3 +17,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/public/item/*[.jpg, .png, .jpeg]
+/public/project/*[.jpg, .png, .jpeg]
+/public/task/*[.jpg, .png, .jpeg]
