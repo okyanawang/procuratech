@@ -12,12 +12,19 @@
             @csrf
             @method('PUT')
             <div class="flex flex-col md:flex-row gap-3 ">
-                <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+                <div class="avatar w-full lg:w-1/3 p-5">
+                    <div class="w-full rounded-xl">
+                        <img src="https://picsum.photos/200" />
+                    </div>
+                </div>
+                {{-- <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+                </div> --}}
+                <div class="grid grid-cols-2 gap-2 items-center w-full lg:w-1/2 mb-5">
                     <label for="name" class="mr-3 font-semibold">Item name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="item name" required value="{{ $item->name }}" />
                     <label for="role" class="mr-3 font-semibold">Type :</label>
-                    <select class="select select-bordered block mt-1 w-full" name="role" required>
+                    <select class="select select-bordered block mt-1 w-full max-w-xs" name="role" required>
                         <option selected>{{ $item->type }}</option>
                         <option value="Material">Material</option>
                         <option value="Parts">Parts</option>
@@ -25,8 +32,6 @@
                     <label for="brand" class="mr-3 font-semibold">Brand :</label>
                     <input name="brand" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="brand name" required value="{{ $item->brand }}" />
-                </div>
-                <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
 
                     <label for="produsen" class="mr-3 font-semibold">Produsen :</label>
                     <input name="produsen" type="text" class="input input-bordered w-full max-w-xs col-span-1"
@@ -59,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <input type="checkbox" id="my-modal-delete-items" class="modal-toggle" />
             <div class="modal modal-bottom sm:modal-middle lg:pl-80">
                 <div class="modal-box">
