@@ -14,7 +14,7 @@
         <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
             <div class="modal-box">
                 <form action="{{ route('supervisor.project.job.update', ['id' => $job->id]) }}" method="POST"
-                    class="flex flex-col">
+                    class="flex flex-col" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <h3 class="font-bold text-lg mb-5">Edit Task</h3>
@@ -33,8 +33,8 @@
                         value="{{ \Carbon\Carbon::parse($job->end_date)->format('Y-m-d') }}" required>
                     <label for="description" class="mb-2">Description</label>
                     <textarea name="description" id="" class="textarea textarea-bordered" cols="30" rows="5" required>{{ $job->description }}</textarea>
-                    <label for="photo" class="mr-3 font-semibold">Upload Photo :</label>
-                    <input type="file" class="file-input file-input-bordered file-input-info">
+                    <label for="image_path" class="mr-3 font-semibold">Upload Photo :</label>
+                    <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
 
                     <div class="modal-action">
                         <label for="edit_task" class="btn btn-error">Cancel</label>

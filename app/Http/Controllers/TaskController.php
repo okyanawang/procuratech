@@ -20,12 +20,13 @@ class TaskController extends Controller
     }
     public function store(Request $request)
     {
+        // dd($request->all());
         $validatedData = $request->validate([
             'name' => 'required|unique:tasks|max:255',
-            'desc' => 'required',
+            'description' => 'required',
             'type' => 'required',
-            'startdate' => 'required',
-            'enddate' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
             'categories_id' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
@@ -37,11 +38,11 @@ class TaskController extends Controller
 
         $task = new Task;
         $task->name = $validatedData['name'];
-        $task->description = $validatedData['desc'];
+        $task->description = $validatedData['description'];
         $task->type = $validatedData['type'];
         $task->status = "on progress";
-        $task->start_date = $validatedData['startdate'];
-        $task->end_date = $validatedData['enddate'];
+        $task->start_date = $validatedData['start_date'];
+        $task->end_date = $validatedData['end_date'];
         $task->categories_id = $validatedData['categories_id'];
         $task->image_path = $newImageName;
         $task->save();
@@ -135,17 +136,19 @@ class TaskController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'required',
-            'type' => 'required',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            // 'categories_id' => 'required',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
-        ]);
+        // dd($request->all());
+        // dd($request->file('image_path'));
+        $task = Task::find($id);
+        $task->name = $request->name;
+        $task->description = $request->description;
+        $task->start_date = $request->start_date;
+        $task->end_date = $request->end_date;
+        $newImageName = time().'-'.'tasks'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('task'), $newImageName);
+        $task->image_path = $newImageName;
+        $task->save();
 
-        Task::whereId($id)->update($validatedData);
+        // Task::whereId($id)->update($validatedData);
         return redirect()->back()->with('success', 'Task berhasil diupdate');
     }
 

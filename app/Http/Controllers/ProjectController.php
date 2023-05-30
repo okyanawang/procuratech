@@ -62,6 +62,7 @@ class ProjectController extends Controller
     }
     public function update(Request $request, $id)
     {
+        // dd($request->all());
         $project = Project::find($id);
         $project->name = $request->name;
         $project->description = $request->description;
@@ -75,7 +76,7 @@ class ProjectController extends Controller
 
         // Project::whereId($id)->update($validatedData);
 
-        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil diupdate');
+        return redirect()->back()->with('success', 'Project berhasil diupdate');
     }
 
     public function delete($id)
