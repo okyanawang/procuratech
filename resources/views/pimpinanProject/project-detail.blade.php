@@ -11,18 +11,15 @@
     <x-Alert />
 
     <div class="container">
-        <form action="{{ route('pimpinan.project.update', ['id' => $project_detail->id]) }}" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('pimpinan.project.update', ['id' => $project_detail->id]) }}"
+            class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="flex flex-col xl:flex-row gap-3 place-content-center justify-between">
                 <div class="grid grid-cols-1 mr-3 gap-2 items-center w-full md:w-full xl:w-1/3 mb-5">
                     <div class="avatar">
                         <div class="w-full rounded-xl">
-                            @if($project_detail->image_path != null)
-                                <img src="{{ asset('project/' . $project_detail->image_path) }}" />
-                            @else
-                                <img src="https://picsum.photos/200" />
-                            @endif
+                            <img src="{{ asset('project/' . $project_detail->image_path) }}" />
                         </div>
                     </div>
                 </div>
@@ -73,7 +70,7 @@
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Delete data ?</h3>
                 <p class="py-4">Are you sure you want to update the project data? Data changes can't be undone</p>
-                <form action="{{ route('pimpinan.project.delete', ['id'=>$project_detail->id]) }}" method="POST">
+                <form action="{{ route('pimpinan.project.delete', ['id' => $project_detail->id]) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <div class="modal-action">

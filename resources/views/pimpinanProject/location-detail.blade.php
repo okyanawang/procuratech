@@ -29,10 +29,10 @@
                                 placeholder="Category name" required />
                             <label for="uid" class="mr-3 font-semibold">Supervisor :</label>
                             <select name="uid" class="js-example-basic-single select select-bordered" id="">
+                                <option value="" selected disabled>Choose supervisor</option>
                                 @foreach ($svs as $s)
                                     <option value="{{ $s->id }}">{{ $s->name }}</option>
                                 @endforeach
-                                {{-- <option value="HA">hehehe</option> --}}
                             </select>
                             {{-- <label for="lid" class="mr-3 font-semibold">Location ID :</label> --}}
                             {{-- <input name="lid" type="text" class="input input-bordered w-full max-w-xs col-span-1" required value="{{ $loc->id }} " /> --}}

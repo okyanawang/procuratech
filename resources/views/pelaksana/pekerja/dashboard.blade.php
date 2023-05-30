@@ -27,14 +27,14 @@
                     </a>
 
                 </div>
-                <div class="stats stats-vertical md:stats-horizontal shadow">
+                {{-- <div class="stats stats-vertical md:stats-horizontal shadow">
 
                     <a href="/pekerja/tasks" class="hover:bg-base-300">
                         <div class="stat w-full">
                             <div class="stat-figure text-primary ">
                                 <i class="fa-solid fa-users fa-2xl"></i>
                             </div>
-                            <div class="stat-title font-bold uppercase">Task On Going</div>
+                            <div class="stat-title font-bold uppercase">Task to Execute</div>
                             <div class="stat-value text-primary pb-2">{{ $ongoing_task }}</div>
                             <div class="stat-desc">click for more details</div>
 
@@ -52,7 +52,7 @@
                         </div>
                     </a>
 
-                </div>
+                </div> --}}
             </div>
         </div>
 

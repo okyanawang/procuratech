@@ -123,6 +123,8 @@ class SupervisorController extends Controller
         $worker_all = User::where('role', 'Job Executor')->get();
         $inspector_all = User::where('role', 'Job Inspector')->get();
         $items_all = Item::all();
+        $parts_all = Item::where('type', 'Parts')->get();
+        $material_all = Item::where('type', 'Material')->get();
 
         return view('supervisor.job-detail', [
             'job' => $job,
@@ -137,6 +139,8 @@ class SupervisorController extends Controller
             'worker_all' => $worker_all,
             'inspector_all' => $inspector_all,
             'items_all' => $items_all,
+            'parts_all' => $parts_all,
+            'material_all' => $material_all,
         ]);
     }
 }

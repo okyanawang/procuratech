@@ -187,8 +187,8 @@ Route::group(['prefix' => 'supervisor', 'as' => 'supervisor', 'middleware' => 'a
             Route::get('/{id}', [SupervisorController::class, 'job_detail'])->name('.detail');
             Route::put('/update/{id}', [TaskController::class, 'update'])->name('.update');
             Route::delete('/destroy/{id}', [TaskController::class, 'destroy'])->name('.destroy');
-            Route::post('/assign_staff', [TaskController::class, 'assign_staff'])->name('.assign_staff');
-            Route::post('/remove_staff', [TaskController::class, 'remove_staff'])->name('.remove_staff');
+            Route::post('/assign_staff/{id}', [TaskController::class, 'assign_staff'])->name('.assign_staff');
+            Route::post('/remove_staff/{tasks_id}/{users_id}', [TaskController::class, 'remove_staff'])->name('.remove_staff');
             Route::post('/add_item/{id}', [TaskController::class, 'add_item'])->name('.add_item');
         });
         // Route::get('/detail', [SupervisorController::class, 'project_detail'])->name('.detail');
