@@ -28,20 +28,22 @@
             </div>
 
             <div class="flex flex-col lg:flex-row mb-5 gap-5">
-                <div class="avatar w-full lg:w-1/2">
+                <div class="avatar w-full lg:w-1/3">
                     <div class="w-full rounded-xl">
                         <img src="https://picsum.photos/200" />
                     </div>
                 </div>
                 <div class="flex flex-col gap-2">
-                    <div class="badge badge-primary mr-1">{{ $task->status }}</div>
-                    <div class="badge badge-info mr-1">{{ $task->type }}</div>
+                    <div class="flex flex-row">
+                        <div class="badge badge-primary mr-1">{{ $task->status }}</div>
+                        <div class="badge badge-info mr-1">{{ $task->type }}</div>
+                    </div>
                     <div class="mt-5">
                         <div class="mb-5">
                             <h4 class="font-bold">Job Description</h4>
                             <p>{{ $task->description }}</p>
                         </div>
-                        <div class="grid gripd-cols-1 lg:grid-cols-2 gap-5 items-center">
+                        <div class="grid gripd-cols-1 lg:grid-cols-2 gap-10 items-center">
                             <div class="mb-3">
                                 <h4 class="font-bold">Project Manager</h4>
                                 <p>
@@ -157,13 +159,28 @@
                                                 </div>
                                             </div>
                                             <div class="flex flex-col text-left justify-between w-full">
-                                                <p class="mb-5">description</p>
-                                                <div>
-                                                    <label for="">Status :</label>
-                                                    <select name="status" id="" class="select select-bordered">
-                                                        <option value="done">Done</option>
-                                                        <option value="revision">Revision</option>
-                                                    </select>
+                                                <div class="flex flex-col gap-3">
+                                                    <h1 class="text-xl font-bold">Job report</h1>
+                                                    <p class="mb-5">description</p>
+                                                    <div class="flex flex-col">
+                                                        <label for="desc_inspect" class="text-md font-bold">Add notes
+                                                            :</label>
+                                                        <textarea name="desc_inspect" id="" class="textarea textarea-bordered" cols="30" rows="3"></textarea>
+                                                    </div>
+                                                    <div class="flex flex-col">
+                                                        <label for="photo_inspect" class="text-md font-bold">Add photo
+                                                            :</label>
+                                                        <input type="file"
+                                                            class="file-input file-input-bordered file-input-info">
+                                                    </div>
+                                                    <div class="flex flex-col">
+                                                        <label for="status" class="text-md font-bold">Status :</label>
+                                                        <select name="status" id=""
+                                                            class="select select-bordered w-full">
+                                                            <option value="done">Done</option>
+                                                            <option value="revision">Revision</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

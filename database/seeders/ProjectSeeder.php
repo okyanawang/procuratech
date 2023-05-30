@@ -15,7 +15,7 @@ class ProjectSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    
+
 
     public function run(): void
     {
@@ -63,7 +63,7 @@ class ProjectSeeder extends Seeder
             $project->start_date = $start_dates[$key];
             $project->end_date = $end_dates[$key];
             $project->status = $statuses[$key];
-            $project->image_path = '1685417912-projects.jpg';
+            $project->image_path = 'placeholder.jpg';
 
             $project->save();
 

@@ -29,17 +29,17 @@ class ItemSeeder extends Seeder
             'Chisel',
         ];
         $types = [
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
-            'Tool',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
+            'Parts',
         ];
         $brands = [
             'generic_bolt',
@@ -104,7 +104,7 @@ class ItemSeeder extends Seeder
             $item->produsen = $produsens[$key];
             $item->stock = $stocks[$key];
             $item->unit = $units[$key];
-            $item->image_path = '1685417912-items.jpg';
+            $item->image_path = 'placeholder.jpg';
             $item->save();
 
             $items[] = $item;
@@ -120,6 +120,5 @@ class ItemSeeder extends Seeder
                 ]);
             }
         }
-
     }
 }

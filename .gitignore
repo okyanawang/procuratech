@@ -17,3 +17,11 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/public/item/*[.jpg, .png, .jpeg]
+!/public/item/placeholder*[.jpg, .png, .jpeg]
+/public/project/*[.jpg, .png, .jpeg]
+!/public/project/placeholder*[.jpg, .png, .jpeg]
+/public/task/*[.jpg, .png, .jpeg]
+!/public/task/placeholder*[.jpg, .png, .jpeg]
+/public/user/*[.jpg, .png, .jpeg]
+!/public/user/placeholder*[.jpg, .png, .jpeg]
