@@ -62,15 +62,6 @@ class ProjectController extends Controller
     }
     public function update(Request $request, $id)
     {
-        // $validatedData = $request->validate([
-        //     'name' => 'required|unique:projects|max:255',
-        //     'registration_date' => 'required',
-        //     'start_date' => 'required',
-        //     'end_date' => 'required',
-        //     'description' => 'required',
-        //     'status' => 'required',
-        //     'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
-        // ]);
         $project = Project::find($id);
         $project->name = $request->name;
         $project->description = $request->description;
