@@ -33,6 +33,8 @@
                         value="{{ \Carbon\Carbon::parse($job->end_date)->format('Y-m-d') }}" required>
                     <label for="description" class="mb-2">Description</label>
                     <textarea name="description" id="" class="textarea textarea-bordered" cols="30" rows="5" required>{{ $job->description }}</textarea>
+                    <label for="photo" class="mr-3 font-semibold">Upload Photo :</label>
+                    <input type="file" class="file-input file-input-bordered file-input-info">
 
                     <div class="modal-action">
                         <label for="edit_task" class="btn btn-error">Cancel</label>
