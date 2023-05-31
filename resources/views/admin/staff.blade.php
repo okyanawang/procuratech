@@ -31,7 +31,7 @@
                             <option value="Analyst">Analystis</option>
                             <option value="Job Executor">Job Executor</option>
                             <option value="Job Inspector">Job Inspector</option>
-                            <option value="Inventory Treasurer">Inventory Treasurer</option>
+                            {{-- <option value="Inventory Treasurer">Inventory Treasurer</option> --}}
                             <option value="Inventory Officer">Inventory Officer</option>
                         </select>
                         <label for="username" class="mr-3 font-semibold">Username :</label>
@@ -66,6 +66,8 @@
                         <label for="password" class="mr-3 font-semibold">Password :</label>
                         <input name="password" type="password" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="password" required />
+                        <label for="photo" class="font-semibold">Update Photo :</label>
+                        <input type="file" class="file-input file-input-bordered file-input-info">
                     </div>
                 </div>
 

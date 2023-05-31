@@ -12,22 +12,26 @@
 
     <h1 class="text-4xl font-bold mb-5">Project Detail</h1>
     <div class="container">
-        <form action=" {{ route('admin.project.update', ['id' => $project->id]) }}" class="h-full px-0 md:px-14 mb-40" method="POST"
-            enctype="multipart/form-data">
+        <form action=" {{ route('admin.project.update', ['id' => $project->id]) }}" class="h-full px-0 md:px-14 mb-40"
+            method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="flex flex-col xl:flex-row gap-3 place-content-center">
+                <div class="avatar w-full lg:w-1/3">
+                    <div class="w-full rounded-xl">
+                        <img src="{{ asset('project/' . $project->image_path) }}" />
+                    </div>
+                </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="name" class="mr-3 font-semibold">Project Name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="Project Name" required value="{{ $project->name }} " />
                     <label for="project-manager" class="mr-3 font-semibold">Project Manager :</label>
-                    <input name="project-manager" type="text" class="input input-bordered w-full max-w-xs col-span-1" required readonly value="{{ $name }}" />
+                    <input name="project-manager" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        required readonly value="{{ $name }}" />
                     <label for="description" class="font-semibold">Description :</label>
                     <input name="description" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $project->description }}" required />
-                </div>
-                <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="regis-date" class="font-semibold">Registration Date :</label>
                     <input name="regis-date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $project->registration_date }}" required readonly />
@@ -37,7 +41,11 @@
                     <label for="end_date" class="font-semibold">Expectation Finish Date :</label>
                     <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $project->end_date->format('Y-m-d') }}" required />
+                    <label for="photo" class="font-semibold">Update Photo :</label>
+                    <input type="file" class="file-input file-input-bordered file-input-info">
                 </div>
+                {{-- <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+                </div> --}}
             </div>
             <div class="flex justify-center gap-5">
                 <!-- The button to open modal -->
@@ -67,7 +75,8 @@
         <div class="modal modal-bottom sm:modal-middle lg:pl-80">
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Delete data?</h3>
-                <p class="py-4">Are you sure you want to delete the project? It will also delete all their relation to location</p>
+                <p class="py-4">Are you sure you want to delete the project? It will also delete all their relation to
+                    location</p>
                 <form action="{{ route('admin.project.delete', ['id' => $project->id]) }}" method="POST">
                     @method('DELETE')
                     @csrf
@@ -86,7 +95,8 @@
         <div class="modal modal-bottom lg:pl-80">
             <div class="modal-box w-8/12 max-w-5xl self-center rounded-lg">
                 <h3 class="font-bold text-lg mb-10">Add new Location</h3>
-                <form action="{{ route('admin.project.location.register') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.project.location.register') }}" method="POST"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col  gap-3">
                         <div class="grid grid-cols-3 gap-2 items-center">
@@ -118,21 +128,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($locations as $key => $location)
-                        <tr>
-                            <th>{{ $key + 1}}</th>
-                            <td>{{ $location->name }}</td>
-                            <td>
-                                {{ DB::table('categories')
-                                    ->where('locations_id', '=', $location->id)
-                                    ->count('categories.id') }}
-                            </td>
-                            <td>
-                                <a href="{{ route('admin.project.location.detail', ['id' => $location->id]) }}">
-                                    <button class="btn btn-info font-semibold">Detail</button>
-                                </a>
-                            </td>
-                        </tr>
+                        @foreach ($locations as $key => $location)
+                            <tr>
+                                <th>{{ $key + 1 }}</th>
+                                <td>{{ $location->name }}</td>
+                                <td>
+                                    {{ DB::table('categories')->where('locations_id', '=', $location->id)->count('categories.id') }}
+                                </td>
+                                <td>
+                                    <a href="{{ route('admin.project.location.detail', ['id' => $location->id]) }}">
+                                        <button class="btn btn-info font-semibold">Detail</button>
+                                    </a>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>

@@ -13,11 +13,16 @@
     <h1 class="text-4xl font-bold mb-5">Staff Detail</h1>
 
     <div class="container">
-        <form action=" {{ route('admin.staff.update', ['id' => $user->id]) }}" class="h-full px-0 md:px-14 mb-40" method="POST"
-            enctype="multipart/form-data">
+        <form action=" {{ route('admin.staff.update', ['id' => $user->id]) }}" class="h-full px-0 md:px-14 mb-40"
+            method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="flex flex-col xl:flex-row gap-3 place-content-center">
+                <div class="avatar w-full lg:w-1/3">
+                    <div class="w-full rounded-xl">
+                        <img src="{{ asset('user/' . $user->image_path) }}" />
+                    </div>
+                </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="name" class="mr-3 font-semibold">Full Name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
@@ -41,15 +46,17 @@
                         <option value="on duty">on duty</option>
                         <option value="on leave">on leave</option>
                     </select>
-                </div>
-                <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="username" class="mr-3 font-semibold">Username :</label>
                     <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="username" value="{{ $user->username }}" required />
                     <label for="password" class="mr-3 font-semibold">New Password :</label>
                     <input name="password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="password" />
+                    <label for="photo" class="font-semibold">Update Photo :</label>
+                    <input type="file" class="file-input file-input-bordered file-input-info">
                 </div>
+                {{-- <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+                </div> --}}
             </div>
             <div class="flex justify-center gap-5">
                 <!-- The button to open modal -->
@@ -79,7 +86,8 @@
         <div class="modal modal-bottom sm:modal-middle lg:pl-80">
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Delete data ?</h3>
-                <p class="py-4">Are you sure you want to delete the user data? It will also delete all their relation to tasks</p>
+                <p class="py-4">Are you sure you want to delete the user data? It will also delete all their relation to
+                    tasks</p>
                 <form action="{{ route('admin.staff.delete', ['id' => $user->id]) }}" method="POST">
                     @method('DELETE')
                     @csrf
@@ -106,32 +114,32 @@
                     </thead>
                     <tbody>
                         @foreach ($task_user as $tu)
-                        <tr>
-                            <th>{{ $tu->name }}</th>
-                            <td class="text-center">
-                                <div class="badge badge-warning">{{ $tu->status }}</div>
-                            </td>
-                            <td>{{ $tu->start_date }}</td>
-                            <td>{{ $tu->end_date }}</td>
-                            <td class="">
-                                <!-- The button to open modal -->
-                                <label for="new-user" class="btn btn-info font-semibold">
-                                    Detail</label>
-                            </td>
+                            <tr>
+                                <th>{{ $tu->name }}</th>
+                                <td class="text-center">
+                                    <div class="badge badge-warning">{{ $tu->status }}</div>
+                                </td>
+                                <td>{{ $tu->start_date }}</td>
+                                <td>{{ $tu->end_date }}</td>
+                                <td class="">
+                                    <!-- The button to open modal -->
+                                    <label for="new-user" class="btn btn-info font-semibold">
+                                        Detail</label>
+                                </td>
 
-                            <!-- Put this part before </body> tag -->
-                            <input type="checkbox" id="new-user" class="modal-toggle" />
-                            <div class="modal modal-bottom lg:pl-80">
-                                <div class="modal-box w-11/12 max-w-5xl self-center">
-                                    <h3 class="font-bold text-lg mb-10">Job name</h3>
-                                    <p>job desc</p>
-                                    <div class="modal-action justify-center gap-5">
-                                        <label for="new-user" class="btn btn-error">cancel</label>
-                                        <input type="submit" class="btn btn-primary" value="Submit">
+                                <!-- Put this part before </body> tag -->
+                                <input type="checkbox" id="new-user" class="modal-toggle" />
+                                <div class="modal modal-bottom lg:pl-80">
+                                    <div class="modal-box w-11/12 max-w-5xl self-center">
+                                        <h3 class="font-bold text-lg mb-10">Job name</h3>
+                                        <p>job desc</p>
+                                        <div class="modal-action justify-center gap-5">
+                                            <label for="new-user" class="btn btn-error">cancel</label>
+                                            <input type="submit" class="btn btn-primary" value="Submit">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </tr>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
