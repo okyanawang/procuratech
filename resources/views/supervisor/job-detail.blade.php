@@ -288,9 +288,11 @@
                             <td>{{ $i->amount }}</td>
                             <td>{{ $i->unit }}</td>
                             <td class="text-center">
-                                <form action="" method="POST">
+                                <form action="{{ route('supervisor.project.job.items_delete', ['taskId' => $i->task_id, 'itemId' => $i->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
                                     <input type="submit" class="btn btn-error font-semibold" value="Delete Item">
-                                </form>
+                                </form>                                
                                 {{-- <button class="btn btn-info font-semibold">Detail</button> --}}
                             </td>
                         </tr>

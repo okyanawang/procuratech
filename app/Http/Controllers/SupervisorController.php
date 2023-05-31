@@ -114,7 +114,7 @@ class SupervisorController extends Controller
         $items_ass = DB::table('tasks_has_items')
             ->join('items', 'items.id', '=', 'tasks_has_items.items_id')
             ->where('tasks_has_items.tasks_id', $id)
-            ->select('items.*', 'tasks_has_items.amount')
+            ->select('items.*', 'tasks_has_items.amount', 'tasks_has_items.tasks_id as task_id')
             ->get();
 
 
