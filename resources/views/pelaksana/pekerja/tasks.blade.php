@@ -31,7 +31,6 @@
                                         : 'Pending' }} --}}
                                     @if ($t->rep_status != null)
                                         {{ $t->rep_status }}
-                                        
                                     @else
                                         Pending
                                     @endif

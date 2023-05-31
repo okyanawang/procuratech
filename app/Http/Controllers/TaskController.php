@@ -52,7 +52,7 @@ class TaskController extends Controller
 
     public function assign_staff(Request $request, $id)
     {
-        dd($request->all());
+        // dd($request->all());
         $validatedData = $request->validate([
             'staff' => 'required',
         ]);
@@ -178,4 +178,21 @@ class TaskController extends Controller
         else if (auth()->user()->role == 'Supervisor')
             return redirect()->route('supervisor.project.detail', ['id' => $project_id->id])->with('success', 'Task berhasil dihapus');
     }
+    
+    public function delete_item($taskId, $itemId)
+    {
+        // Find the task
+        $task = Task::find($taskId);
+
+        // Check if the task exists
+        if (!$task) {
+            return redirect()->back()->withErrors('Task not found');
+        }
+
+        // Find the item within the task and detach it
+        $task->items()->detach($itemId);
+
+        return redirect()->back()->with('success', 'Item deleted from task successfully');
+    }
+
 }

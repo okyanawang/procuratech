@@ -15,8 +15,14 @@ class ReportController extends Controller
     {
         // dd($id);
         // check if in that task there is a report with status Pending
-        $reports = Report::where('tasks_id', $id)->where('status', 'Pending')->first();
+        $reports = Report::where('tasks_id', $id)->where('users_id', auth()->user()->id)->where('status', 'Pending')->first();
+        dd($reports);
+        $tasks = Task::find($id);
         // dd($reports);
+        if($tasks->status == 'Pending'){
+            $tasks->status = 'In Progress';
+            $tasks->save();
+        }
         if ($reports) {
             $reports->status = 'In Progress';
             $reports->tasks_id = $id;

@@ -75,9 +75,8 @@ class PelaksanaController extends Controller
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
             ->join('locations', 'categories.locations_id', '=', 'locations.id')
             ->join('projects', 'locations.projects_id', '=', 'projects.id')
-            ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->where('tasks.id', $id)
-            ->select('projects.name as project_name', 'projects.description as project_description', 'projects.image_path as project_image', 'reports.status as rep_status')
+            ->select('projects.name as project_name', 'projects.description as project_description', 'projects.image_path as project_image')
             ->first();
         $location = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
@@ -203,6 +202,13 @@ class PelaksanaController extends Controller
     public function index_pemeriksa_tasks_detail($id)
     {
         $task = Task::find($id);
+        $tasks = DB::table('tasks')
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->leftjoin('reports', 'tasks.id', '=', 'reports.tasks_id')
+            ->where('users.id', Auth::user()->id)
+            ->select('tasks.id', 'tasks.name as task_name', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end', 'tasks.image_path as task_image', 'reports.status as rep_status')
+            ->get();
         // dd($id);
         $project = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
@@ -211,6 +217,7 @@ class PelaksanaController extends Controller
             ->where('tasks.id', $id)
             ->select('projects.*')
             ->first();
+        // dd($project);
         $location = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
             ->join('locations', 'categories.locations_id', '=', 'locations.id')
