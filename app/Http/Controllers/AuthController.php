@@ -83,22 +83,27 @@ class AuthController extends Controller
             'phone_number' => 'required',
             'address' => 'required',
             'availability_status' => 'required',
-            'status_kepegawaian' => 'required',
+            'employement_status' => 'required',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
 
         ]);
 
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'role' => $validatedData['role'],
-            'username' => $validatedData['username'],
-            'password' => Hash::make($validatedData['password']),
-            'email' => $validatedData['email'],
-            'phone_number' => $validatedData['phone_number'],
-            'address' => $validatedData['address'],
-            'registration_number' => mt_rand(100000, 999999),
-            'availability_status' => $validatedData['availability_status'],
-            'status_kepegawaian' => $validatedData['status_kepegawaian'],
-        ]);
+        $newImageName = time().'-'.'staff'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('staff'), $newImageName);
+
+        $user = new User;
+        $user->name = $validatedData['name'];
+        $user->role = $validatedData['role'];
+        $user->username = $validatedData['username'];
+        $user->password = Hash::make($validatedData['password']);
+        $user->email = $validatedData['email'];
+        $user->phone_number = $validatedData['phone_number'];
+        $user->address = $validatedData['address'];
+        $user->registration_number = mt_rand(100000, 999999);
+        $user->availability_status = $validatedData['availability_status'];
+        $user->employement_status = $validatedData['employement_status'];
+        $user->image_path = $newImageName;
+        $user->save();
 
         // dd($user);
         return redirect()->back()->with('success', 'Register success.');

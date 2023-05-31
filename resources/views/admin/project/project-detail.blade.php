@@ -42,7 +42,7 @@
                     <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $project->end_date->format('Y-m-d') }}" required />
                     <label for="photo" class="font-semibold">Update Photo :</label>
-                    <input type="file" class="file-input file-input-bordered file-input-info">
+                    <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
                 </div>
                 {{-- <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                 </div> --}}

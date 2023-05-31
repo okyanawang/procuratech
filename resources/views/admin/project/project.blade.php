@@ -28,7 +28,7 @@
                         <input name="start_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                             required />
                         <label for="photo" class="font-semibold">Update Photo :</label>
-                        <input type="file" class="file-input file-input-bordered file-input-info">
+                        <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
                     </div>
                     <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center lg:w-2/3">
                         <label for="description" class="mr-3 font-semibold">Description :</label>

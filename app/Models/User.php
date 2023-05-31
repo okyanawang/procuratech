@@ -28,9 +28,10 @@ class User extends Authenticatable
         'phone_number',
         'address',
         'registration_number',
-        'status_kepegawaian',
+        'employement_status',
         'availability_status',
         'role',
+        'image_path'
     ];
 
     /**
