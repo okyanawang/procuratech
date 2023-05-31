@@ -67,7 +67,7 @@
                             <td>{{ $c->sv_name }}</td>
                             <td class="text-center">
                                 <!-- The button to open modal -->
-                                <label for="cat_detail" class="btn btn-primary modal-button">
+                                <label for="cat_detail-{{ $c->id }}" class="btn btn-primary modal-button">
                                     Detail</label>
                                 <!-- The button to open modal -->
                                 <label for="cat_delete" class="btn btn-error modal-button">
@@ -75,7 +75,7 @@
                             </td>
 
                             <!-- Put this part before </body> tag -->
-                            <input type="checkbox" id="cat_detail" class="modal-toggle" />
+                            <input type="checkbox" id="cat_detail-{{ $c->id }}" class="modal-toggle" />
                             <div class="modal modal-bottom lg:pl-80">
                                 <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
                                     <h1 class="text-3xl font-bold mb-2">{{ $proj->name }}</h1>
@@ -110,7 +110,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-action">
-                                        <label for="cat_detail" class="btn btn-error">close</label>
+                                        <label for="cat_detail-{{ $c->id }}" class="btn btn-error">close</label>
                                     </div>
                                 </div>
                             </div>

@@ -30,6 +30,8 @@
                         <label for="brand" class="mr-3 font-semibold">Brand :</label>
                         <input name="brand" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="brand" required />
+                        <label for="photo" class="font-semibold">Update Photo :</label>
+                        <input type="file" class="file-input file-input-bordered file-input-info">
                     </div>
                     <div class="grid grid-cols-2 grid-rows-2 gap-2 items-center lg:w-2/3">
                         <label for="produsen" class="mr-3 font-semibold">Produsen :</label>

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
+
 class UserSeeder extends Seeder
 {
     /**
@@ -22,7 +23,7 @@ class UserSeeder extends Seeder
             'Job Executor',
             'Job Inspector',
             'Inventory Officer',
-            'Inventory Treasurer',
+            // 'Inventory Treasurer',
         ];
 
         $names = [
@@ -34,31 +35,17 @@ class UserSeeder extends Seeder
             'Yaqin Ainul',
             'Ahmad Fauzan',
             'Aryo Pratama',
-            'Panca'
+            // 'Panca'
         ];
 
-        $status_kepegawaian=[
-            'Out-sourcing'
-            , 'Contract'
-            , 'Intern'
-            , 'Full Time'
-            ,'Out-sourcing'
-            , 'Contract'
-            , 'Intern'
-            , 'Full Time'
-            , 'Intern'
+        $status_kepegawaian = [
+            'Out-sourcing', 'Contract', 'Intern', 'Full Time', 'Out-sourcing', 'Contract', 'Intern', 'Full Time'
+            // , 'Intern'
         ];
 
-        $availability_status=[
-            'on duty'
-            , 'on duty'
-            , 'on duty'
-            , 'on duty'
-            ,'on duty'
-            , 'on duty'
-            , 'on duty'
-            , 'on duty'
-            , 'on duty'
+        $availability_status = [
+            'on duty', 'on duty', 'on duty', 'on duty', 'on duty', 'on duty', 'on duty', 'on duty'
+            // , 'on duty'
         ];
 
         foreach ($roles as $key => $role) {
@@ -73,7 +60,7 @@ class UserSeeder extends Seeder
             $user->username = strtolower(str_replace(' ', '_', $role));
             $user->password = bcrypt(strtolower(str_replace(' ', '', $role)));
             $user->availability_status = $availability_status[$key];
-            
+
             $user->save();
         }
     }

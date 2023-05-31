@@ -12,22 +12,26 @@
 
     <h1 class="text-4xl font-bold mb-5">Component Detail</h1>
     <div class="container">
-        <form action=" {{ route('admin.component.update', ['id' => $item->id]) }}" class="h-full px-0 md:px-14 mb-40" method="POST"
-            enctype="multipart/form-data">
+        <form action=" {{ route('admin.component.update', ['id' => $item->id]) }}" class="h-full px-0 md:px-14 mb-40"
+            method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="flex flex-col xl:flex-row gap-3 place-content-center">
+                <div class="avatar w-full lg:w-1/3">
+                    <div class="w-full rounded-xl">
+                        <img src="{{ asset('item/' . $item->image_path) }}" />
+                    </div>
+                </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="name" class="mr-3 font-semibold">Component Name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="Component Name" required value="{{ $item->name }} " />
                     <label for="type" class="mr-3 font-semibold">Type :</label>
-                    <input name="type" type="text" class="input input-bordered w-full max-w-xs col-span-1" required value="{{ $item->type }}" />
+                    <input name="type" type="text" class="input input-bordered w-full max-w-xs col-span-1" required
+                        value="{{ $item->type }}" />
                     <label for="brand" class="font-semibold">Brand :</label>
                     <input name="brand" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $item->brand }}" required />
-                </div>
-                <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                     <label for="produsen" class="font-semibold">Produsen :</label>
                     <input name="produsen" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $item->produsen }}" required />
@@ -37,7 +41,11 @@
                     <label for="unit" class="font-semibold">Unit stock :</label>
                     <input name="unit" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $item->unit }}" required />
+                    <label for="unit" class="font-semibold">Update photo :</label>
+                    <input type="file" class="file-input file-input-bordered file-input-info" required>
                 </div>
+                {{-- <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
+                </div> --}}
             </div>
             <div class="flex justify-center gap-5">
                 <!-- The button to open modal -->
@@ -54,7 +62,8 @@
             <div class="modal modal-bottom sm:modal-middle lg:pl-80">
                 <div class="modal-box">
                     <h3 class="font-bold text-lg">Update data ?</h3>
-                    <p class="py-4">Are you sure you want to update the Component data? Data changes can be done anytime</p>
+                    <p class="py-4">Are you sure you want to update the Component data? Data changes can be done anytime
+                    </p>
                     <div class="modal-action">
                         <label for="modal-update" class="btn btn-info">cancel</label>
                         <input type="submit" class="btn btn-primary" value="Submit">
@@ -67,7 +76,8 @@
         <div class="modal modal-bottom sm:modal-middle lg:pl-80">
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Delete data?</h3>
-                <p class="py-4">Are you sure you want to delete the component? It will also delete all their relation to location</p>
+                <p class="py-4">Are you sure you want to delete the component? It will also delete all their relation to
+                    location</p>
                 <form action="{{ route('admin.component.delete', ['id' => $item->id]) }}" method="POST">
                     @method('DELETE')
                     @csrf

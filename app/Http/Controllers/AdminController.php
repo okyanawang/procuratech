@@ -17,7 +17,14 @@ class AdminController extends Controller
     public function index()
     {
         $nuser = User::where('role', '!=', 'Admin IT')->count();
-        return view('admin.dashboard')->with('nuser', $nuser);
+        $nprojects = Project::all()->count();
+        $nitems = Item::all()->count();
+
+        return view('admin.dashboard', [
+            'nuser' => $nuser,
+            'nprojects' => $nprojects,
+            'nitems' => $nitems
+        ]);
     }
 
     public function component_index()
@@ -78,10 +85,10 @@ class AdminController extends Controller
     {
         $user = User::find($id);
         $task_user = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->where('users_has_tasks.users_id', $user->id)
-                ->select('tasks.*')
-                ->get();
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->where('users_has_tasks.users_id', $user->id)
+            ->select('tasks.*')
+            ->get();
         return view('admin.staff-detail', ['user' => $user, 'task_user' => $task_user]);
     }
 
@@ -93,7 +100,7 @@ class AdminController extends Controller
         $user->role = $request->role;
         $user->availability_status = $request->availability_status;
         $user->username = $request->username;
-        if($request->password != null)
+        if ($request->password != null)
             $user->password = bcrypt($request->password);
         $user->save();
 
@@ -154,12 +161,12 @@ class AdminController extends Controller
         $project = Project::find($id);
         $locations = Location::where('projects_id', $project->id)->get();
         $name_pm = DB::table('users')
-                ->join('users_has_projects', 'users.id', '=', 'users_has_projects.users_id')
-                ->where('users_has_projects.projects_id', $project->id)
-                ->select('users.name')
-                ->get();
+            ->join('users_has_projects', 'users.id', '=', 'users_has_projects.users_id')
+            ->where('users_has_projects.projects_id', $project->id)
+            ->select('users.name')
+            ->get();
 
-        if($name_pm->isEmpty()){
+        if ($name_pm->isEmpty()) {
             $name = "Belum ada PM";
             return view('admin.project.project-detail', compact('project', 'locations', 'name_pm', 'name'));
         }
@@ -220,19 +227,18 @@ class AdminController extends Controller
         $name_sv = User::find($category->users_id)->name;
         // butuh list workers
         $workers = DB::table('tasks')
-                ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-                ->join('users', 'users.id', '=', 'users_has_tasks.users_id')
-                ->where('tasks_id', $task->id)
-                ->select('*')
-                ->get();
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users.id', '=', 'users_has_tasks.users_id')
+            ->where('tasks_id', $task->id)
+            ->select('*')
+            ->get();
         // butuh list items
         $items = DB::table('tasks')
-                ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')
-                ->join('items', 'tasks_has_items.tasks_id', '=', 'items.id')
-                ->where('tasks_id', $task->id)
-                ->select('*')
-                ->get();
+            ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')
+            ->join('items', 'tasks_has_items.tasks_id', '=', 'items.id')
+            ->where('tasks_id', $task->id)
+            ->select('*')
+            ->get();
         return view('admin.project.task-detail', compact('project', 'location', 'name_pm', 'category', 'name_sv', 'task', 'workers', 'items'));
     }
-
 }
