@@ -75,8 +75,11 @@ class PetugasController extends Controller
         $item->stock = $request->stock;
         // $item->description = $request->description;
         $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
-        $request->file('image_path')->move(public_path('item'), $newImageName);
-        $item->image_path = $newImageName;
+        if ($request->hasFile('image_path')) {
+            $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
+            $request->file('image_path')->move(public_path('item'), $newImageName);
+            $item->image_path = $newImageName;
+        }
         $item->save();
 
         // Item::whereId($id)->update($validatedData);
@@ -87,8 +90,10 @@ class PetugasController extends Controller
     public function item_delete($id)
     {
         $item = Item::find($id);
-        $item->tasks()->delete();
-        $item->delete();
+        // $item->tasks()->delete();
+        $item->stock = 0;
+        $item->save();
+        // $item->delete();
 
         return redirect()->route('inventori.item')->with('success', 'Item berhasil dihapus');
     }

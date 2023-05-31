@@ -110,10 +110,50 @@ class TaskController extends Controller
             ->where('tasks_id', $id)
             ->count();
 
-        if ($check > 0) {
-            // dd($check);
-            return redirect()->back()->withErrors('Item sudah ditambahkan pada task ini');
+        // if ($check > 0) {
+        //     return redirect()->back()->withErrors('Item sudah ditambahkan pada task ini');
+        // }
+
+        $stock_inv = DB::table('items')
+            ->where('id', $validatedData['item'])
+            ->value('stock');
+
+        if($stock_inv < $validatedData['amount']){
+            return redirect()->back()->withErrors('Stock tidak mencukupi');
         }
+
+        if($validatedData['amount'] <= 0){
+            return redirect()->back()->withErrors('Amount tidak valid');
+        }
+
+        if($validatedData['amount'] == null){
+            return redirect()->back()->withErrors('Amount tidak valid');
+        }
+
+        if($check > 0){
+            $amount = DB::table('tasks_has_items')
+            ->where('items_id', $validatedData['item'])
+            ->where('tasks_id', $id)
+            ->value('amount');
+
+            $amount = $amount + $validatedData['amount'];
+
+            DB::table('tasks_has_items')
+            ->where('items_id', $validatedData['item'])
+            ->where('tasks_id', $id)
+            ->update(['amount' => $amount]);
+
+            DB::table('items')
+            ->where('id', $validatedData['item'])
+            ->update(['stock' => $stock_inv - $validatedData['amount']]);
+
+            return redirect()->back()->with('success', 'Item berhasil ditambahkan');
+        }
+
+        // update stock_inv with substract it with amount
+        DB::table('items')
+            ->where('id', $validatedData['item'])
+            ->update(['stock' => $stock_inv - $validatedData['amount']]);
 
         // create new users_has_tasks record
         DB::table('tasks_has_items')->insert([
@@ -210,6 +250,20 @@ class TaskController extends Controller
         if (!$task) {
             return redirect()->back()->withErrors('Task not found');
         }
+
+        $jumlah = DB::table('tasks_has_items')
+            ->where('items_id', $itemId)
+            ->where('tasks_id', $taskId)
+            ->value('amount');
+
+        // substract stock at items table
+        $stock_inv = DB::table('items')
+            ->where('id', $itemId)
+            ->value('stock');
+
+        DB::table('items')
+            ->where('id', $itemId)
+            ->update(['stock' => $stock_inv + $jumlah]);
 
         // Find the item within the task and detach it
         $task->items()->detach($itemId);

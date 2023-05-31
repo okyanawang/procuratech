@@ -78,7 +78,7 @@
                             <input type="checkbox" id="cat_detail-{{ $c->id }}" class="modal-toggle" />
                             <div class="modal modal-bottom lg:pl-80">
                                 <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
-                                    <h1 class="text-3xl font-bold mb-2">{{ $proj->name }}</h1>
+                                    <h1 class="text-3xl font-bold mb-2">{{ $c->name }}</h1>
                                     <div class="flex flex-row">
                                         <h1 class="font-bold text-2xl mb-3">{{ $c->name }} <span>at
                                                 {{ $loc->name }}</span></h1>

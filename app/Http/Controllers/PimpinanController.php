@@ -54,6 +54,31 @@ class PimpinanController extends Controller
         return view('pimpinanProject.project-detail', ['project_detail' => $project_detail, 'locations' => $locations]);
     }
 
+    public function project_update(Request $request, $id)
+    {
+        $project = Project::find($id);
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->start_date = $request->start_date;
+        $project->end_date = $request->end_date;
+        if ($request->hasFile('image_path')) {
+            $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
+            $request->file('image_path')->move(public_path('project'), $newImageName);
+            $project->image_path = $newImageName;
+        }
+        $project->save();
+
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil diupdate');
+    }
+
+    public function project_delete($id)
+    {
+        $project = Project::find($id);
+        $project->locations()->delete();
+        $project->delete();
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil dihapus');
+    }
+
     public function location_detail($id)
     {
         $proj = DB::table('projects')
