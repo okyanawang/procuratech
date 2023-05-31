@@ -97,7 +97,7 @@
                                     <div class="mt-5">
                                         <h1 class="font-bold text-xl">List of Tasks</h1>
                                         <div class="flex flex-col max-h-52 overflow-auto">
-                                            @foreach (DB::table(' tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
+                                            @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
                                                 <div class="mb-3 grid grid-cols-3 w-full items-center">
                                                     <h4 class="">{{ $t->name }}</h4>
                                                     <div class="badge badge-primary mr-1 text-center">{{ $t->status }}</div>
