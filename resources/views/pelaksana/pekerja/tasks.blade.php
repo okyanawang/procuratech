@@ -26,9 +26,15 @@
                             <td>{{ $t->task_name }}</td>
                             <td class="text-center">
                                 <div class="badge badge-primary mr-1">
-                                    {{ DB::table('reports')->where('tasks_id', $t->id)->where('users_id', Auth::user()->id)->select('status')->orderBy('id', 'DESC')->first()
+                                    {{-- {{ DB::table('reports')->where('tasks_id', $t->id)->where('users_id', Auth::user()->id)->select('status')->orderBy('id', 'DESC')->first()
                                         ? DB::table('reports')->where('tasks_id', $t->id)->where('users_id', Auth::user()->id)->select('status')->orderBy('id', 'DESC')->first()->status
-                                        : 'Pending' }}
+                                        : 'Pending' }} --}}
+                                    @if ($t->rep_status != null)
+                                        {{ $t->rep_status }}
+                                        
+                                    @else
+                                        Pending
+                                    @endif
                                 </div>
                             </td>
                             <td>{{ $t->task_description }}</td>

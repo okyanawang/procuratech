@@ -52,6 +52,7 @@ class TaskController extends Controller
 
     public function assign_staff(Request $request, $id)
     {
+        dd($request->all());
         $validatedData = $request->validate([
             'staff' => 'required',
         ]);
