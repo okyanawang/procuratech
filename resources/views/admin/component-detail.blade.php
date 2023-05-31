@@ -12,7 +12,7 @@
 
     <h1 class="text-4xl font-bold mb-5">Component Detail</h1>
     <div class="container">
-        <form action=" {{ route('admin.component.update', ['id' => $item->id]) }}" class="h-full px-0 md:px-14 mb-40"
+        <form action=" {{ route('admin.component.update', ['id' => $item->id]) }}" class="h-full px-0 md:px-14 mb-10"
             method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -47,7 +47,7 @@
                 {{-- <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                 </div> --}}
             </div>
-            <div class="flex justify-center gap-5">
+            <div class="flex justify-center gap-1">
                 <!-- The button to open modal -->
                 <label for="modal-delete" class="btn btn-error mt-5 w-50 modal-button text-white"><i
                         class="fa-solid fa-trash"></i>&nbsp; Delete Component</label>
@@ -86,6 +86,41 @@
                         <input type="submit" class="btn btn-primary" value="Submit">
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="">
+            <h1 class="text-2xl font-bold mb-5">Tasks List</h1>
+            <div class="overflow-x-auto">
+                <table id="myTable" class="table table-zebra w-full">
+                    <!-- head -->
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Task name</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{-- @foreach ($tasks as $key => $task)
+                            <tr>
+                                <th>{{ $key + 1 }}</th>
+                                <td>{{ $task->name }}</td>
+                                <td>{{ $task->description }}</td>
+                                <td>{{ $task->start_date->format('d-m-Y') }}</td>
+                                <td>{{ $task->end_date->format('d-m-Y') }}</td>
+                                <td>
+                                    <a href="{{ route('admin.project.task.detail', ['id' => 1]) }}">
+                                        <button class="btn btn-info font-semibold">Detail</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach --}}
+                    </tbody>
+                </table>
             </div>
         </div>
 
