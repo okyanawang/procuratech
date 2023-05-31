@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             // 'Panca'
         ];
 
-        $status_kepegawaian = [
+        $employement_status = [
             'Out-sourcing', 'Contract', 'Intern', 'Full Time', 'Out-sourcing', 'Contract', 'Intern', 'Full Time'
             // , 'Intern'
         ];
@@ -53,13 +53,14 @@ class UserSeeder extends Seeder
             $user->name = $names[$key];
             $user->role = $role;
             $user->email = strtolower(str_replace(' ', '_', $role)) . '@example.com';
-            $user->status_kepegawaian = $status_kepegawaian[$key];
+            $user->employement_status = $employement_status[$key];
             $user->phone_number = '081234567890';
             $user->address = 'Jl. Jalan Ke Kota Tua';
             $user->registration_number = mt_rand(100000, 999999);
             $user->username = strtolower(str_replace(' ', '_', $role));
             $user->password = bcrypt(strtolower(str_replace(' ', '', $role)));
             $user->availability_status = $availability_status[$key];
+            $user->image_path = 'placeholder.jpg';
 
             $user->save();
         }

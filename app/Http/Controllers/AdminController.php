@@ -42,6 +42,10 @@ class AdminController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         $item->unit = $request->unit;
+        
+        $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('item'), $newImageName);
+        $item->image_path = $newImageName;
         $item->save();
 
         return redirect()->route('admin.component.index')->with('success', 'Component berhasil ditambahkan');
@@ -62,6 +66,10 @@ class AdminController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         $item->unit = $request->unit;
+        $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('item'), $newImageName);
+        $item->image_path = $newImageName;
+        
         $item->save();
 
         return redirect()->route('admin.component.index')->with('success', 'Component berhasil diupdate');
@@ -88,8 +96,25 @@ class AdminController extends Controller
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->where('users_has_tasks.users_id', $user->id)
             ->select('tasks.*')
-            ->get();
-        return view('admin.staff-detail', ['user' => $user, 'task_user' => $task_user]);
+            ->get()
+            ->toArray();
+        $cat_user = DB::table('categories')
+            ->join('tasks', 'categories.id', '=', 'tasks.categories_id')
+            ->where('categories.users_id', $user->id)
+            ->select('tasks.*')
+            ->get()
+            ->toArray();
+        $pm_job = DB::table('projects')
+            ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
+            ->join('locations', 'projects.id', '=', 'locations.projects_id')
+            ->join('categories', 'locations.id', '=', 'categories.locations_id')
+            ->join('tasks', 'categories.id', '=', 'tasks.categories_id')
+            ->where('users_has_projects.users_id', $user->id)
+            ->select('tasks.*')
+            ->get()
+            ->toArray();
+        $tasks = array_merge($task_user, $cat_user, $pm_job);
+        return view('admin.staff-detail', ['user' => $user, 'task_user' => $task_user, 'tasks' => $tasks]);
     }
 
     public function staff_update(Request $request, $id)
@@ -102,6 +127,11 @@ class AdminController extends Controller
         $user->username = $request->username;
         if ($request->password != null)
             $user->password = bcrypt($request->password);
+            
+        $newImageName = time().'-'.'staff'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('staff'), $newImageName);
+        $user->image_path = $newImageName;
+        
         $user->save();
 
         return redirect()->route('admin.staff.index')->with('success', 'Staff berhasil diupdate');
@@ -144,6 +174,8 @@ class AdminController extends Controller
 
     public function project_store(Request $request)
     {
+        $newImageName = time().'-'.'projects'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('project'), $newImageName);
         $project = new Project;
         $project->name = $request->name;
         $project->registration_date = $request->registration_date;
@@ -151,6 +183,8 @@ class AdminController extends Controller
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;
         $project->status = $request->status;
+        $project->image_path = $newImageName;
+        
         $project->save();
 
         return redirect()->route('admin.project.index')->with('success', 'Project berhasil ditambahkan');
@@ -184,6 +218,10 @@ class AdminController extends Controller
         $project->description = $request->description;
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;
+        $newImageName = time().'-'.'projects'.'.'.$request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('project'), $newImageName);
+        $project->image_path = $newImageName;
+        
         $project->save();
 
         return redirect()->route('admin.project.index')->with('success', 'Project berhasil diupdate');
