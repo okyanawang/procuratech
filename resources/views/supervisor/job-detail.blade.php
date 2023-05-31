@@ -60,6 +60,25 @@
                 </form>
             </div>
         </div>
+        {{--  --}}
+        <label for="cancel_task" class="md:ml-3 my-2 md:my-0 btn btn-warning">Cancel Task</label>
+        <input type="checkbox" id="cancel_task" class="modal-toggle" />
+        <div class="modal modal-bottom sm:modal-middle lg:pl-80">
+            <div class="modal-box">
+                <form action="{{ route('supervisor.project.job.cancel', ['id' => $job->id]) }}" method="POST"
+                    class="flex flex-col">
+                    @csrf
+                    @method('PUT')
+                    <h3 class="font-bold text-lg mb-5">Cancel Task</h3>
+                    <p>Are you sure you want to cancel this task? You can only change the task through IT Admin after this change</p>
+                    <div class="modal-action">
+                        <label for="cancel_task" class="btn btn-warning">Cancel</label>
+                        <input type="submit" class="btn btn-success">
+                    </div>
+                </form>
+            </div>
+        </div>
+        {{--  --}}
     </div>
     <div class="container">
         <x-Alert />
@@ -74,7 +93,7 @@
             <div class="flex flex-col w-full">
                 <div class="flex flex-row gap-2">
                     <div class="badge badge-primary">{{ $job->type }}</div>
-                    <div class="badge badge-info">{{ $job->status }}</div>
+                    <div class="badge {{ $job->status === 'cancelled' ? 'badge-warning' : 'badge-success' }}">{{ $job->status }}</div>
                 </div>
                 <div class="mt-3 mb-3">{{ $job->description }}</div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
@@ -292,7 +311,7 @@
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" class="btn btn-error font-semibold" value="Delete Item">
-                                </form>                                
+                                </form>
                                 {{-- <button class="btn btn-info font-semibold">Detail</button> --}}
                             </td>
                         </tr>
