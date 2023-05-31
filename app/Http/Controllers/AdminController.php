@@ -54,7 +54,13 @@ class AdminController extends Controller
     public function component_detail($id)
     {
         $item = Item::find($id);
-        return view('admin.component-detail', ['item' => $item]);
+        $tasks = DB::table('tasks')
+            ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')
+            ->where('tasks_has_items.items_id', $item->id)
+            ->select('tasks.*')
+            ->get()
+            ->toArray();
+        return view('admin.component-detail', ['item' => $item, 'tasks' => $tasks]);
     }
 
     public function component_update(Request $request, $id)

@@ -105,20 +105,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @foreach ($tasks as $key => $task)
+                        @foreach ($tasks as $key => $task)
                             <tr>
                                 <th>{{ $key + 1 }}</th>
                                 <td>{{ $task->name }}</td>
                                 <td>{{ $task->description }}</td>
-                                <td>{{ $task->start_date->format('d-m-Y') }}</td>
-                                <td>{{ $task->end_date->format('d-m-Y') }}</td>
+                                <td>{{ $task->start_date }}</td>
+                                <td>{{ $task->end_date }}</td>
                                 <td>
                                     <a href="{{ route('admin.project.task.detail', ['id' => 1]) }}">
                                         <button class="btn btn-info font-semibold">Detail</button>
                                     </a>
                                 </td>
                             </tr>
-                        @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>
