@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->text('address')->nullable();
             $table->integer('registration_number')->nullable();
-            $table->string('status_kepegawaian')->nullable();
+            $table->string('employement_status')->nullable();
             $table->string('availability_status')->nullable();
             $table->timestamps();
         });

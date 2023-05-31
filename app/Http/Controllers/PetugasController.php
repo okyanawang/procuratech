@@ -48,15 +48,6 @@ class PetugasController extends Controller
         $item->image_path = $newImageName;
         $item->save();
 
-        // DB::table('items')->insert([
-        //     'name' => $validatedData['name'],
-        //     'type' => $validatedData['type'],
-        //     'brand' => $validatedData['brand'],
-        //     'produsen' => $validatedData['produsen'],
-        //     'stock' => $validatedData['stock'],
-        // ]);
-        
-
         return redirect()->route('inventori.item')->with('success', 'Item berhasil ditambahkan');
     }
 
