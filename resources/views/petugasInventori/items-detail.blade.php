@@ -69,9 +69,10 @@
         <input type="checkbox" id="my-modal-delete-items" class="modal-toggle" />
         <div class="modal modal-bottom sm:modal-middle lg:pl-80">
             <div class="modal-box">
-                <form action="{{ route('inventori.delete', ['id' => $item->id]) }}" method="POST" class="flex flex-col">
-                    @method('DELETE')
+                <form action="{{ route('inventori.delete.item', ['id' => $item->id]) }}" method="POST" class="flex flex-col">
+                    {{-- @method('DELETE') --}}
                     @csrf
+                    @method('PUT')
                     <h3 class="font-bold text-lg mb-5">Delete Item</h3>
                     <p>Are you sure you want to delete this item? This action can't be undone</p>
                     <div class="modal-action">

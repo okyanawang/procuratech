@@ -266,14 +266,16 @@
                             <option value="">Choose Item</option>
                             <optgroup label="Parts">
                                 @foreach ($parts_all as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}
-                                    </option>
+                                    @if ($item->stock > 0)
+                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}</option>
+                                    @endif
                                 @endforeach
                             </optgroup>
                             <optgroup label="Material">
                                 @foreach ($material_all as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}
-                                    </option>
+                                    @if ($item->stock > 0)
+                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}</option>
+                                    @endif
                                 @endforeach
                             </optgroup>
                         </select>

@@ -167,7 +167,12 @@ Route::group(['prefix' => 'inventori', 'as' => 'inventori', 'middleware' => 'aut
         Route::get('/register', [PetugasController::class, 'item_register_submit'])->name('.register');
         Route::post('/register', [PetugasController::class, 'item_register_submit'])->name('.register.submit');
         Route::put('/{id}', [PetugasController::class, 'item_update'])->name('.item.update');
-        Route::delete('/{id}', [PetugasController::class, 'item_delete'])->name('.delete');
+        // Route::delete('/{id}', [PetugasController::class, 'item_delete'])->name('.delete');
+        Route::group(['prefix' => 'delete', 'as' => '.delete'], function () {
+            Route::put('/{id}', [PetugasController::class, 'item_delete'])->name('.item');
+            // Route::get('/{id}', [PetugasController::class, 'item_delete'])->name('.item');
+        });
+        // Route::put('/{id}', [PetugasController::class, 'item_delete'])->name('.delete');
     });
 });
 

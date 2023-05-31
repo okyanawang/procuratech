@@ -71,19 +71,21 @@
             </thead>
             <tbody>
                 @foreach ($nitems as $key => $i)
-                    <tr>
-                        <td>{{ $key + 1 }}</td>
-                        <td>{{ $i->name }}</td>
-                        <td>{{ $i->type }}</td>
-                        <td>{{ $i->brand }}</td>
-                        <td>{{ $i->produsen }}</td>
-                        <td>{{ $i->stock }}</td>
-                        <td class="text-center">
-                            <a href="{{ route('inventori.detail', ['id' => $i->id]) }}">
-                                <button class="btn btn-info font-semibold">Detail</button>
-                            </a>
-                        </td>
-                    </tr>
+                    @if ($i->stock > 0)
+                        <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $i->name }}</td>
+                            <td>{{ $i->type }}</td>
+                            <td>{{ $i->brand }}</td>
+                            <td>{{ $i->produsen }}</td>
+                            <td>{{ $i->stock }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('inventori.detail', ['id' => $i->id]) }}">
+                                    <button class="btn btn-info font-semibold">Detail</button>
+                                </a>
+                            </td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>
