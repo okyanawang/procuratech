@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
+
 // use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
@@ -138,17 +140,37 @@ class TaskController extends Controller
         // dd($request->all());
         // dd($request->file('image_path'));
         $task = Task::find($id);
+
+        $task->status = DB::table('tasks')
+            ->where('id', $id)
+            ->value('status');
+
+        if ($task->status == "cancelled") {
+            return redirect()->back()->withErrors('Task sudah dibatalkan, tidak bisa diupdate');
+        }
+
         $task->name = $request->name;
         $task->description = $request->description;
         $task->start_date = $request->start_date;
         $task->end_date = $request->end_date;
-        $newImageName = time() . '-' . 'tasks' . '.' . $request->file('image_path')->extension();
-        $request->file('image_path')->move(public_path('task'), $newImageName);
-        $task->image_path = $newImageName;
+        // $newImageName = time() . '-' . 'tasks' . '.' . $request->file('image_path')->extension();
+        if ($request->hasFile('image_path')) {
+            $newImageName = time() . '-' . 'tasks' . '.' . $request->file('image_path')->extension();
+            $request->file('image_path')->move(public_path('task'), $newImageName);
+            $task->image_path = $newImageName;
+        }
         $task->save();
 
         // Task::whereId($id)->update($validatedData);
         return redirect()->back()->with('success', 'Task berhasil diupdate');
+    }
+
+    public function cancel($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->status = "cancelled";
+        $task->save();
+        return redirect()->back()->with('success', 'Task berhasil dibatalkan');
     }
 
     public function delete($id)
@@ -178,7 +200,7 @@ class TaskController extends Controller
         else if (auth()->user()->role == 'Supervisor')
             return redirect()->route('supervisor.project.detail', ['id' => $project_id->id])->with('success', 'Task berhasil dihapus');
     }
-    
+
     public function delete_item($taskId, $itemId)
     {
         // Find the task
