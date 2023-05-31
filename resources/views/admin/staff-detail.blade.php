@@ -20,7 +20,7 @@
             <div class="flex flex-col xl:flex-row gap-3 place-content-center">
                 <div class="avatar w-full lg:w-1/3">
                     <div class="w-full rounded-xl">
-                        <img src="{{ asset('user/' . $user->image_path) }}" />
+                        <img src="{{ asset('staff/' . $user->image_path) }}" />
                     </div>
                 </div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
@@ -53,7 +53,7 @@
                     <input name="password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="password" />
                     <label for="photo" class="font-semibold">Update Photo :</label>
-                    <input type="file" class="file-input file-input-bordered file-input-info">
+                    <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
                 </div>
                 {{-- <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                 </div> --}}
@@ -113,7 +113,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($task_user as $tu)
+                        @foreach ($tasks as $tu)
                             <tr>
                                 <th>{{ $tu->name }}</th>
                                 <td class="text-center">
