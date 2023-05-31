@@ -63,13 +63,13 @@
                         <div class="mb-3">
                             <h4 class="font-bold">Parts</h4>
                             @foreach ($parts as $i)
-                                <li>{{ $i->name }} - <span>{{ $i->quantity }} {{ $i->unit }}</span></li>
+                                <li>{{ $i->name }} - <span>{{ $i->amount }} {{ $i->unit }}</span></li>
                             @endforeach
                         </div>
                         <div class="mb-3">
                             <h4 class="font-bold">Material</h4>
                             @foreach ($materials as $i)
-                                <li>{{ $i->name }} - <span>{{ $i->quantity }} {{ $i->unit }}</span></li>
+                                <li>{{ $i->name }} - <span>{{ $i->amount }} {{ $i->unit }}</span></li>
                             @endforeach
                         </div>
                     </div>

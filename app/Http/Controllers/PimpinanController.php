@@ -109,13 +109,13 @@ class PimpinanController extends Controller
             ->join('tasks_has_items', 'items.id', '=', 'tasks_has_items.items_id')
             ->where('tasks_has_items.tasks_id', $id)
             ->where('items.type', 'Parts')
-            ->select('items.*')
+            ->select('items.*', 'tasks_has_items.amount')
             ->get();
         $materials = DB::table('items')
             ->join('tasks_has_items', 'items.id', '=', 'tasks_has_items.items_id')
             ->where('tasks_has_items.tasks_id', $id)
             ->where('items.type', 'Material')
-            ->select('items.*')
+            ->select('items.*', 'tasks_has_items.amount')
             ->get();
 
         return view('pimpinanProject.task-detail', [

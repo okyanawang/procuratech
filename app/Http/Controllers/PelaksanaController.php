@@ -53,10 +53,11 @@ class PelaksanaController extends Controller
         $tasks = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-            ->leftjoin('reports', 'tasks.id', '=', 'reports.tasks_id')
+            ->leftjoin('reports', 'users.id', '=', 'reports.users_id')
             ->where('users.id', Auth::user()->id)
             ->select('tasks.id', 'tasks.name as task_name', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end', 'tasks.image_path as task_image', 'reports.status as rep_status')
             ->get();
+        // dd($tasks);
         $reports = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
@@ -135,6 +136,7 @@ class PelaksanaController extends Controller
         $reports = DB::table('tasks')
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->where('tasks.id', $id)
+            ->where('reports.users_id', Auth::user()->id)
             ->select('reports.*')
             ->orderBy('reports.id', 'DESC')
             ->first();
