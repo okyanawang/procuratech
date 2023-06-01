@@ -52,6 +52,29 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Task berhasil ditambahkan');
     }
 
+    public function completeTask($id)
+    {
+        
+        $statuses = DB::table('tasks AS t')
+            ->join('users_has_tasks AS uht', 't.id', '=', 'uht.tasks_id')
+            ->join('users AS u', 'uht.users_id', '=', 'u.id')
+            ->leftJoin('reports AS r', 'uht.users_id', '=', 'r.users_id')
+            ->where('t.id', $id)
+            ->where('u.role', '<>', 'Job Inspector')
+            ->select('u.id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
+            ->get();
+
+        $task = Task::find($id);
+        if ($statuses->count() == $statuses->sum('status_done')) {
+            $task->status = "Done";
+            $task->save();
+            return redirect()->back()->with('Task sudah diselesaikan');
+        }
+        else {
+            return redirect()->back()->withErrors('Task belum dapat diselesaikan');
+        }
+    }
+
     public function assign_staff(Request $request, $id)
     {
         // dd($request->all());
