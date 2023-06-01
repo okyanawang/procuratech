@@ -48,7 +48,7 @@ class AdminController extends Controller
         $item->image_path = $newImageName;
         $item->save();
 
-        return redirect()->route('admin.component.index')->with('success', 'Component berhasil ditambahkan');
+        return redirect()->route('admin.component.index')->with('success', 'Component successfully updated');
     }
 
     public function component_detail($id)
@@ -72,13 +72,15 @@ class AdminController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         $item->unit = $request->unit;
-        $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
-        $request->file('image_path')->move(public_path('item'), $newImageName);
-        $item->image_path = $newImageName;
+        if ($request->file('image_path') != null) {
+            $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
+            $request->file('image_path')->move(public_path('item'), $newImageName);
+            $item->image_path = $newImageName;
+        }
 
         $item->save();
 
-        return redirect()->route('admin.component.index')->with('success', 'Component berhasil diupdate');
+        return redirect()->route('admin.component.index')->with('success', 'Component successfully updated');
     }
 
     public function component_delete($id)
@@ -86,7 +88,7 @@ class AdminController extends Controller
         $item = Item::find($id);
         $item->delete();
 
-        return redirect()->route('admin.component.index')->with('success', 'Component berhasil dihapus');
+        return redirect()->route('admin.component.index')->with('success', 'Component successfully deleted');
     }
 
     public function staff_index()
@@ -129,18 +131,24 @@ class AdminController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->role = $request->role;
+        $user->email = $request->email;
+        $user->phone_number = $request->phone_number;
+        $user->registration_number = $request->registration_number;
+        $user->employement_status = $request->employement_status;
         $user->availability_status = $request->availability_status;
         $user->username = $request->username;
         if ($request->password != null)
             $user->password = bcrypt($request->password);
 
-        $newImageName = time() . '-' . 'staff' . '.' . $request->file('image_path')->extension();
-        $request->file('image_path')->move(public_path('staff'), $newImageName);
-        $user->image_path = $newImageName;
+        if ($request->file('image_path') != null) {
+            $newImageName = time() . '-' . 'staff' . '.' . $request->file('image_path')->extension();
+            $request->file('image_path')->move(public_path('staff'), $newImageName);
+            $user->image_path = $newImageName;
+        }
 
         $user->save();
 
-        return redirect()->route('admin.staff.index')->with('success', 'Staff berhasil diupdate');
+        return redirect()->back()->with('success', 'Staff successfully updated');
     }
 
     public function staff_delete($id)
@@ -149,7 +157,7 @@ class AdminController extends Controller
         $user->tasks()->detach();
         $user->delete();
 
-        return redirect()->route('admin.staff.index')->with('success', 'Staff berhasil dihapus');
+        return redirect()->route('admin.staff.index')->with('success', 'Staff successfully deleted');
     }
 
     public function work_index()
@@ -180,9 +188,9 @@ class AdminController extends Controller
 
     public function project_store(Request $request)
     {
+        $project = new Project;
         $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('project'), $newImageName);
-        $project = new Project;
         $project->name = $request->name;
         $project->registration_date = $request->registration_date;
         $project->description = $request->description;
@@ -193,7 +201,7 @@ class AdminController extends Controller
 
         $project->save();
 
-        return redirect()->route('admin.project.index')->with('success', 'Project berhasil ditambahkan');
+        return redirect()->route('admin.project.index')->with('success', 'Project successfully updated');
     }
 
     public function project_detail($id)
@@ -224,13 +232,15 @@ class AdminController extends Controller
         $project->description = $request->description;
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;
-        $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
-        $request->file('image_path')->move(public_path('project'), $newImageName);
-        $project->image_path = $newImageName;
+        if ($request->file('image_path') != null) {
+            $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
+            $request->file('image_path')->move(public_path('project'), $newImageName);
+            $project->image_path = $newImageName;
+        }
 
         $project->save();
 
-        return redirect()->route('admin.project.index')->with('success', 'Project berhasil diupdate');
+        return redirect()->route('admin.project.index')->with('success', 'Project successfully updated');
     }
 
     public function project_delete($id)
@@ -238,7 +248,7 @@ class AdminController extends Controller
         $project = Project::find($id);
         $project->locations()->delete();
         $project->delete();
-        return redirect()->route('admin.project.index')->with('success', 'Project berhasil dihapus');
+        return redirect()->route('admin.project.index')->with('success', 'Project successfully deleted');
     }
 
     public function location_detail($id)

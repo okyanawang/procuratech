@@ -36,10 +36,10 @@ class PetugasController extends Controller
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
 
-        $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
-        $request->file('image_path')->move(public_path('item'), $newImageName);
 
         $item = new Item;
+        $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('item'), $newImageName);
         $item->name = $validatedData['name'];
         $item->type = $validatedData['type'];
         $item->brand = $validatedData['brand'];
@@ -48,7 +48,7 @@ class PetugasController extends Controller
         $item->image_path = $newImageName;
         $item->save();
 
-        return redirect()->route('inventori.item')->with('success', 'Item berhasil ditambahkan');
+        return redirect()->route('inventori.item')->with('success', 'Item added successfully');
     }
 
     public function item_detail($id)
@@ -74,7 +74,7 @@ class PetugasController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         // $item->description = $request->description;
-        $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
+        $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
         if ($request->hasFile('image_path')) {
             $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
             $request->file('image_path')->move(public_path('item'), $newImageName);
@@ -84,7 +84,7 @@ class PetugasController extends Controller
 
         // Item::whereId($id)->update($validatedData);
 
-        return redirect()->back()->with('success', 'Item berhasil diupdate');
+        return redirect()->back()->with('success', 'Item updated successfully');
     }
 
     public function item_delete($id)
@@ -95,7 +95,7 @@ class PetugasController extends Controller
         $item->save();
         // $item->delete();
 
-        return redirect()->route('inventori.item')->with('success', 'Item berhasil dihapus');
+        return redirect()->route('inventori.item')->with('success', 'Item deleted successfully');
     }
 
     // public function item_detail()

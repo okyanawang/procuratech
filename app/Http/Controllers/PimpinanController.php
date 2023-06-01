@@ -68,7 +68,7 @@ class PimpinanController extends Controller
         }
         $project->save();
 
-        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil diupdate');
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project updated successfully');
     }
 
     public function project_delete($id)
@@ -76,7 +76,7 @@ class PimpinanController extends Controller
         $project = Project::find($id);
         $project->locations()->delete();
         $project->delete();
-        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil dihapus');
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project deleted successfully');
     }
 
     public function location_detail($id)

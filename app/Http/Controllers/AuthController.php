@@ -88,10 +88,10 @@ class AuthController extends Controller
 
         ]);
 
-        $newImageName = time().'-'.'staff'.'.'.$request->file('image_path')->extension();
-        $request->file('image_path')->move(public_path('staff'), $newImageName);
 
         $user = new User;
+        $newImageName = time() . '-' . 'staff' . '.' . $request->file('image_path')->extension();
+        $request->file('image_path')->move(public_path('staff'), $newImageName);
         $user->name = $validatedData['name'];
         $user->role = $validatedData['role'];
         $user->username = $validatedData['username'];
