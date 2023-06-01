@@ -142,6 +142,13 @@ class PimpinanController extends Controller
             ->where('items.type', 'Material')
             ->select('items.*', 'tasks_has_items.amount')
             ->get();
+        $reports = DB::table('tasks')
+            ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
+            ->join('users', 'reports.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            ->select('reports.*', 'users.id as worker_id', 'users.name')
+            ->orderBy('reports.id', 'desc')
+            ->get();
 
         return view('pimpinanProject.task-detail', [
             'task' => $task,
@@ -153,6 +160,7 @@ class PimpinanController extends Controller
             'inspector' => $inspector,
             'parts' => $parts,
             'materials' => $materials,
+            'reports' => $reports,
         ]);
     }
 }
