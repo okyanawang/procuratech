@@ -282,6 +282,15 @@ class PelaksanaController extends Controller
             ->orderBy('reports.id', 'desc')
             ->get();
 
+        $statuses = DB::table('tasks AS t')
+            ->join('users_has_tasks AS uht', 't.id', '=', 'uht.tasks_id')
+            ->join('users AS u', 'uht.users_id', '=', 'u.id')
+            ->leftJoin('reports AS r', 'uht.users_id', '=', 'r.users_id')
+            ->where('t.id', $id)
+            ->where('u.role', '<>', 'Job Inspector')
+            ->select('u.id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
+            ->get();
+
         return view('pelaksana.pemeriksa.tasks-detail', [
             'task' => $task,
             'teams' => $teams,
@@ -294,6 +303,7 @@ class PelaksanaController extends Controller
             'parts' => $parts,
             'material' => $material,
             'reports' => $reports,
+            'statuses' => $statuses,
         ]);
     }
 }
