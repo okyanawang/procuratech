@@ -21,6 +21,6 @@ class LocationController extends Controller
         $location->projects_id = $validatedData['pid'];
         $location->save();
 
-        return redirect()->route('pimpinan.project.detail', $validatedData['pid'])->with('success', 'Lokasi berhasil ditambahkan');
+        return redirect()->route('pimpinan.project.detail', $validatedData['pid'])->with('success', 'Location added successfully');
     }
 }

@@ -17,8 +17,8 @@
             method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <div class="flex flex-col xl:flex-row gap-3 place-content-center">
-                <div class="avatar w-full lg:w-1/3">
+            <div class="flex flex-col xl:flex-row gap-5 place-content-center">
+                <div class="avatar w-full lg:w-1/2">
                     <div class="w-full rounded-xl">
                         <img src="{{ asset('staff/' . $user->image_path) }}" />
                     </div>
@@ -46,9 +46,29 @@
                         <option value="on duty">on duty</option>
                         <option value="on leave">on leave</option>
                     </select>
+                    <label for="employement_status" class="mr-3 font-semibold">Employment Status :</label>
+                    <select class="select select-bordered block mt-1 w-full" name="employement_status" required>
+                        <option value="{{ $user->employement_status }}" selected>{{ $user->employement_status }}</option>
+                        <option value="Contract">Contract</option>
+                        <option value="Out-sourcing">Out-sourcing</option>
+                        <option value="Intern">Intern</option>
+                        <option value="Full Time">Full Time</option>
+                    </select>
+                    <label for="phone_number" class="mr-3 font-semibold">Phone number :</label>
+                    <input name="phone_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="phone_number" value="{{ $user->phone_number }}" required />
+                    <label for="address" class="mr-3 font-semibold">Address :</label>
+                    <input name="address" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="address" value="{{ $user->address }}" required />
+                    <label for="registration_number" class="mr-3 font-semibold">Registration number :</label>
+                    <input name="registration_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="registration_number" value="{{ $user->registration_number }}" required />
                     <label for="username" class="mr-3 font-semibold">Username :</label>
                     <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="username" value="{{ $user->username }}" required />
+                    <label for="email" class="mr-3 font-semibold">Email :</label>
+                    <input name="email" type="email" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="email" value="{{ $user->email }}" required />
                     <label for="password" class="mr-3 font-semibold">New Password :</label>
                     <input name="password" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="password" />
@@ -125,7 +145,7 @@
                                     <!-- The button to open modal -->
                                     {{-- <label for="new-user" class="btn btn-info font-semibold">
                                         Detail</label> --}}
-                                    <a href="{{ route('admin.project.task.detail', ['id' => $tu->id]) }}" >
+                                    <a href="{{ route('admin.project.task.detail', ['id' => $tu->id]) }}">
                                         <button class="btn btn-primary">Detail</button>
                                     </a>
 

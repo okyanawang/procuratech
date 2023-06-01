@@ -30,8 +30,8 @@ class ProjectController extends Controller
             'status' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
-        
-        $newImageName = time().'-'.'projects'.'.'.$request->file('image_path')->extension();
+
+        $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('project'), $newImageName);
         // dd($request->newImageName);
         $project = new Project;
@@ -48,7 +48,7 @@ class ProjectController extends Controller
             'projects_id' => $project->id,
         ]);
 
-        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil ditambahkan');
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project added successfully');
     }
     public function show($id)
     {
@@ -68,15 +68,17 @@ class ProjectController extends Controller
         $project->description = $request->description;
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;
-        $newImageName = time().'-'.'projects'.'.'.$request->file('image_path')->extension();
-        $request->file('image_path')->move(public_path('project'), $newImageName);
-        $project->image_path = $newImageName;
-        
+        if ($request->file('image_path') != null) {
+            $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
+            $request->file('image_path')->move(public_path('project'), $newImageName);
+            $project->image_path = $newImageName;
+        }
+
         $project->save();
 
         // Project::whereId($id)->update($validatedData);
 
-        return redirect()->back()->with('success', 'Project berhasil diupdate');
+        return redirect()->back()->with('success', 'Project updated successfully');
     }
 
     public function delete($id)
@@ -84,7 +86,7 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $project->locations()->delete();
         $project->delete();
-        return redirect()->route('pimpinan.project.index')->with('success', 'Project berhasil dihapus');
+        return redirect()->route('pimpinan.project.index')->with('success', 'Project deleted successfully');
     }
 
     public function destroy($id)
@@ -92,6 +94,6 @@ class ProjectController extends Controller
         $project = Project::find($id);
         $project->delete();
 
-        return redirect()->route('project.index')->with('success', 'Project berhasil dihapus');
+        return redirect()->route('project.index')->with('success', 'Project deleted successfully');
     }
 }

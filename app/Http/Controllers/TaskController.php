@@ -49,12 +49,12 @@ class TaskController extends Controller
         $task->image_path = $newImageName;
         $task->save();
 
-        return redirect()->back()->with('success', 'Task berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Task added successfully');
     }
 
     public function completeTask($id)
     {
-        
+
         $statuses = DB::table('tasks AS t')
             ->join('users_has_tasks AS uht', 't.id', '=', 'uht.tasks_id')
             ->join('users AS u', 'uht.users_id', '=', 'u.id')
@@ -68,10 +68,9 @@ class TaskController extends Controller
         if ($statuses->count() == $statuses->sum('status_done')) {
             $task->status = "Done";
             $task->save();
-            return redirect()->back()->with('Task sudah diselesaikan');
-        }
-        else {
-            return redirect()->back()->withErrors('Task belum dapat diselesaikan');
+            return redirect()->back()->with('success', 'Task comlpeted successfully');
+        } else {
+            return redirect()->back()->withErrors('Task cannot be completed yet');
         }
     }
 
@@ -90,7 +89,7 @@ class TaskController extends Controller
 
         if ($check > 0) {
             // dd($check);
-            return redirect()->back()->withErrors('Staff sudah ditambahkan pada task ini');
+            return redirect()->back()->withErrors('Staff already added to this task');
         }
 
         // create new users_has_tasks record
@@ -99,7 +98,7 @@ class TaskController extends Controller
             'tasks_id' => $id,
         ]);
 
-        return redirect()->back()->with('success', 'Staff berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Staff added successfully');
     }
 
     public function remove_staff($tasks_id, $users_id)
@@ -117,7 +116,7 @@ class TaskController extends Controller
         // $task->worker = $validatedData['staff'];
         // $task->save();
 
-        return redirect()->back()->with('success', 'Staff berhasil dihapus');
+        return redirect()->back()->with('success', 'Staff deleted successfully');
     }
 
     public function add_item(Request $request, $id)
@@ -134,43 +133,43 @@ class TaskController extends Controller
             ->count();
 
         // if ($check > 0) {
-        //     return redirect()->back()->withErrors('Item sudah ditambahkan pada task ini');
+        //     return redirect()->back()->withErrors('Item already added to this task');
         // }
 
         $stock_inv = DB::table('items')
             ->where('id', $validatedData['item'])
             ->value('stock');
 
-        if($stock_inv < $validatedData['amount']){
-            return redirect()->back()->withErrors('Stock tidak mencukupi');
+        // if ($stock_inv < $validatedData['amount']) {
+        //     return redirect()->back()->withErrors('Stock tidak mencukupi');
+        // }
+
+        if ($validatedData['amount'] <= 0) {
+            return redirect()->back()->withErrors('Invalid Amount');
         }
 
-        if($validatedData['amount'] <= 0){
-            return redirect()->back()->withErrors('Amount tidak valid');
+        if ($validatedData['amount'] == null) {
+            return redirect()->back()->withErrors('Invalid Amount');
         }
 
-        if($validatedData['amount'] == null){
-            return redirect()->back()->withErrors('Amount tidak valid');
-        }
-
-        if($check > 0){
+        if ($check > 0) {
             $amount = DB::table('tasks_has_items')
-            ->where('items_id', $validatedData['item'])
-            ->where('tasks_id', $id)
-            ->value('amount');
+                ->where('items_id', $validatedData['item'])
+                ->where('tasks_id', $id)
+                ->value('amount');
 
             $amount = $amount + $validatedData['amount'];
 
             DB::table('tasks_has_items')
-            ->where('items_id', $validatedData['item'])
-            ->where('tasks_id', $id)
-            ->update(['amount' => $amount]);
+                ->where('items_id', $validatedData['item'])
+                ->where('tasks_id', $id)
+                ->update(['amount' => $amount]);
 
             DB::table('items')
-            ->where('id', $validatedData['item'])
-            ->update(['stock' => $stock_inv - $validatedData['amount']]);
+                ->where('id', $validatedData['item'])
+                ->update(['stock' => $stock_inv - $validatedData['amount']]);
 
-            return redirect()->back()->with('success', 'Item berhasil ditambahkan');
+            return redirect()->back()->with('success', 'Item added successfully');
         }
 
         // update stock_inv with substract it with amount
@@ -185,7 +184,7 @@ class TaskController extends Controller
             'amount' => $validatedData['amount'],
         ]);
 
-        return redirect()->back()->with('success', 'Item berhasil ditambahkan');
+        return redirect()->back()->with('success', 'Item added successfully');
     }
 
     public function show($id)
@@ -209,7 +208,7 @@ class TaskController extends Controller
             ->value('status');
 
         if ($task->status == "cancelled") {
-            return redirect()->back()->withErrors('Task sudah dibatalkan, tidak bisa diupdate');
+            return redirect()->back()->withErrors('Task already cancelled, cannot be updated');
         }
 
         $task->name = $request->name;
@@ -225,7 +224,7 @@ class TaskController extends Controller
         $task->save();
 
         // Task::whereId($id)->update($validatedData);
-        return redirect()->back()->with('success', 'Task berhasil diupdate');
+        return redirect()->back()->with('success', 'Task updated successfully');
     }
 
     public function cancel($id)
@@ -233,7 +232,7 @@ class TaskController extends Controller
         $task = Task::findOrFail($id);
         $task->status = "cancelled";
         $task->save();
-        return redirect()->back()->with('success', 'Task berhasil dibatalkan');
+        return redirect()->back()->with('success', 'Task cancelled successfully');
     }
 
     public function delete($id)
@@ -259,9 +258,9 @@ class TaskController extends Controller
         $task->delete();
 
         if (auth()->user()->role == 'Admin IT')
-            return redirect()->route('admin.project.detail', ['id' => $project_id->id])->with('success', 'Task berhasil dihapus');
+            return redirect()->route('admin.project.detail', ['id' => $project_id->id])->with('success', 'Task deleted successfully');
         else if (auth()->user()->role == 'Supervisor')
-            return redirect()->route('supervisor.project.detail', ['id' => $project_id->id])->with('success', 'Task berhasil dihapus');
+            return redirect()->route('supervisor.project.detail', ['id' => $project_id->id])->with('success', 'Task deleted successfully');
     }
 
     public function delete_item($taskId, $itemId)
@@ -293,5 +292,4 @@ class TaskController extends Controller
 
         return redirect()->back()->with('success', 'Item deleted from task successfully');
     }
-
 }

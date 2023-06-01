@@ -36,6 +36,6 @@ class CategoryController extends Controller
             ->select('categories.*', 'users.name as sv_name')
             ->get();
 
-        return view('pimpinanProject.location-detail', ['loc' => $loc, 'svs' => $svs, 'cats' => $cats])->with('success', 'Kategori berhasil ditambahkan');
+        return view('pimpinanProject.location-detail', ['loc' => $loc, 'svs' => $svs, 'cats' => $cats])->with('success', 'Categori added successfully');
     }
 }
