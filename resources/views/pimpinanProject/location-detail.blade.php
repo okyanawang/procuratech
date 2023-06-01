@@ -70,7 +70,7 @@
                                 <label for="cat_detail-{{ $c->id }}" class="btn btn-primary modal-button">
                                     Detail</label>
                                 <!-- The button to open modal -->
-                                <label for="cat_delete" class="btn btn-error modal-button">
+                                <label for="cat_delete-{{ $c->id }}" class="btn btn-error modal-button">
                                     Delete</label>
                             </td>
 
@@ -100,7 +100,8 @@
                                             @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
                                                 <div class="mb-3 grid grid-cols-3 w-full items-center">
                                                     <h4 class="">{{ $t->name }}</h4>
-                                                    <div class="badge badge-primary mr-1 text-center">{{ $t->status }}</div>
+                                                    <div class="badge badge-primary mr-1 text-center">{{ $t->status }}
+                                                    </div>
                                                     <a
                                                         href="{{ route('pimpinan.project.category.task.detail', ['id' => $t->id]) }}">
                                                         <button class="btn btn-info font-semibold">Detail</button>
@@ -116,7 +117,7 @@
                             </div>
 
                             <!-- Put this part before </body> tag -->
-                            <input type="checkbox" id="cat_delete" class="modal-toggle" />
+                            <input type="checkbox" id="cat_delete-{{ $c->id }}" class="modal-toggle" />
                             <div class="modal lg:pl-80">
                                 <div class="modal-box w-11/12 max-w-5xl">
                                     <div class="flex flex-col">
@@ -124,8 +125,9 @@
                                         <p>Are you sure you want to delete the category? This action can't be undone</p>
                                     </div>
                                     <div class="modal-action">
-                                        <label for="cat_delete" class="btn btn-primary">close</label>
+                                        <label for="cat_delete-{{ $c->id }}" class="btn btn-primary">close</label>
                                         <form action="" method="POST">
+                                            @csrf
                                             <input type="submit" class="btn btn-error" value="Delete">
                                         </form>
                                     </div>

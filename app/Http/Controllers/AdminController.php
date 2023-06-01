@@ -42,8 +42,8 @@ class AdminController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         $item->unit = $request->unit;
-        
-        $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
+
+        $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('item'), $newImageName);
         $item->image_path = $newImageName;
         $item->save();
@@ -72,10 +72,10 @@ class AdminController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         $item->unit = $request->unit;
-        $newImageName = time().'-'.'items'.'.'.$request->file('image_path')->extension();
+        $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('item'), $newImageName);
         $item->image_path = $newImageName;
-        
+
         $item->save();
 
         return redirect()->route('admin.component.index')->with('success', 'Component berhasil diupdate');
@@ -133,11 +133,11 @@ class AdminController extends Controller
         $user->username = $request->username;
         if ($request->password != null)
             $user->password = bcrypt($request->password);
-            
-        $newImageName = time().'-'.'staff'.'.'.$request->file('image_path')->extension();
+
+        $newImageName = time() . '-' . 'staff' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('staff'), $newImageName);
         $user->image_path = $newImageName;
-        
+
         $user->save();
 
         return redirect()->route('admin.staff.index')->with('success', 'Staff berhasil diupdate');
@@ -180,7 +180,7 @@ class AdminController extends Controller
 
     public function project_store(Request $request)
     {
-        $newImageName = time().'-'.'projects'.'.'.$request->file('image_path')->extension();
+        $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('project'), $newImageName);
         $project = new Project;
         $project->name = $request->name;
@@ -190,7 +190,7 @@ class AdminController extends Controller
         $project->end_date = $request->end_date;
         $project->status = $request->status;
         $project->image_path = $newImageName;
-        
+
         $project->save();
 
         return redirect()->route('admin.project.index')->with('success', 'Project berhasil ditambahkan');
@@ -224,10 +224,10 @@ class AdminController extends Controller
         $project->description = $request->description;
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;
-        $newImageName = time().'-'.'projects'.'.'.$request->file('image_path')->extension();
+        $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('project'), $newImageName);
         $project->image_path = $newImageName;
-        
+
         $project->save();
 
         return redirect()->route('admin.project.index')->with('success', 'Project berhasil diupdate');
@@ -283,6 +283,13 @@ class AdminController extends Controller
             ->where('tasks_id', $task->id)
             ->select('*')
             ->get();
-        return view('admin.project.task-detail', compact('project', 'location', 'name_pm', 'category', 'name_sv', 'task', 'workers', 'items'));
+        $reports = DB::table('tasks')
+            ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
+            ->join('users', 'reports.users_id', '=', 'users.id')
+            ->where('tasks.id', $task->id)
+            ->select('reports.*', 'users.id as worker_id', 'users.name')
+            ->orderBy('reports.id', 'desc')
+            ->get();
+        return view('admin.project.task-detail', compact('project', 'location', 'name_pm', 'category', 'name_sv', 'task', 'workers', 'items', 'reports'));
     }
 }
