@@ -123,8 +123,12 @@
                                 <td>{{ $tu->end_date }}</td>
                                 <td class="">
                                     <!-- The button to open modal -->
-                                    <label for="new-user" class="btn btn-info font-semibold">
-                                        Detail</label>
+                                    {{-- <label for="new-user" class="btn btn-info font-semibold">
+                                        Detail</label> --}}
+                                    <a href="{{ route('admin.project.task.detail', ['id' => $tu->id]) }}" >
+                                        <button class="btn btn-primary">Detail</button>
+                                    </a>
+
                                 </td>
 
                                 <!-- Put this part before </body> tag -->
