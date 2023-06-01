@@ -128,7 +128,11 @@
                 </div>
             </div>
             <div class="w-full text-center">
-                <button class="btn btn-primary">Complete Job</button>
+                <form action="{{ route('pemeriksa.tasks.complete', ['id' => $task->id]) }}" method="POST" >
+                    @csrf
+                    @method('PUT')
+                    <input type="submit" class="btn btn-primary" value="Complete Job">
+                </form>
             </div>
             <h1 class="text-3xl font-bold mt-10">Reports</h1>
             <table id="myTable" class="table table-zebra w-full">

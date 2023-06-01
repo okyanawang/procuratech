@@ -234,6 +234,7 @@ Route::group(['prefix' => 'pemeriksa', 'as' => 'pemeriksa', 'middleware' => 'aut
         Route::get('/', [PelaksanaController::class, 'index_pemeriksa_tasks'])->name('.tasks');
         Route::get('/{id}', [PelaksanaController::class, 'index_pemeriksa_tasks_detail'])->name('.tasks.detail');
         Route::put('/update_inspect/{id}/{worker_id}', [ReportController::class, 'update_inspect'])->name('.tasks.update_inspect');
+        Route::put('/complete/{id}', [TaskController::class, 'completeTask'])->name('.tasks.complete');
     });
 });
 
