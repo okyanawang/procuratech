@@ -17,6 +17,7 @@ class TaskSeeder extends Seeder
                 'name' => 'Ship Painting',
                 'description' => 'Paint the exterior of the ship',
                 'status' => 'Pending',
+                'task_number' => 'T' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT),
                 'type' => 'Painting',
                 'start_date' => '2023-05-20',
                 'end_date' => '2023-05-25',
@@ -27,6 +28,7 @@ class TaskSeeder extends Seeder
                 'name' => 'Engine Overhaul',
                 'description' => 'Perform a complete overhaul of the ship engine',
                 'status' => 'Pending',
+                'task_number' => 'T' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT),
                 'type' => 'Overhaul',
                 'start_date' => '2023-06-01',
                 'end_date' => '2023-06-10',
@@ -37,6 +39,8 @@ class TaskSeeder extends Seeder
                 'name' => 'Hull Repair',
                 'description' => 'Repair any damages to the ship hull',
                 'status' => 'Pending',
+                // $randomNumber = 'P' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT)
+                'task_number' => 'T' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT),
                 'type' => 'Repair',
                 'start_date' => '2023-06-15',
                 'end_date' => '2023-06-20',
@@ -52,8 +56,9 @@ class TaskSeeder extends Seeder
         $workers = User::where('role', 'Job Executor')->get();
         $measurers = User::where('role', 'Measurement Executor')->get();
         $analysts = User::where('role', 'Analyst')->get();
+        $inspectors = User::where('role', 'Job Inspector')->get();
 
-        $users = $workers->concat($measurers)->concat($analysts);
+        $users = $workers->concat($measurers)->concat($analysts)->concat($inspectors);
 
         foreach ($users as $user) {
             foreach ($tasks as $task) {

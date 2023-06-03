@@ -15,13 +15,14 @@ class PimpinanController extends Controller
 {
     public function index()
     {
-        $nprojects = DB::table('projects')
+        $nprojects = DB::table('categories')
+            ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            ->join('projects', 'locations.projects_id', '=', 'projects.id')
             ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
-            ->join('users', 'users_has_projects.users_id', '=', 'users.id')
             ->where('users_has_projects.users_id', Auth::user()->id)
             ->select('projects.*')
             ->count();
-        return view('pimpinanProject.dashboard', ['nprojects' => $nprojects]);
+        return view('supervisor.dashboard', ['nprojects' => $nprojects]);
     }
 
     public function project_index()

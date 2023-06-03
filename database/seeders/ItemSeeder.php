@@ -81,17 +81,31 @@ class ItemSeeder extends Seeder
             2000,
         ];
         $units = [
-            'single_unit',
-            'single_unit',
-            'single_unit',
-            'single_unit',
-            'single_unit',
-            'single_unit',
-            'single_unit',
-            'single_unit',
-            'single_unit',
-            'single_unit',
-            'single_unit',
+            'PCS',
+            'PCS',
+            'PCS',
+            'PCS',
+            'PCS',
+            'PCS',
+            'PCS',
+            'PCS',
+            'PCS',
+            'PCS',
+            'PCS',
+        ];
+
+        $sku = [
+            'BOLT-001',
+            'NUT-001',
+            'WASHER-001',
+            'SCREW-001',
+            'NAIL-001',
+            'PIN-001',
+            'RIVET-001',
+            'WRENCH-001',
+            'SCREWDRIVER-001',
+            'PLIERS-001',
+            'CHISEL-001',
         ];
 
         $items = [];
@@ -101,6 +115,7 @@ class ItemSeeder extends Seeder
             $item->name = $name;
             $item->type = $types[$key];
             $item->brand = $brands[$key];
+            $item->sku = $sku[$key];
             $item->produsen = $produsens[$key];
             $item->stock = $stocks[$key];
             $item->unit = $units[$key];
@@ -108,17 +123,6 @@ class ItemSeeder extends Seeder
             $item->save();
 
             $items[] = $item;
-        }
-
-        $tasks = Task::all();
-        foreach ($tasks as $task) {
-            foreach ($items as $item) {
-                DB::table('tasks_has_items')->insert([
-                    'tasks_id' => $task->id,
-                    'items_id' => $item->id,
-                    'amount' => 100,
-                ]);
-            }
         }
     }
 }

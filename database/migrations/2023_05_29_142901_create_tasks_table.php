@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('type')->nullable();
             $table->string('status')->nullable();
+            $table->string('task_number')->nullable();
             $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->dateTime('created_at')->nullable();

@@ -63,6 +63,8 @@ class ProjectSeeder extends Seeder
             $project->start_date = $start_dates[$key];
             $project->end_date = $end_dates[$key];
             $project->status = $statuses[$key];
+            $randomNumber = 'P' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);
+            $project->project_number = $randomNumber;
             $project->image_path = 'placeholder.jpg';
 
             $project->save();

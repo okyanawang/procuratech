@@ -33,6 +33,7 @@ class PetugasController extends Controller
             'brand' => 'required',
             'produsen' => 'required',
             'stock' => 'required',
+            'sku' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
 
@@ -44,6 +45,7 @@ class PetugasController extends Controller
         $item->type = $validatedData['type'];
         $item->brand = $validatedData['brand'];
         $item->produsen = $validatedData['produsen'];
+        $item->sku = $validatedData['sku'];
         $item->stock = $validatedData['stock'];
         $item->image_path = $newImageName;
         $item->save();
@@ -74,7 +76,7 @@ class PetugasController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         // $item->description = $request->description;
-        $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
+        // $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
         if ($request->hasFile('image_path')) {
             $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
             $request->file('image_path')->move(public_path('item'), $newImageName);

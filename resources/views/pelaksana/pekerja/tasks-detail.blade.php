@@ -138,7 +138,7 @@
             </div>
 
             <div class="modal-action justify-center w-full">
-                @if ($reports == null || $reports->status == 'Pending')
+                @if ($reports == null || $reports->status == 'Pending' || $reports->status == null)
                     <form action="{{ route('pekerja.tasks.execute', ['id' => $task->id]) }}" method="POST">
                         @csrf
                         @method('PUT')

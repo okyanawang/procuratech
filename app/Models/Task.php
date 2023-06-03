@@ -21,6 +21,7 @@ class Task extends Model
         'description',
         'type',
         'status',
+        'task_number',
         'start_date',
         'end_date',
         'categories_id',

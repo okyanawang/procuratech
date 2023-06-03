@@ -143,6 +143,7 @@ class PelaksanaController extends Controller
         $reports_by_user = DB::table('tasks')
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->where('tasks.id', $id)
+            ->where('reports.users_id', Auth::user()->id)
             ->whereNot('reports.status', "Pending")
             ->whereNot('reports.status', "In Progress")
             ->orderBy('reports.id', 'DESC')
@@ -177,10 +178,14 @@ class PelaksanaController extends Controller
         $ongoing_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-            ->where('users_has_tasks.users_id', Auth::user()->id)
-            ->where('tasks.status', '=', 'On Review')
+            // ->join('reports AS r', 'tasks.id', '=', 'r.tasks_id')
+            ->where('users.id', Auth::user()->id)
+            ->where('tasks.status', '=', 'Pending')
+            #or tasks.status = 'In Progress'
+            ->orWhere('tasks.status', '=', 'In Progress')
             ->select('tasks.*')
             ->count();
+        // dd($ongoing_task);
         $done_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
@@ -278,6 +283,9 @@ class PelaksanaController extends Controller
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->join('users', 'reports.users_id', '=', 'users.id')
             ->where('tasks.id', $id)
+            // ->where('reports.status', '<>', 'Done')
+            ->where('reports.status', '<>', 'Pending')
+            ->where('reports.status', '<>', null)
             ->select('reports.*', 'users.id as worker_id', 'users.name')
             ->orderBy('reports.id', 'desc')
             ->get();
@@ -287,6 +295,7 @@ class PelaksanaController extends Controller
             ->join('users AS u', 'uht.users_id', '=', 'u.id')
             ->leftJoin('reports AS r', 'uht.users_id', '=', 'r.users_id')
             ->where('t.id', $id)
+            ->where('r.status', '=', 'Done')
             ->where('u.role', '<>', 'Job Inspector')
             ->select('u.id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
             ->get();

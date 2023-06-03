@@ -24,10 +24,10 @@ class ReportController extends Controller
             $tasks->save();
         }
         if ($reports) {
-            // $reports->status = 'In Progress';
+            $reports->status = 'In Progress';
             // $reports->tasks_id = $id;
             // $reports->users_id = auth()->user()->id;
-            // $reports->save();
+            $reports->save();
             // return redirect()->back()->with('error', 'Task already executed');
         } else {
 
