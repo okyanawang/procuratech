@@ -110,7 +110,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::post('/register', [AdminController::class, 'project_store'])->name('.register');
         Route::post('/location/register', [AdminController::class, 'location_store'])->name('.location.register');
         Route::post('/category/register', [AdminController::class, 'category_store'])->name('.category.register');
-        Route::post('/task/register', [AdminController::class, 'task_store'])->name('.task.register');
+        Route::post('/task/register', [TaskController::class, 'store'])->name('.task.register');
     });
 });
 
