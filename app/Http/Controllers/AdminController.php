@@ -48,7 +48,7 @@ class AdminController extends Controller
         $item->image_path = $newImageName;
         $item->save();
 
-        return redirect()->route('admin.component.index')->with('success', 'Component successfully updated');
+        return redirect()->back()->with('success', 'Component successfully updated');
     }
 
     public function component_detail($id)
@@ -80,7 +80,7 @@ class AdminController extends Controller
 
         $item->save();
 
-        return redirect()->route('admin.component.index')->with('success', 'Component successfully updated');
+        return redirect()->back()->with('success', 'Component successfully updated');
     }
 
     public function component_delete($id)
@@ -240,7 +240,7 @@ class AdminController extends Controller
 
         $project->save();
 
-        return redirect()->route('admin.project.index')->with('success', 'Project successfully updated');
+        return redirect()->back()->with('success', 'Project successfully updated');
     }
 
     public function project_delete($id)
@@ -258,6 +258,23 @@ class AdminController extends Controller
         $name_pm = User::find($project->id)->name;
         $categories = Category::where('locations_id', $location->id)->get();
         return view('admin.project.location-detail', compact('project', 'location', 'name_pm', 'categories'));
+    }
+
+    public function location_store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'pid' => 'required',
+        ]);
+
+        // dd($validatedData);
+
+        $location = new Location;
+        $location->name = $validatedData['name'];
+        $location->projects_id = $validatedData['pid'];
+        $location->save();
+
+        return redirect()->back()->with('success', 'Location added successfully');
     }
 
     public function category_detail($id)
