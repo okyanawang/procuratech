@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->text('description');
+            $table->string('project_number');
             $table->string('status');
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();

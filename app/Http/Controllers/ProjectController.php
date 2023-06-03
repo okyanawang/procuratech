@@ -29,6 +29,7 @@ class ProjectController extends Controller
             'description' => 'required',
             'status' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
+            'project_number' => 'required|unique:projects|max:255'
         ]);
 
         $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
@@ -41,6 +42,7 @@ class ProjectController extends Controller
         $project->end_date = $validatedData['end_date'];
         $project->description = $validatedData['description'];
         $project->status = $validatedData['status'];
+        $project->project_number ='P' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);
         $project->image_path = $newImageName;
         $project->save();
         DB::table('users_has_projects')->insert([

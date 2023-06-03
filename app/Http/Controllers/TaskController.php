@@ -27,6 +27,7 @@ class TaskController extends Controller
             'name' => 'required|unique:tasks|max:255',
             'description' => 'required',
             'type' => 'required',
+            'task_number' => 'required|unique:tasks|max:255',
             'start_date' => 'required',
             'end_date' => 'required',
             'categories_id' => 'required',
@@ -42,7 +43,8 @@ class TaskController extends Controller
         $task->name = $validatedData['name'];
         $task->description = $validatedData['description'];
         $task->type = $validatedData['type'];
-        $task->status = "on progress";
+        $task->status = "Pending";
+        $task->task_number = 'T' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);
         $task->start_date = $validatedData['start_date'];
         $task->end_date = $validatedData['end_date'];
         $task->categories_id = $validatedData['categories_id'];
@@ -60,10 +62,11 @@ class TaskController extends Controller
             ->join('users AS u', 'uht.users_id', '=', 'u.id')
             ->leftJoin('reports AS r', 'uht.users_id', '=', 'r.users_id')
             ->where('t.id', $id)
+            ->where('r.status', 'Done')
             ->where('u.role', '<>', 'Job Inspector')
             ->select('u.id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
             ->get();
-
+        // dd($statuses);
         $task = Task::find($id);
         if ($statuses->count() == $statuses->sum('status_done')) {
             $task->status = "Done";

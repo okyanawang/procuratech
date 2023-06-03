@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('id', true);
             $table->string('name');
             $table->string('type');
+            $table->string('sku');
             $table->string('brand');
             $table->string('produsen');
             $table->float('stock', 10, 0)->default(0);

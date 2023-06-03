@@ -49,8 +49,8 @@
                         <label for="address" class="mr-3 font-semibold">Address :</label>
                         <input name="address" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="address" required />
-                        <label for="status_kepegawaian" class="mr-3 font-semibold">Status Kepegawaian :</label>
-                        <select class="select select-bordered block mt-1 w-full" name="status_kepegawaian" required>
+                        <label for="employement_status" class="mr-3 font-semibold">Employement Status :</label>
+                        <select class="select select-bordered block mt-1 w-full" name="employement_status" required>
                             <option value="0" hidden disabled selected>Choose Status</option>
                             <option value="Out-Sourcing">Out-Sourcing</option>
                             <option value="Contract">Contract</option>
@@ -67,7 +67,7 @@
                         <input name="password" type="password" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="password" required />
                         <label for="photo" class="font-semibold">Update Photo :</label>
-                        <input type="file" class="file-input file-input-bordered file-input-info">
+                        <input type="file" name="image_path" class="file-input file-input-bordered file-input-info">
                     </div>
                 </div>
 

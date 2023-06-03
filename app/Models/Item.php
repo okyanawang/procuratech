@@ -15,6 +15,7 @@ class Item extends Model
         'name',
         'type',
         'brand',
+        'sku',
         'produsen',
         'stock',
         'unit',

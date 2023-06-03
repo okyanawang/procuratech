@@ -17,7 +17,7 @@ class AdminController extends Controller
     public function index()
     {
         $nuser = User::where('role', '!=', 'Admin IT')->count();
-        $nprojects = Project::all()->count();
+        $nprojects = Category::all()->count();
         $nitems = Item::all()->count();
 
         return view('admin.dashboard', [
@@ -283,20 +283,20 @@ class AdminController extends Controller
         $workers = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users.id', '=', 'users_has_tasks.users_id')
-            ->where('tasks_id', $task->id)
+            ->where('tasks_id', $id)
             ->select('*')
             ->get();
         // butuh list items
         $items = DB::table('tasks')
             ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')
-            ->join('items', 'tasks_has_items.tasks_id', '=', 'items.id')
-            ->where('tasks_id', $task->id)
+            ->join('items', 'tasks_has_items.items_id', '=', 'items.id')
+            ->where('tasks_id', $id)
             ->select('*')
             ->get();
         $reports = DB::table('tasks')
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->join('users', 'reports.users_id', '=', 'users.id')
-            ->where('tasks.id', $task->id)
+            ->where('tasks.id', $id)
             ->select('reports.*', 'users.id as worker_id', 'users.name')
             ->orderBy('reports.id', 'desc')
             ->get();
