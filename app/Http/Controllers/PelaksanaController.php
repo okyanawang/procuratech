@@ -51,12 +51,18 @@ class PelaksanaController extends Controller
     public function index_pekerja_tasks()
     {
         $tasks = DB::table('tasks')
-            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-            ->leftjoin('reports', 'users.id', '=', 'reports.users_id')
-            ->where('users.id', Auth::user()->id)
-            ->select('tasks.id', 'tasks.name as task_name', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end', 'tasks.image_path as task_image', 'reports.status as rep_status')
-            ->get();
+        ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+        ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+        ->leftJoin('reports', function ($join) {
+            $join->on('tasks.id', '=', 'reports.tasks_id')
+                    ->whereRaw('reports.id = (
+                    SELECT MAX(id) FROM reports WHERE tasks_id = tasks.id
+                    )');
+        })
+        ->where('users.id', Auth::user()->id)
+        ->select('tasks.id', 'tasks.name as task_name', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end', 'tasks.image_path as task_image', 'reports.status as rep_status')
+        ->get();
+        
         // dd($tasks);
         $reports = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
@@ -293,13 +299,13 @@ class PelaksanaController extends Controller
         $statuses = DB::table('tasks AS t')
             ->join('users_has_tasks AS uht', 't.id', '=', 'uht.tasks_id')
             ->join('users AS u', 'uht.users_id', '=', 'u.id')
-            ->leftJoin('reports AS r', 'uht.users_id', '=', 'r.users_id')
+            ->rightJoin('reports AS r', 'uht.users_id', '=', 'r.users_id')
             ->where('t.id', $id)
             ->where('r.status', '=', 'Done')
             ->where('u.role', '<>', 'Job Inspector')
             ->select('u.id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
             ->get();
-
+        // dd($statuses);
         return view('pelaksana.pemeriksa.tasks-detail', [
             'task' => $task,
             'teams' => $teams,

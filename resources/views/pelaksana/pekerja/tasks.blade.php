@@ -29,10 +29,10 @@
                                     {{-- {{ DB::table('reports')->where('tasks_id', $t->id)->where('users_id', Auth::user()->id)->select('status')->orderBy('id', 'DESC')->first()
                                         ? DB::table('reports')->where('tasks_id', $t->id)->where('users_id', Auth::user()->id)->select('status')->orderBy('id', 'DESC')->first()->status
                                         : 'Pending' }} --}}
-                                    @if ($t->rep_status != null)
+                                    @if ($t->rep_status != null && $t->task_status != 'cancelled')
                                         {{ $t->rep_status }}
                                     @else
-                                        Pending
+                                        {{ $t->task_status }}
                                     @endif
                                 </div>
                             </td>
