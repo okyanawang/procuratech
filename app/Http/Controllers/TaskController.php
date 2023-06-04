@@ -27,7 +27,7 @@ class TaskController extends Controller
             'name' => 'required|unique:tasks|max:255',
             'description' => 'required',
             'type' => 'required',
-            'task_number' => 'required|unique:tasks|max:255',
+            // 'task_number' => 'required|unique:tasks|max:255',
             'start_date' => 'required',
             'end_date' => 'required',
             'categories_id' => 'required',
@@ -66,13 +66,22 @@ class TaskController extends Controller
             ->where('u.role', '<>', 'Job Inspector')
             ->select('u.id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
             ->get();
+        $users_task = DB::table('tasks AS t')
+            ->join('users_has_tasks AS uht', 't.id', '=', 'uht.tasks_id')
+            ->join('users AS u', 'uht.users_id', '=', 'u.id')
+            ->where('t.id', $id)
+            ->where('u.role', '<>', 'Job Inspector')
+            ->select('t.*')
+            ->get();
+        // dd($users_task);
         // dd($statuses);
+        // dd($users_task->count() == $statuses->sum('status_done'));
         $task = Task::find($id);
-        if ($statuses->count() == $statuses->sum('status_done')) {
+        if ($users_task->count() == $statuses->sum('status_done')) {
             $task->status = "Done";
             $task->save();
             return redirect()->back()->with('success', 'Task comlpeted successfully');
-        } else {
+            } else {
             return redirect()->back()->withErrors('Task cannot be completed yet');
         }
     }
