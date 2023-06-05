@@ -25,6 +25,7 @@
                             <option value="0" hidden disabled selected>Choose Type</option>
                             <option value="Material">Material</option>
                             <option value="Parts">Parts</option>
+                            <option value="Tool">Tool</option>
                         </select>
                         <label for="brand" class="mr-3 font-semibold">Brand :</label>
                         <input name="brand" type="text" class="input input-bordered w-full max-w-xs col-span-1"
@@ -39,6 +40,9 @@
                         <label for="stock" class="mr-3 font-semibold">Stock :</label>
                         <input name="stock" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="stock" required />
+                        <label for="unit" class="mr-3 font-semibold">Unit :</label>
+                        <input name="unit" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="unit" required />
                         <label for="image_path" class="mr-3 font-semibold">Upload photo :</label>
                         <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
 

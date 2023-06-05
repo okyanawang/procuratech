@@ -2,7 +2,7 @@
 
 @section('admin-content')
     <div class="flex flex-row mb-5">
-        <a href="javascript:history.back()" class="self-center">
+        <a href="/admin/works" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <h1 class="text-4xl font-bold ml-5"></h1>
@@ -13,7 +13,8 @@
     <h1 class="text-4xl font-bold mb-5">Work Detail</h1>
 
     <div class="container">
-        <form action="{{ route('admin.work.register') }}" class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.work.register') }}" class="h-full px-0 md:px-14 mb-10" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <div class="flex flex-col xl:flex-row gap-3">
                 <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">

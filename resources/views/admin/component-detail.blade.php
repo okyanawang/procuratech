@@ -2,7 +2,7 @@
 
 @section('admin-content')
     <div class="flex flex-row mb-10">
-        <a href="javascript:history.back()" class="self-center">
+        <a href="/admin/component" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <h1 class="text-4xl font-bold ml-5"></h1>
@@ -42,7 +42,7 @@
                     <input name="unit" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $item->unit }}" required />
                     <label for="unit" class="font-semibold">Update photo :</label>
-                    <input name="image_path" type="file" class="file-input file-input-bordered file-input-info" required>
+                    <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
                 </div>
                 {{-- <div class="grid grid-cols-2 grid-rows-3 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                 </div> --}}

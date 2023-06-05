@@ -2,7 +2,7 @@
 
 @section('admin-content')
     <div class="flex flex-row mb-5">
-        <a href="javascript:history.back()" class="self-center">
+        <a href="{{ route('admin.project.location.detail', ['id' => $location->id]) }}" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <h1 class="text-4xl font-bold ml-5"></h1>
@@ -167,8 +167,7 @@
         <div class="modal modal-bottom lg:pl-80">
             <div class="modal-box w-8/12 max-w-5xl self-center rounded-lg">
                 <h3 class="font-bold text-lg mb-10">Add new Task</h3>
-                <form action="{{ route('admin.project.category.register') }}" method="POST"
-                    enctype="multipart/form-data">
+                <form action="{{ route('admin.project.task.register') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="flex flex-col  gap-3">
                         <div class="grid grid-cols-3 gap-2 items-center">

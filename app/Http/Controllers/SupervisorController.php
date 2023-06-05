@@ -80,13 +80,13 @@ class SupervisorController extends Controller
     public function job_detail($id)
     {
         $job = Task::where('id', $id)->first();
+        $cid = $job->categories_id;
         $pm = DB::table('users')
             ->join('users_has_projects', 'users.id', '=', 'users_has_projects.users_id')
             ->where('users_has_projects.projects_id', $job->categories->locations->projects_id)
             ->where('users.role', 'Project Manager')
             ->select('users.*')
             ->first();
-
         $measurer_ass = DB::table('users')
             ->join('users_has_tasks', 'users.id', '=', 'users_has_tasks.users_id')
             ->where('users_has_tasks.tasks_id', $id)
@@ -125,10 +125,12 @@ class SupervisorController extends Controller
         $items_all = Item::all();
         $parts_all = Item::where('type', 'Parts')->get();
         $material_all = Item::where('type', 'Material')->get();
+        $tool_all = Item::where('type', 'Tool')->get();
 
         return view('supervisor.job-detail', [
             'job' => $job,
             'pm' => $pm,
+            'cid' => $cid,
             'measurer_ass' => $measurer_ass,
             'analyst_ass' => $analyst_ass,
             'worker_ass' => $worker_ass,
@@ -141,6 +143,7 @@ class SupervisorController extends Controller
             'items_all' => $items_all,
             'parts_all' => $parts_all,
             'material_all' => $material_all,
+            'tool_all' => $tool_all,
         ]);
     }
 }

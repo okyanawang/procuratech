@@ -2,7 +2,7 @@
 
 @section('pimpinanProject-content')
     <div class="flex flex-row mb-10">
-        <a href="javascript:history.back()" class="self-center">
+        <a href="{{ route('pimpinan.project.location.detail', ['id' => $loc->id]) }}" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
     </div>
@@ -96,6 +96,19 @@
                                 </p>
                             @else
                                 <p>No materials assigned yet</p>
+                            @endif
+                        </div>
+                        <div class="mb-3">
+                            <h4 class="font-bold">Tools</h4>
+                            @if ($tools->isNotEmpty())
+                                <p>
+                                    @foreach ($tools as $w)
+                                        <li>{{ $w->name }} - <span>{{ $w->amount }} {{ $w->unit }}</span>
+                                        </li>
+                                    @endforeach
+                                </p>
+                            @else
+                                <p>No tools assigned yet</p>
                             @endif
                         </div>
                     </div>

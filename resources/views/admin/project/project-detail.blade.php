@@ -2,7 +2,7 @@
 
 @section('admin-content')
     <div class="flex flex-row mb-10">
-        <a href="javascript:history.back()" class="self-center">
+        <a href="/admin/project" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <h1 class="text-4xl font-bold ml-5"></h1>
@@ -100,9 +100,10 @@
                     @csrf
                     <div class="flex flex-col  gap-3">
                         <div class="grid grid-cols-3 gap-2 items-center">
-                            <label for="location_name" class="mr-3 font-semibold">Location name :</label>
-                            <input name="location_name" type="text" class="input input-bordered w-full col-span-2"
+                            <label for="name" class="mr-3 font-semibold">Location name :</label>
+                            <input name="name" type="text" class="input input-bordered w-full col-span-2"
                                 placeholder="location name" required />
+                            <input type="hidden" name="pid" value="{{ $project->id }}">
                         </div>
                     </div>
                     <div class="modal-action flex justify-center gap-5">

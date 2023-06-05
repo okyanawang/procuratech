@@ -3,7 +3,7 @@
 @section('supervisor-content')
     <div class="flex flex-col md:flex-row">
         <div class="flex flex-row mb-10">
-            <a href="javascript:history.back()" class="self-center">
+            <a href="{{ route('supervisor.project.detail', ['id' => $cid]) }}" class="self-center">
                 <i class="fa-solid fa-arrow-left fa-2xl"></i>
             </a>
             <h1 class="text-4xl font-bold ml-5 mb-3">{{ $job->name }}</h1>
@@ -70,7 +70,8 @@
                     @csrf
                     @method('PUT')
                     <h3 class="font-bold text-lg mb-5">Cancel Task</h3>
-                    <p>Are you sure you want to cancel this task? You can only change the task through IT Admin after this change</p>
+                    <p>Are you sure you want to cancel this task? You can only change the task through IT Admin after this
+                        change</p>
                     <div class="modal-action">
                         <label for="cancel_task" class="btn btn-warning">Cancel</label>
                         <input type="submit" class="btn btn-success">
@@ -93,7 +94,8 @@
             <div class="flex flex-col w-full">
                 <div class="flex flex-row gap-2">
                     <div class="badge badge-primary">{{ $job->type }}</div>
-                    <div class="badge {{ $job->status === 'cancelled' ? 'badge-warning' : 'badge-success' }}">{{ $job->status }}</div>
+                    <div class="badge {{ $job->status === 'cancelled' ? 'badge-warning' : 'badge-success' }}">
+                        {{ $job->status }}</div>
                 </div>
                 <div class="mt-3 mb-3">{{ $job->description }}</div>
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
@@ -267,14 +269,24 @@
                             <optgroup label="Parts">
                                 @foreach ($parts_all as $item)
                                     @if ($item->stock > 0)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}
+                                        </option>
                                     @endif
                                 @endforeach
                             </optgroup>
                             <optgroup label="Material">
                                 @foreach ($material_all as $item)
                                     @if ($item->stock > 0)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}</option>
+                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </optgroup>
+                            <optgroup label="tools">
+                                @foreach ($tool_all as $item)
+                                    @if ($item->stock > 0)
+                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}
+                                        </option>
                                     @endif
                                 @endforeach
                             </optgroup>
@@ -309,7 +321,9 @@
                             <td>{{ $i->amount }}</td>
                             <td>{{ $i->unit }}</td>
                             <td class="text-center">
-                                <form action="{{ route('supervisor.project.job.items_delete', ['taskId' => $i->task_id, 'itemId' => $i->id]) }}" method="POST">
+                                <form
+                                    action="{{ route('supervisor.project.job.items_delete', ['taskId' => $i->task_id, 'itemId' => $i->id]) }}"
+                                    method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <input type="submit" class="btn btn-error font-semibold" value="Delete Item">
