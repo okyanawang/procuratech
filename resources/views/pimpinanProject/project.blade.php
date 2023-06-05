@@ -55,6 +55,7 @@
                 <tr>
                     <th>No</th>
                     <th>Name</th>
+                    <th>Number</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Status</th>
@@ -64,10 +65,11 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($projects as $p)
+                @foreach ($projects as $key => $p)
                     <tr>
-                        <td class="text-center">{{ $p->id }}</td>
+                        <td class="text-center">{{ $key + 1 }}</td>
                         <td class="text-center">{{ $p->name }}</td>
+                        <td class="text-center">{{ $p->project_number }}</td>
                         <td class="text-center">{{ $p->start_date }}</td>
                         <td class="text-center">{{ $p->end_date }}</td>
                         <td class="text-center">{{ $p->status }}</td>

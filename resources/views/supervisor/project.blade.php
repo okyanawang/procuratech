@@ -22,9 +22,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($projects as $p)
+                @foreach ($projects as $key => $p)
                     <tr>
-                        <td>{{ $p->cat_id }}</td>
+                        <td>{{ $key + 1 }}</td>
                         <td>{{ $p->cat_name }}</td>
                         <td>{{ $p->loc_name }}</td>
                         <td>{{ $p->proj_name }}</td>

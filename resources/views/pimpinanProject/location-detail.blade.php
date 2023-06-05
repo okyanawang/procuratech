@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <h4 class="font-bold">Supervisor</h4>
-                                            <li>{{ $c->sv_name }} - <span>0192739012</span></li>
+                                            <li>{{ $c->sv_name }} - <span>{{ $c->phone_number }}</span></li>
                                         </div>
                                     </div>
                                     <div class="mt-5">
@@ -100,9 +100,14 @@
                                             @if (count(DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get()) == 0)
                                                 <h4 class="text-center">No task yet</h4>
                                             @else
-                                                @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
-                                                    <div class="mb-3 grid grid-cols-3 w-full items-center">
+                                                <div class="my-3 grid grid-cols-4 w-full items-center">
+                                                    <h4 class="font-bold">Task Name</h4>
+                                                    <h4 class="font-bold">Task Number</h4>
+                                                    <h4 class="font-bold">Status</h4>
+                                                    <h4 class="font-bold">Action</h4>
+                                                    @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
                                                         <h4 class="">{{ $t->name }}</h4>
+                                                        <h4 class="">{{ $t->task_number }}</h4>
                                                         <div class="badge badge-primary mr-1 text-center">
                                                             {{ $t->status }}
                                                         </div>
@@ -110,8 +115,8 @@
                                                             href="{{ route('pimpinan.project.category.task.detail', ['id' => $t->id]) }}">
                                                             <button class="btn btn-info font-semibold">Detail</button>
                                                         </a>
-                                                    </div>
-                                                @endforeach
+                                                    @endforeach
+                                                </div>
                                             @endif
                                         </div>
                                     </div>

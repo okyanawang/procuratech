@@ -95,9 +95,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($staffs as $staff)
+                @foreach ($staffs as $key => $staff)
                     <tr>
-                        <td>{{ $staff->id }}</td>
+                        <td>{{ $key + 1 }}</td>
                         <td>{{ $staff->name }}</td>
                         <td class="text-center">
                             <div class="badge badge-success p-4">{{ $staff->role }}</div>

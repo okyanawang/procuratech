@@ -6,7 +6,11 @@
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <div class="flex flex-col mx-5 self-center w-full">
-            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->project_name }} - {{ $project->project_number }}</h1>
+            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->project_name }} -
+                <span class="text-primary">
+                    {{ $project->project_number }}
+                </span>
+            </h1>
             <p>{{ $project->project_description }}</p>
         </div>
         <div class="avatar w-full justify-end">
@@ -21,9 +25,12 @@
         <div class="my-14">
 
             <div class="flex flex-row">
-                <h1 class="font-bold text-2xl mb-3">{{ $task->name }}-{{ $task->task_number }} ({{ $category->name }})
-                    <span>at
-                        {{ $location->name }}</span></h1>
+                <h1 class="font-bold text-2xl mb-3">{{ $task->name }} -
+                    <span class="text-secondary">
+                        {{ $task->task_number }}
+                    </span>
+                    ({{ $category->name }}) at {{ $location->name }}
+                </h1>
                 <p class="ml-3 mb-3 self-center"><span style="color: green;">{{ $task->start_date->format('Y-m-d') }}</span>
                     -
                     <span style="color: red;">{{ $task->end_date->format('Y-m-d') }}</span>
@@ -107,7 +114,7 @@
                                     <div class="flex flex-col">
                                         @foreach ($parts as $ins)
                                             <p>
-                                                {{ $ins->name }} - {{ $ins->sku }}
+                                                {{ $ins->name }} ({{ $ins->sku }})
                                                 <span> - {{ $ins->amount }} {{ $ins->unit }}</span>
                                             </p>
                                         @endforeach
@@ -122,7 +129,7 @@
                                     <div class="flex flex-col">
                                         @foreach ($material as $ins)
                                             <p>
-                                                {{ $ins->name }}
+                                                {{ $ins->name }} ({{ $ins->sku }})
                                                 <span> - {{ $ins->amount }} {{ $ins->unit }}</span>
                                             </p>
                                         @endforeach
@@ -137,7 +144,7 @@
                                     <div class="flex flex-col">
                                         @foreach ($tools as $ins)
                                             <p>
-                                                {{ $ins->name }}
+                                                {{ $ins->name }} ({{ $ins->sku }})
                                                 <span> - {{ $ins->amount }} {{ $ins->unit }}</span>
                                             </p>
                                         @endforeach
