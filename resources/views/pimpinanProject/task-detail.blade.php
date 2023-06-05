@@ -31,7 +31,7 @@
                 {{ $task->task_number }}
             </span>
             <span>({{ $task->type }})</span>
-            <span class="ml-5 font-normal text-xl">{{ $task->start_date }} -
+            <span class="ml-5 font-normal">{{ $task->start_date }} -
                 {{ $task->end_date }}</span>
         </h2>
         <div class="p-2 lg:p-5">
