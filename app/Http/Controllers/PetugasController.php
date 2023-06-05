@@ -47,6 +47,7 @@ class PetugasController extends Controller
         $item->produsen = $validatedData['produsen'];
         $item->sku = $validatedData['sku'];
         $item->stock = $validatedData['stock'];
+        $item->unit = $validatedData['unit'];
         $item->image_path = $newImageName;
         $item->save();
 
@@ -81,6 +82,7 @@ class PetugasController extends Controller
         $item->brand = $request->brand;
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
+        $item->unit = $request->unit;
         $item->sku = $request->sku;
         // $item->description = $request->description;
         // $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
