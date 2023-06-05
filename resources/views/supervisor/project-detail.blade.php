@@ -89,9 +89,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($tasks as $t)
+                    @foreach ($tasks as $key => $t)
                         <tr>
-                            <td>{{ $t->id }}</td>
+                            <td>{{ $key +1 }}</td>
                             <td>{{ $t->name }}</td>
                             <td>{{ $t->start_date }}</td>
                             <td>{{ $t->end_date }}</td>

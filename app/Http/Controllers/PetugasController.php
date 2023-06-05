@@ -20,7 +20,7 @@ class PetugasController extends Controller
 
     public function item_index()
     {
-        $nitems = Item::all();
+        $nitems = Item::where('stock', '>', '0')->orderBy('name', 'asc')->get();
         return view('petugasInventori.items', ['nitems' => $nitems]);
     }
 
@@ -32,8 +32,9 @@ class PetugasController extends Controller
             'type' => 'required',
             'brand' => 'required',
             'produsen' => 'required',
-            'stock' => 'required',
+            'stock' => 'required|integer',
             'sku' => 'required',
+            'unit' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
 
@@ -47,6 +48,7 @@ class PetugasController extends Controller
         $item->produsen = $validatedData['produsen'];
         $item->sku = $validatedData['sku'];
         $item->stock = $validatedData['stock'];
+        $item->unit = $validatedData['unit'];
         $item->image_path = $newImageName;
         $item->save();
 
@@ -81,6 +83,7 @@ class PetugasController extends Controller
         $item->brand = $request->brand;
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
+        $item->unit = $request->unit;
         $item->sku = $request->sku;
         // $item->description = $request->description;
         // $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
