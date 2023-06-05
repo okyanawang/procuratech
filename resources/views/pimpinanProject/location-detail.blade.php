@@ -97,17 +97,22 @@
                                     <div class="mt-5">
                                         <h1 class="font-bold text-xl">List of Tasks</h1>
                                         <div class="flex flex-col max-h-52 overflow-auto">
-                                            @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
-                                                <div class="mb-3 grid grid-cols-3 w-full items-center">
-                                                    <h4 class="">{{ $t->name }}</h4>
-                                                    <div class="badge badge-primary mr-1 text-center">{{ $t->status }}
+                                            @if (count(DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get()) == 0)
+                                                <h4 class="text-center">No task yet</h4>
+                                            @else
+                                                @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
+                                                    <div class="mb-3 grid grid-cols-3 w-full items-center">
+                                                        <h4 class="">{{ $t->name }}</h4>
+                                                        <div class="badge badge-primary mr-1 text-center">
+                                                            {{ $t->status }}
+                                                        </div>
+                                                        <a
+                                                            href="{{ route('pimpinan.project.category.task.detail', ['id' => $t->id]) }}">
+                                                            <button class="btn btn-info font-semibold">Detail</button>
+                                                        </a>
                                                     </div>
-                                                    <a
-                                                        href="{{ route('pimpinan.project.category.task.detail', ['id' => $t->id]) }}">
-                                                        <button class="btn btn-info font-semibold">Detail</button>
-                                                    </a>
-                                                </div>
-                                            @endforeach
+                                                @endforeach
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="modal-action">

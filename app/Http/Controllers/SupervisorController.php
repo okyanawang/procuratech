@@ -56,6 +56,9 @@ class SupervisorController extends Controller
                 'locations.id as loc_id',
                 'categories.id as cat_id',
                 'projects.name as proj_name',
+                'projects.description as proj_desc',
+                'projects.image_path as proj_img',
+                'projects.project_number as proj_number',
                 'locations.name as loc_name',
                 'categories.name as cat_name',
                 'projects.start_date as start_date',
@@ -116,6 +119,16 @@ class SupervisorController extends Controller
             ->where('tasks_has_items.tasks_id', $id)
             ->select('items.*', 'tasks_has_items.amount', 'tasks_has_items.tasks_id as task_id')
             ->get();
+        $reports = DB::table('tasks')
+            ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
+            ->join('users', 'reports.users_id', '=', 'users.id')
+            ->where('tasks.id', $id)
+            // ->where('reports.status', '<>', 'Done')
+            ->where('reports.status', '<>', 'Pending')
+            ->where('reports.status', '<>', null)
+            ->select('reports.*', 'users.id as worker_id', 'users.name')
+            ->orderBy('reports.id', 'desc')
+            ->get();
 
 
         $measurer_all = User::where('role', 'Measurement Executor')->get();
@@ -131,6 +144,7 @@ class SupervisorController extends Controller
             'job' => $job,
             'pm' => $pm,
             'cid' => $cid,
+            'reports' => $reports,
             'measurer_ass' => $measurer_ass,
             'analyst_ass' => $analyst_ass,
             'worker_ass' => $worker_ass,

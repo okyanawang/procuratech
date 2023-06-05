@@ -21,9 +21,10 @@
         <div class="my-14">
 
             <div class="flex flex-row">
-                <h1 class="font-bold text-2xl mb-3">{{ $task->name }} - {{ $task->task_number }} ({{ $category->name }})
+                <h1 class="font-bold text-2xl mb-3">{{ $task->name }}-{{ $task->task_number }} ({{ $category->name }})
                     <span>at
-                        {{ $location->name }}</span></h1>
+                        {{ $location->name }}</span>
+                </h1>
                 <p class="ml-3 mb-3 self-center"><span style="color: green;">{{ $task->start_date->format('Y-m-d') }}</span>
                     -
                     <span style="color: red;">{{ $task->end_date->format('Y-m-d') }}</span>

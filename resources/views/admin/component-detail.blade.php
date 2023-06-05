@@ -26,9 +26,18 @@
                     <label for="name" class="mr-3 font-semibold">Component Name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="Component Name" required value="{{ $item->name }} " />
+                    <label for="sku" class="mr-3 font-semibold">SKU :</label>
+                    <input name="sku" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="sku" value="{{ $item->sku }}" required />
                     <label for="type" class="mr-3 font-semibold">Type :</label>
-                    <input name="type" type="text" class="input input-bordered w-full max-w-xs col-span-1" required
-                        value="{{ $item->type }}" />
+                    <select name="type" id="" class="select select-bordered">
+                        <option value="{{ $item->type }}" disabled selected>{{ $item->type }}</option>
+                        <option value="Parts">Parts</option>
+                        <option value="Material">Material</option>
+                        <option value="Tool">Tool</option>
+                    </select>
+                    {{-- <input name="type" type="text" class="input input-bordered w-full max-w-xs col-span-1" required
+                        value="{{ $item->type }}" /> --}}
                     <label for="brand" class="font-semibold">Brand :</label>
                     <input name="brand" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $item->brand }}" required />
@@ -90,7 +99,7 @@
         </div>
 
         <div class="">
-            <h1 class="text-2xl font-bold mb-5">Tasks List</h1>
+            <h1 class="text-2xl font-bold mb-5">Task List</h1>
             <div class="overflow-x-auto">
                 <table id="myTable" class="table table-zebra w-full">
                     <!-- head -->

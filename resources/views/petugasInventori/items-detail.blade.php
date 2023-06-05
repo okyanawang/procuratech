@@ -23,6 +23,9 @@
                     <label for="name" class="mr-3 font-semibold">Item name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="item name" required value="{{ $item->name }}" />
+                    <label for="sku" class="mr-3 font-semibold">SKU :</label>
+                    <input name="sku" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="sku" value="{{ $item->sku }}" required />
                     <label for="role" class="mr-3 font-semibold">Type :</label>
                     <select class="select select-bordered block mt-1 w-full max-w-xs" name="type" required>
                         <option value="Material" @if ($item->type == 'Material') selected @endif>Material</option>
@@ -40,6 +43,9 @@
                     <label for="stock" class="mr-3 font-semibold">Stock :</label>
                     <input name="stock" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="stock" required value="{{ $item->stock }}" />
+                    <label for="unit" class="font-semibold">Unit stock :</label>
+                    <input name="unit" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        value="{{ $item->unit }}" required />
                     <label for="image_path" class="mr-3 font-semibold">Upload Photo :</label>
                     <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
 
@@ -82,6 +88,41 @@
                         <input type="submit" class="btn btn-success">
                     </div>
                 </form>
+            </div>
+        </div>
+
+        <div class="">
+            <h1 class="text-2xl font-bold mb-5">Task List</h1>
+            <div class="overflow-x-auto">
+                <table id="myTable" class="table table-zebra w-full">
+                    <!-- head -->
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Task name</th>
+                            <th>Description</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($tasks as $key => $task)
+                            <tr>
+                                <th>{{ $key + 1 }}</th>
+                                <td>{{ $task->name }}</td>
+                                <td>{{ $task->description }}</td>
+                                <td>{{ $task->start_date }}</td>
+                                <td>{{ $task->end_date }}</td>
+                                <td>
+                                    <a href="{{ route('admin.project.task.detail', ['id' => $task->id]) }}">
+                                        <button class="btn btn-info font-semibold">Detail</button>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
 

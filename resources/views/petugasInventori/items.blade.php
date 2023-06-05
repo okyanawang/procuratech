@@ -20,6 +20,9 @@
                         <label for="name" class="mr-3 font-semibold">Item name :</label>
                         <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="item name" required />
+                        <label for="sku" class="mr-3 font-semibold">SKU :</label>
+                        <input name="sku" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                            placeholder="sku" required />
                         <label for="type" class="mr-3 font-semibold">Type :</label>
                         <select class="select select-bordered block mt-1 w-full" name="type" required>
                             <option value="0" hidden disabled selected>Choose Type</option>

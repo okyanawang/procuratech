@@ -9,8 +9,8 @@
     <div class="container">
         <div class="flex flex-col lg:flex-row justify-between">
             <div class="flex flex-col mb-5">
-                <h1 class="text-4xl font-bold mb-3">{{ $proj->name }}</h1>
-                <h2 class="text-2xl font-bold">{{ $cat->name }} <span class="text-xl">at {{ $loc->name }}</span></h2>
+                <h1 class="text-4xl font-bold mb-3">{{ $proj->name }}-{{ $proj->project_number }}</h1>
+                <h2 class="text-2xl font-bold">{{ $cat->name }} <span>at {{ $loc->name }}</span></h2>
                 <p><span class="text-green-500">{{ $proj->start_date }}</span> - <span
                         class="text-red-500">{{ $proj->end_date }}</span>
                 </p>
@@ -22,9 +22,11 @@
                 </div>
             </div>
         </div>
-        <h2 class="text-2xl font-bold mt-5">{{ $task->name }} <span class="text-xl">({{ $task->type }})</span> <span
-                class="ml-5 font-normal text-xl">{{ $task->start_date }} -
-                {{ $task->end_date }}</span></h2>
+        <h2 class="text-2xl font-bold mt-5">{{ $task->name }}-{{ $task->task_number }}
+            <span>({{ $task->type }})</span>
+            <span class="ml-5 font-normal text-xl">{{ $task->start_date }} -
+                {{ $task->end_date }}</span>
+        </h2>
         <div class="p-2 lg:p-5">
             <div class="flex flex-col lg:flex-row gap-5 items-center">
                 <div class="avatar w-full lg:w-1/2 mt-3">
