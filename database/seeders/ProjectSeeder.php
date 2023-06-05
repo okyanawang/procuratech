@@ -50,9 +50,9 @@ class ProjectSeeder extends Seeder
         ];
 
         $statuses = [
-            '1',
-            '2',
-            '3',
+            'Pending',
+            'Pending',
+            'Pending',
         ];
         foreach ($names as $key => $name) {
             $project = new Project();

@@ -57,6 +57,7 @@
                     <th>Name</th>
                     <th>Start Date</th>
                     <th>End Date</th>
+                    <th>Status</th>
                     <th style="text-align-last: center">Total Location(s)</th>
                     {{-- <th>Total Jobs</th> --}}
                     <th style="text-align-last: center">Action</th>
@@ -69,6 +70,7 @@
                         <td class="text-center">{{ $p->name }}</td>
                         <td class="text-center">{{ $p->start_date }}</td>
                         <td class="text-center">{{ $p->end_date }}</td>
+                        <td class="text-center">{{ $p->status }}</td>
                         <td class="text-center">
                             {{ DB::table('locations')->where('projects_id', $p->id)->count('id') }}
                         </td>
