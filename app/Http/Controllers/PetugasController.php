@@ -75,6 +75,7 @@ class PetugasController extends Controller
         $item->brand = $request->brand;
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
+        $item->sku = $request->sku;
         // $item->description = $request->description;
         // $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
         if ($request->hasFile('image_path')) {
