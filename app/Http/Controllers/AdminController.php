@@ -42,6 +42,7 @@ class AdminController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         $item->unit = $request->unit;
+        $item->sku = $request->sku;
 
         $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('item'), $newImageName);
@@ -72,6 +73,7 @@ class AdminController extends Controller
         $item->produsen = $request->produsen;
         $item->stock = $request->stock;
         $item->unit = $request->unit;
+        $item->sku = $request->sku;
         if ($request->file('image_path') != null) {
             $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
             $request->file('image_path')->move(public_path('item'), $newImageName);
