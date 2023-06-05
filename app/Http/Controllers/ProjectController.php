@@ -29,7 +29,7 @@ class ProjectController extends Controller
             'description' => 'required',
             'status' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
-            'project_number' => 'required|unique:projects|max:255'
+            // 'project_number' => 'required|unique:projects|max:255'
         ]);
 
         $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
