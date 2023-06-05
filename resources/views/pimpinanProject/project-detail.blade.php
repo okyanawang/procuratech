@@ -27,9 +27,9 @@
                     <label for="name" class="mr-3 font-semibold">Project name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="Project Name" required value="{{ $project_detail->name }} " />
-                    <label for="project_number" class="mr-3 font-semibold">Project Number :</label>
-                    <input name="project_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="Project Number" required readonly value="{{ $project_detail->project_number }} " />
+                    <label for="project_number" class="mr-3 font-semibold">Project Number:</label>
+                    <input name="project_number" type="text" class="input input-no-box w-full max-w-xs col-span-1 text-green-500 font-semibold"
+                        placeholder="Project Number" required readonly value="{{ $project_detail->project_number }}" />                        
                     <label for="description" class="mr-3 font-semibold">Description:</label>
                     <textarea name="description" id="desc" cols="10" rows="5" class="textarea textarea-bordered" required>{{ $project_detail->description }}</textarea>
                     <label for="start_date" class="mr-3 font-semibold">Start date :</label>
