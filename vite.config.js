@@ -7,10 +7,5 @@ export default defineConfig({
             input: ['resources/css/app.css', 'resources/js/app.js'],
             refresh: true,
         }),
-    ],
-    server: {
-        hmr: {
-            host: '192.168.1.6',
-        },
-      }
+    ]
 });
