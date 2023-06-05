@@ -29,23 +29,34 @@ class AdminController extends Controller
 
     public function component_index()
     {
-        $items = Item::all();
+        // $items = Item::all();
+        $items = Item::where('stock', '>', '0')->orderBy('name', 'asc')->get();
         return view('admin.component', ['items' => $items]);
     }
 
     public function component_store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required|unique:items|max:255',
+            'type' => 'required',
+            'brand' => 'required',
+            'produsen' => 'required',
+            'stock' => 'required|integer',
+            'sku' => 'required',
+            'unit' => 'required',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
+        ]);
+        
         $item = new Item;
-        $item->name = $request->name;
-        $item->type = $request->type;
-        $item->brand = $request->brand;
-        $item->produsen = $request->produsen;
-        $item->stock = $request->stock;
-        $item->unit = $request->unit;
-        $item->sku = $request->sku;
-
         $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('item'), $newImageName);
+        $item->name = $validatedData['name'];
+        $item->type = $validatedData['type'];
+        $item->brand = $validatedData['brand'];
+        $item->produsen = $validatedData['produsen'];
+        $item->sku = $validatedData['sku'];
+        $item->stock = $validatedData['stock'];
+        $item->unit = $validatedData['unit'];
         $item->image_path = $newImageName;
         $item->save();
 

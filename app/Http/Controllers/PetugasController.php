@@ -20,7 +20,7 @@ class PetugasController extends Controller
 
     public function item_index()
     {
-        $nitems = Item::all();
+        $nitems = Item::where('stock', '>', '0')->orderBy('name', 'asc')->get();
         return view('petugasInventori.items', ['nitems' => $nitems]);
     }
 
@@ -32,8 +32,9 @@ class PetugasController extends Controller
             'type' => 'required',
             'brand' => 'required',
             'produsen' => 'required',
-            'stock' => 'required',
+            'stock' => 'required|integer',
             'sku' => 'required',
+            'unit' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
 

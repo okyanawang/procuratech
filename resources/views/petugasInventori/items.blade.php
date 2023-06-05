@@ -41,7 +41,7 @@
                             placeholder="produsen" required />
 
                         <label for="stock" class="mr-3 font-semibold">Stock :</label>
-                        <input name="stock" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        <input name="stock" type="number" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="stock" required />
                         <label for="unit" class="mr-3 font-semibold">Unit :</label>
                         <input name="unit" type="text" class="input input-bordered w-full max-w-xs col-span-1"
@@ -78,9 +78,8 @@
             </thead>
             <tbody>
                 @foreach ($nitems as $key => $i)
-                    @if ($i->stock > 0)
                         <tr>
-                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $key + 1}}</td>
                             <td>{{ $i->name }}</td>
                             <td>{{ $i->type }}</td>
                             <td>{{ $i->brand }}</td>
@@ -92,7 +91,6 @@
                                 </a>
                             </td>
                         </tr>
-                    @endif
                 @endforeach
             </tbody>
         </table>

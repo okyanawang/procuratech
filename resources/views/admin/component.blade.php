@@ -23,7 +23,7 @@
                             placeholder="name" required />
                         <label for="sku" class="mr-3 font-semibold">SKU :</label>
                         <input name="sku" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                            placeholder="sku" value="{{ $item->sku }}" required />
+                            placeholder="sku" required />
                         <label for="type" class="mr-3 font-semibold">Type :</label>
                         <select class="select select-bordered block mt-1 w-full" name="type" required>
                             <option value="" disabled selected>Choose Type</option>
