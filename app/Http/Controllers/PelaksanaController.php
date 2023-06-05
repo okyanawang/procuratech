@@ -76,7 +76,7 @@ class PelaksanaController extends Controller
             ->join('locations', 'categories.locations_id', '=', 'locations.id')
             ->join('projects', 'locations.projects_id', '=', 'projects.id')
             ->where('tasks.id', $id)
-            ->select('projects.name as project_name', 'projects.description as project_description', 'projects.image_path as project_image')
+            ->select('projects.name as project_name', 'projects.description as project_description', 'projects.image_path as project_image', 'projects.project_number')
             ->first();
         $location = DB::table('tasks')
             ->join('categories', 'tasks.categories_id', '=', 'categories.id')
