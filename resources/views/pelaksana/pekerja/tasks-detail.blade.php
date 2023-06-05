@@ -107,7 +107,7 @@
                                     <div class="flex flex-col">
                                         @foreach ($parts as $ins)
                                             <p>
-                                                {{ $ins->name }}
+                                                {{ $ins->name }} - {{ $ins->sku }}
                                                 <span> - {{ $ins->amount }} {{ $ins->unit }}</span>
                                             </p>
                                         @endforeach
