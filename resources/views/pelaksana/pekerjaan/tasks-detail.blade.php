@@ -6,12 +6,12 @@
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <div class="flex flex-col mx-5 self-center w-full">
-            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->project_name }}</h1>
+            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->project_name }} - {{ $project->project_number }}</h1>
             <p>{{ $project->project_description }}</p>
         </div>
         <div class="avatar w-full justify-end">
             <div class="w-40 h-w-40 rounded-xl">
-                @if($project->project_image != null)
+                @if ($project->project_image != null)
                     <img src="{{ asset('project/' . $project->project_image) }}" />
                 @else
                     <img src="https://picsum.photos/200" />
@@ -23,7 +23,8 @@
         <div class="my-14">
 
             <div class="flex flex-row">
-                <h1 class="font-bold text-2xl mb-3">{{ $task->name }} ({{ $category->name }}) <span class="text-xl">at
+                <h1 class="font-bold text-2xl mb-3">{{ $task->name }}-{{ $task->task_number }} ({{ $category->name }})
+                    <span>at
                         {{ $location->name }}</span></h1>
                 <p class="ml-3 mb-3 self-center"><span style="color: green;">{{ $task->start_date->format('Y-m-d') }}</span>
                     -
@@ -34,7 +35,7 @@
             <div class="flex flex-col lg:flex-row mb-5 gap-5">
                 <div class="avatar w-full lg:w-1/2">
                     <div class="w-full rounded-xl">
-                        @if($task->image_path != null)
+                        @if ($task->image_path != null)
                             <img src="{{ asset('task/' . $task->image_path) }}" />
                         @else
                             <img src="https://picsum.photos/200" />

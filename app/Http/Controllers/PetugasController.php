@@ -56,8 +56,14 @@ class PetugasController extends Controller
     public function item_detail($id)
     {
         $item = Item::find($id);
+        $tasks = DB::table('tasks')
+            ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')
+            ->where('tasks_has_items.items_id', $item->id)
+            ->select('tasks.*')
+            ->get()
+            ->toArray();
         // dd($item);
-        return view('petugasInventori.items-detail', compact('item'));
+        return view('petugasInventori.items-detail', compact('item', 'tasks'));
     }
 
     public function item_edit($id)

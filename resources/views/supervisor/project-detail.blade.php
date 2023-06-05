@@ -1,12 +1,27 @@
 @extends('supervisor.drawer')
 
 @section('supervisor-content')
-    <div class="flex flex-row mb-5 items-center">
+    {{-- <div class="flex flex-row mb-5 items-center">
         <a href="/supervisor/project" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <h1 class="text-4xl font-bold ml-5 mb-3">{{ $project->proj_name }}</h1>
         <p class="ml-5 text-slate-600">{{ $project->start_date }} - {{ $project->end_date }}</p>
+    </div> --}}
+    <div class="flex flex-row mb-5 items-center bg-slate-200 p-0 lg:p-5 rounded-xl">
+        <a href="/supervisor/project" class="self-center hidden md:block">
+            <i class="fa-solid fa-arrow-left fa-2xl"></i>
+        </a>
+        <div class="flex flex-col mx-5 self-center w-full">
+            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->proj_name }} - {{ $project->proj_number }}</h1>
+            <p>{{ $project->start_date }} - {{ $project->end_date }}</p>
+            <p>{{ $project->proj_desc }}</p>
+        </div>
+        <div class="avatar w-full justify-end">
+            <div class="w-40 h-w-40 rounded-xl">
+                <img src="{{ asset('project/' . $project->proj_img) }}" />
+            </div>
+        </div>
     </div>
     <div class="container">
         <x-Alert />

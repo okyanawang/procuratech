@@ -27,6 +27,9 @@
                     <label for="name" class="mr-3 font-semibold">Full Name :</label>
                     <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="Full Name" required value="{{ $user->name }} " />
+                    <label for="registration_number" class="mr-3 font-semibold">Registration number :</label>
+                    <input name="registration_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
+                        placeholder="registration_number" value="{{ $user->registration_number }}" disabled required />
                     <label for="role" class="mr-3 font-semibold">Role :</label>
                     <select class="select select-bordered block mt-1 w-full" name="role" required>
                         <option value="{{ $user->role }}" selected>{{ $user->role }}</option>
@@ -60,9 +63,6 @@
                     <label for="address" class="mr-3 font-semibold">Address :</label>
                     <input name="address" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="address" value="{{ $user->address }}" required />
-                    <label for="registration_number" class="mr-3 font-semibold">Registration number :</label>
-                    <input name="registration_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="registration_number" value="{{ $user->registration_number }}" required />
                     <label for="username" class="mr-3 font-semibold">Username :</label>
                     <input name="username" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         placeholder="username" value="{{ $user->username }}" required />
