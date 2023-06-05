@@ -83,6 +83,7 @@
                         <th>Job Name</th>
                         <th>Start Date</th>
                         <th>End Date</th>
+                        <th>Status</th>
                         <th style="text-align-last: center">Type</th>
                         {{-- <th>Total Jobs</th> --}}
                         <th style="text-align-last: center">Detail</th>
@@ -95,6 +96,7 @@
                             <td>{{ $t->name }}</td>
                             <td>{{ $t->start_date }}</td>
                             <td>{{ $t->end_date }}</td>
+                            <td>{{ $t->status }}</td>
                             <td class="text-center">{{ $t->type }}</td>
                             <td class="text-center">
                                 <a href="{{ route('supervisor.project.job.detail', ['id' => $t->id]) }}">
