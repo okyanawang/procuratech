@@ -94,8 +94,8 @@
                         <tr>
                             <td>{{ $key +1 }}</td>
                             <td>{{ $t->name }}</td>
-                            <td>{{ $t->start_date }}</td>
-                            <td>{{ $t->end_date }}</td>
+                            <td>{{ $t->start_date->format('Y-m-d') }}</td>
+                            <td>{{ $t->end_date->format('Y-m-d') }}</td>
                             <td>{{ $t->status }}</td>
                             <td class="text-center">{{ $t->type }}</td>
                             <td class="text-center">
