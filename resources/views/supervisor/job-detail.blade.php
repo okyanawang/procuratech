@@ -269,7 +269,9 @@
                             <optgroup label="Parts">
                                 @foreach ($parts_all as $item)
                                     @if ($item->stock > 0)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}
+                                        <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->sku }}) /
+                                            {{ $item->unit }} -
+                                            {{ $item->brand }}
                                         </option>
                                     @endif
                                 @endforeach
@@ -277,7 +279,9 @@
                             <optgroup label="Material">
                                 @foreach ($material_all as $item)
                                     @if ($item->stock > 0)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}
+                                        <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->sku }}) /
+                                            {{ $item->unit }} -
+                                            {{ $item->brand }}
                                         </option>
                                     @endif
                                 @endforeach
@@ -285,7 +289,9 @@
                             <optgroup label="tools">
                                 @foreach ($tool_all as $item)
                                     @if ($item->stock > 0)
-                                        <option value="{{ $item->id }}">{{ $item->name }} - {{ $item->brand }}
+                                        <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->sku }}) /
+                                            {{ $item->unit }} -
+                                            {{ $item->brand }}
                                         </option>
                                     @endif
                                 @endforeach
@@ -336,7 +342,7 @@
             </table>
         </div>
         <h1 class="text-3xl font-bold mt-10">Reports</h1>
-        <table id="myTable" class="table table-zebra w-full">
+        <table id="myTable2" class="table table-zebra w-full">
             <!-- head -->
             <thead>
                 <tr>

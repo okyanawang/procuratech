@@ -9,6 +9,7 @@
                 <tr>
                     <th>No</th>
                     <th>Task Name</th>
+                    <th>Task Number</th>
                     <th class="!text-center">Status</th>
                     <th>Job Description</th>
                     <th>Start Date</th>
@@ -21,6 +22,7 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $t->task_name }}</td>
+                        <td>{{ $t->task_number }}</td>
                         <td class="text-center">
                             <div class="badge badge-primary mr-1">{{ $t->task_status }}</div>
                         </td>
