@@ -24,13 +24,6 @@ class PelaksanaController extends Controller
             ->where('users_has_tasks.users_id', Auth::user()->id)
             ->select('tasks.*')
             ->count();
-        // $ongoing_task = DB::table('tasks')
-        //     ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-        //     ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-        //     ->where('users_has_tasks.users_id', Auth::user()->id)
-        //     ->where('tasks.status', '=', 'Pending')
-        //     ->select('tasks.*')
-        //     ->count();
         $ongoing_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
@@ -51,18 +44,18 @@ class PelaksanaController extends Controller
     public function index_pekerja_tasks()
     {
         $tasks = DB::table('tasks')
-        ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-        ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
-        ->leftJoin('reports', function ($join) {
-            $join->on('tasks.id', '=', 'reports.tasks_id')
+            ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
+            ->leftJoin('reports', function ($join) {
+                $join->on('tasks.id', '=', 'reports.tasks_id')
                     ->whereRaw('reports.id = (
                     SELECT MAX(id) FROM reports WHERE tasks_id = tasks.id
                     )');
-        })
-        ->where('users.id', Auth::user()->id)
-        ->select('tasks.id', 'tasks.name as task_name', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end', 'tasks.image_path as task_image', 'reports.status as rep_status')
-        ->get();
-        
+            })
+            ->where('users.id', Auth::user()->id)
+            ->select('tasks.id', 'tasks.name as task_name', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end', 'tasks.image_path as task_image', 'reports.status as rep_status')
+            ->get();
+
         // dd($tasks);
         $reports = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
@@ -129,6 +122,7 @@ class PelaksanaController extends Controller
             ->join('tasks_has_items', 'tasks_has_items.items_id', '=', 'items.id')
             ->join('tasks', 'tasks_has_items.tasks_id', '=', 'tasks.id')
             ->where('items.type', 'Parts')
+            ->where('tasks.id', $id)
             ->select('items.*', 'tasks_has_items.amount')
             ->distinct()
             ->get();
@@ -136,6 +130,15 @@ class PelaksanaController extends Controller
             ->join('tasks_has_items', 'tasks_has_items.items_id', '=', 'items.id')
             ->join('tasks', 'tasks_has_items.tasks_id', '=', 'tasks.id')
             ->where('items.type', 'Material')
+            ->where('tasks.id', $id)
+            ->select('items.*', 'tasks_has_items.amount')
+            ->distinct()
+            ->get();
+        $tools = DB::table('items')
+            ->join('tasks_has_items', 'tasks_has_items.items_id', '=', 'items.id')
+            ->join('tasks', 'tasks_has_items.tasks_id', '=', 'tasks.id')
+            ->where('items.type', 'Tool')
+            ->where('tasks.id', $id)
             ->select('items.*', 'tasks_has_items.amount')
             ->distinct()
             ->get();
@@ -167,6 +170,7 @@ class PelaksanaController extends Controller
             'category' => $category,
             'parts' => $parts,
             'material' => $material,
+            'tools' => $tools,
             'reports' => $reports,
             'reports_by_user' => $reports_by_user
         ]);
@@ -275,6 +279,7 @@ class PelaksanaController extends Controller
             ->join('tasks_has_items', 'tasks_has_items.items_id', '=', 'items.id')
             ->join('tasks', 'tasks_has_items.tasks_id', '=', 'tasks.id')
             ->where('items.type', 'Parts')
+            ->where('tasks.id', $id)
             ->select('items.*', 'tasks_has_items.amount')
             ->distinct()
             ->get();
@@ -282,6 +287,15 @@ class PelaksanaController extends Controller
             ->join('tasks_has_items', 'tasks_has_items.items_id', '=', 'items.id')
             ->join('tasks', 'tasks_has_items.tasks_id', '=', 'tasks.id')
             ->where('items.type', 'Material')
+            ->where('tasks.id', $id)
+            ->select('items.*', 'tasks_has_items.amount')
+            ->distinct()
+            ->get();
+        $tools = DB::table('items')
+            ->join('tasks_has_items', 'tasks_has_items.items_id', '=', 'items.id')
+            ->join('tasks', 'tasks_has_items.tasks_id', '=', 'tasks.id')
+            ->where('items.type', 'Tools')
+            ->where('tasks.id', $id)
             ->select('items.*', 'tasks_has_items.amount')
             ->distinct()
             ->get();
@@ -317,6 +331,7 @@ class PelaksanaController extends Controller
             'category' => $category,
             'parts' => $parts,
             'material' => $material,
+            'tools' => $tools,
             'reports' => $reports,
             'statuses' => $statuses,
         ]);

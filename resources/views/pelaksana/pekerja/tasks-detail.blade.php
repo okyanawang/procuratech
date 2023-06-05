@@ -2,7 +2,7 @@
 
 @section('pekerja-content')
     <div class="flex flex-row mb-5 items-center bg-slate-200 p-0 lg:p-5 rounded-xl">
-        <a href="javascript:history.back()" class="self-center hidden md:block">
+        <a href="/pekerja/tasks" class="self-center hidden md:block">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <div class="flex flex-col mx-5 self-center w-full">
@@ -128,6 +128,21 @@
                                     </div>
                                 @else
                                     <p>No material required</p>
+                                @endif
+                            </div>
+                            <div class="mb-3">
+                                <h4 class="font-bold">Tools</h4>
+                                @if ($tools->isNotEmpty())
+                                    <div class="flex flex-col">
+                                        @foreach ($tools as $ins)
+                                            <p>
+                                                {{ $ins->name }}
+                                                <span> - {{ $ins->amount }} {{ $ins->unit }}</span>
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <p>No tools required</p>
                                 @endif
                             </div>
                         </div>

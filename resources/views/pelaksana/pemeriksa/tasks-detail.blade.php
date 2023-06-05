@@ -2,11 +2,11 @@
 
 @section('pemeriksa-content')
     <div class="flex flex-row mb-5 items-center bg-slate-200 p-0 lg:p-5 rounded-xl">
-        <a href="javascript:history.back()" class="self-center hidden md:block">
+        <a href="/pemeriksa/tasks" class="self-center hidden md:block">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <div class="flex flex-col mx-5 self-center w-full">
-            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->name }}</h1>
+            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->name }} - {{ $project->project_number }}</h1>
             <p>{{ $project->description }}</p>
         </div>
         <div class="avatar w-full justify-end">
@@ -21,7 +21,8 @@
         <div class="my-14">
 
             <div class="flex flex-row">
-                <h1 class="font-bold text-2xl mb-3">{{ $task->name }} ({{ $category->name }}) <span class="text-xl">at
+                <h1 class="font-bold text-2xl mb-3">{{ $task->name }} - {{ $task->task_number }} ({{ $category->name }})
+                    <span>at
                         {{ $location->name }}</span></h1>
                 <p class="ml-3 mb-3 self-center"><span style="color: green;">{{ $task->start_date->format('Y-m-d') }}</span>
                     -
@@ -121,6 +122,21 @@
                                     <p>No materials required</p>
                                 @endif
                             </div>
+                            <div class="mb-3">
+                                <h4 class="font-bold">Tools</h4>
+                                @if ($tools->isNotEmpty())
+                                    <div class="flex flex-col">
+                                        @foreach ($tools as $ins)
+                                            <p>
+                                                {{ $ins->name }}
+                                                <span> - {{ $ins->amount }} {{ $ins->unit }}</span>
+                                            </p>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <p>No toolss required</p>
+                                @endif
+                            </div>
                         </div>
 
 
@@ -128,7 +144,7 @@
                 </div>
             </div>
             <div class="w-full text-center">
-                <form action="{{ route('pemeriksa.tasks.complete', ['id' => $task->id]) }}" method="POST" >
+                <form action="{{ route('pemeriksa.tasks.complete', ['id' => $task->id]) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <input type="submit" class="btn btn-primary" value="Complete Job">

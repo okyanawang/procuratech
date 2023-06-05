@@ -26,6 +26,7 @@
                             <option value="" disabled selected>Choose Type</option>
                             <option value="Material">Material</option>
                             <option value="Parts">Parts</option>
+                            <option value="Tool">Tool</option>
                         </select>
                         <label for="brand" class="mr-3 font-semibold">Brand :</label>
                         <input name="brand" type="text" class="input input-bordered w-full max-w-xs col-span-1"

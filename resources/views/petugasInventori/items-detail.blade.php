@@ -2,7 +2,7 @@
 
 @section('petugasInventori-content')
     <div class="flex flex-row mb-10">
-        <a href="javascript:history.back()" class="self-center">
+        <a href="/inventori/item" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <h1 class="text-4xl font-bold ml-5">Detail Items</h1>
@@ -27,6 +27,7 @@
                     <select class="select select-bordered block mt-1 w-full max-w-xs" name="type" required>
                         <option value="Material" @if ($item->type == 'Material') selected @endif>Material</option>
                         <option value="Parts" @if ($item->type == 'Parts') selected @endif>Parts</option>
+                        <option value="Tool" @if ($item->type == 'Tool') selected @endif>Tool</option>
                     </select>
                     <label for="brand" class="mr-3 font-semibold">Brand :</label>
                     <input name="brand" type="text" class="input input-bordered w-full max-w-xs col-span-1"
@@ -69,7 +70,8 @@
         <input type="checkbox" id="my-modal-delete-items" class="modal-toggle" />
         <div class="modal modal-bottom sm:modal-middle lg:pl-80">
             <div class="modal-box">
-                <form action="{{ route('inventori.delete.item', ['id' => $item->id]) }}" method="POST" class="flex flex-col">
+                <form action="{{ route('inventori.delete.item', ['id' => $item->id]) }}" method="POST"
+                    class="flex flex-col">
                     {{-- @method('DELETE') --}}
                     @csrf
                     @method('PUT')

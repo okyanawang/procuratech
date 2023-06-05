@@ -14,8 +14,6 @@ class LocationController extends Controller
             'pid' => 'required',
         ]);
 
-        // dd($validatedData);
-
         $location = new Location;
         $location->name = $validatedData['name'];
         $location->projects_id = $validatedData['pid'];

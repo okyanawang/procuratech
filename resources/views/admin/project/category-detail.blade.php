@@ -2,7 +2,7 @@
 
 @section('admin-content')
     <div class="flex flex-row mb-5">
-        <a href="javascript:history.back()" class="self-center">
+        <a href="{{ route('admin.project.location.detail', ['id' => $location->id]) }}" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <h1 class="text-4xl font-bold ml-5"></h1>

@@ -2,7 +2,7 @@
 
 @section('supervisor-content')
     <div class="flex flex-row mb-5 items-center">
-        <a href="javascript:history.back()" class="self-center">
+        <a href="/supervisor/project" class="self-center">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <h1 class="text-4xl font-bold ml-5 mb-3">{{ $project->proj_name }}</h1>

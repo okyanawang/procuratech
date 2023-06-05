@@ -22,7 +22,7 @@ class PimpinanController extends Controller
             ->where('users_has_projects.users_id', Auth::user()->id)
             ->select('projects.*')
             ->count();
-        return view('supervisor.dashboard', ['nprojects' => $nprojects]);
+        return view('pimpinanProject.dashboard', ['nprojects' => $nprojects]);
     }
 
     public function project_index()
@@ -49,9 +49,7 @@ class PimpinanController extends Controller
             ->first();
 
         $locations = Location::where('projects_id', $id)->get();
-        // $tasks_in_project = Task::where('projects_id', $id)->get();
-        // dd($id);
-        // dd($project_detail = Project::find($id));
+
         return view('pimpinanProject.project-detail', ['project_detail' => $project_detail, 'locations' => $locations]);
     }
 
@@ -143,6 +141,12 @@ class PimpinanController extends Controller
             ->where('items.type', 'Material')
             ->select('items.*', 'tasks_has_items.amount')
             ->get();
+        $tools = DB::table('items')
+            ->join('tasks_has_items', 'items.id', '=', 'tasks_has_items.items_id')
+            ->where('tasks_has_items.tasks_id', $id)
+            ->where('items.type', 'Tool')
+            ->select('items.*', 'tasks_has_items.amount')
+            ->get();
         $reports = DB::table('tasks')
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->join('users', 'reports.users_id', '=', 'users.id')
@@ -161,6 +165,7 @@ class PimpinanController extends Controller
             'inspector' => $inspector,
             'parts' => $parts,
             'materials' => $materials,
+            'tools' => $tools,
             'reports' => $reports,
         ]);
     }
