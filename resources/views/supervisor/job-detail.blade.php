@@ -314,6 +314,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>SKU</th>
                         <th>Amount</th>
                         <th>Unit</th>
                         <th style="text-align-last: center">Action</th>
@@ -324,6 +325,7 @@
                         <tr>
                             {{-- <td>{{ $i->id }}</td> --}}
                             <td>{{ $i->name }}</td>
+                            <td>{{ $i->sku }}</td>
                             <td>{{ $i->amount }}</td>
                             <td>{{ $i->unit }}</td>
                             <td class="text-center">
