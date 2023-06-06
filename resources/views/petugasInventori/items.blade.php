@@ -73,6 +73,7 @@
                     <th>Brand</th>
                     <th>Produsen</th>
                     <th>Stock</th>
+                    <th>Unit</th>
                     <th style="text-align-last: center">Detail</th>
                 </tr>
             </thead>
@@ -85,6 +86,7 @@
                         <td>{{ $i->brand }}</td>
                         <td>{{ $i->produsen }}</td>
                         <td>{{ $i->stock }}</td>
+                        <td>{{ $i->unit }}</td>
                         <td class="text-center">
                             <a href="{{ route('inventori.detail', ['id' => $i->id]) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>

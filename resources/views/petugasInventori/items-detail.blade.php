@@ -142,7 +142,11 @@
                             <tr>
                                 <th>{{ $key + 1 }}</th>
                                 <td>{{ $task->name }}</td>
-                                <td>{{ $task->description }}</td>
+                                <td>
+                                    <p class="truncate w-52">
+                                        {{ $task->description }}
+                                    </p>
+                                </td>
                                 <td>{{ $task->start_date }}</td>
                                 <td>{{ $task->end_date }}</td>
                                 <td>

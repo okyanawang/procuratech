@@ -41,11 +41,12 @@
         let badges = document.getElementsByClassName('badge');
         for (let badge of badges) {
             // console.log(badges);
-            if (badge.innerText == "Done" || badge.innerHTML == "Done" || badge.innerText == "Admin IT") {
+            if (badge.innerText == "Done" || badge.innerHTML == "Done" || badge.innerText == "Admin IT" || badge
+                .innerText == "Revision") {
                 badge.classList.add('badge-success');
-            } else if (badge.innerText == "Pending" || badge.innerText == "Revision" ||
+            } else if (badge.innerText == "Pending" ||
                 badge.innerHTML == "Pending" || badge.innerText == "On Revision" || badge.innerHTML == "On Revision" ||
-                badge.innerHTML == "On Review") {
+                badge.innerHTML == "On Review" || badge.innerText == "On Review") {
                 badge.classList.add('badge-warning');
             } else if (badge.innerText == "Cancelled" || badge.innerHTML == "Cancelled") {
                 badge.classList.add('badge-danger');

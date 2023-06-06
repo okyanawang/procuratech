@@ -26,7 +26,11 @@
                         <td class="text-center">
                             <div class="badge mr-1">{{ $t->task_status }}</div>
                         </td>
-                        <td>{{ $t->task_description }}</td>
+                        <td>
+                            <p class="truncate w-52">
+                                {{ $t->task_description }}
+                            </p>
+                        </td>
                         <td>{{ $t->task_start }}</td>
                         <td>{{ $t->task_end }}</td>
                         <td class="text-center">

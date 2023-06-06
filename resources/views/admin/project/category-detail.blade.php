@@ -44,9 +44,10 @@
                         value="{{ $project->end_date->format('Y-m-d') }}" required />
                     <label for="status" class="mr-3 font-semibold">Status :</label>
                     <select name="status" id="" class="select select-bordered">
-                        <option value="Pending" {{$project->status == "Pending" ? 'selected' : ''}} >Pending</option>
-                        <option value="On Progress" {{$project->status == "On Progress" ? 'selected' : ''}}>On Progress</option>
-                        <option value="Done" {{$project->status == "Done" ? 'selected' : ''}}>Done</option>
+                        <option value="Pending" {{ $project->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                        <option value="On Progress" {{ $project->status == 'On Progress' ? 'selected' : '' }}>On Progress
+                        </option>
+                        <option value="Done" {{ $project->status == 'Done' ? 'selected' : '' }}>Done</option>
                     </select>
                     <label for="photo" class="font-semibold">Update Photo :</label>
                     <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
@@ -96,8 +97,8 @@
         <h2 class="text-2xl font-bold mb-5">Location Detail</h2>
 
         <div class="container">
-            <form action="{{ route('admin.project.location.update', ['id' => $location->id]) }}" class="h-full px-0 md:px-14 mb-10"
-                method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.project.location.update', ['id' => $location->id]) }}"
+                class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="flex flex-col gap-3">
@@ -123,7 +124,8 @@
                 <div class="modal modal-bottom sm:modal-middle lg:pl-80">
                     <div class="modal-box">
                         <h3 class="font-bold text-lg">Update data ?</h3>
-                        <p class="py-4">Are you sure you want to update the location data? Data changes can be done anytime
+                        <p class="py-4">Are you sure you want to update the location data? Data changes can be done
+                            anytime
                         </p>
                         <div class="modal-action">
                             <label for="modal-update-location" class="btn">cancel</label>
@@ -154,8 +156,8 @@
         <h2 class="text-2xl font-bold mb-5">Category Detail</h2>
 
         <div class="container">
-            <form action="{{ route('admin.project.category.update', ['id' => $category->id]) }}" class="h-full px-0 md:px-14 mb-10"
-                method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.project.category.update', ['id' => $category->id]) }}"
+                class="h-full px-0 md:px-14 mb-10" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="flex flex-col xl:flex-row gap-3">
@@ -186,7 +188,8 @@
                 <div class="modal modal-bottom sm:modal-middle lg:pl-80">
                     <div class="modal-box">
                         <h3 class="font-bold text-lg">Update data ?</h3>
-                        <p class="py-4">Are you sure you want to update the category data? Data changes can be done anytime
+                        <p class="py-4">Are you sure you want to update the category data? Data changes can be done
+                            anytime
                         </p>
                         <div class="modal-action">
                             <label for="modal-update-category" class="btn">cancel</label>
@@ -266,7 +269,11 @@
                             <tr>
                                 <th>{{ $key + 1 }}</th>
                                 <td>{{ $task->name }}</td>
-                                <td>{{ $task->description }}</td>
+                                <td>
+                                    <p class="truncate w-52">
+                                        {{ $task->description }}
+                                    </p>
+                                </td>
                                 <td>{{ $task->start_date->format('d-m-Y') }}</td>
                                 <td>{{ $task->end_date->format('d-m-Y') }}</td>
                                 <td>
