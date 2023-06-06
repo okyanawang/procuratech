@@ -47,7 +47,7 @@
                     <div class="badge badge-primary mr-1">
                         @if ($reports)
                             @if ($reports->status == 'Pending')
-                                On Revision
+                                Revision
                             @else
                                 {{ $reports->status }}
                             @endif

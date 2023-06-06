@@ -16,7 +16,9 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $nuser = User::where('role', '!=', 'Admin IT')->count();
+        # count user with admin
+
+        $nuser = User::count();
         $nprojects = Category::all()->count();
         $nitems = Item::all()->count();
 
@@ -106,7 +108,7 @@ class AdminController extends Controller
 
     public function staff_index()
     {
-        $staffs = User::where('role', '!=', 'Admin IT')->get();
+        $staffs = User::get();
         return view('admin.staff', ['staffs' => $staffs]);
     }
 
@@ -146,7 +148,7 @@ class AdminController extends Controller
         $user->role = $request->role;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number;
-        $user->registration_number = $request->registration_number;
+        // $user->registration_number = $request->registration_number;
         $user->employement_status = $request->employement_status;
         $user->availability_status = $request->availability_status;
         $user->username = $request->username;
@@ -268,7 +270,10 @@ class AdminController extends Controller
     {
         $location = Location::find($id);
         $project = Project::find($location->projects_id);
-        $name_pm = User::find($project->id)->name;
+        // $name_pm = User::find($project->id)->name;
+        $name_pm = User::whereHas('projects', function ($query) use ($id) {
+            $query->where('projects.id', $id);
+        })->first()->name;
         $categories = Category::where('locations_id', $location->id)->get();
         return view('admin.project.location-detail', compact('project', 'location', 'name_pm', 'categories'));
     }
@@ -295,7 +300,10 @@ class AdminController extends Controller
         $category = Category::find($id);
         $location = Location::find($category->locations_id);
         $project = Project::find($location->projects_id);
-        $name_pm = User::find($project->id)->name;
+        // $name_pm = User::find($project->id)->name;
+        $name_pm = User::whereHas('projects', function ($query) use ($id) {
+            $query->where('projects.id', $id);
+        })->first()->name;
         $name_sv = User::find($category->users_id)->name;
         $tasks = Task::where('categories_id', $category->id)->get();
         return view('admin.project.category-detail', compact('project', 'location', 'name_pm', 'category', 'name_sv', 'tasks'));
@@ -307,15 +315,21 @@ class AdminController extends Controller
         $category = Category::find($task->categories_id);
         $location = Location::find($category->locations_id);
         $project = Project::find($location->projects_id);
-        $name_pm = User::find($project->id)->name;
+        // $user_id - User::find()
+        // $name_pm = User::find($project->id)->name;
+        $name_pm = User::whereHas('projects', function ($query) use ($project) {
+            $query->where('projects.id', $project->id);
+        })->first()->name;
+        // dd($name_pm);
         $name_sv = User::find($category->users_id)->name;
         // butuh list workers
         $workers = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
-            ->join('users', 'users.id', '=', 'users_has_tasks.users_id')
+            ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
             ->where('tasks_id', $id)
             ->select('*')
             ->get();
+        // dd($workers);
         // butuh list items
         $items = DB::table('tasks')
             ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')

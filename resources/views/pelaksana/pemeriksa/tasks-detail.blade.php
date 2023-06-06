@@ -227,7 +227,7 @@
                                                                     <option value="" disabled selected>Set Status
                                                                     </option>
                                                                     <option value="Done">Done</option>
-                                                                    <option value="On Revision">Revision</option>
+                                                                    <option value="Revision">Revision</option>
                                                                 </select>
                                                             </div>
                                                         </div>

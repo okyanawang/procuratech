@@ -49,13 +49,23 @@ class PelaksanaController extends Controller
             ->leftJoin('reports', function ($join) {
                 $join->on('tasks.id', '=', 'reports.tasks_id')
                     ->whereRaw('reports.id = (
-                    SELECT MAX(id) FROM reports WHERE tasks_id = tasks.id
-                    )');
+                    SELECT MAX(id) FROM reports WHERE tasks_id = tasks.id and users_id = ?
+                    )', [Auth::user()->id]);
             })
             ->where('users.id', Auth::user()->id)
-            ->select('tasks.id', 'tasks.name as task_name', 'tasks.task_number as task_number', 'tasks.description as task_description', 'tasks.status as task_status', 'tasks.categories_id as task_categories_id', 'tasks.start_date as task_start', 'tasks.end_date as task_end', 'tasks.image_path as task_image', 'reports.status as rep_status')
+            ->select(
+              'tasks.id'
+              , 'tasks.name as task_name'
+              , 'tasks.task_number as task_number'
+              , 'tasks.description as task_description'
+              , 'tasks.status as task_status'
+              , 'tasks.categories_id as task_categories_id'
+              , 'tasks.start_date as task_start'
+              , 'tasks.end_date as task_end'
+              , 'tasks.image_path as task_image'
+              , 'reports.status as rep_status'
+            )
             ->get();
-
         // dd($tasks);
         $reports = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
@@ -185,7 +195,7 @@ class PelaksanaController extends Controller
             ->where('users_has_tasks.users_id', Auth::user()->id)
             ->select('tasks.*')
             ->count();
-        $ongoing_task = DB::table('tasks')
+        $ongoing_tasks = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')
             ->join('users', 'users_has_tasks.users_id', '=', 'users.id')
             // ->join('reports AS r', 'tasks.id', '=', 'r.tasks_id')
@@ -193,8 +203,11 @@ class PelaksanaController extends Controller
             ->where('tasks.status', '=', 'Pending')
             #or tasks.status = 'In Progress'
             ->orWhere('tasks.status', '=', 'In Progress')
-            ->select('tasks.*')
-            ->count();
+            #select distinct tasks.*
+            ->select('tasks.id')
+            ->distinct()
+            ->get();
+        $ongoing_task = count($ongoing_tasks);
         // dd($ongoing_task);
         $done_task = DB::table('tasks')
             ->join('users_has_tasks', 'tasks.id', '=', 'users_has_tasks.tasks_id')

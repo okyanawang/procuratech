@@ -65,6 +65,7 @@ class TaskController extends Controller
             ->where('r.status', 'Done')
             ->where('u.role', '<>', 'Job Inspector')
             ->select('u.id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
+            ->distinct('u.id')
             ->get();
         $users_task = DB::table('tasks AS t')
             ->join('users_has_tasks AS uht', 't.id', '=', 'uht.tasks_id')

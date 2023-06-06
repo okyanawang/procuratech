@@ -67,7 +67,7 @@ class ReportController extends Controller
         $reports->status = $request->status;
         $reports->save();
         // dd($request->all());
-        if ($request->status == 'On Revision') {
+        if ($request->status == 'Revision') {
             $new_report = new Report;
             $new_report->status = 'Pending';
             $new_report->tasks_id = $reports->tasks_id;
