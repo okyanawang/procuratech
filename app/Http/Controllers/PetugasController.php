@@ -69,12 +69,20 @@ class PetugasController extends Controller
             ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')
             ->where('tasks_has_items.items_id', $item->id)
             ->select('tasks.name')
-            ->get()
-            ->toArray();
-        $itemLogs_all = ItemLog::where('taskName', $tasks_name)->where('itemName', $item->name)->get();
+            ->get();
+        // ->toArray();
+
+        // $task_name_aa = DB::table('tasks')
+        //     ->where('tasks_has_items.items_id', $item->id)
+        //     ->select('tasks.name')
+        //     ->first();
+
+        // $itemLogs_all = ItemLog::where('taskName', $tasks_name)
+        //     ->where('itemName', $item->name)
+        //     ->get();
         // revision plus where itemName = $item->name and taskName = $tasks_name
         // dd($item);
-        return view('petugasInventori.items-detail', compact('item', 'tasks', 'itemLogs_all'));
+        return view('petugasInventori.items-detail', compact('item', 'tasks', 'tasks_name'));
     }
 
     public function item_edit($id)

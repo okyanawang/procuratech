@@ -106,13 +106,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($itemLogs_all as $i)
+                    @foreach ($tasks_name as $i)
                         <tr>
                             {{-- <td>{{ $i->id }}</td> --}}
-                            <td>{{ $i->taskName }}</td>
-                            <td>{{ $i->itemName }}</td>
-                            <td>{{ $i->stock }}</td>
-                            <td>{{ $i->status }}</td>
+                            <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->taskName }}
+                            </td>
+                            <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->itemName }}
+                            </td>
+                            <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->stock }}
+                            </td>
+                            <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->status }}
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
