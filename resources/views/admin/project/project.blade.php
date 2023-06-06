@@ -35,8 +35,12 @@
                         <input name="description" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             placeholder="description" required />
                         <label for="status" class="mr-3 font-semibold">Status :</label>
-                        <input name="status" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                            placeholder="status" required />
+                        <select name="status" id="" class="select select-bordered  w-full max-w-xs col-span-1">
+                            <option value="" disabled selected>Choose Status</option>
+                            <option value="Pending">Pending</option>
+                            <option value="On Progress">On Progress</option>
+                            <option value="Done">Done</option>
+                        </select>
                         <label for="end_date" class="mr-3 font-semibold">End Date :</label>
                         <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1"
                             required />

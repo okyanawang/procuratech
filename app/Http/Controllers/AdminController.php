@@ -247,6 +247,7 @@ class AdminController extends Controller
         $project->description = $request->description;
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;
+        $project->status = $request->status;
         if ($request->file('image_path') != null) {
             $newImageName = time() . '-' . 'projects' . '.' . $request->file('image_path')->extension();
             $request->file('image_path')->move(public_path('project'), $newImageName);
