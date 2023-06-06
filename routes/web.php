@@ -149,6 +149,7 @@ Route::group(['prefix' => 'pimpinan', 'as' => 'pimpinan', 'middleware' => 'auth.
             // Route::get('/', [PimpinanController::class, 'category_index'])->name('.index');
             Route::get('/{id}', [PimpinanController::class, 'category_detail'])->name('.detail');
             Route::post('/register', [CategoryController::class, 'store'])->name('.register.submit');
+            Route::post('/delete/{id}', [CategoryController::class, 'delete'])->name('.delete.submit');
 
             Route::group(['prefix' => 'task', 'as' => '.task'], function () {
                 // Route::get('/', [PimpinanController::class, 'task_index'])->name('.index');

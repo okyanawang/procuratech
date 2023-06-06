@@ -91,8 +91,9 @@ class PimpinanController extends Controller
         $cats = DB::table('categories')
             ->join('users', 'categories.users_id', '=', 'users.id')
             ->where('categories.locations_id', $id)
-            ->select('categories.*', 'users.name as sv_name', 'users.phone_number')
+            ->select('categories.*', 'users.name as sv_name', 'users.phone_number as sv_phone')
             ->get();
+        // dd($cats);
 
         return view('pimpinanProject.location-detail', [
             'loc' => $loc,

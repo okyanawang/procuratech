@@ -91,7 +91,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <h4 class="font-bold">Supervisor</h4>
-                                            <li>{{ $c->sv_name }} - <span>{{ $c->phone_number }}</span></li>
+                                            <li>{{ $c->sv_name }} - <span>{{ $c->sv_phone }}</span></li>
                                         </div>
                                     </div>
                                     <div class="mt-5">
@@ -134,8 +134,11 @@
                                     </div>
                                     <div class="modal-action">
                                         <label for="cat_delete-{{ $c->id }}" class="btn btn-primary">close</label>
-                                        <form action="" method="POST">
+                                        <form
+                                            action="{{ route('pimpinan.project.category.delete.submit', ['id' => $c->id]) }}"
+                                            method="POST">
                                             @csrf
+                                            {{-- @method('DELETE') --}}
                                             <input type="submit" class="btn btn-error" value="Delete">
                                         </form>
                                     </div>

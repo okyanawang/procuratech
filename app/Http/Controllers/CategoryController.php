@@ -38,4 +38,12 @@ class CategoryController extends Controller
 
         return view('pimpinanProject.location-detail', ['loc' => $loc, 'svs' => $svs, 'cats' => $cats])->with('success', 'Categori added successfully');
     }
+
+    public function delete($id)
+    {
+        $category = Category::find($id);
+        $category->tasks()->delete();
+        $category->delete();
+        return redirect()->back()->with('success', 'Category successfully deleted');
+    }
 }
