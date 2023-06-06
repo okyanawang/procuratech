@@ -98,6 +98,7 @@
                 <!-- head -->
                 <thead>
                     <tr>
+                        <th>Task</th>
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Status</th>
@@ -108,6 +109,7 @@
                     @foreach ($itemLogs_all as $i)
                         <tr>
                             {{-- <td>{{ $i->id }}</td> --}}
+                            <td>{{ $i->taskName }}</td>
                             <td>{{ $i->itemName }}</td>
                             <td>{{ $i->stock }}</td>
                             <td>{{ $i->status }}</td>
