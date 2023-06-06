@@ -141,7 +141,9 @@ class SupervisorController extends Controller
         $material_all = Item::where('type', 'Material')->get();
         $tool_all = Item::where('type', 'Tool')->get();
         $itemLogs_all = ItemLog::join('items', 'items.name', '=', 'item_logs.itemName')
-            ->where('taskName', $job->name)->get();
+            ->where('taskName', $job->name)
+            ->select('item_logs.*', 'items.sku')
+            ->get();
 
         return view('supervisor.job-detail', [
             'job' => $job,
