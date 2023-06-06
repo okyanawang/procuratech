@@ -23,9 +23,9 @@
     <div class="container">
         <x-Alert />
 
-        <h1 class="text-4xl font-bold mb-3">{{ $project->cat_name }}
-            <span class="text-2xl">
-                at {{ $project->loc_name }}
+        <h1 class="text-4xl font-bold mb-3">{{ $project->cat_name }} at
+            <span>
+                {{ $project->loc_name }}
             </span>
         </h1>
         <!-- The button to open modal -->
