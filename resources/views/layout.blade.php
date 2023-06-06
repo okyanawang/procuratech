@@ -48,7 +48,8 @@
                 badge.classList.add('badge-warning');
             } else if (badge.innerText == "Cancelled" || badge.innerHTML == "Cancelled") {
                 badge.classList.add('badge-danger');
-            } else if (badge.innerText == "Project Manager" || badge.innerText == "In Progress") {
+            } else if (badge.innerText == "Project Manager" || badge.innerText == "In Progress" || badge.innerText ==
+                "On Progress" || badge.innerHTML == "On Progress") {
                 badge.classList.add('badge-primary');
             } else if (badge.innerText == "Supervisor") {
                 badge.classList.add('badge-info');

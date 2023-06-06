@@ -327,16 +327,20 @@
                             <td>{{ $i->amount }}</td>
                             <td>{{ $i->unit }}</td>
                             <td class="text-center">
-                                <form
-                                    action="{{ route('supervisor.project.job.items_delete', ['taskId' => $i->task_id, 'itemId' => $i->id]) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" class="btn btn-error font-semibold" value="Delete Item">
-                                </form>
-                                {{-- <button class="btn btn-info font-semibold">Detail</button> --}}
-                                <label for="update_item-{{ $i->id }}" class="md:ml-5 btn btn-primary">Update
-                                    Item</label>
+                                @if ($job->status == 'Done')
+                                    <button class="btn btn-disabled">Task already done</button>
+                                @else
+                                    <form
+                                        action="{{ route('supervisor.project.job.items_delete', ['taskId' => $i->task_id, 'itemId' => $i->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" class="btn btn-error font-semibold" value="Delete Item">
+                                    </form>
+                                    {{-- <button class="btn btn-info font-semibold">Detail</button> --}}
+                                    <label for="update_item-{{ $i->id }}" class="md:ml-5 btn btn-primary">Update
+                                        Item</label>
+                                @endif
                             </td>
                             {{-- <td class="text-center"> --}}
                             <input type="checkbox" id="update_item-{{ $i->id }}" class="modal-toggle" />
@@ -379,6 +383,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>SKU</th>
                         <th>Amount</th>
                         <th>Status</th>
                         {{-- <th style="text-align-last: center">Action</th> --}}
@@ -389,6 +394,7 @@
                         <tr>
                             {{-- <td>{{ $i->id }}</td> --}}
                             <td>{{ $i->itemName }}</td>
+                            <td>{{ $i->sku }}</td>
                             <td>{{ $i->stock }}</td>
                             <td>{{ $i->status }}</td>
                         </tr>

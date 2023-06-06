@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\ItemLog;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Task;
@@ -156,6 +157,9 @@ class PimpinanController extends Controller
             ->orderBy('reports.id', 'desc')
             ->get();
 
+        $itemLogs_all = ItemLog::join('items', 'items.name', '=', 'item_logs.itemName')
+            ->where('taskName', $task->name)->get();
+
         return view('pimpinanProject.task-detail', [
             'task' => $task,
             'cat' => $category,
@@ -168,6 +172,7 @@ class PimpinanController extends Controller
             'materials' => $materials,
             'tools' => $tools,
             'reports' => $reports,
+            'itemLogs_all' => $itemLogs_all,
         ]);
     }
 }
