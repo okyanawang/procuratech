@@ -169,7 +169,10 @@
                     <div class="grid grid-cols-2 grid-rows-1 gap-2 items-center w-full md:w-full xl:w-1/2 mb-5">
                         <label for="name" class="font-semibold">Supervisor :</label>
                         <select name="name" id="" class="js-example-basic-single select select-bordered">
-                            <option value="{{ $name_sv }}">{{ $name_sv }}</option>
+                            <option value="{{ $sv->id }}">{{ $sv->name }}</option>
+                            @foreach ($all_sv as $sv)
+                                <option value="{{ $sv->id }}">{{ $sv->name }}</option>
+                            @endforeach
                         </select>
                         {{-- <input name="name" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                             value="{{ $name_sv }}" required /> --}}

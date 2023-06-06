@@ -329,9 +329,14 @@ class AdminController extends Controller
         $name_pm = User::whereHas('projects', function ($query) use ($project) {
             $query->where('projects.id', $project->id);
         })->first()->name;
-        $name_sv = User::find($category->users_id)->name;
+        $all_sv = User::where('role', "Supervisor")->get();
+        $sv = User::find($category->users_id);
+
+        // dd($sv);
+
         $tasks = Task::where('categories_id', $category->id)->get();
-        return view('admin.project.category-detail', compact('project', 'location', 'name_pm', 'category', 'name_sv', 'tasks'));
+
+        return view('admin.project.category-detail', compact('project', 'location', 'name_pm', 'category', 'sv', 'tasks', 'all_sv'));
     }
 
     public function category_update(Request $request, $id)
