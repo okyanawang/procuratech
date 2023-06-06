@@ -159,7 +159,7 @@ class PimpinanController extends Controller
 
         $itemLogs_all = ItemLog::join('items', 'items.name', '=', 'item_logs.itemName')
             ->where('taskName', $task->name)
-            ->select('item_logs.*', 'items.sku')
+            ->select('item_logs.*', 'items.sku', 'items.unit')
             ->get();
 
         return view('pimpinanProject.task-detail', [

@@ -19,7 +19,7 @@ class ReportController extends Controller
         // dd($reports);
         $tasks = Task::find($id);
         // dd($reports);
-        if($tasks->status == 'Pending'){
+        if ($tasks->status == 'Pending') {
             $tasks->status = 'In Progress';
             $tasks->save();
         }
@@ -69,7 +69,7 @@ class ReportController extends Controller
         // dd($request->all());
         if ($request->status == 'Revision') {
             $new_report = new Report;
-            $new_report->status = 'Pending';
+            $new_report->status = 'Revision';
             $new_report->tasks_id = $reports->tasks_id;
             $new_report->users_id = $worker_id;
             $new_report->save();
