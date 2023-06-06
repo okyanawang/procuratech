@@ -40,7 +40,7 @@
 
         let badges = document.getElementsByClassName('badge');
         for (let badge of badges) {
-            console.log(badges);
+            // console.log(badges);
             if (badge.innerText == "Done" || badge.innerHTML == "Done" || badge.innerText == "Admin IT") {
                 badge.classList.add('badge-success');
             } else if (badge.innerText == "Pending" || badge.innerText == "Revision" ||

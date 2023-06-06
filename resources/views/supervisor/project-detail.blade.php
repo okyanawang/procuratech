@@ -24,7 +24,7 @@
         <x-Alert />
 
         <h1 class="text-4xl font-bold mb-3">{{ $project->cat_name }} at
-            <span>
+            <span class="text-green-700">
                 {{ $project->loc_name }}
             </span>
         </h1>
