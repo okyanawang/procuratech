@@ -105,8 +105,14 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::put('/{id}', [AdminController::class, 'project_update'])->name('.update');
         Route::delete('/{id}', [AdminController::class, 'project_delete'])->name('.delete');
         Route::get('/{id}/location', [AdminController::class, 'location_detail'])->name('.location.detail');
+        Route::put('/{id}/location', [AdminController::class, 'location_update'])->name('.location.update');
+        Route::delete('/{id}/location', [AdminController::class, 'location_delete'])->name('.location.delete');
         Route::get('/{id}/category', [AdminController::class, 'category_detail'])->name('.category.detail');
+        Route::put('/{id}/category', [AdminController::class, 'category_update'])->name('.category.update');
+        Route::delete('/{id}/category', [AdminController::class, 'category_delete'])->name('.category.delete');
         Route::get('/{id}/task', [AdminController::class, 'task_detail'])->name('.task.detail');
+        Route::put('/{id}/task', [AdminController::class, 'task_update'])->name('.task.update');
+        Route::delete('/{id}/task', [AdminController::class, 'task_delete'])->name('.task.delete');
         Route::post('/register', [AdminController::class, 'project_store'])->name('.register');
         Route::post('/location/register', [AdminController::class, 'location_store'])->name('.location.register');
         Route::post('/category/register', [AdminController::class, 'category_store'])->name('.category.register');

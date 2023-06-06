@@ -32,30 +32,27 @@
                         placeholder="registration_number" value="{{ $user->registration_number }}" disabled required />
                     <label for="role" class="mr-3 font-semibold">Role :</label>
                     <select class="select select-bordered block mt-1 w-full" name="role" required>
-                        <option value="{{ $user->role }}" selected>{{ $user->role }}</option>
-                        <option value="Admin IT">Admin IT</option>
-                        <option value="Project Manager">Project Manager</option>
-                        <option value="Supervisor">Supervisor</option>
-                        <option value="Measurement Executor">Measurement Executor</option>
-                        <option value="Analyst">Analyst</option>
-                        <option value="Job Executor">Job Executor</option>
-                        <option value="Job Inspector">Job Inspector</option>
-                        <option value="Inventory Treasurer">Inventory Treasurer</option>
-                        <option value="Inventory Officer">Inventory Officer</option>
+                        <option value="Admin IT" {{$user->role == "Admin IT" ? 'selected' : ''}}>Admin IT</option>
+                        <option value="Project Manager" {{$user->role == "Project Manager" ? 'selected' : ''}}>Project Manager</option>
+                        <option value="Supervisor" {{$user->role == "Supervisor" ? 'selected' : ''}}>Supervisor</option>
+                        <option value="Measurement Executor" {{$user->role == "Measurement Executor" ? 'selected' : ''}}>Measurement Executor</option>
+                        <option value="Analyst" {{$user->role == "Analyst" ? 'selected' : ''}}>Analyst</option>
+                        <option value="Job Executor" {{$user->role == "Job Executor" ? 'selected' : ''}}>Job Executor</option>
+                        <option value="Job Inspector" {{$user->role == "Job Inspector" ? 'selected' : ''}}>Job Inspector</option>
+                        <option value="Inventory Treasurer" {{$user->role == "Inventory Treasure" ? 'selected' : ''}}>Inventory Treasurer</option>
+                        <option value="Inventory Officer" {{$user->role == "Inventory Officer" ? 'selected' : ''}}>Inventory Officer</option>
                     </select>
                     <label for="availability_status" class="mr-3 font-semibold">Availibility Status :</label>
                     <select class="select select-bordered block mt-1 w-full" name="availability_status" required>
-                        <option value="{{ $user->availability_status }}" selected>{{ $user->availability_status }}</option>
-                        <option value="on duty">on duty</option>
-                        <option value="on leave">on leave</option>
+                        <option value="on duty" {{$user->availability_status == "on duty" ? 'selected' : ''}}>on duty</option>
+                        <option value="on leave" {{$user->availability_status == "on leave" ? 'selected' : ''}}>on leave</option>
                     </select>
                     <label for="employement_status" class="mr-3 font-semibold">Employment Status :</label>
                     <select class="select select-bordered block mt-1 w-full" name="employement_status" required>
-                        <option value="{{ $user->employement_status }}" selected>{{ $user->employement_status }}</option>
-                        <option value="Contract">Contract</option>
-                        <option value="Out-sourcing">Out-sourcing</option>
-                        <option value="Intern">Intern</option>
-                        <option value="Full Time">Full Time</option>
+                        <option value="Contract" {{$user->employement_status == "Contract" ? 'selected' : ''}}>Contract</option>
+                        <option value="Out-sourcing" {{$user->employement_status == "Out-sourcing" ? 'selected' : ''}}>Out-sourcing</option>
+                        <option value="Intern" {{$user->employement_status == "Intern" ? 'selected' : ''}}>Intern</option>
+                        <option value="Full Time" {{$user->employement_status == "Full Time" ? 'selected' : ''}}>Full Time</option>
                     </select>
                     <label for="phone_number" class="mr-3 font-semibold">Phone number :</label>
                     <input name="phone_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
