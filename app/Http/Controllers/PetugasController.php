@@ -9,7 +9,7 @@ use App\Models\ItemLog;
 // import auth
 use Illuminate\Support\Facades\Auth;
 // import DB
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class PetugasController extends Controller
 {
@@ -77,8 +77,26 @@ class PetugasController extends Controller
         //     ->select('tasks.name')
         //     ->first();
 
-        $itemLogs_all = ItemLog::where('itemName', $item->name)
-            ->get();
+        // $itemLogs_all = ItemLog::join('items AS i', '')where('items_id', $item->id)
+        $itemLogs_all = ItemLog::with(['item', 'task'])->get();
+        // dd(json_encode($itemLogs_all));
+
+        foreach ($itemLogs_all as $itemLog) {
+            $result = DB::table('tasks_has_items AS thi')
+                // ->join('tasks_has_items AS thi', 'il.items_id', '=', 'thi.items_id')
+                ->join('tasks AS t', 'thi.tasks_id', '=', 't.id')
+                ->join('categories AS c', 't.categories_id', '=', 'c.id')
+                ->join('locations AS l', 'c.locations_id', '=', 'l.id')
+                ->join('projects AS p', 'l.projects_id', '=', 'p.id')
+                ->where('t.id', "=", $itemLog->tasks_id)
+                ->where('thi.items_id', '=', $itemLog->items_id)
+                ->select('t.name as taskName', 'p.name AS projectName')
+                ->first();
+
+            $itemLog['result'] = $result;
+        }
+        // dd(json_encode($itemLogs_all));
+
         // revision plus where itemName = $item->name and taskName = $tasks_name
         // dd($item);
         return view('petugasInventori.items-detail', compact('item', 'tasks', 'tasks_name', 'itemLogs_all'));
@@ -145,7 +163,7 @@ class PetugasController extends Controller
 
         ItemLog::create([
             'taskName' => "Updated by Inventory Officer",
-            'itemName' => $item->name,
+            'items_id' => $item->id,
             'status' => $status,
             'stock' => $request->stock,
             'created_at' => date('Y-m-d H:i:s'),

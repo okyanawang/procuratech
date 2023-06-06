@@ -10,8 +10,19 @@ class ItemLog extends Model
     use HasFactory;
     protected $fillable = [
         'taskName',
-        'itemName',
+        'items_id',
+        'tasks_id',
         'status',
         'stock'
     ];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class, 'items_id', 'id');
+    }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class, 'tasks_id', 'id');
+    }
 }

@@ -8,8 +8,8 @@ use App\Models\Task;
 use App\Models\User;
 use App\Models\ItemLog;
 use Illuminate\Http\Request;
-use DB;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SupervisorController extends Controller
 {
@@ -140,7 +140,7 @@ class SupervisorController extends Controller
         $parts_all = Item::where('type', 'Parts')->get();
         $material_all = Item::where('type', 'Material')->get();
         $tool_all = Item::where('type', 'Tool')->get();
-        $itemLogs_all = ItemLog::join('items', 'items.name', '=', 'item_logs.itemName')
+        $itemLogs_all = ItemLog::join('items', 'items.id', '=', 'item_logs.items_id')
             ->where('taskName', $job->name)
             ->select('item_logs.*', 'items.sku', 'items.unit')
             ->get();

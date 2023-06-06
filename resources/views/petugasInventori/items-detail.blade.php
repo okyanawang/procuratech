@@ -150,9 +150,18 @@
                     @foreach ($itemLogs_all as $key => $i)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            <td>{{ $i->taskName }}</td>
-                            <td>{{ $i->projectName }}</td>
-                            <td>{{ $i->itemName }}</td>
+                            @if ($i->task == null)
+                                <td>{{ $i->taskName }}</td>
+                            @else
+                                <td>{{ $i->result->taskName }}</td>
+                            @endif
+
+                            @if ($i->result == null)
+                                <td>-</td>
+                            @else
+                                <td>{{ $i->result->projectName }}</td>
+                            @endif
+                            <td>{{ $i->item->name }}</td>
                             <td>{{ $i->stock }}</td>
                             <td>{{ $i->status }}</td>
                             <td>{{ $i->created_at }}</td>

@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('item_logs', function (Blueprint $table) {
             $table->id();
-            $table->string('taskName');
-            $table->string('itemName');
+            $table->string('taskName')->default('');
+            $table->bigInteger('items_id');
+            $table->bigInteger('tasks_id')->nullable();
             $table->string('status');
             $table->float('stock', 10, 0)->default(0);
             $table->timestamps();
+
+            // $table->foreign('items_id')->references('id')->on('items');
+            // $table->foreign('tasks_id')->references('id')->on('tasks');
         });
     }
 

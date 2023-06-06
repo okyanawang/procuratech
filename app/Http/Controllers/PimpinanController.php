@@ -159,7 +159,7 @@ class PimpinanController extends Controller
             ->orderBy('reports.id', 'desc')
             ->get();
 
-        $itemLogs_all = ItemLog::join('items', 'items.name', '=', 'item_logs.itemName')
+        $itemLogs_all = ItemLog::join('items', 'items.id', '=', 'item_logs.items_id')
             ->where('taskName', $task->name)
             ->select('item_logs.*', 'items.sku', 'items.unit')
             ->get();

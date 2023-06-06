@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use Illuminate\Http\Request;
-use DB;
-use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\DB;
 
 // use Illuminate\Support\Facades\DB;
 
@@ -170,12 +169,12 @@ class TaskController extends Controller
         if ($check > 0) {
 
             DB::table('item_logs')->insert([
-                'taskName' => DB::table('tasks')
+                'tasks_id' => DB::table('tasks')
                     ->where('id', $id)
-                    ->value('name'),
-                'itemName' => DB::table('items')
+                    ->value('id'),
+                'items_id' => DB::table('items')
                     ->where('id', $validatedData['item'])
-                    ->value('name'),
+                    ->value('id'),
                 'stock' => $validatedData['amount'],
                 'status' => 'Used',
                 'created_at' => now(),
@@ -214,12 +213,12 @@ class TaskController extends Controller
         ]);
 
         DB::table('item_logs')->insert([
-            'taskName' => DB::table('tasks')
+            'tasks_id' => DB::table('tasks')
                 ->where('id', $id)
-                ->value('name'),
-            'itemName' => DB::table('items')
+                ->value('id'),
+            'items_id' => DB::table('items')
                 ->where('id', $validatedData['item'])
-                ->value('name'),
+                ->value('id'),
             'stock' => $validatedData['amount'],
             'status' => 'Used',
             'created_at' => now(),
@@ -285,23 +284,23 @@ class TaskController extends Controller
 
         if ($check_amount > $validatedData['amount']) {
             DB::table('item_logs')->insert([
-                'taskName' => DB::table('tasks')
+                'tasks_id' => DB::table('tasks')
                     ->where('id', $validatedData['tasks_id'])
-                    ->value('name'),
-                'itemName' => DB::table('items')
-                    ->where('id', $validatedData['items_id'])
-                    ->value('name'),
+                    ->value('id'),
+                'items_id' => DB::table('items')
+                    ->where('id', $validatedData['item'])
+                    ->value('id'),
                 'stock' => $check_amount - $validatedData['amount'],
                 'status' => 'Dikembalikan',
             ]);
         } else {
             DB::table('item_logs')->insert([
-                'taskName' => DB::table('tasks')
+                'tasks_id' => DB::table('tasks')
                     ->where('id', $validatedData['tasks_id'])
-                    ->value('name'),
-                'itemName' => DB::table('items')
-                    ->where('id', $validatedData['items_id'])
-                    ->value('name'),
+                    ->value('id'),
+                'items_id' => DB::table('items')
+                    ->where('id', $validatedData['item'])
+                    ->value('id'),
                 'stock' => $validatedData['amount'] - $check_amount,
                 'status' => 'Used',
                 'created_at' => now(),
@@ -429,12 +428,12 @@ class TaskController extends Controller
             ->update(['stock' => $stock_inv + $jumlah]);
 
         DB::table('item_logs')->insert([
-            'taskName' => DB::table('tasks')
+            'tasks_id' => DB::table('tasks')
                 ->where('id', $taskId)
-                ->value('name'),
-            'itemName' => DB::table('items')
+                ->value('id'),
+            'items_id' => DB::table('items')
                 ->where('id', $itemId)
-                ->value('name'),
+                ->value('id'),
             'stock' => $jumlah,
             'status' => 'Dikembalikan',
         ]);
