@@ -29,7 +29,7 @@
                         placeholder="Full Name" required value="{{ $user->name }} " />
                     <label for="registration_number" class="mr-3 font-semibold">Registration number :</label>
                     <input name="registration_number" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="registration_number" value="{{ $user->registration_number }}" disabled required />
+                        placeholder="registration_number" value="{{ $user->registration_number }}" readonly required />
                     <label for="role" class="mr-3 font-semibold">Role :</label>
                     <select class="select select-bordered block mt-1 w-full" name="role" required>
                         <option value="Admin IT" {{$user->role == "Admin IT" ? 'selected' : ''}}>Admin IT</option>
@@ -115,57 +115,112 @@
                 </form>
             </div>
         </div>
-        <div class="my-14">
-            <h1 class="text-2xl mb-5">Jobs Data Recap</h1>
-            <div class="overflow-x-auto">
-                <table id="myTable" class="table table-zebra w-full">
-                    <!-- head -->
-                    <thead>
-                        <tr>
-                            <th class="text-center">Job name</th>
-                            <th class="text-center">Status</th>
-                            <th class="text-center">Start Date</th>
-                            <th class="text-center">End Date</th>
-                            <th class="text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($tasks as $tu)
+        @if ($user->role == 'Project Manager')
+            <div class="my-14">
+                <h1 class="text-2xl mb-5">Projects Recap</h1>
+                <div class="overflow-x-auto">
+                    <table id="myTable" class="table table-zebra w-full">
+                        <!-- head -->
+                        <thead>
                             <tr>
-                                <th>{{ $tu->name }}</th>
-                                <td class="text-center">
-                                    <div class="badge badge-warning">{{ $tu->status }}</div>
-                                </td>
-                                <td>{{ $tu->start_date }}</td>
-                                <td>{{ $tu->end_date }}</td>
-                                <td class="">
-                                    <!-- The button to open modal -->
-                                    {{-- <label for="new-user" class="btn btn-info font-semibold">
-                                        Detail</label> --}}
-                                    <a href="{{ route('admin.project.task.detail', ['id' => $tu->id]) }}">
-                                        <button class="btn btn-primary">Detail</button>
-                                    </a>
+                                <th class="text-center">Project name</th>
+                                <th class="text-center">Project number</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Start Date</th>
+                                <th class="text-center">End Date</th>
+                                {{-- <th class="text-center">Action</th> --}}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pm_recap as $tu)
+                                <tr>
+                                    <th>{{ $tu->name }}</th>
+                                    <th>{{ $tu->project_number }}</th>
+                                    <td class="text-center">
+                                        <div class="badge">{{ $tu->status }}</div>
+                                    </td>
+                                    <td>{{ $tu->start_date }}</td>
+                                    <td>{{ $tu->end_date }}</td>
+                                    {{-- <td class="">
+                                        <a
+                                            href="{{ route('admin.project.task.recap', ['id' => $tu->id, 'user_id' => $user->id]) }}">
+                                            <button class="btn btn-primary">Detail</button>
+                                        </a>
 
-                                </td>
+                                    </td> --}}
 
-                                <!-- Put this part before </body> tag -->
-                                <input type="checkbox" id="new-user" class="modal-toggle" />
-                                <div class="modal modal-bottom lg:pl-80">
-                                    <div class="modal-box w-11/12 max-w-5xl self-center">
-                                        <h3 class="font-bold text-lg mb-10">Job name</h3>
-                                        <p>job desc</p>
-                                        <div class="modal-action justify-center gap-5">
-                                            <label for="new-user" class="btn btn-error">cancel</label>
-                                            <input type="submit" class="btn btn-primary" value="Submit">
+                                    <!-- Put this part before </body> tag -->
+                                    <input type="checkbox" id="new-user" class="modal-toggle" />
+                                    <div class="modal modal-bottom lg:pl-80">
+                                        <div class="modal-box w-11/12 max-w-5xl self-center">
+                                            <h3 class="font-bold text-lg mb-10">Job name</h3>
+                                            <p>job desc</p>
+                                            <div class="modal-action justify-center gap-5">
+                                                <label for="new-user" class="btn btn-error">cancel</label>
+                                                <input type="submit" class="btn btn-primary" value="Submit">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        @else
+            <div class="my-14">
+                <h1 class="text-2xl mb-5">Jobs Data Recap</h1>
+                <div class="overflow-x-auto">
+                    <table id="myTable" class="table table-zebra w-full">
+                        <!-- head -->
+                        <thead>
+                            <tr>
+                                <th class="text-center">Job name</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Start Date</th>
+                                <th class="text-center">End Date</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($tasks as $tu)
+                                <tr>
+                                    <th>{{ $tu->name }}</th>
+                                    <td class="text-center">
+                                        <div class="badge">{{ $tu->status }}</div>
+                                    </td>
+                                    <td>{{ $tu->start_date }}</td>
+                                    <td>{{ $tu->end_date }}</td>
+                                    <td class="">
+                                        <!-- The button to open modal -->
+                                        {{-- <label for="new-user" class="btn btn-info font-semibold">
+                                        Detail</label> --}}
+                                        <a
+                                            href="{{ route('admin.project.task.recap', ['id' => $tu->id, 'user_id' => $user->id]) }}">
+                                            <button class="btn btn-primary">Detail</button>
+                                        </a>
+
+                                    </td>
+
+                                    <!-- Put this part before </body> tag -->
+                                    <input type="checkbox" id="new-user" class="modal-toggle" />
+                                    <div class="modal modal-bottom lg:pl-80">
+                                        <div class="modal-box w-11/12 max-w-5xl self-center">
+                                            <h3 class="font-bold text-lg mb-10">Job name</h3>
+                                            <p>job desc</p>
+                                            <div class="modal-action justify-center gap-5">
+                                                <label for="new-user" class="btn btn-error">cancel</label>
+                                                <input type="submit" class="btn btn-primary" value="Submit">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        @endif
 
     </div>
 @endsection

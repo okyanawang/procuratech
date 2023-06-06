@@ -341,8 +341,8 @@
                                 <input type="checkbox" id="update_item" class="modal-toggle" />
                                 <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
                                     <div class="modal-box">
-                                        <form action="{{ route('supervisor.project.job.update_item', ['id' => $i->id]) }}" method="POST"
-                                            class="flex flex-col" enctype="multipart/form-data">
+                                        <form action="{{ route('supervisor.project.job.update_item', ['id' => $i->id]) }}"
+                                            method="POST" class="flex flex-col" enctype="multipart/form-data">
                                             @csrf
                                             @method('PUT')
                                             <h3 class="font-bold text-lg mb-5">Update Item</h3>
@@ -350,11 +350,11 @@
                                             <input type="hidden" name="items_id" value={{ $i->id }}>
                                             <input type="hidden" name="tasks_id" value={{ $i->task_id }}>
                                             <label for="name" class="mb-2">Item Name</label>
-                                            <input type="text" name="name" class="input input-bordered mb-3" value="{{ $i->name }}"
-                                                required readonly>
+                                            <input type="text" name="name" class="input input-bordered mb-3"
+                                                value="{{ $i->name }}" required readonly>
                                             <label for="amount" class="mb-2">Amount</label>
-                                            <input type="number" name="amount" class="input input-bordered mb-3" value="{{ $i->amount }}"
-                                                required>
+                                            <input type="number" name="amount" class="input input-bordered mb-3"
+                                                value="{{ $i->amount }}" required>
 
                                             <div class="modal-action">
                                                 <label for="update_item" class="btn btn-error">Cancel</label>
@@ -413,7 +413,7 @@
                         <td>{{ $t->name }}</td>
                         <td>{{ $t->created_at }}</td>
                         <td class="text-center">
-                            <div class="badge badge-primary mr-1">{{ $t->status }}</div>
+                            <div class="badge mr-1">{{ $t->status }}</div>
                         </td>
                         <td class="">
                             @if ($t->status == 'On Review')
@@ -502,7 +502,7 @@
                                         </div>
                                         @if ($t->description_inspect == null)
                                             <div class="flex flex-col gap-3 items-center">
-                                                <div class="badge badge-primary">Review on progress, Please wait...
+                                                <div class="badge">Review on progress, Please wait...
                                                 </div>
                                             </div>
                                         @else

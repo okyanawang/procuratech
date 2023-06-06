@@ -27,8 +27,8 @@
                             <td>{{ $t->task_name }}</td>
                             <td>{{ $t->task_number }}</td>
                             <td class="text-center">
-                                <div class="badge badge-primary mr-1">
-                                    
+                                <div class="badge mr-1">
+
                                     @if ($t->rep_status != null && $t->task_status != 'cancelled')
                                         {{ $t->rep_status }}
                                     @elseif ($t->task_status == 'cancelled')

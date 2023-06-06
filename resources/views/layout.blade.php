@@ -37,6 +37,28 @@
         $(document).ready(function() {
             $('.js-example-basic-single').select2();
         });
+
+        let badges = document.getElementsByClassName('badge');
+        for (let badge of badges) {
+            console.log(badges);
+            if (badge.innerText == "Done" || badge.innerHTML == "Done" || badge.innerText == "Admin IT") {
+                badge.classList.add('badge-success');
+            } else if (badge.innerText == "Pending" || badge.innerText == "Revision" ||
+                badge.innerHTML == "Pending" || badge.innerText == "On Revision" || badge.innerHTML == "On Revision") {
+                badge.classList.add('badge-warning');
+            } else if (badge.innerText == "Cancelled" || badge.innerHTML == "Cancelled") {
+                badge.classList.add('badge-danger');
+            } else if (badge.innerText == "Project Manager" || badge.innerText == "In Progress") {
+                badge.classList.add('badge-primary');
+            } else if (badge.innerText == "Supervisor") {
+                badge.classList.add('badge-info');
+            } else if (badge.innerText == "Measurement Executor" || badge.innerText == "Analyst" || badge.innerText ==
+                "Job Executor") {
+                badge.classList.add('badge-secondary');
+            } else if (badge.innerText == "Job Inspector" || badge.innerText == "Inventory Officer") {
+                badge.classList.add('badge-accent');
+            }
+        }
     </script>
 
 </body>

@@ -113,6 +113,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin', 'middleware' => 'auth.role:A
         Route::get('/{id}/task', [AdminController::class, 'task_detail'])->name('.task.detail');
         Route::put('/{id}/task', [AdminController::class, 'task_update'])->name('.task.update');
         Route::delete('/{id}/task', [AdminController::class, 'task_delete'])->name('.task.delete');
+        Route::get('/recap/{id}/{user_id}', [AdminController::class, 'task_recap'])->name('.task.recap');
         Route::post('/register', [AdminController::class, 'project_store'])->name('.register');
         Route::post('/location/register', [AdminController::class, 'location_store'])->name('.location.register');
         Route::post('/category/register', [AdminController::class, 'category_store'])->name('.category.register');

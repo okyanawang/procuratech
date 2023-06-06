@@ -25,7 +25,7 @@
                             placeholder="sku" required />
                         <label for="type" class="mr-3 font-semibold">Type :</label>
                         <select class="select select-bordered block mt-1 w-full" name="type" required>
-                            <option value="0" hidden disabled selected>Choose Type</option>
+                            <option value="0" disabled selected>Choose Type</option>
                             <option value="Material">Material</option>
                             <option value="Parts">Parts</option>
                             <option value="Tool">Tool</option>
@@ -78,19 +78,19 @@
             </thead>
             <tbody>
                 @foreach ($nitems as $key => $i)
-                        <tr>
-                            <td>{{ $key + 1}}</td>
-                            <td>{{ $i->name }}</td>
-                            <td>{{ $i->type }}</td>
-                            <td>{{ $i->brand }}</td>
-                            <td>{{ $i->produsen }}</td>
-                            <td>{{ $i->stock }}</td>
-                            <td class="text-center">
-                                <a href="{{ route('inventori.detail', ['id' => $i->id]) }}">
-                                    <button class="btn btn-info font-semibold">Detail</button>
-                                </a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $key + 1 }}</td>
+                        <td>{{ $i->name }}</td>
+                        <td>{{ $i->type }}</td>
+                        <td>{{ $i->brand }}</td>
+                        <td>{{ $i->produsen }}</td>
+                        <td>{{ $i->stock }}</td>
+                        <td class="text-center">
+                            <a href="{{ route('inventori.detail', ['id' => $i->id]) }}">
+                                <button class="btn btn-info font-semibold">Detail</button>
+                            </a>
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
