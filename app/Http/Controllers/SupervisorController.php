@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Item;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\ItemLog;
 use Illuminate\Http\Request;
 use DB;
 use Auth;
@@ -139,6 +140,7 @@ class SupervisorController extends Controller
         $parts_all = Item::where('type', 'Parts')->get();
         $material_all = Item::where('type', 'Material')->get();
         $tool_all = Item::where('type', 'Tool')->get();
+        $itemLogs_all = ItemLog::where('taskName', $job->name)->get();
 
         return view('supervisor.job-detail', [
             'job' => $job,
@@ -158,6 +160,7 @@ class SupervisorController extends Controller
             'parts_all' => $parts_all,
             'material_all' => $material_all,
             'tool_all' => $tool_all,
+            'itemLogs_all' => $itemLogs_all
         ]);
     }
 }

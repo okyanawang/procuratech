@@ -165,6 +165,18 @@ class TaskController extends Controller
         }
 
         if ($check > 0) {
+
+            DB::table('item_logs')->insert([
+                'taskName' => DB::table('tasks')
+                    ->where('id', $id)
+                    ->value('name'),
+                'itemName' => DB::table('items')
+                    ->where('id', $validatedData['item'])
+                    ->value('name'),
+                'stock' => $validatedData['amount'],
+                'status' => 'Dipakai',
+            ]);
+
             $amount = DB::table('tasks_has_items')
                 ->where('items_id', $validatedData['item'])
                 ->where('tasks_id', $id)
@@ -194,6 +206,17 @@ class TaskController extends Controller
             'items_id' => $validatedData['item'],
             'tasks_id' => $id,
             'amount' => $validatedData['amount'],
+        ]);
+
+        DB::table('item_logs')->insert([
+            'taskName' => DB::table('tasks')
+                ->where('id', $id)
+                ->value('name'),
+            'itemName' => DB::table('items')
+                ->where('id', $validatedData['item'])
+                ->value('name'),
+            'stock' => $validatedData['amount'],
+            'status' => 'Dipakai',
         ]);
 
         return redirect()->back()->with('success', 'Item added successfully');
@@ -298,6 +321,17 @@ class TaskController extends Controller
         DB::table('items')
             ->where('id', $itemId)
             ->update(['stock' => $stock_inv + $jumlah]);
+
+        DB::table('item_logs')->insert([
+            'taskName' => DB::table('tasks')
+                ->where('id', $taskId)
+                ->value('name'),
+            'itemName' => DB::table('items')
+                ->where('id', $itemId)
+                ->value('name'),
+            'stock' => $jumlah,
+            'status' => 'Dikembalikan',
+        ]);
 
         // Find the item within the task and detach it
         $task->items()->detach($itemId);
