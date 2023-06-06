@@ -194,7 +194,8 @@
                                 <td>{{ $task->start_date }}</td>
                                 <td>{{ $task->end_date }}</td>
                                 <td>
-                                    <a href="{{ route('admin.project.task.detail', ['id' => $task->id]) }}">
+                                    <a
+                                        href="{{ route('inventori.task.recap', ['id' => $task->id, 'item_id' => $item->id]) }}">
                                         <button class="btn btn-info font-semibold">Detail</button>
                                     </a>
                                 </td>
