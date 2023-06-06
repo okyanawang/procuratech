@@ -54,16 +54,16 @@ class PelaksanaController extends Controller
             })
             ->where('users.id', Auth::user()->id)
             ->select(
-              'tasks.id'
-              , 'tasks.name as task_name'
-              , 'tasks.task_number as task_number'
-              , 'tasks.description as task_description'
-              , 'tasks.status as task_status'
-              , 'tasks.categories_id as task_categories_id'
-              , 'tasks.start_date as task_start'
-              , 'tasks.end_date as task_end'
-              , 'tasks.image_path as task_image'
-              , 'reports.status as rep_status'
+                'tasks.id',
+                'tasks.name as task_name',
+                'tasks.task_number as task_number',
+                'tasks.description as task_description',
+                'tasks.status as task_status',
+                'tasks.categories_id as task_categories_id',
+                'tasks.start_date as task_start',
+                'tasks.end_date as task_end',
+                'tasks.image_path as task_image',
+                'reports.status as rep_status'
             )
             ->get();
         // dd($tasks);
@@ -165,6 +165,7 @@ class PelaksanaController extends Controller
             ->where('reports.users_id', Auth::user()->id)
             ->whereNot('reports.status', "Pending")
             ->whereNot('reports.status', "In Progress")
+            ->whereNot('reports.status', "On Revision")
             ->orderBy('reports.id', 'DESC')
             ->get();
         // dd($parts);

@@ -161,7 +161,7 @@
             </div>
 
             <div class="modal-action justify-center w-full">
-                @if ($reports == null || $reports->status == 'Pending' || $reports->status == null)
+                @if ($reports == null || $reports->status == 'Pending' || $reports->status == null || $reports->status == 'On Revision')
                     <form action="{{ route('pekerja.tasks.execute', ['id' => $task->id]) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -233,7 +233,11 @@
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $t->created_at }}</td>
                                 <td class="text-center">
-                                    <div class="badge mr-1">{{ $t->status }}</div>
+                                    @if ($t->status == 'Pending')
+                                        <div class="badge mr-1">{{ $t->status }}</div>
+                                    @else
+                                        <div class="badge mr-1">{{ $t->status }}</div>
+                                    @endif
                                 </td>
                                 <td class="text-center">
                                     <label for="detail-{{ $t->id }}" class="btn btn-info">detail</label>

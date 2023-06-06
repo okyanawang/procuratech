@@ -44,7 +44,8 @@
             if (badge.innerText == "Done" || badge.innerHTML == "Done" || badge.innerText == "Admin IT") {
                 badge.classList.add('badge-success');
             } else if (badge.innerText == "Pending" || badge.innerText == "Revision" ||
-                badge.innerHTML == "Pending" || badge.innerText == "On Revision" || badge.innerHTML == "On Revision") {
+                badge.innerHTML == "Pending" || badge.innerText == "On Revision" || badge.innerHTML == "On Revision" ||
+                badge.innerHTML == "On Review") {
                 badge.classList.add('badge-warning');
             } else if (badge.innerText == "Cancelled" || badge.innerHTML == "Cancelled") {
                 badge.classList.add('badge-danger');

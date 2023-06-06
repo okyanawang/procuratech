@@ -69,7 +69,7 @@ class ReportController extends Controller
         // dd($request->all());
         if ($request->status == 'Revision') {
             $new_report = new Report;
-            $new_report->status = 'Revision';
+            $new_report->status = 'On Revision';
             $new_report->tasks_id = $reports->tasks_id;
             $new_report->users_id = $worker_id;
             $new_report->save();
