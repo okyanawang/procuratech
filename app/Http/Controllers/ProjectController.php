@@ -42,7 +42,7 @@ class ProjectController extends Controller
         $project->end_date = $validatedData['end_date'];
         $project->description = $validatedData['description'];
         $project->status = $validatedData['status'];
-        $project->project_number ='P' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);
+        $project->project_number = 'P' . str_pad(random_int(0, 99999), 5, '0', STR_PAD_LEFT);
         $project->image_path = $newImageName;
         $project->save();
         DB::table('users_has_projects')->insert([
@@ -67,6 +67,7 @@ class ProjectController extends Controller
         // dd($request->all());
         $project = Project::find($id);
         $project->name = $request->name;
+        $project->status = $request->status;
         $project->description = $request->description;
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;

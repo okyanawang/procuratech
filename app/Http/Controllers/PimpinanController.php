@@ -58,6 +58,7 @@ class PimpinanController extends Controller
     {
         $project = Project::find($id);
         $project->name = $request->name;
+        $project->status = $request->status;
         $project->description = $request->description;
         $project->start_date = $request->start_date;
         $project->end_date = $request->end_date;

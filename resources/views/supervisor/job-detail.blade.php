@@ -254,59 +254,67 @@
 
         <div class="flex flex-row mt-10 mb-3">
             <h1 class="text-3xl font-bold">Items</h1>
-            <label for="add_item" class="ml-5 btn btn-primary">+</label>
-            <input type="checkbox" id="add_item" class="modal-toggle" />
-            <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
-                <div class="modal-box">
-                    <form action="{{ route('supervisor.project.job.add_item', ['id' => $job->id]) }}" method="POST"
-                        class="flex flex-col">
-                        @csrf
-                        <h3 class="font-bold text-lg mb-5">Add Item</h3>
+            @if ($job->status !== 'Done')
+                <label for="add_item" class="ml-5 btn btn-primary">+</label>
+                <input type="checkbox" id="add_item" class="modal-toggle" />
+                <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
+                    <div class="modal-box">
+                        <form action="{{ route('supervisor.project.job.add_item', ['id' => $job->id]) }}" method="POST"
+                            class="flex flex-col">
+                            @csrf
+                            <h3 class="font-bold text-lg mb-5">Add Item</h3>
 
-                        <label for="item" class="mb-2">Item Name</label>
-                        <select name="item" id="" class="js-example-basic-single select select-bordered">
-                            <option value="">Choose Item</option>
-                            <optgroup label="Parts">
-                                @foreach ($parts_all as $item)
-                                    @if ($item->stock > 0)
-                                        <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->sku }}) /
-                                            {{ $item->unit }} -
-                                            {{ $item->brand }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </optgroup>
-                            <optgroup label="Material">
-                                @foreach ($material_all as $item)
-                                    @if ($item->stock > 0)
-                                        <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->sku }}) /
-                                            {{ $item->unit }} -
-                                            {{ $item->brand }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </optgroup>
-                            <optgroup label="tools">
-                                @foreach ($tool_all as $item)
-                                    @if ($item->stock > 0)
-                                        <option value="{{ $item->id }}">{{ $item->name }} ({{ $item->sku }}) /
-                                            {{ $item->unit }} -
-                                            {{ $item->brand }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </optgroup>
-                        </select>
-                        <label for="amount" class="mt-3 mb-2">Amount of Item</label>
-                        <input type="number" name="amount" class="input input-bordered mb-3" required>
+                            <label for="item" class="mb-2">Item Name</label>
+                            <select name="item" id="" class="js-example-basic-single select select-bordered">
+                                <option value="">Choose Item</option>
+                                <optgroup label="Parts">
+                                    @foreach ($parts_all as $item)
+                                        @if ($item->stock > 0)
+                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                ({{ $item->sku }})
+                                                /
+                                                {{ $item->unit }} -
+                                                {{ $item->brand }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
+                                <optgroup label="Material">
+                                    @foreach ($material_all as $item)
+                                        @if ($item->stock > 0)
+                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                ({{ $item->sku }})
+                                                /
+                                                {{ $item->unit }} -
+                                                {{ $item->brand }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
+                                <optgroup label="tools">
+                                    @foreach ($tool_all as $item)
+                                        @if ($item->stock > 0)
+                                            <option value="{{ $item->id }}">{{ $item->name }}
+                                                ({{ $item->sku }})
+                                                /
+                                                {{ $item->unit }} -
+                                                {{ $item->brand }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                            <label for="amount" class="mt-3 mb-2">Amount of Item</label>
+                            <input type="number" name="amount" class="input input-bordered mb-3" required>
 
-                        <div class="modal-action">
-                            <label for="add_item" class="btn btn-error">Cancel</label>
-                            <input type="submit" class="btn btn-success" value="Update">
-                        </div>
-                    </form>
+                            <div class="modal-action">
+                                <label for="add_item" class="btn btn-error">Cancel</label>
+                                <input type="submit" class="btn btn-success" value="Update">
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
         <div class="overflow-x-auto mb-10">
             <table id="myTable" class="table table-zebra w-full">
