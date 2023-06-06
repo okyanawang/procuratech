@@ -91,6 +91,31 @@
             </div>
         </div>
 
+
+        <h1 class="text-3xl font-bold">Item Log</h1>
+        <div class="overflow-x-auto mb-10">
+            <table id="myTable" class="table table-zebra w-full">
+                <!-- head -->
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        {{-- <th style="text-align-last: center">Action</th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($itemLogs_all as $i)
+                        <tr>
+                            {{-- <td>{{ $i->id }}</td> --}}
+                            <td>{{ $i->itemName }}</td>
+                            <td>{{ $i->stock }}</td>
+                            <td>{{ $i->status }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
         <div class="">
             <h1 class="text-2xl font-bold mb-5">Task List</h1>
             <div class="overflow-x-auto">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Task;
+use App\Models\ItemLog;
 // import auth
 use Illuminate\Support\Facades\Auth;
 // import DB
@@ -64,8 +65,16 @@ class PetugasController extends Controller
             ->select('tasks.*')
             ->get()
             ->toArray();
+        $tasks_name = DB::table('tasks')
+            ->join('tasks_has_items', 'tasks.id', '=', 'tasks_has_items.tasks_id')
+            ->where('tasks_has_items.items_id', $item->id)
+            ->select('tasks.name')
+            ->get()
+            ->toArray();
+        $itemLogs_all = ItemLog::where('taskName', $tasks_name)->where('itemName', $item->name)->get();
+        // revision plus where itemName = $item->name and taskName = $tasks_name
         // dd($item);
-        return view('petugasInventori.items-detail', compact('item', 'tasks'));
+        return view('petugasInventori.items-detail', compact('item', 'tasks', 'itemLogs_all'));
     }
 
     public function item_edit($id)
