@@ -223,6 +223,105 @@ class TaskController extends Controller
         return redirect()->back()->with('success', 'Item added successfully');
     }
 
+    public function update_item(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'items_id' => 'required',
+            'tasks_id' => 'required',
+            'name' => 'required',
+            'amount' => 'required',
+        ]);
+
+        // dd($validatedData);
+
+        // check if staff already assigned to task
+        $check = DB::table('tasks_has_items')
+            ->where('items_id', $validatedData['items_id'])
+            ->where('tasks_id', $validatedData['tasks_id'])
+            ->count();
+
+        $check_amount = DB::table('tasks_has_items')
+            ->where('items_id', $validatedData['items_id'])
+            ->where('tasks_id', $validatedData['tasks_id'])
+            ->value('amount');
+
+        if ($check == 0) {
+            return redirect()->back()->withErrors('Item not found');
+        }
+
+        $stock_inv = DB::table('items')
+            ->where('id', $validatedData['items_id'])
+            ->value('stock');
+
+        // if ($stock_inv < $validatedData['amount']) {
+        //     return redirect()->back()->withErrors('Stock tidak mencukupi');
+        // }
+
+        if ($validatedData['amount'] <= 0) {
+            return redirect()->back()->withErrors('Invalid Amount');
+        }
+
+        if ($validatedData['amount'] == null) {
+            return redirect()->back()->withErrors('Invalid Amount');
+        }
+
+        // update stock_inv with substract it with amount
+
+        if($check_amount > $validatedData['amount']){
+            $stock_inv = $stock_inv + ($check_amount - $validatedData['amount']);
+        }else{
+            $stock_inv = $stock_inv - ($validatedData['amount'] - $check_amount);
+        }
+
+        DB::table('items')
+            ->where('id', $validatedData['items_id'])
+            ->update(['stock' => $stock_inv]);
+
+        if($check_amount > $validatedData['amount']){
+            DB::table('item_logs')->insert([
+                'taskName' => DB::table('tasks')
+                    ->where('id', $validatedData['tasks_id'])
+                    ->value('name'),
+                'itemName' => DB::table('items')
+                    ->where('id', $validatedData['items_id'])
+                    ->value('name'),
+                'stock' => $check_amount - $validatedData['amount'],
+                'status' => 'Dikembalikan',
+            ]);
+        }else{
+            DB::table('item_logs')->insert([
+                'taskName' => DB::table('tasks')
+                    ->where('id', $validatedData['tasks_id'])
+                    ->value('name'),
+                'itemName' => DB::table('items')
+                    ->where('id', $validatedData['items_id'])
+                    ->value('name'),
+                'stock' => $validatedData['amount'] - $check_amount,
+                'status' => 'Dipakai',
+            ]);
+        }
+        // DB::table('item_logs')->insert([
+        //     'taskName' => DB::table('tasks')
+        //         ->where('id', $validatedData['tasks_id'])
+        //         ->value('name'),
+        //     'itemName' => DB::table('items')
+        //         ->where('id', $validatedData['items_id'])
+        //         ->value('name'),
+        //     'stock' => $validatedData['amount'],
+        //     'status' => 'Dipakai',
+        // ]);
+
+        // update users_has_tasks record
+        DB::table('tasks_has_items')
+            ->where('items_id', $validatedData['items_id'])
+            ->where('tasks_id', $validatedData['tasks_id'])
+            ->update(['amount' => $validatedData['amount']]);
+
+        return redirect()->back()->with('success', 'Item updated successfully');
+
+
+    }
+
     public function show($id)
     {
         $task = Task::find($id);
