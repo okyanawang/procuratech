@@ -138,6 +138,7 @@
                     <tr>
                         <th>No</th>
                         <th>Task</th>
+                        <th>Project Name</th>
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Status</th>
@@ -150,6 +151,7 @@
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>{{ $i->taskName }}</td>
+                            <td>{{ $i->projectName }}</td>
                             <td>{{ $i->itemName }}</td>
                             <td>{{ $i->stock }}</td>
                             <td>{{ $i->status }}</td>

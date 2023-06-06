@@ -60,23 +60,25 @@ class TaskController extends Controller
         $statuses = DB::table('tasks AS t')
             ->join('users_has_tasks AS uht', 't.id', '=', 'uht.tasks_id')
             ->join('users AS u', 'uht.users_id', '=', 'u.id')
-            ->leftJoin('reports AS r', 'uht.users_id', '=', 'r.users_id')
-            ->where('t.id', $id)
+            ->join('reports AS r', function ($join) {
+                $join->on('uht.tasks_id', '=', 'r.tasks_id')
+                    ->on('uht.users_id', '=', 'r.users_id');
+            })->where('t.id', $id)
             ->where('r.status', 'Done')
             ->where('u.role', '<>', 'Job Inspector')
-            ->select('u.id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
-            ->distinct('u.id')
+            ->select('u.id', 't.id AS task_id', 'r.status', DB::raw('CASE WHEN r.status = "Done" THEN 1 ELSE 0 END AS status_done'))
+            // ->distinct('u.id')
             ->get();
         $users_task = DB::table('tasks AS t')
             ->join('users_has_tasks AS uht', 't.id', '=', 'uht.tasks_id')
             ->join('users AS u', 'uht.users_id', '=', 'u.id')
             ->where('t.id', $id)
             ->where('u.role', '<>', 'Job Inspector')
-            ->select('t.*')
+            ->select('u.*')
             ->get();
         // dd($users_task);
         // dd($statuses);
-        // dd($users_task->count() == $statuses->sum('status_done'));
+        dd($users_task->count() == $statuses->sum('status_done'));
         $task = Task::find($id);
         if ($users_task->count() == $statuses->sum('status_done')) {
             $task->status = "Done";

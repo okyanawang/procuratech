@@ -77,12 +77,7 @@ class PetugasController extends Controller
         //     ->select('tasks.name')
         //     ->first();
 
-        $itemLogs_all = ItemLog::join('tasks', 'item_logs.taskName', '=', 'tasks.name')
-            ->join('categories', 'tasks.categories_id', '=', 'categories.id')
-            ->join('locations', 'categories.locations_id', '=', 'locations.id')
-            ->join('projects', 'locations.projects_id', '=', 'projects.id')
-            ->where('itemName', $item->name)
-            ->select('item_logs.*', 'projects.name as projectName')
+        $itemLogs_all = ItemLog::where('itemName', $item->name)
             ->get();
         // revision plus where itemName = $item->name and taskName = $tasks_name
         // dd($item);
