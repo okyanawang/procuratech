@@ -244,6 +244,7 @@
                                     <div class="modal-box w-full lg:w-11/12 lg:max-w-5xl">
                                         <div class="flex flex-row justify-center">
                                             <h1 class="font-bold text-2xl mb-3">Job Report</h1>
+                                            <p class="mb-5">{{ $t->updated_at }}</p>
                                         </div>
                                         <div class="mt-5 flex flex-col lg:flex-row gap-5 !text-left">
                                             <div class="avatar w-full lg:w-1/2">
@@ -266,6 +267,7 @@
                                         @else
                                             <div class="flex flex-row justify-center">
                                                 <h1 class="font-bold text-2xl mb-3">Job Review</h1>
+                                                <p class="mb-5">{{ $t->updated_at }}</p>
                                             </div>
                                             <div class="mt-5 flex flex-col lg:flex-row gap-5 !text-left">
                                                 <div class="avatar w-full lg:w-1/2">
