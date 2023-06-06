@@ -98,7 +98,7 @@ class PetugasController extends Controller
         $item->type = $request->type;
         $item->brand = $request->brand;
         $item->produsen = $request->produsen;
-        $item->stock = $request->stock;
+        // $item->stock = $request->stock;
         $item->unit = $request->unit;
         $item->sku = $request->sku;
         // $item->description = $request->description;

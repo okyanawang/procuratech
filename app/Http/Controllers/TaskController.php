@@ -176,6 +176,8 @@ class TaskController extends Controller
                     ->value('name'),
                 'stock' => $validatedData['amount'],
                 'status' => 'Used',
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
 
             $amount = DB::table('tasks_has_items')
@@ -218,6 +220,8 @@ class TaskController extends Controller
                 ->value('name'),
             'stock' => $validatedData['amount'],
             'status' => 'Used',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
 
         return redirect()->back()->with('success', 'Item added successfully');
@@ -298,6 +302,8 @@ class TaskController extends Controller
                     ->value('name'),
                 'stock' => $validatedData['amount'] - $check_amount,
                 'status' => 'Used',
+                'created_at' => now(),
+                'updated_at' => now(),
             ]);
         }
         // DB::table('item_logs')->insert([

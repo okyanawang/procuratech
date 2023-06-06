@@ -141,6 +141,7 @@
                         <th>Name</th>
                         <th>Amount</th>
                         <th>Status</th>
+                        <th>date</th>
                         {{-- <th style="text-align-last: center">Action</th> --}}
                     </tr>
                 </thead>
@@ -152,6 +153,7 @@
                             <td>{{ $i->itemName }}</td>
                             <td>{{ $i->stock }}</td>
                             <td>{{ $i->status }}</td>
+                            <td>{{ $i->created_at }}</td>
                             {{-- <td>{{ $i->id }}</td> --}}
                             {{-- <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->taskName }}
                             </td>

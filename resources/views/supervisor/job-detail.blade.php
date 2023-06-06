@@ -394,6 +394,7 @@
                         <th>Amount</th>
                         <th>Unit</th>
                         <th>Status</th>
+                        <th>Date</th>
                         {{-- <th style="text-align-last: center">Action</th> --}}
                     </tr>
                 </thead>
@@ -405,7 +406,7 @@
                             <td>{{ $i->sku }}</td>
                             <td>{{ $i->stock }}</td>
                             <td>{{ $i->unit }}</td>
-                            <td>{{ $i->status }}</td>
+                            <td>{{ $i->created_at }}</td>
                         </tr>
                     @endforeach
                 </tbody>
