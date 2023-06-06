@@ -65,7 +65,9 @@
                 <tr>
                     <th>No</th>
                     <th>Component Name</th>
+                    <th>SKU</th>
                     <th>Stock</th>
+                    <th>Unit</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -74,7 +76,9 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $item->name }}</td>
+                        <td>{{ $item->sku }}</td>
                         <td>{{ $item->stock }}</td>
+                        <td>{{ $item->unit }}</td>
                         <td class="text-center">
                             <a href="{{ route('admin.component.detail', $item->id) }}">
                                 <button class="btn btn-info font-semibold">Detail</button>

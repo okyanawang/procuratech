@@ -154,6 +154,7 @@ class PimpinanController extends Controller
             ->join('reports', 'tasks.id', '=', 'reports.tasks_id')
             ->join('users', 'reports.users_id', '=', 'users.id')
             ->where('tasks.id', $id)
+            ->whereNot('reports.status', 'On Revision')
             ->select('reports.*', 'users.id as worker_id', 'users.name')
             ->orderBy('reports.id', 'desc')
             ->get();

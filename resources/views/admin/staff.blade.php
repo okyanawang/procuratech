@@ -100,7 +100,7 @@
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $staff->name }}</td>
                         <td class="text-center">
-                            <div class="badge p-4">{{ $staff->role }}</div>
+                            <div class="badge badge-success p-4">{{ $staff->role }}</div>
                         </td>
                         <td>{{ $staff->username }}</td>
                         <td>
