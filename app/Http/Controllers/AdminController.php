@@ -19,7 +19,7 @@ class AdminController extends Controller
         # count user with admin
 
         $nuser = User::count();
-        $nprojects = Category::all()->count();
+        $nprojects = Project::all()->count();
         $nitems = Item::all()->count();
 
         return view('admin.dashboard', [
