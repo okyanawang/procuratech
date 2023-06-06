@@ -62,6 +62,7 @@
                 <tr>
                     <th>No</th>
                     <th>Project Name</th>
+                    <th>Status</th>
                     <th>Start Date</th>
                     <th>End Date</th>
                     <th>Total Locations</th>
@@ -74,6 +75,11 @@
                     <tr>
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $project->name }}</td>
+                        <td>
+                            <div class="badge">
+                                {{ $project->status }}
+                            </div>
+                        </td>
                         <td>{{ $project->start_date->format('d-m-Y') }}</td>
                         <td>{{ $project->end_date->format('d-m-Y') }}</td>
                         <td>

@@ -72,7 +72,11 @@
                         <td class="text-center">{{ $p->project_number }}</td>
                         <td class="text-center">{{ $p->start_date }}</td>
                         <td class="text-center">{{ $p->end_date }}</td>
-                        <td class="text-center">{{ $p->status }}</td>
+                        <td class="text-center">
+                            <div class="badge">
+                                {{ $p->status }}
+                            </div>
+                        </td>
                         <td class="text-center">
                             {{ DB::table('locations')->where('projects_id', $p->id)->count('id') }}
                         </td>

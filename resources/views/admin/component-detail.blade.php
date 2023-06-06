@@ -31,9 +31,9 @@
                         placeholder="sku" value="{{ $item->sku }}" required />
                     <label for="type" class="mr-3 font-semibold">Type :</label>
                     <select name="type" id="" class="select select-bordered">
-                        <option value="Parts" {{$item->type == "Parts" ? 'selected' : ''}}>Parts</option>
-                        <option value="Material" {{$item->type == "Material" ? 'selected' : ''}}>Material</option>
-                        <option value="Tool" {{$item->type == "Tool" ? 'selected' : ''}}>Tool</option>
+                        <option value="Parts" {{ $item->type == 'Parts' ? 'selected' : '' }}>Parts</option>
+                        <option value="Material" {{ $item->type == 'Material' ? 'selected' : '' }}>Material</option>
+                        <option value="Tool" {{ $item->type == 'Tool' ? 'selected' : '' }}>Tool</option>
                     </select>
                     {{-- <input name="type" type="text" class="input input-bordered w-full max-w-xs col-span-1" required
                         value="{{ $item->type }}" /> --}}

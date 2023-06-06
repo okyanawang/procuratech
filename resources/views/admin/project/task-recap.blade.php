@@ -1,21 +1,21 @@
-@extends('pelaksana.pekerja.drawer')
+@extends('admin.drawer')
 
-@section('pekerja-content')
+@section('admin-content')
     <div class="flex flex-row mb-5 items-center bg-slate-200 p-0 lg:p-5 rounded-xl">
-        <a href="/pekerja/tasks" class="self-center hidden md:block">
+        <a href="/admin/staff/{{ $user_id }}" class="self-center hidden md:block">
             <i class="fa-solid fa-arrow-left fa-2xl"></i>
         </a>
         <div class="flex flex-col mx-5 self-center w-full">
-            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->project_name }} -
+            <h1 class="text-xl lg:text-4xl font-bold">{{ $project->name }} -
                 <span class="text-primary">
                     {{ $project->project_number }}
                 </span>
             </h1>
-            <p>{{ $project->project_description }}</p>
+            <p>{{ $project->description }}</p>
         </div>
         <div class="avatar w-full justify-end">
             <div class="w-40 h-w-40 rounded-xl">
-                <img src="{{ asset('project/' . $project->project_image) }}" />
+                <img src="{{ asset('project/' . $project->image_path) }}" />
             </div>
         </div>
     </div>
@@ -43,26 +43,17 @@
                         <img src="{{ asset('task/' . $task->image_path) }}" />
                     </div>
                 </div>
-                <div class="flex flex-col gap-2">
-                    <div class="badge mr-1">
-                        @if ($reports)
-                            @if ($reports->status == 'Pending')
-                                Revision
-                            @else
-                                {{ $reports->status }}
-                            @endif
-                        @else
-                            Pending
-                        @endif
-                        {{-- {{ $task->status }} --}}
+                <div class="flex flex-col gap-2 w-full">
+                    <div class="flex flex-row">
+                        <div class="badge badge-primary mr-1">{{ $task->status }}</div>
+                        <div class="badge badge-info mr-1">{{ $task->type }}</div>
                     </div>
-                    <div class="badge badge-info mr-1">{{ $task->type }}</div>
                     <div class="mt-5">
                         <div class="mb-5">
                             <h4 class="font-bold">Job Description</h4>
                             <p>{{ $task->description }}</p>
                         </div>
-                        <div class="grid gripd-cols-1 lg:grid-cols-2 gap-5 items-center">
+                        <div class="grid gripd-cols-1 lg:grid-cols-2 gap-2 lg:gap-5 items-center">
                             <div class="mb-3">
                                 <h4 class="font-bold">Project Manager</h4>
                                 <p>
@@ -135,7 +126,7 @@
                                         @endforeach
                                     </div>
                                 @else
-                                    <p>No material required</p>
+                                    <p>No materials required</p>
                                 @endif
                             </div>
                             <div class="mb-3">
@@ -150,7 +141,7 @@
                                         @endforeach
                                     </div>
                                 @else
-                                    <p>No tools required</p>
+                                    <p>No toolss required</p>
                                 @endif
                             </div>
                         </div>
@@ -159,84 +150,101 @@
                     </div>
                 </div>
             </div>
-
-            <div class="modal-action justify-center w-full">
-                @if ($reports == null || $reports->status == 'Pending' || $reports->status == null)
-                    <form action="{{ route('pekerja.tasks.execute', ['id' => $task->id]) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <input type="submit" class="btn btn-primary" value="Execute Task">
-                        {{-- <button class="btn btn-primary">Execute Task</button> --}}
-                    </form>
-                @else
-                    @switch($reports->status)
-                        @case('On Review')
-                            <button class="btn btn-disabled">Your Work is On review...</button>
-                        @break
-
-                        @case('In Progress')
-                            {{-- <button class="btn btn-disabled">Your Work is On Progress...</button> --}}
-                            <label for="report" class="btn btn-info">Report</label>
-                            <input type="checkbox" id="report" class="modal-toggle" />
-                            <div class="modal modal-bottom lg:pl-80">
-                                <div class="modal-box w-11/12 max-w-5xl rounded-lg self-center">
-                                    <form action="{{ route('pekerja.tasks.update', ['id' => $reports->id]) }}"
-                                        enctype="multipart/form-data" method="POST">
-                                        {{-- {{ route('pekerja.tasks.update', ['id' => $reports->id]) }} --}}
-                                        @csrf
-                                        @method('PUT')
-                                        <div class="flex flex-row justify-center">
-                                            <h1 class="font-bold text-2xl mb-3">Report</h1>
-                                        </div>
-                                        <div class="mt-5">
-                                            <textarea class="textarea textarea-bordered p-3 text-black w-full" name="description_work" id="description_work"
-                                                cols="30" rows="6" placeholder="I have done ...." required></textarea>
-                                            <label for="image_path_work" class="mr-3 font-semibold">Proof of picture</label>
-                                            <input name="image_path_work" type="file"
-                                                class="file-input file-input-bordered file-input-info" placeholder="full name"
-                                                required />
-                                        </div>
-                                        <div class="flex justify-center gap-5 mt-5">
-                                            <label for="report" class="btn btn-error w-50 modal-button text-white">
-                                                Close</label>
-                                            <input type="submit" class="btn btn-primary" value="Report">
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        @break
-
-                        @case('Done')
-                            <button class="btn btn-disabled">Your Work is Done</button>
-                        @break
-
-                        @default
-                    @endswitch
-                @endif
-            </div>
-
-            <div class="mt-10">
-                <h1 class="text-2xl font-bold">My Reports</h1>
-                <table id="myTable" class="table table-zebra w-full">
-                    <!-- head -->
-                    <thead>
+            {{-- <div class="w-full text-center">
+                <form action="{{ route('pemeriksa.tasks.complete', ['id' => $task->id]) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <input type="submit" class="btn btn-primary" value="Complete Job">
+                </form>
+            </div> --}}
+            <h1 class="text-3xl font-bold mt-10">Reports</h1>
+            <table id="myTable" class="table table-zebra w-full">
+                <!-- head -->
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Worker Name</th>
+                        <th>date</th>
+                        <th class="!text-center">Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($reports as $key => $t)
                         <tr>
-                            <th>No</th>
-                            <th>date</th>
-                            <th class="!text-center">Status</th>
-                            <th style="text-align-last: center">Detail</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($reports_by_user as $key => $t)
-                            <tr>
-                                <td>{{ $key + 1 }}</td>
-                                <td>{{ $t->created_at }}</td>
-                                <td class="text-center">
-                                    <div class="badge mr-1">{{ $t->status }}</div>
-                                </td>
-                                <td class="text-center">
-                                    <label for="detail-{{ $t->id }}" class="btn btn-info">detail</label>
+                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $t->name }}</td>
+                            <td>{{ $t->created_at }}</td>
+                            <td class="text-center">
+                                <div class="badge badge-primary mr-1">{{ $t->status }}</div>
+                            </td>
+                            <td class="">
+                                @if ($t->status == 'On Review')
+                                    <label for="report-{{ $t->id }}" class="btn btn-info">Review</label>
+                                    <!-- Put this part before </body> tag -->
+                                    <input type="checkbox" id="report-{{ $t->id }}" class="modal-toggle" />
+                                    <div class="modal modal-bottom sm:modal-middle lg:pl-80">
+                                        <div class="modal-box w-full lg:w-11/12" style="max-width: none !important">
+                                            <form
+                                                action="{{ route('pemeriksa.tasks.update_inspect', ['id' => $t->id, 'worker_id' => $t->worker_id]) }}"
+                                                method="POST" enctype="multipart/form-data">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="flex flex-row justify-center">
+                                                    <h1 class="font-bold text-2xl mb-3">Report</h1>
+                                                </div>
+                                                <div class="mt-5 flex flex-col lg:flex-row gap-5 !text-left">
+                                                    <div class="avatar w-full lg:w-1/2">
+                                                        <div class="w-full rounded-xl">
+                                                            <img src="{{ asset('report/' . $t->image_path_work) }}" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex flex-col text-left justify-between w-full">
+                                                        <div class="flex flex-col gap-3">
+                                                            <h1 class="text-xl font-bold">Job report</h1>
+                                                            <p class="mb-5">{{ $t->description_work }}</p>
+                                                            <div class="flex flex-col">
+                                                                <label for="description_inspect"
+                                                                    class="text-md font-bold">Add
+                                                                    notes
+                                                                    :</label>
+                                                                <textarea name="description_inspect" id="" class="textarea textarea-bordered" cols="30" rows="3"
+                                                                    required></textarea>
+                                                            </div>
+                                                            <div class="flex flex-col">
+                                                                <label for="photo_inspect" class="text-md font-bold">Add
+                                                                    photo
+                                                                    :</label>
+                                                                <input type="file" name="image_path_inspect"
+                                                                    class="file-input file-input-bordered file-input-info"
+                                                                    required>
+                                                            </div>
+                                                            <div class="flex flex-col">
+                                                                <label for="status" class="text-md font-bold">Status
+                                                                    :</label>
+                                                                <select name="status" id=""
+                                                                    class="select select-bordered w-full" required>
+                                                                    <option value="" disabled selected>Set Status
+                                                                    </option>
+                                                                    <option value="Done">Done</option>
+                                                                    <option value="Revision">Revision</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="flex justify-center gap-5 mt-5">
+                                                    <label for="report-{{ $t->id }}"
+                                                        class="btn btn-error w-50 modal-button text-white">
+                                                        Close</label>
+                                                    <input type="submit" class="btn btn-primary" value="Submit">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                @else
+                                    <label for="detail-{{ $t->id }}" class="btn btn-info"
+                                        @if ($t->status == 'In Progress') disabled @endif>detail</label>
                                     <input type="checkbox" id="detail-{{ $t->id }}" class="modal-toggle" />
                                     <div class="modal modal-bottom lg:pl-80">
                                         <div class="modal-box w-full lg:w-11/12 lg:max-w-5xl">
@@ -286,12 +294,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                                @endif
+
+
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
         </div>
+
     </div>
 @endsection

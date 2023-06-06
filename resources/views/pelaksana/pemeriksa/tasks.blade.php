@@ -24,7 +24,7 @@
                         <td>{{ $t->task_name }}</td>
                         <td>{{ $t->task_number }}</td>
                         <td class="text-center">
-                            <div class="badge badge-primary mr-1">{{ $t->task_status }}</div>
+                            <div class="badge mr-1">{{ $t->task_status }}</div>
                         </td>
                         <td>{{ $t->task_description }}</td>
                         <td>{{ $t->task_start }}</td>

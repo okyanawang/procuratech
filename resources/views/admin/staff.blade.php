@@ -23,7 +23,7 @@
                             placeholder="full name" required />
                         <label for="role" class="mr-3 font-semibold">Role :</label>
                         <select class="select select-bordered block mt-1 w-full" name="role" required>
-                            <option value="0" hidden disabled selected>Choose Role</option>
+                            <option value="0" disabled selected>Choose Role</option>
                             <option value="Admin IT">Admin IT</option>
                             <option value="Project Manager">Project Manager</option>
                             <option value="Supervisor">Supervisor</option>
@@ -51,7 +51,7 @@
                             placeholder="address" required />
                         <label for="employement_status" class="mr-3 font-semibold">Employement Status :</label>
                         <select class="select select-bordered block mt-1 w-full" name="employement_status" required>
-                            <option value="0" hidden disabled selected>Choose Status</option>
+                            <option value="0" disabled selected>Choose Status</option>
                             <option value="Out-Sourcing">Out-Sourcing</option>
                             <option value="Contract">Contract</option>
                             <option value="Intern">Intern</option>
@@ -59,7 +59,7 @@
                         </select>
                         <label for="availability_status" class="mr-3 font-semibold">Availibility Status :</label>
                         <select class="select select-bordered block mt-1 w-full" name="availability_status" required>
-                            <option value="0" hidden disabled selected>Choose Status</option>
+                            <option value="0" disabled selected>Choose Status</option>
                             <option value="on duty">On Duty</option>
                             <option value="on leave">On Leave</option>
                         </select>
@@ -100,7 +100,7 @@
                         <td>{{ $key + 1 }}</td>
                         <td>{{ $staff->name }}</td>
                         <td class="text-center">
-                            <div class="badge badge-success p-4">{{ $staff->role }}</div>
+                            <div class="badge p-4">{{ $staff->role }}</div>
                         </td>
                         <td>{{ $staff->username }}</td>
                         <td>
