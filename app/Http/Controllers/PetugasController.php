@@ -126,16 +126,27 @@ class PetugasController extends Controller
         return redirect()->route('inventori.item')->with('success', 'Item deleted successfully');
     }
 
-    public function stok_update(Request $request, $id)
+    public function stok_update(Request $request, $id, $is_rm)
     {
         $item = Item::find($id);
-        $item->stock = $item->stock + $request->stock;
+        if ($is_rm == 1) {
+            $item->stock = $item->stock - $request->stock;
+        } else {
+            $item->stock = $item->stock + $request->stock;
+        }
+        // $item->stock = $item->stock + $request->stock;
         $item->save();
+
+        if ($is_rm == 1) {
+            $status = "Removed";
+        } else {
+            $status = "Added";
+        }
 
         ItemLog::create([
             'taskName' => "Updated by Inventory Officer",
             'itemName' => $item->name,
-            'status' => "Added",
+            'status' => $status,
             'stock' => $request->stock,
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),

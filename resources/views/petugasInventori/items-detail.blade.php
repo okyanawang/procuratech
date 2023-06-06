@@ -42,7 +42,7 @@
 
                     <label for="stock" class="mr-3 font-semibold">Stock :</label>
                     <input name="stock" type="text" class="input input-bordered w-full max-w-xs col-span-1"
-                        placeholder="stock" required value="{{ $item->stock }}" />
+                        placeholder="stock" disabled required value="{{ $item->stock }}" />
                     <label for="unit" class="font-semibold">Unit stock :</label>
                     <input name="unit" type="text" class="input input-bordered w-full max-w-xs col-span-1"
                         value="{{ $item->unit }}" required />
@@ -98,8 +98,8 @@
             <input type="checkbox" id="add_item" class="modal-toggle" />
             <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
                 <div class="modal-box">
-                    <form action="{{ route('inventori.item.update.stock', ['id' => $item->id]) }}" method="POST"
-                        class="flex flex-col">
+                    <form action="{{ route('inventori.item.update.stock', ['id' => $item->id, 'is_rm' => 0]) }}"
+                        method="POST" class="flex flex-col">
                         @csrf
                         <h3 class="font-bold text-lg mb-5">Add Item</h3>
                         <label for="stock" class="mt-3 mb-2">Amount of Item</label>
@@ -107,6 +107,24 @@
 
                         <div class="modal-action">
                             <label for="add_item" class="btn btn-error">Cancel</label>
+                            <input type="submit" class="btn btn-success" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <label for="rm_item" class="ml-5 btn btn-error text-white">-</label>
+            <input type="checkbox" id="rm_item" class="modal-toggle" />
+            <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
+                <div class="modal-box">
+                    <form action="{{ route('inventori.item.update.stock', ['id' => $item->id, 'is_rm' => 1]) }}"
+                        method="POST" class="flex flex-col">
+                        @csrf
+                        <h3 class="font-bold text-lg mb-5">Remove Item</h3>
+                        <label for="stock" class="mt-3 mb-2">Amount of Item</label>
+                        <input type="number" name="stock" class="input input-bordered mb-3" required>
+
+                        <div class="modal-action">
+                            <label for="rm_item" class="btn btn-error">Cancel</label>
                             <input type="submit" class="btn btn-success" value="Update">
                         </div>
                     </form>
