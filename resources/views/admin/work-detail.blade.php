@@ -123,7 +123,7 @@
                         <tr>
                             <th>lalala</th>
                             <td class="text-center">
-                                <div class="badge badge-warning">On Proccess</div>
+                                <div class="badge">On Proccess</div>
                             </td>
                             <td>12/12/23</td>
                             <td>-</td>

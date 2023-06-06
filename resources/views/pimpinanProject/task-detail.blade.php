@@ -44,7 +44,7 @@
                 <div>
                     <div class="flex flex-row gap-2">
                         <div class="badge badge-primary">{{ $task->type }}</div>
-                        <div class="badge badge-info">{{ $task->status }}</div>
+                        <div class="badge">{{ $task->status }}</div>
                     </div>
                     <p class="mt-3">{{ $task->description }}</p>
                     <div class="mt-5 grid grid-cols-2 gap-3">
@@ -143,7 +143,7 @@
                         <td>{{ $t->name }}</td>
                         <td>{{ $t->created_at }}</td>
                         <td class="text-center">
-                            <div class="badge badge-primary mr-1">{{ $t->status }}</div>
+                            <div class="badge mr-1">{{ $t->status }}</div>
                         </td>
                         <td class="">
                             @if ($t->status == 'On Review')

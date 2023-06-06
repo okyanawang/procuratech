@@ -108,9 +108,7 @@
                                                     @foreach (DB::table('tasks')->where('categories_id', $c->id)->select('tasks.*')->get() as $t)
                                                         <h4 class="">{{ $t->name }}</h4>
                                                         <h4 class="">{{ $t->task_number }}</h4>
-                                                        <div class="badge badge-primary mr-1 text-center">
-                                                            {{ $t->status }}
-                                                        </div>
+                                                        <div class="badge mr-1 text-center">{{ $t->status }}</div>
                                                         <a
                                                             href="{{ route('pimpinan.project.category.task.detail', ['id' => $t->id]) }}">
                                                             <button class="btn btn-info font-semibold">Detail</button>

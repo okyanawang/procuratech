@@ -39,6 +39,14 @@
                     <label for="end_date" class="mr-3 font-semibold">End date :</label>
                     <input name="end_date" type="date" class="input input-bordered w-full max-w-xs col-span-1" required
                         value="{{ \Carbon\Carbon::parse($project_detail->end_date)->format('Y-m-d') }}" />
+                    <label for="status" class="mr-3 font-semibold">Project status :</label>
+                    <select name="status" id="" class="select select-bordered">
+                        <option value="{{ $project_detail->status }}" selected>{{ $project_detail->status }}
+                        </option>
+                        <option value="Pending">Pending</option>
+                        <option value="On Progress">On Progress</option>
+                        <option value="Done">Done</option>
+                    </select>
                     <label for="image_path" class="mr-3 font-semibold">Upload photo :</label>
                     <input name="image_path" type="file" class="file-input file-input-bordered file-input-info">
                 </div>
