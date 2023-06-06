@@ -78,7 +78,7 @@ class TaskController extends Controller
             ->get();
         // dd($users_task);
         // dd($statuses);
-        dd($users_task->count() == $statuses->sum('status_done'));
+        // dd($users_task->count() == $statuses->sum('status_done'));
         $task = Task::find($id);
         if ($users_task->count() == $statuses->sum('status_done')) {
             $task->status = "Done";
