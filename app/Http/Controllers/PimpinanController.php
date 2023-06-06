@@ -15,9 +15,9 @@ class PimpinanController extends Controller
 {
     public function index()
     {
-        $nprojects = DB::table('categories')
-            ->join('locations', 'categories.locations_id', '=', 'locations.id')
-            ->join('projects', 'locations.projects_id', '=', 'projects.id')
+        $nprojects = DB::table('projects')
+            // ->join('locations', 'categories.locations_id', '=', 'locations.id')
+            // ->join('projects', 'locations.projects_id', '=', 'projects.id')
             ->join('users_has_projects', 'projects.id', '=', 'users_has_projects.projects_id')
             ->where('users_has_projects.users_id', Auth::user()->id)
             ->select('projects.*')

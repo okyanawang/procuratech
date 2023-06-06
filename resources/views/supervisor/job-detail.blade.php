@@ -335,36 +335,38 @@
                                     <input type="submit" class="btn btn-error font-semibold" value="Delete Item">
                                 </form>
                                 {{-- <button class="btn btn-info font-semibold">Detail</button> --}}
+                                <label for="update_item-{{ $i->id }}" class="md:ml-5 btn btn-primary">Update
+                                    Item</label>
                             </td>
-                            <td class="text-center">
-                                <label for="update_item" class="md:ml-5 btn btn-primary">Update Item</label>
-                                <input type="checkbox" id="update_item" class="modal-toggle" />
-                                <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
-                                    <div class="modal-box">
-                                        <form action="{{ route('supervisor.project.job.update_item', ['id' => $i->id]) }}"
-                                            method="POST" class="flex flex-col" enctype="multipart/form-data">
-                                            @csrf
-                                            @method('PUT')
-                                            <h3 class="font-bold text-lg mb-5">Update Item</h3>
+                            {{-- <td class="text-center"> --}}
+                            <input type="checkbox" id="update_item-{{ $i->id }}" class="modal-toggle" />
+                            <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
+                                <div class="modal-box">
+                                    <form action="{{ route('supervisor.project.job.update_item', ['id' => $i->id]) }}"
+                                        method="POST" class="flex flex-col" enctype="multipart/form-data">
+                                        @csrf
+                                        @method('PUT')
+                                        <h3 class="font-bold text-lg mb-5">Update Item</h3>
 
-                                            <input type="hidden" name="items_id" value={{ $i->id }}>
-                                            <input type="hidden" name="tasks_id" value={{ $i->task_id }}>
-                                            <label for="name" class="mb-2">Item Name</label>
-                                            <input type="text" name="name" class="input input-bordered mb-3"
-                                                value="{{ $i->name }}" required readonly>
-                                            <label for="amount" class="mb-2">Amount</label>
-                                            <input type="number" name="amount" class="input input-bordered mb-3"
-                                                value="{{ $i->amount }}" required>
+                                        <input type="hidden" name="items_id" value={{ $i->id }}>
+                                        <input type="hidden" name="tasks_id" value={{ $i->task_id }}>
+                                        <label for="name" class="mb-2">Item Name</label>
+                                        <input type="text" name="name" class="input input-bordered mb-3"
+                                            value="{{ $i->name }}" required readonly>
+                                        <label for="amount" class="mb-2">Amount</label>
+                                        <input type="number" name="amount" class="input input-bordered mb-3"
+                                            value="{{ $i->amount }}" required>
 
-                                            <div class="modal-action">
-                                                <label for="update_item" class="btn btn-error">Cancel</label>
-                                                <input type="submit" class="btn btn-success" value="Update">
-                                            </div>
-                                        </form>
-                                    </div>
+                                        <div class="modal-action">
+                                            <label for="update_item-{{ $i->id }}"
+                                                class="btn btn-error">Cancel</label>
+                                            <input type="submit" class="btn btn-success" value="Update">
+                                        </div>
+                                    </form>
                                 </div>
-                                {{-- <button class="btn btn-info font-semibold">Detail</button> --}}
-                            </td>
+                            </div>
+                            {{-- <button class="btn btn-info font-semibold">Detail</button> --}}
+                            {{-- </td> --}}
                         </tr>
                     @endforeach
                 </tbody>
