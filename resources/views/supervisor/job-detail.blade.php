@@ -249,9 +249,6 @@
                 </div>
             </div>
         </div>
-
-
-
         <div class="flex flex-row mt-10 mb-3">
             <h1 class="text-3xl font-bold">Items</h1>
             @if ($job->status !== 'Done')

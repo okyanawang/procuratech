@@ -77,12 +77,11 @@ class PetugasController extends Controller
         //     ->select('tasks.name')
         //     ->first();
 
-        // $itemLogs_all = ItemLog::where('taskName', $tasks_name)
-        //     ->where('itemName', $item->name)
-        //     ->get();
+        $itemLogs_all = ItemLog::where('itemName', $item->name)
+            ->get();
         // revision plus where itemName = $item->name and taskName = $tasks_name
         // dd($item);
-        return view('petugasInventori.items-detail', compact('item', 'tasks', 'tasks_name'));
+        return view('petugasInventori.items-detail', compact('item', 'tasks', 'tasks_name', 'itemLogs_all'));
     }
 
     public function item_edit($id)
@@ -125,6 +124,24 @@ class PetugasController extends Controller
         // $item->delete();
 
         return redirect()->route('inventori.item')->with('success', 'Item deleted successfully');
+    }
+
+    public function stok_update(Request $request, $id)
+    {
+        $item = Item::find($id);
+        $item->stock = $item->stock + $request->stock;
+        $item->save();
+
+        ItemLog::create([
+            'taskName' => "Updated by Inventory Officer",
+            'itemName' => $item->name,
+            'status' => "Added",
+            'stock' => $request->stock,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect()->back()->with('success', 'Stok updated successfully');
     }
 
     // public function item_detail()

@@ -92,12 +92,33 @@
         </div>
 
 
-        <h1 class="text-3xl font-bold">Item Log</h1>
+        <div class="flex flex-row">
+            <h1 class="text-3xl font-bold">Item Log</h1>
+            <label for="add_item" class="ml-5 btn btn-primary">+</label>
+            <input type="checkbox" id="add_item" class="modal-toggle" />
+            <div class="modal modal-bottom lg:pl-96 lg:pr-20 pt-24">
+                <div class="modal-box">
+                    <form action="{{ route('inventori.item.update.stock', ['id' => $item->id]) }}" method="POST"
+                        class="flex flex-col">
+                        @csrf
+                        <h3 class="font-bold text-lg mb-5">Add Item</h3>
+                        <label for="stock" class="mt-3 mb-2">Amount of Item</label>
+                        <input type="number" name="stock" class="input input-bordered mb-3" required>
+
+                        <div class="modal-action">
+                            <label for="add_item" class="btn btn-error">Cancel</label>
+                            <input type="submit" class="btn btn-success" value="Update">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="overflow-x-auto mb-10">
             <table id="myTable" class="table table-zebra w-full">
                 <!-- head -->
                 <thead>
                     <tr>
+                        <th>No</th>
                         <th>Task</th>
                         <th>Name</th>
                         <th>Amount</th>
@@ -106,17 +127,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($tasks_name as $i)
+                    @foreach ($itemLogs_all as $key => $i)
                         <tr>
+                            <td>{{ $key + 1 }}</td>
+                            <td>{{ $i->taskName }}</td>
+                            <td>{{ $i->itemName }}</td>
+                            <td>{{ $i->stock }}</td>
+                            <td>{{ $i->status }}</td>
                             {{-- <td>{{ $i->id }}</td> --}}
-                            <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->taskName }}
+                            {{-- <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->taskName }}
                             </td>
                             <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->itemName }}
                             </td>
                             <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->stock }}
                             </td>
                             <td>{{ App\Models\ItemLog::where('taskName', $i->name)->where('itemName', $item->name)->first()->status }}
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>

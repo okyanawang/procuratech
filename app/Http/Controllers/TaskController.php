@@ -82,7 +82,7 @@ class TaskController extends Controller
             $task->status = "Done";
             $task->save();
             return redirect()->back()->with('success', 'Task comlpeted successfully');
-            } else {
+        } else {
             return redirect()->back()->withErrors('Task cannot be completed yet');
         }
     }
@@ -175,7 +175,7 @@ class TaskController extends Controller
                     ->where('id', $validatedData['item'])
                     ->value('name'),
                 'stock' => $validatedData['amount'],
-                'status' => 'Dipakai',
+                'status' => 'Used',
             ]);
 
             $amount = DB::table('tasks_has_items')
@@ -217,7 +217,7 @@ class TaskController extends Controller
                 ->where('id', $validatedData['item'])
                 ->value('name'),
             'stock' => $validatedData['amount'],
-            'status' => 'Dipakai',
+            'status' => 'Used',
         ]);
 
         return redirect()->back()->with('success', 'Item added successfully');
@@ -267,9 +267,9 @@ class TaskController extends Controller
 
         // update stock_inv with substract it with amount
 
-        if($check_amount > $validatedData['amount']){
+        if ($check_amount > $validatedData['amount']) {
             $stock_inv = $stock_inv + ($check_amount - $validatedData['amount']);
-        }else{
+        } else {
             $stock_inv = $stock_inv - ($validatedData['amount'] - $check_amount);
         }
 
@@ -277,7 +277,7 @@ class TaskController extends Controller
             ->where('id', $validatedData['items_id'])
             ->update(['stock' => $stock_inv]);
 
-        if($check_amount > $validatedData['amount']){
+        if ($check_amount > $validatedData['amount']) {
             DB::table('item_logs')->insert([
                 'taskName' => DB::table('tasks')
                     ->where('id', $validatedData['tasks_id'])
@@ -288,7 +288,7 @@ class TaskController extends Controller
                 'stock' => $check_amount - $validatedData['amount'],
                 'status' => 'Dikembalikan',
             ]);
-        }else{
+        } else {
             DB::table('item_logs')->insert([
                 'taskName' => DB::table('tasks')
                     ->where('id', $validatedData['tasks_id'])
@@ -297,7 +297,7 @@ class TaskController extends Controller
                     ->where('id', $validatedData['items_id'])
                     ->value('name'),
                 'stock' => $validatedData['amount'] - $check_amount,
-                'status' => 'Dipakai',
+                'status' => 'Used',
             ]);
         }
         // DB::table('item_logs')->insert([
@@ -318,8 +318,6 @@ class TaskController extends Controller
             ->update(['amount' => $validatedData['amount']]);
 
         return redirect()->back()->with('success', 'Item updated successfully');
-
-
     }
 
     public function show($id)
