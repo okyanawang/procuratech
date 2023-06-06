@@ -48,7 +48,7 @@ class AdminController extends Controller
             'unit' => 'required',
             'image_path' => 'required|image|mimes:jpeg,png,jpg|max:5048',
         ]);
-        
+
         $item = new Item;
         $newImageName = time() . '-' . 'items' . '.' . $request->file('image_path')->extension();
         $request->file('image_path')->move(public_path('item'), $newImageName);
@@ -272,11 +272,28 @@ class AdminController extends Controller
         $location = Location::find($id);
         $project = Project::find($location->projects_id);
         // $name_pm = User::find($project->id)->name;
-        $name_pm = User::whereHas('projects', function ($query) use ($id) {
-            $query->where('projects.id', $id);
+        $name_pm = User::whereHas('projects', function ($query) use ($project) {
+            $query->where('projects.id', $project->id);
         })->first()->name;
         $categories = Category::where('locations_id', $location->id)->get();
         return view('admin.project.location-detail', compact('project', 'location', 'name_pm', 'categories'));
+    }
+
+    public function location_delete($id)
+    {
+        $location = Location::find($id);
+        $location->categories()->delete();
+        $location->delete();
+        return redirect()->route('admin.project.index')->with('success', 'Location successfully deleted');
+    }
+
+    public function location_update(Request $request, $id)
+    {
+        $location = Location::find($id);
+        $location->name = $request->name;
+        $location->save();
+
+        return redirect()->back()->with('success', 'Location successfully updated');
     }
 
     public function location_store(Request $request)
@@ -308,6 +325,23 @@ class AdminController extends Controller
         $name_sv = User::find($category->users_id)->name;
         $tasks = Task::where('categories_id', $category->id)->get();
         return view('admin.project.category-detail', compact('project', 'location', 'name_pm', 'category', 'name_sv', 'tasks'));
+    }
+
+    public function category_update(Request $request, $id)
+    {
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect()->back()->with('success', 'Category successfully updated');
+    }
+
+    public function category_delete($id)
+    {
+        $category = Category::find($id);
+        $category->tasks()->delete();
+        $category->delete();
+        return redirect()->route('admin.project.index')->with('success', 'Category successfully deleted');
     }
 
     public function task_detail($id)
