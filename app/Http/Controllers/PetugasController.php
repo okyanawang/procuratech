@@ -88,7 +88,8 @@ class PetugasController extends Controller
                 ->join('categories AS c', 't.categories_id', '=', 'c.id')
                 ->join('locations AS l', 'c.locations_id', '=', 'l.id')
                 ->join('projects AS p', 'l.projects_id', '=', 'p.id')
-                ->where('t.id', "=", $itemLog->tasks_id)
+                // ->where($itemLog->tasks_id, '!=', null)
+                ->orWhere('t.id', "=", $itemLog->tasks_id)
                 ->where('thi.items_id', '=', $itemLog->items_id)
                 ->select('t.name as taskName', 'p.name AS projectName')
                 ->first();
@@ -96,10 +97,18 @@ class PetugasController extends Controller
             $itemLog['result'] = $result;
         }
         // dd(json_encode($itemLogs_all));
-
+        $itemLogs_sewy = DB::table('item_logs AS il')
+                ->leftJoin('tasks AS t', 'il.tasks_id', '=', 't.id')
+                ->join('items AS i', 'il.items_id', '=', 'i.id')
+                ->leftJoin('categories AS c', 't.categories_id', '=', 'c.id')
+                ->leftJoin('locations AS l', 'c.locations_id', '=', 'l.id')
+                ->leftJoin('projects AS p', 'l.projects_id', '=', 'p.id')
+                ->where('il.items_id', '=', $item->id)
+                ->select('il.*', 't.name as task_name', 'p.name AS projectName', 'i.name AS itemName')
+                ->get();
         // revision plus where itemName = $item->name and taskName = $tasks_name
         // dd($item);
-        return view('petugasInventori.items-detail', compact('item', 'tasks', 'tasks_name', 'itemLogs_all'));
+        return view('petugasInventori.items-detail', compact('item', 'tasks', 'tasks_name', 'itemLogs_all', 'itemLogs_sewy'));
     }
 
     public function item_edit($id)

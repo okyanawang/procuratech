@@ -159,9 +159,15 @@ class PimpinanController extends Controller
             ->orderBy('reports.id', 'desc')
             ->get();
 
-        $itemLogs_all = ItemLog::join('items', 'items.id', '=', 'item_logs.items_id')
-            ->where('taskName', $task->name)
-            ->select('item_logs.*', 'items.sku', 'items.unit')
+        // $itemLogs_all = ItemLog::join('items', 'items.id', '=', 'item_logs.items_id')
+        //     ->where('taskName', $task->name)
+        //     ->select('item_logs.*', 'items.sku', 'items.unit')
+        //     ->get();
+
+        $itemLogs_all = DB::table('item_logs')
+            ->join('items', 'items.id', '=', 'item_logs.items_id')
+            ->where('item_logs.tasks_id', $task->id)
+            ->select('item_logs.*', 'items.name as itemName', 'items.sku', 'items.unit')
             ->get();
 
         return view('pimpinanProject.task-detail', [

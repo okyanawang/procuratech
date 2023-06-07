@@ -406,6 +406,7 @@
                             <td>{{ $i->sku }}</td>
                             <td>{{ $i->stock }}</td>
                             <td>{{ $i->unit }}</td>
+                            <td>{{ $i->status }}</td>
                             <td>{{ $i->created_at }}</td>
                         </tr>
                     @endforeach

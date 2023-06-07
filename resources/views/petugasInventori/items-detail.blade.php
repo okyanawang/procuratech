@@ -147,11 +147,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($itemLogs_all as $key => $i)
+                    @foreach ($itemLogs_sewy as $key => $i)
                         <tr>
                             <td>{{ $key + 1 }}</td>
-                            @if ($i->task == null)
+                            {{-- @if ($i->task == null | $i->result == null)
                                 <td>{{ $i->taskName }}</td>
+                            @elseif($i->task != null)
+                                <td>{{ $i->task->name }}</td>
                             @else
                                 <td>{{ $i->result->taskName }}</td>
                             @endif
@@ -160,8 +162,18 @@
                                 <td>-</td>
                             @else
                                 <td>{{ $i->result->projectName }}</td>
+                            @endif --}}
+                            @if ($i->tasks_id == null)
+                                <td>{{ $i->taskName }}</td>
+                            @else
+                                <td>{{ $i->task_name }}</td>
                             @endif
-                            <td>{{ $i->item->name }}</td>
+                            @if ($i->projectName == null)
+                                <td>-</td>
+                            @else
+                                <td>{{ $i->projectName }}</td>
+                            @endif
+                            <td>{{ $i->itemName }}</td>
                             <td>{{ $i->stock }}</td>
                             <td>{{ $i->status }}</td>
                             <td>{{ $i->created_at }}</td>
