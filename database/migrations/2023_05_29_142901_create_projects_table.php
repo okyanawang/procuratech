@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('registration_date');
             $table->date('start_date');
             $table->date('end_date');
-            $table->text('description');
+            $table->longText('description');
             $table->string('project_number');
             $table->string('status');
             $table->dateTime('created_at')->nullable();
