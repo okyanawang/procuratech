@@ -138,6 +138,8 @@
                                             action="{{ route('pimpinan.project.category.delete.submit', ['id' => $c->id]) }}"
                                             method="POST">
                                             @csrf
+                                            @method('DELETE')
+                                            {{-- <input type="hidden" name="_method" value="DELETE"> --}}
                                             {{-- @method('DELETE') --}}
                                             <input type="submit" class="btn btn-error" value="Delete">
                                         </form>
